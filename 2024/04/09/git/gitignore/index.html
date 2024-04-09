@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | SenRanJa</title>
+  <title>.gitignore | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | SenRanJa">
+  <meta name="description" content=".gitignore | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeUNSW postgraduate student, major in Information Technology.">
 <meta property="og:type" content="website">
@@ -317,24 +317,34 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-git/gitignore" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">.gitignore</h1>
     
     <div class="article-meta">
         
+        <span class="top"><a>pin to top</a></span>
         
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Git">Git</a>
+            
+        </span>
         
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 20:02:06'>2024-04-09 18:18</time>
+            Created At : <time class="date" title='Updated At: 2024-04-09 19:56:58'>2024-04-09 17:58</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:8</span>
+        <span>Count:159</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -364,7 +374,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#About-Me"><span class="toc-text">About Me</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%91%E7%9A%84-gitignore%E6%A8%A1%E6%9D%BF"><span class="toc-text">我的.gitignore模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%A4%BA%E4%BE%8B"><span class="toc-text">其他示例</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -380,7 +390,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h1><p>UNSW postgraduate student, major in Information Technology.</p>
+        <p>官方文档：<code>https://github.com/github/gitignore</code></p>
+<h3 id="我的-gitignore模板"><a href="#我的-gitignore模板" class="headerlink" title="我的.gitignore模板"></a>我的.gitignore模板</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"># Logs</span><br><span class="line">logs</span><br><span class="line">*.log</span><br><span class="line">npm-debug.log*</span><br><span class="line">yarn-debug.log*</span><br><span class="line">yarn-error.log*</span><br><span class="line">pnpm-debug.log*</span><br><span class="line">lerna-debug.log*</span><br><span class="line"></span><br><span class="line">node_modules</span><br><span class="line">dist</span><br><span class="line">dist-ssr</span><br><span class="line">*.local</span><br><span class="line"></span><br><span class="line"># big files</span><br><span class="line">*.mp4</span><br><span class="line">backend/volume/media/documents/*</span><br><span class="line">!backend/volume/media/documents/.gitkeep</span><br><span class="line">backend/volume/media/import_excel_upload/*</span><br><span class="line">!backend/volume/media/import_excel_upload/.gitkeep</span><br><span class="line">backend/volume/media/videos/*</span><br><span class="line">!backend/volume/media/videos/.gitkeep</span><br><span class="line"></span><br><span class="line"># python</span><br><span class="line">**/__pycache__/</span><br><span class="line">**.pyc</span><br><span class="line"># 忽略pycharm</span><br><span class="line">**/.idea/</span><br><span class="line"># 忽略虚拟环境</span><br><span class="line">**/venv</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Editor directories and files</span><br><span class="line">**/.vscode/*</span><br><span class="line">!.vscode/extensions.json</span><br><span class="line">.idea</span><br><span class="line">.DS_Store</span><br><span class="line">*.suo</span><br><span class="line">*.ntvs*</span><br><span class="line">*.njsproj</span><br><span class="line">*.sln</span><br><span class="line">*.sw?</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他示例"><a href="#其他示例" class="headerlink" title="其他示例"></a>其他示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 忽略所有 .a 结尾的文件</span><br><span class="line">a</span><br><span class="line"># 但lib.a 除外</span><br><span class="line">!lib.a</span><br><span class="line"># 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</span><br><span class="line">/TODO</span><br><span class="line"># 忽略build/ 目录下的所有文件</span><br><span class="line">build/</span><br><span class="line"># 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span><br><span class="line">doc/.txt</span><br></pre></td></tr></table></figure>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to comment with my incorrect words! </span>

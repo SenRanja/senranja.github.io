@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | SenRanJa</title>
+  <title>git重写历史 | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | SenRanJa">
+  <meta name="description" content="git重写历史 | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeUNSW postgraduate student, major in Information Technology.">
 <meta property="og:type" content="website">
@@ -317,24 +317,34 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-git/git重写历史" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">git重写历史</h1>
     
     <div class="article-meta">
         
+        <span class="top"><a>pin to top</a></span>
         
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Git">Git</a>
+            
+        </span>
         
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 20:02:06'>2024-04-09 18:18</time>
+            Created At : <time class="date" title='Updated At: 2024-04-09 20:03:27'>2024-04-09 17:58</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:8</span>
+        <span>Count:90</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -364,7 +374,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#About-Me"><span class="toc-text">About Me</span></a></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -380,7 +390,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h1><p>UNSW postgraduate student, major in Information Technology.</p>
+        <pre><code>git filter-branch --index-filter &quot;git rm -r --cached --ignore-unmatch ./部署文件&quot; HEAD`
+
+git filter-branch --index-filter &quot;git rm -r --cached --ignore-unmatch ./backend/volume/media/import_excel_upload/*&quot; HEAD
+</code></pre>
+<p>检查成功没有这个文件后，然后</p>
+<pre><code>git push --force
+</code></pre>
+<p>如果提示需要加 -f 强制重写，如：</p>
+<pre><code>git filter-branch -f --index-filter &quot;git rm -r --cached --ignore-unmatch ./backend/volume/media/import_excel_upload/*&quot; HEAD
+</code></pre>
+<p>最后git push即可</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to comment with my incorrect words! </span>

@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | SenRanJa</title>
+  <title>merge conflict | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | SenRanJa">
+  <meta name="description" content="merge conflict | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeUNSW postgraduate student, major in Information Technology.">
 <meta property="og:type" content="website">
@@ -317,24 +317,34 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-git/冲突解决" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">merge conflict</h1>
     
     <div class="article-meta">
         
+        <span class="top"><a>pin to top</a></span>
         
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Git">Git</a>
+            
+        </span>
         
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 20:02:06'>2024-04-09 18:18</time>
+            Created At : <time class="date" title='Updated At: 2024-04-09 19:58:15'>2024-04-09 17:58</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:8</span>
+        <span>Count:284</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -364,7 +374,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#About-Me"><span class="toc-text">About Me</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-stash"><span class="toc-text">git stash</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -380,7 +390,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h1><p>UNSW postgraduate student, major in Information Technology.</p>
+        <p>git push提示冲突</p>
+<p><img src="/img/2024-04-09-19-47-59.png"></p>
+<p>会在源文件中看到标记的冲突的HEAD</p>
+<p><img src="/img/2024-04-09-19-48-22.png"></p>
+<p>修改完在git add . 再commit push</p>
+<p>如果没有实质差异，“current change”是你的修改的，那个commit id的是已存在的，按照已存在的来</p>
+<h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><pre><code>git stash
+
+git commit
+
+git stash pop
+</code></pre>
+<p>接下来diff一下此文件看看自动合并的情况，并作出相应修改。</p>
+<p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。</p>
+<p>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。</p>
+<p>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。</p>
+<p>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to comment with my incorrect words! </span>

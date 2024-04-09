@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | SenRanJa</title>
+  <title>远程获取所有分支 | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | SenRanJa">
+  <meta name="description" content="远程获取所有分支 | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeUNSW postgraduate student, major in Information Technology.">
 <meta property="og:type" content="website">
@@ -317,24 +317,34 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-git/从远程仓库获取所有分支" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">远程获取所有分支</h1>
     
     <div class="article-meta">
         
+        <span class="top"><a>pin to top</a></span>
         
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Git">Git</a>
+            
+        </span>
         
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 20:02:06'>2024-04-09 18:18</time>
+            Created At : <time class="date" title='Updated At: 2024-04-09 19:58:03'>2024-04-09 17:58</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:8</span>
+        <span>Count:47</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -364,7 +374,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#About-Me"><span class="toc-text">About Me</span></a></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -380,7 +390,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h1><p>UNSW postgraduate student, major in Information Technology.</p>
+        <pre><code>git clone xxx
+
+cd xxx
+
+git branch -r | grep -v &#39;\-&gt;&#39; | while read remote; do git branch --track &quot;$&#123;remote#origin/&#125;&quot; &quot;$remote&quot;; done
+
+git fetch --all
+
+git pull --all(git pull –all在功能上包含git fetch --all)
+</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to comment with my incorrect words! </span>

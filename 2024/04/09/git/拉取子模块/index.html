@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | SenRanJa</title>
+  <title>git pull sub module | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | SenRanJa">
+  <meta name="description" content="git pull sub module | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeUNSW postgraduate student, major in Information Technology.">
 <meta property="og:type" content="website">
@@ -317,24 +317,34 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-git/拉取子模块" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">git pull sub module</h1>
     
     <div class="article-meta">
         
+        <span class="top"><a>pin to top</a></span>
         
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Git">Git</a>
+            
+        </span>
         
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 20:02:06'>2024-04-09 18:18</time>
+            Created At : <time class="date" title='Updated At: 2024-04-09 19:59:12'>2024-04-09 17:58</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:8</span>
+        <span>Count:183</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -364,7 +374,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#About-Me"><span class="toc-text">About Me</span></a></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -380,7 +390,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h1><p>UNSW postgraduate student, major in Information Technology.</p>
+        <p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/toopoo/article/details/104225592">https://blog.csdn.net/toopoo/article/details/104225592</a></p>
+<p>拉取某个git仓库，如果该代码中某个目录下存在.git，那么git会认为这是另一个git仓库，我们在git clone的时候不会拉取该项目，必须得多一步去单拉此项目。</p>
+<p>实际案例：鹏哥的gitmisconfig项目导入gitlab</p>
+<p>在gitlab-misconfig项目中，由于鹏哥使用的gitlab软件包目录下存在.git，所以在进行git add . xxxx等一系列操作后，该目录下你就算有改动，也不会上传到git。</p>
+<p>另外，如果你只是要检出其中的某个目录，则使用命令如下，可以单检出某个目录：</p>
+<pre><code>git clone --recursive https://github.com/xanzy/go-gitlab gitlab
+</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to comment with my incorrect words! </span>

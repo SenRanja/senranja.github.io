@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | SenRanJa</title>
+  <title>build a new repo | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | SenRanJa">
+  <meta name="description" content="build a new repo | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeUNSW postgraduate student, major in Information Technology.">
 <meta property="og:type" content="website">
@@ -317,24 +317,34 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-git/新建仓库" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">build a new repo</h1>
     
     <div class="article-meta">
         
+        <span class="top"><a>pin to top</a></span>
         
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Git">Git</a>
+            
+        </span>
         
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 20:02:06'>2024-04-09 18:18</time>
+            Created At : <time class="date" title='Updated At: 2024-04-09 19:59:48'>2024-04-09 17:58</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:8</span>
+        <span>Count:245</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -364,7 +374,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#About-Me"><span class="toc-text">About Me</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B9%E7%9B%AE%E4%BB%93%E5%BA%93"><span class="toc-text">新建项目仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%9C%AC%E5%9C%B0git%E9%A1%B9%E7%9B%AE"><span class="toc-text">创建本地git项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#github%E4%B8%8A%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%BB%93%E5%BA%93"><span class="toc-text">github上创建一个仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95github%E5%88%9B%E5%BB%BA%E4%B8%AA%E7%A9%BA%E7%9A%84%E4%BB%93%E5%BA%93%EF%BC%8C%E6%B7%BB%E5%8A%A0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-text">登录github创建个空的仓库，添加远程仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF%E5%88%B0%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF"><span class="toc-text">提交本地分支到远程分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE%E6%B7%BB%E5%8A%A0%E5%B9%B6%E6%8F%90%E4%BA%A4%E4%B8%8A%E4%BC%A0"><span class="toc-text">将现有项目添加并提交上传</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -380,7 +390,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h1><p>UNSW postgraduate student, major in Information Technology.</p>
+        <h1 id="新建项目仓库"><a href="#新建项目仓库" class="headerlink" title="新建项目仓库"></a>新建项目仓库</h1><h3 id="创建本地git项目"><a href="#创建本地git项目" class="headerlink" title="创建本地git项目"></a>创建本地git项目</h3><pre><code>git init
+</code></pre>
+<p>git init &lt;仓库名&gt;没法执行，init后面不要跟参数当名字。</p>
+<h3 id="github上创建一个仓库"><a href="#github上创建一个仓库" class="headerlink" title="github上创建一个仓库"></a>github上创建一个仓库</h3><p>登录github创建个空的仓库</p>
+<h3 id="登录github创建个空的仓库，添加远程仓库"><a href="#登录github创建个空的仓库，添加远程仓库" class="headerlink" title="登录github创建个空的仓库，添加远程仓库"></a>登录github创建个空的仓库，添加远程仓库</h3><pre><code>git remote add origin https://github.com/xxx/xxx.git
+</code></pre>
+<p>从远程master合并到本地master</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;xxxx&quot; </span><br><span class="line">git config --global user.email xxxxx@xx.com</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit - m &quot;init&quot;</span><br><span class="line">git remote add origin https://github.com/xxx/xxx.git</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<p>如果有冲突就尝试（通常是你创建仓库的时候新建了什么readme和license）：<br>    git pull origin master:master</p>
+<p>也可以直接强制推送：<br>    git push origin master –force</p>
+<h3 id="提交本地分支到远程分支"><a href="#提交本地分支到远程分支" class="headerlink" title="提交本地分支到远程分支"></a>提交本地分支到远程分支</h3><pre><code>git push -u origin master
+</code></pre>
+<h3 id="将现有项目添加并提交上传"><a href="#将现有项目添加并提交上传" class="headerlink" title="将现有项目添加并提交上传"></a>将现有项目添加并提交上传</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add -A</span><br><span class="line">（git add . 是提交当前路径  git add -A 是提交整个文件夹子文件夹路径）</span><br><span class="line">git commit -m &#x27;初始化git项目&#x27;</span><br><span class="line">git push --set-upstream origin master</span><br></pre></td></tr></table></figure>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to comment with my incorrect words! </span>

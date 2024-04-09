@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | SenRanJa</title>
+  <title>fail2ban | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | SenRanJa">
+  <meta name="description" content="fail2ban | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeUNSW postgraduate student, major in Information Technology.">
 <meta property="og:type" content="website">
@@ -317,24 +317,34 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-Linux Security Maintain/gitkeep" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">fail2ban</h1>
     
     <div class="article-meta">
         
+        <span class="top"><a>pin to top</a></span>
         
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Linux-Maintain">Linux-Maintain</a>
+            
+        </span>
         
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 20:02:06'>2024-04-09 18:18</time>
+            Created At : <time class="date" title='Updated At: 2024-04-09 20:13:53'>2024-04-08 17:58</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:8</span>
+        <span>Count:1k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -364,7 +374,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#About-Me"><span class="toc-text">About Me</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#fail2ban%EF%BC%9A%E7%A6%81%E6%AD%A2%E7%88%86%E7%A0%B4"><span class="toc-text">fail2ban：禁止爆破</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fail2ban-client"><span class="toc-text">fail2ban-client</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fdjango%E5%B0%81%E7%A6%81404%E6%88%96%E8%80%85%E7%88%86%E7%A0%B4%E9%97%AE%E9%A2%98"><span class="toc-text">实战：自定义考试系统django封禁404或者爆破问题</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -380,7 +390,116 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h1><p>UNSW postgraduate student, major in Information Technology.</p>
+        <p>2024年4月8日，我和其他前端同事合作开发的考试系统，mysql数据库被黑，宕机。</p>
+<p><img src="/img/2024-04-09-20-04-54.png"></p>
+<p>随后我禁止公网暴露mysql数据库，开始研究对其他网络协议的防止暴力破解，于是使用fail2ban对sshd和http的爆破进行限制。</p>
+<h1 id="fail2ban：禁止爆破"><a href="#fail2ban：禁止爆破" class="headerlink" title="fail2ban：禁止爆破"></a>fail2ban：禁止爆破</h1><p>参考链接：<a target="_blank" rel="noopener" href="https://www.myfreax.cominstall-configure-fail2ban-on-ubuntu-20-04/">https://www.myfreax.cominstall-configure-fail2ban-on-ubuntu-20-04/</a></p>
+<p>fail2ban是根据你配置好的日志文件，和jail服务，来临时ban ip的，<strong>如果需要永久拒绝某个ip，直接操作防火墙ufw更合适</strong>。fail2ban只能根据配置好的jail_name来临时ban ip.</p>
+<p>直接日志位置: &#x2F;var&#x2F;log&#x2F;fail2ban.log</p>
+<p><img src="/img/2024-04-09-20-07-00.png"></p>
+<pre><code>apt update &amp;&amp; apt install fail2ban
+</code></pre>
+<p>在默认情况下是禁用的，因为它的一些默认设置可能会导致不良效果。</p>
+<pre><code>systemctl status fail2ban
+fail2ban.service - Fail2Ban Service
+    Loaded: loaded (/lib/systemd/system/fail2ban.service; disabled; vendor preset: enabled)
+    Active: inactive (dead)
+    Docs: man:fail2ban(1)
+</code></pre>
+<p>配置目录：&#x2F;etc&#x2F;fail2ban</p>
+<p>默认有jail.conf的配置文件，但是<strong>不要动conf</strong>，自己新建.local的配置文件在local中编辑：</p>
+<pre><code>cp /etc/fail2ban/jail.&#123;conf,local&#125;
+</code></pre>
+<p>jail.local中有三个重要的</p>
+<pre><code>bantime  = 1d  
+findtime  = 10m  
+maxretry = 5
+</code></pre>
+<p>Fail2ban附带许多Jail作为示例，系统每一项服务都可以找到对应Jail配置。 要启用Jail，您需要在添加enabled &#x3D; true。 以下示例显示了如何为sshd服务启用Jail：</p>
+<pre><code>[sshd]
+enabled   = true（ubunt可以不写）
+port    = ssh
+logpath = %(sshd_log)s
+backend = %(sshd_backend)s
+/etc/fail2ban/jail.local
+</code></pre>
+<p>每次修改配置文件时，都必须重新启动Fail2ban服务，以使更改生效：</p>
+<pre><code>sudo systemctl restart fail2ban
+</code></pre>
+<h1 id="fail2ban-client"><a href="#fail2ban-client" class="headerlink" title="fail2ban-client"></a>fail2ban-client</h1><p>检查fail2ban监视的sshd：</p>
+<pre><code>fail2ban-client status sshd
+</code></pre>
+<p>unban ip：</p>
+<pre><code>fail2ban-client set sshd unbanip 23.34.45.56
+</code></pre>
+<p>banIP：</p>
+<pre><code>fail2ban-client set sshd banip 23.34.45.56
+</code></pre>
+<p>我自己爆破sshd测试了下，这里一次ssh有3次重试密码机会，然后jail写的5次，这里其实测试的时候输错了15次密码，才会被fail2ban认为是要ban的ip。</p>
+<p><img src="/img/2024-04-09-20-09-41.png"></p>
+<h1 id="实战：自定义考试系统django封禁404或者爆破问题"><a href="#实战：自定义考试系统django封禁404或者爆破问题" class="headerlink" title="实战：自定义考试系统django封禁404或者爆破问题"></a>实战：自定义考试系统django封禁404或者爆破问题</h1><p>我是用uwsgi启用的django，日志文件与格式如下：</p>
+<pre><code>/var/log/uwsgi/uwsgi.log
+[pid: 799467|app: 0|req: 36/44] 129.151.212.54 () &#123;40 vars in 544 bytes&#125; [Tue Apr  9 07:44:07 2024] POST /api/login/ =&gt; generated 41 bytes in 244 msecs (HTTP/1.1 304) 7 headers in 267 bytes (1 switches on core 0)
+[pid: 799467|app: 0|req: 37/45] 129.151.212.54 () &#123;40 vars in 543 bytes&#125; [Tue Apr  9 07:44:10 2024] POST /api/login/ =&gt; generated 41 bytes in 263 msecs (HTTP/1.1 304) 7 headers in 267 bytes (1 switches on core 0)
+</code></pre>
+<p>可以看到登录接口响应304，</p>
+<p>然后，网络做法通常为使用 正则表达式 测试看是否能匹配到日志中测试数据：<br>但是此处有坑点，日志中有非标准格式行，会直接报错IndexError: string index out of range。这个问题仅仅是fail2ban-regex本身这种小测试工具的问题。</p>
+<pre><code>fail2ban-regex /var/log/uwsgi/uwsgi.log  &quot;&lt;HOST&gt; \(.*\) .* \(HTTP/[012.]+ [345][0-9][0-9]\)&quot;
+</code></pre>
+<p><img src="/img/2024-04-09-20-10-36.png"></p>
+<p>此时为了测试，需要把测试数据完整行单独放如&#x2F;var&#x2F;log&#x2F;uwsgi&#x2F;uwsgi.log2 的文件中测试正则。</p>
+<p><img src="/img/2024-04-09-20-10-48.png"></p>
+<p>说明测试通过。</p>
+<p>新建jail，自行命名</p>
+<pre><code>vim /etc/fail2ban/jail.d/jail_uwsgi.local
+[uwsgi]
+enabled = true
+port = 8000
+protocol = tcp
+filter = uwsgi
+logpath = /var/log/uwsgi/uwsgi.log
+bantime = 120m
+findtime = 10m
+maxretry = 15
+</code></pre>
+<p>新建filter，自行命名</p>
+<pre><code>vim /etc/fail2ban/filter.d/uwsgi.conf
+[Definition]
+failregex = &lt;HOST&gt; \(.*\) .* \(HTTP/[012.]+ [345][0-9][0-9]\)
+ignoreregex =
+</code></pre>
+<hr>
+<pre><code>/etc/fail2ban/jail.local (不要编辑jail.conf)
+一众配置中新增如下：
+[uwsgi]
+# 此处jail.d定义和本初jail.local的参数可互相迭代指定，此处可仅写个[uwsgi]而不写配置参数（因为我的方法，在jail中已写）
+</code></pre>
+<p>重启fail2ban</p>
+<pre><code>systemctl restart fail2ban
+</code></pre>
+<p>自己在本地打15个304的HTTP请求包后，可以看到自己的IP在 uwsgi 的jail 中被ban：</p>
+<pre><code>root@racknerd-c012d0:/etc/fail2ban/jail.d# fail2ban-client status uwsgi
+Status for the jail: uwsgi
+|- Filter
+|  |- Currently failed: 0
+|  |- Total failed:     15
+|  `- File list:        /var/log/uwsgi/uwsgi.log
+`- Actions
+|- Currently banned: 1
+|- Total banned:     1
+`- Banned IP list:   129.151.212.54
+root@racknerd-c012d0:/etc/fail2ban/jail.d# fail2ban-client status sshd
+Status for the jail: sshd
+|- Filter
+|  |- Currently failed: 2
+|  |- Total failed:     6
+|  `- File list:        /var/log/auth.log
+`- Actions
+|- Currently banned: 3
+|- Total banned:     3
+`- Banned IP list:   218.92.0.122 218.92.0.22 218.92.0.29
+</code></pre>
+<p>postman此时由于触发ban，发送仅响应503 service unresposable, 触发ufw的reject行为</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to comment with my incorrect words! </span>

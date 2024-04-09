@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | SenRanJa</title>
+  <title>新建某分支并推送、合并分支 | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | SenRanJa">
+  <meta name="description" content="新建某分支并推送、合并分支 | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeUNSW postgraduate student, major in Information Technology.">
 <meta property="og:type" content="website">
@@ -317,24 +317,34 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-git/新建某分支并推送至某分支：以考试系统es为例版本管理" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">新建某分支并推送、合并分支</h1>
     
     <div class="article-meta">
         
+        <span class="top"><a>pin to top</a></span>
         
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Git">Git</a>
+            
+        </span>
         
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 20:02:06'>2024-04-09 18:18</time>
+            Created At : <time class="date" title='Updated At: 2024-04-09 20:00:17'>2024-04-09 17:58</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:8</span>
+        <span>Count:557</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -364,7 +374,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#About-Me"><span class="toc-text">About Me</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-text">新建某分支并推送至某分支：以考试系统es为例版本管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E5%90%88%E5%B9%B6%E5%85%B6%E4%BB%96%E5%88%86%E6%94%AF%E5%88%B0%E6%9C%AC%E5%88%86%E6%94%AF%EF%BC%8C%E5%86%8D%E6%8E%A8%E9%80%81"><span class="toc-text">本地合并其他分支到本分支，再推送</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -380,7 +390,43 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h1><p>UNSW postgraduate student, major in Information Technology.</p>
+        <h1 id="新建某分支并推送至某分支：以考试系统es为例版本管理"><a href="#新建某分支并推送至某分支：以考试系统es为例版本管理" class="headerlink" title="新建某分支并推送至某分支：以考试系统es为例版本管理"></a>新建某分支并推送至某分支：以考试系统es为例版本管理</h1><p>新建新分支并推送至新分支之前，需要检查当前分值是否还有未提交的状态</p>
+<p><code>git status</code> # 可以检查是否有新文件未被track</p>
+<p><code>git remote -v</code> # 查看远程分值，一般如下，同一个地址具有拿下或push的权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">origin  http://shenyanjian.cn:3000/senranja/exam_system.git (fetch)</span><br><span class="line">origin  http://shenyanjian.cn:3000/senranja/exam_system.git (push)</span><br></pre></td></tr></table></figure>
+
+<p><code>git fetch</code> # 拿下仓库最新分值信息。<code>git pull==git fetch + git merge</code>，git fetch是安全的、不会合并的命令</p>
+<p><code>git branch -r</code> # 查看全部的远程分支，通常显示如下：（若远程分支只有main）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">origin/HEAD -&gt; origin/main</span><br><span class="line">origin/main</span><br></pre></td></tr></table></figure>
+
+<p><code>git checkout -b V0.0.2</code> # 以当前分支为副本创建V0.0.2</p>
+<p><code>git checkout V0.0.2</code> # 切换到分值V0.0.2</p>
+<p>（现在在此处放一些部署文档、版本交付说明）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;V0.0.2&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fatal: The current branch V0.0.2 has no upstream branch.</span><br><span class="line">To push the current branch and set the remote as upstream, use</span><br><span class="line"></span><br><span class="line">    git push --set-upstream origin V0.0.2</span><br></pre></td></tr></table></figure>
+<p>如上报错，意思是远程分值还没有V0.0.2，需要手动设置下</p>
+<pre><code>git push --set-upstream origin V0.0.2
+</code></pre>
+<p>完成</p>
+<p>切换回主分支：</p>
+<pre><code>git checkout main
+</code></pre>
+<h1 id="本地合并其他分支到本分支，再推送"><a href="#本地合并其他分支到本分支，再推送" class="headerlink" title="本地合并其他分支到本分支，再推送"></a>本地合并其他分支到本分支，再推送</h1><p>要将本地的 dev 分支合并到 main 分支，你可以按照以下步骤进行操作：</p>
+<p>确保你当前位于 main 分支上。你可以通过以下命令来确保：</p>
+<pre><code>git checkout main
+</code></pre>
+<p>然后，执行 git pull 命令来确保你的 main 分支是最新的：</p>
+<pre><code>git pull origin main
+</code></pre>
+<p>接着，执行 git merge 命令来合并 dev 分支到 main 分支：</p>
+<pre><code>git merge dev
+</code></pre>
+<p>如果有冲突，在合并过程中会停下来，需要你解决这些冲突。解决完冲突后，你需要执行 <code>git add </code>命令来标记冲突已解决的文件，然后执行 <code>git merge --continue</code> 来继续合并过程。</p>
+<p>最后，当合并完成，你可以将合并后的 main 分支推送到远程仓库：</p>
+<pre><code>git push origin main
+</code></pre>
+<p>通过这些步骤，你就可以将本地的 dev 分支成功合并到 main 分支，并将更新推送到远程仓库。</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to comment with my incorrect words! </span>
