@@ -348,7 +348,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 21:17:48'>2024-04-08 17:58</time>
+            Created At : <time class="date" title='Updated At: 2024-04-09 21:30:16'>2024-04-08 17:58</time>
         
     </div>
     <div class="article-meta">
@@ -383,7 +383,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#fail2ban%EF%BC%9A%E7%A6%81%E6%AD%A2%E7%88%86%E7%A0%B4"><span class="toc-text">fail2ban：禁止爆破</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fail2ban-client"><span class="toc-text">fail2ban-client</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fdjango%E5%B0%81%E7%A6%81404%E6%88%96%E8%80%85%E7%88%86%E7%A0%B4%E9%97%AE%E9%A2%98"><span class="toc-text">实战：自定义考试系统django封禁404或者爆破问题</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#fail2ban%EF%BC%9A%E7%A6%81%E6%AD%A2%E7%88%86%E7%A0%B4"><span class="toc-text">fail2ban：禁止爆破</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fail2ban-client"><span class="toc-text">fail2ban-client</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89WEB%E7%B3%BB%E7%BB%9Fdjango%E5%B0%81%E7%A6%81404%E6%88%96%E8%80%85%E7%88%86%E7%A0%B4%E9%97%AE%E9%A2%98"><span class="toc-text">实战：自定义WEB系统django封禁404或者爆破问题</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -446,7 +446,7 @@ backend = %(sshd_backend)s
 </code></pre>
 <p>我自己爆破sshd测试了下，这里一次ssh有3次重试密码机会，然后jail写的5次，这里其实测试的时候输错了15次密码，才会被fail2ban认为是要ban的ip。</p>
 <p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-07-36.png" alt="2024-04-09-21-07-36"></p>
-<h1 id="实战：自定义考试系统django封禁404或者爆破问题"><a href="#实战：自定义考试系统django封禁404或者爆破问题" class="headerlink" title="实战：自定义考试系统django封禁404或者爆破问题"></a>实战：自定义考试系统django封禁404或者爆破问题</h1><p>我是用uwsgi启用的django，日志文件与格式如下：</p>
+<h1 id="实战：自定义WEB系统django封禁404或者爆破问题"><a href="#实战：自定义WEB系统django封禁404或者爆破问题" class="headerlink" title="实战：自定义WEB系统django封禁404或者爆破问题"></a>实战：自定义WEB系统django封禁404或者爆破问题</h1><p>我是用uwsgi启用的django，日志文件与格式如下：</p>
 <pre><code>/var/log/uwsgi/uwsgi.log
 [pid: 799467|app: 0|req: 36/44] 129.151.212.54 () &#123;40 vars in 544 bytes&#125; [Tue Apr  9 07:44:07 2024] POST /api/login/ =&gt; generated 41 bytes in 244 msecs (HTTP/1.1 304) 7 headers in 267 bytes (1 switches on core 0)
 [pid: 799467|app: 0|req: 37/45] 129.151.212.54 () &#123;40 vars in 543 bytes&#125; [Tue Apr  9 07:44:10 2024] POST /api/login/ =&gt; generated 41 bytes in 263 msecs (HTTP/1.1 304) 7 headers in 267 bytes (1 switches on core 0)
