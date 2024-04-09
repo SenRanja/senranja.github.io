@@ -229,19 +229,19 @@
         
         
         <a id="top" class="All Git "
-           href="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"
+           href="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="branch">branch</span>
+            <span class="post-title" title="merge conflict">merge conflict</span>
             <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
         </a>
         
         
         <a id="top" class="All Git "
-           href="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"
+           href="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="merge conflict">merge conflict</span>
+            <span class="post-title" title="branch">branch</span>
             <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
         </a>
         
@@ -292,7 +292,7 @@
         
         
         <a id="top" class="All Linux-Maintain "
-           href="/2024/04/08/Linux%20Security%20Maintain/gitkeep/"
+           href="/2024/04/08/Linux-Maintain/fail2ban/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="fail2ban">fail2ban</span>
@@ -317,7 +317,7 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-Linux Security Maintain/gitkeep" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Linux-Maintain/fail2ban" class="article article-type-post" itemscope itemprop="blogPost">
     
         <h1 class="article-title">fail2ban</h1>
     
@@ -339,7 +339,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 20:13:53'>2024-04-08 17:58</time>
+            Created At : <time class="date" title='Updated At: 2024-04-09 21:11:24'>2024-04-08 17:58</time>
         
     </div>
     <div class="article-meta">
@@ -391,12 +391,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>2024年4月8日，我和其他前端同事合作开发的考试系统，mysql数据库被黑，宕机。</p>
-<p><img src="/img/2024-04-09-20-04-54.png"></p>
+<p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-05-54.png" alt="2024-04-09-21-05-54"></p>
 <p>随后我禁止公网暴露mysql数据库，开始研究对其他网络协议的防止暴力破解，于是使用fail2ban对sshd和http的爆破进行限制。</p>
 <h1 id="fail2ban：禁止爆破"><a href="#fail2ban：禁止爆破" class="headerlink" title="fail2ban：禁止爆破"></a>fail2ban：禁止爆破</h1><p>参考链接：<a target="_blank" rel="noopener" href="https://www.myfreax.cominstall-configure-fail2ban-on-ubuntu-20-04/">https://www.myfreax.cominstall-configure-fail2ban-on-ubuntu-20-04/</a></p>
 <p>fail2ban是根据你配置好的日志文件，和jail服务，来临时ban ip的，<strong>如果需要永久拒绝某个ip，直接操作防火墙ufw更合适</strong>。fail2ban只能根据配置好的jail_name来临时ban ip.</p>
 <p>直接日志位置: &#x2F;var&#x2F;log&#x2F;fail2ban.log</p>
-<p><img src="/img/2024-04-09-20-07-00.png"></p>
+<p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-03-27.png" alt="2024-04-09-21-03-27.png"></p>
 <pre><code>apt update &amp;&amp; apt install fail2ban
 </code></pre>
 <p>在默认情况下是禁用的，因为它的一些默认设置可能会导致不良效果。</p>
@@ -436,7 +436,7 @@ backend = %(sshd_backend)s
 <pre><code>fail2ban-client set sshd banip 23.34.45.56
 </code></pre>
 <p>我自己爆破sshd测试了下，这里一次ssh有3次重试密码机会，然后jail写的5次，这里其实测试的时候输错了15次密码，才会被fail2ban认为是要ban的ip。</p>
-<p><img src="/img/2024-04-09-20-09-41.png"></p>
+<p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-07-36.png" alt="2024-04-09-21-07-36"></p>
 <h1 id="实战：自定义考试系统django封禁404或者爆破问题"><a href="#实战：自定义考试系统django封禁404或者爆破问题" class="headerlink" title="实战：自定义考试系统django封禁404或者爆破问题"></a>实战：自定义考试系统django封禁404或者爆破问题</h1><p>我是用uwsgi启用的django，日志文件与格式如下：</p>
 <pre><code>/var/log/uwsgi/uwsgi.log
 [pid: 799467|app: 0|req: 36/44] 129.151.212.54 () &#123;40 vars in 544 bytes&#125; [Tue Apr  9 07:44:07 2024] POST /api/login/ =&gt; generated 41 bytes in 244 msecs (HTTP/1.1 304) 7 headers in 267 bytes (1 switches on core 0)
@@ -446,9 +446,9 @@ backend = %(sshd_backend)s
 <p>然后，网络做法通常为使用 正则表达式 测试看是否能匹配到日志中测试数据：<br>但是此处有坑点，日志中有非标准格式行，会直接报错IndexError: string index out of range。这个问题仅仅是fail2ban-regex本身这种小测试工具的问题。</p>
 <pre><code>fail2ban-regex /var/log/uwsgi/uwsgi.log  &quot;&lt;HOST&gt; \(.*\) .* \(HTTP/[012.]+ [345][0-9][0-9]\)&quot;
 </code></pre>
-<p><img src="/img/2024-04-09-20-10-36.png"></p>
+<p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-08-29.png" alt="2024-04-09-21-08-29"></p>
 <p>此时为了测试，需要把测试数据完整行单独放如&#x2F;var&#x2F;log&#x2F;uwsgi&#x2F;uwsgi.log2 的文件中测试正则。</p>
-<p><img src="/img/2024-04-09-20-10-48.png"></p>
+<p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-08-48.png" alt="2024-04-09-21-08-48"></p>
 <p>说明测试通过。</p>
 <p>新建jail，自行命名</p>
 <pre><code>vim /etc/fail2ban/jail.d/jail_uwsgi.local
