@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>docker network</title>
+      <link href="/2024/04/09/docker/docker-network/"/>
+      <url>/2024/04/09/docker/docker-network/</url>
+      
+        <content type="html"><![CDATA[<h1 id="docker-network网络的优势"><a href="#docker-network网络的优势" class="headerlink" title="docker network网络的优势"></a><strong>docker network网络的优势</strong></h1><p>同一个 Docker <strong>网络中的容器之间可以使用容器名进行网络通信，就像访问域名一样</strong>。这是因为 Docker 默认提供了一个内置的 DNS 服务，它会为在同一网络中运行的容器分配主机名，并且其他容器可以使用这些主机名进行通信。</p><h1 id="创建docker-network"><a href="#创建docker-network" class="headerlink" title="创建docker network"></a>创建docker network</h1><p>使用 Docker 网络：另一种可能的解决方案是创建一个新的 Docker 网络，并在这个网络上运行你的容器。你可以使用 docker network create 命令创建一个新的网络，然后使用 –network 选项运行你的容器。</p><p>调整防火墙规则：如果你的主机上运行有防火墙，可能需要调整防火墙规则以允许 Docker 容器访问内网。具体的步骤取决于你的防火墙软件和配置。</p><p><strong>检查 DNS 配置：如果你的问题与 DNS 解析有关，可能需要检查和调整你的 Docker 容器的 DNS 配置。你可以通过在 Docker 守护进程的配置文件（例如 &#x2F;etc&#x2F;docker&#x2F;daemon.json）中设置 dns 选项来全局配置 DNS，也可以使用 –dns 选项在运行容器时指定 DNS。</strong></p><p><strong>使用 VPN：如果你的内网服务在 VPN 后面，你可能需要在 Docker 容器中设置 VPN。这可能需要在你的 Docker 镜像中安装和配置 VPN 客户端。</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>构建gitleaks-Docker服务</title>
       <link href="/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
       <url>/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
@@ -28,25 +47,6 @@
       <url>/2024/04/09/docker/docker-compose%E8%B0%83%E8%AF%95/</url>
       
         <content type="html"><![CDATA[<h1 id="方便调试的技巧"><a href="#方便调试的技巧" class="headerlink" title="方便调试的技巧"></a>方便调试的技巧</h1><pre><code>docker-compose down &amp;&amp; docker-compose rebuild &amp;&amp; docker-compose up -d</code></pre><h1 id="docker-compose操作"><a href="#docker-compose操作" class="headerlink" title="docker-compose操作"></a>docker-compose操作</h1><pre><code>docker-compose build 构建镜像，镜像文件会存在docker images中docker-compose up -d 启动容器docker-compose down 移除容器（这点我以前以为down是类似于docker stop的命令，没想到docker-compose down是移除的意思，导致删库）docker-compose stop 暂停容器运行</code></pre><h1 id="导出导入操作"><a href="#导出导入操作" class="headerlink" title="导出导入操作"></a>导出导入操作</h1><p>参考链接:<a href="https://www.hangge.com/blog/cache/detail_2411.html">https://www.hangge.com/blog/cache/detail_2411.html</a></p><p>不过需要注意一下，导入导出的时候最好根据<code>docker ps -a</code>的 名字来操作，不要根据 container id 来操作。否则导入的时候，显示的名字可能是 <none>。这个时候虽然容器可以正常运行，但是很多人会感觉<none>是错误的。</none></none></p><p>最重要的注意，<strong>docker-compose无法构建容器为镜像，而且也不会复制外部目录到内部</strong>，有的仅仅是volumns: xxx:xxx的挂载。如果容器是使用的挂载目录，而不是复制进去的文件，那么会无法运行相应目录中的文件和程序。</p><p>所以Dockerfile和dockerf-compose.yml结合使用。</p><h1 id="容器：export和import"><a href="#容器：export和import" class="headerlink" title="容器：export和import"></a>容器：export和import</h1><pre><code>docker export f299f501774c &gt; hangger_server.tardocker import - new_hangger_server &lt; hangger_server.tar</code></pre><h1 id="镜像：save和load"><a href="#镜像：save和load" class="headerlink" title="镜像：save和load"></a>镜像：save和load</h1><p>（1）下面使用 docker save 命令根据 ID 将镜像保存成一个文件。</p><pre><code>docker save 0fdf2b4c26d3 &gt; hangge_server.tar</code></pre><p><strong>(这么打包，是没有标签名字的。最好指定镜像标签名而非镜像id打包)</strong></p><p>（2）我们还可以同时将多个 image 打包成一个文件，比如下面将镜像库中的 postgres 和 mongo 打包：</p><pre><code>docker save -o images.tar postgres:9.6 mongo:3.4</code></pre><p>载入镜像</p><pre><code>docker load &lt; hangge_server.tar</code></pre><h1 id="SD的镜像打包及运行"><a href="#SD的镜像打包及运行" class="headerlink" title="SD的镜像打包及运行"></a>SD的镜像打包及运行</h1><h3 id="打包导出"><a href="#打包导出" class="headerlink" title="打包导出"></a>打包导出</h3><p>先命名个版本</p><pre><code>docker tag f0b0777d65d7 sd_secretdetection_docker:2.3</code></pre><p>打包，不要根据镜像id打包，不然未来没有名字，得指定tag：</p><pre><code>docker save -o sd-2.3.tar sd_secretdetection_docker:2.3</code></pre><p>加载运行</p><pre><code>docker load &lt; sd-2.3.tardocker run -itd -p 8000:8000 sd_secretdetection_docker:2.3</code></pre><p>run镜像，并指定容器名字</p><p>指定镜像名字:</p><pre><code>docker run --name my_container my_imagedocker load &lt; shenyanjian.tardocker run -itd -p 8000:8000 --name secretdetection shenyanjian_secretdetection_docker:latest</code></pre><p>将容器保存为本地镜像</p><pre><code>docker commit -a &quot;blingsec&quot; -m &quot;sd2.0&quot; secret_detection_http secret_detection_http:v2.0</code></pre><p>-a是作者名，-m 是标注信息，最后的secret_detection_http:v2.0 是命名</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>docker network</title>
-      <link href="/2024/04/09/docker/docker-network/"/>
-      <url>/2024/04/09/docker/docker-network/</url>
-      
-        <content type="html"><![CDATA[<h1 id="docker-network网络的优势"><a href="#docker-network网络的优势" class="headerlink" title="docker network网络的优势"></a><strong>docker network网络的优势</strong></h1><p>同一个 Docker <strong>网络中的容器之间可以使用容器名进行网络通信，就像访问域名一样</strong>。这是因为 Docker 默认提供了一个内置的 DNS 服务，它会为在同一网络中运行的容器分配主机名，并且其他容器可以使用这些主机名进行通信。</p><h1 id="创建docker-network"><a href="#创建docker-network" class="headerlink" title="创建docker network"></a>创建docker network</h1><p>使用 Docker 网络：另一种可能的解决方案是创建一个新的 Docker 网络，并在这个网络上运行你的容器。你可以使用 docker network create 命令创建一个新的网络，然后使用 –network 选项运行你的容器。</p><p>调整防火墙规则：如果你的主机上运行有防火墙，可能需要调整防火墙规则以允许 Docker 容器访问内网。具体的步骤取决于你的防火墙软件和配置。</p><p><strong>检查 DNS 配置：如果你的问题与 DNS 解析有关，可能需要检查和调整你的 Docker 容器的 DNS 配置。你可以通过在 Docker 守护进程的配置文件（例如 &#x2F;etc&#x2F;docker&#x2F;daemon.json）中设置 dns 选项来全局配置 DNS，也可以使用 –dns 选项在运行容器时指定 DNS。</strong></p><p><strong>使用 VPN：如果你的内网服务在 VPN 后面，你可能需要在 Docker 容器中设置 VPN。这可能需要在你的 Docker 镜像中安装和配置 VPN 客户端。</strong></p>]]></content>
       
       
       <categories>
@@ -308,49 +308,30 @@
     
     
     <entry>
-      <title>merge conflict</title>
-      <link href="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"/>
-      <url>/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</url>
-      
-        <content type="html"><![CDATA[<p>git push提示冲突</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-47-59.png"></p><p>会在源文件中看到标记的冲突的HEAD</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-48-22.png"></p><p>修改完在git add . 再commit push</p><p>如果没有实质差异，“current change”是你的修改的，那个commit id的是已存在的，按照已存在的来</p><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><pre><code>git stashgit commitgit stash pop</code></pre><p>接下来diff一下此文件看看自动合并的情况，并作出相应修改。</p><p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。</p><p>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。</p><p>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。</p><p>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>branch</title>
-      <link href="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"/>
-      <url>/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/</url>
-      
-        <content type="html"><![CDATA[<h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch </code></pre><p>查看分支详细信息，列出本地所有的分支, + hash 信息</p><pre><code>git branch -v</code></pre><h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p>git branch -vv #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p><p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p><h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><p>#列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</p><pre><code>git branch -agit branch -a | grep xxx</code></pre><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code>git checkout -b xxx origin/xxx</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>delete something useless before gitignore</title>
       <link href="/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/"/>
       <url>/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/</url>
       
         <content type="html"><![CDATA[<h1 id="重写了gitignore但是想删除已提交但想忽略的内容"><a href="#重写了gitignore但是想删除已提交但想忽略的内容" class="headerlink" title="重写了gitignore但是想删除已提交但想忽略的内容"></a>重写了gitignore但是想删除已提交但想忽略的内容</h1><p>已经提交过的文件或者文件夹怎么办？此时更改.gitignore文件对已经提交的文件是无效的。<br>首先，编辑.gitignore文件。</p><p>然后如果是单个文件，可以使用如下命令从仓库中删除：</p><pre><code>git rm --cached logs/xx.log</code></pre><p>如果是整个目录：</p><pre><code>git rm --cached -r logs</code></pre><p>如果文件很多，那么直接</p><pre><code>git rm --cached -r .</code></pre><p>如果提示某个文件无法忽略，可以添加-f参数强制忽略。</p><pre><code>git rm -f --cached logs/xx.log</code></pre><p>然后</p><pre><code>git add .git commit -m &quot;Update .gitignore&quot;</code></pre><p>把被忽略的某个文件强制添加回去：</p><pre><code>git add -f filename</code></pre><p>ignore规则检查：</p><pre><code>git check-ignore</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>merge conflict</title>
+      <link href="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"/>
+      <url>/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</url>
+      
+        <content type="html"><![CDATA[<p>git push提示冲突</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-47-59.png"></p><p>会在源文件中看到标记的冲突的HEAD</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-48-22.png"></p><p>修改完在git add . 再commit push</p><p>如果没有实质差异，“current change”是你的修改的，那个commit id的是已存在的，按照已存在的来</p><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><pre><code>git stashgit commitgit stash pop</code></pre><p>接下来diff一下此文件看看自动合并的情况，并作出相应修改。</p><p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。</p><p>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。</p><p>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。</p><p>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>]]></content>
       
       
       <categories>
@@ -384,11 +365,11 @@
     
     
     <entry>
-      <title>build a new repo</title>
-      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/"/>
-      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/</url>
+      <title>新建某分支并推送、合并分支</title>
+      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
+      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</url>
       
-        <content type="html"><![CDATA[<h1 id="新建项目仓库"><a href="#新建项目仓库" class="headerlink" title="新建项目仓库"></a>新建项目仓库</h1><h3 id="创建本地git项目"><a href="#创建本地git项目" class="headerlink" title="创建本地git项目"></a>创建本地git项目</h3><pre><code>git init</code></pre><p>git init &lt;仓库名&gt;没法执行，init后面不要跟参数当名字。</p><h3 id="github上创建一个仓库"><a href="#github上创建一个仓库" class="headerlink" title="github上创建一个仓库"></a>github上创建一个仓库</h3><p>登录github创建个空的仓库</p><h3 id="登录github创建个空的仓库，添加远程仓库"><a href="#登录github创建个空的仓库，添加远程仓库" class="headerlink" title="登录github创建个空的仓库，添加远程仓库"></a>登录github创建个空的仓库，添加远程仓库</h3><pre><code>git remote add origin https://github.com/xxx/xxx.git</code></pre><p>从远程master合并到本地master</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;xxxx&quot; </span><br><span class="line">git config --global user.email xxxxx@xx.com</span><br></pre></td></tr></table></figure><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit - m &quot;init&quot;</span><br><span class="line">git remote add origin https://github.com/xxx/xxx.git</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure><p>如果有冲突就尝试（通常是你创建仓库的时候新建了什么readme和license）：<br>    git pull origin master:master</p><p>也可以直接强制推送：<br>    git push origin master –force</p><h3 id="提交本地分支到远程分支"><a href="#提交本地分支到远程分支" class="headerlink" title="提交本地分支到远程分支"></a>提交本地分支到远程分支</h3><pre><code>git push -u origin master</code></pre><h3 id="将现有项目添加并提交上传"><a href="#将现有项目添加并提交上传" class="headerlink" title="将现有项目添加并提交上传"></a>将现有项目添加并提交上传</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add -A</span><br><span class="line">（git add . 是提交当前路径  git add -A 是提交整个文件夹子文件夹路径）</span><br><span class="line">git commit -m &#x27;初始化git项目&#x27;</span><br><span class="line">git push --set-upstream origin master</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<h1 id="新建某分支并推送至某分支：以考试系统es为例版本管理"><a href="#新建某分支并推送至某分支：以考试系统es为例版本管理" class="headerlink" title="新建某分支并推送至某分支：以考试系统es为例版本管理"></a>新建某分支并推送至某分支：以考试系统es为例版本管理</h1><p>新建新分支并推送至新分支之前，需要检查当前分值是否还有未提交的状态</p><p><code>git status</code> # 可以检查是否有新文件未被track</p><p><code>git remote -v</code> # 查看远程分值，一般如下，同一个地址具有拿下或push的权限</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">origin  http://shenyanjian.cn:3000/senranja/exam_system.git (fetch)</span><br><span class="line">origin  http://shenyanjian.cn:3000/senranja/exam_system.git (push)</span><br></pre></td></tr></table></figure><p><code>git fetch</code> # 拿下仓库最新分值信息。<code>git pull==git fetch + git merge</code>，git fetch是安全的、不会合并的命令</p><p><code>git branch -r</code> # 查看全部的远程分支，通常显示如下：（若远程分支只有main）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">origin/HEAD -&gt; origin/main</span><br><span class="line">origin/main</span><br></pre></td></tr></table></figure><p><code>git checkout -b V0.0.2</code> # 以当前分支为副本创建V0.0.2</p><p><code>git checkout V0.0.2</code> # 切换到分值V0.0.2</p><p>（现在在此处放一些部署文档、版本交付说明）</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;V0.0.2&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fatal: The current branch V0.0.2 has no upstream branch.</span><br><span class="line">To push the current branch and set the remote as upstream, use</span><br><span class="line"></span><br><span class="line">    git push --set-upstream origin V0.0.2</span><br></pre></td></tr></table></figure><p>如上报错，意思是远程分值还没有V0.0.2，需要手动设置下</p><pre><code>git push --set-upstream origin V0.0.2</code></pre><p>完成</p><p>切换回主分支：</p><pre><code>git checkout main</code></pre><h1 id="本地合并其他分支到本分支，再推送"><a href="#本地合并其他分支到本分支，再推送" class="headerlink" title="本地合并其他分支到本分支，再推送"></a>本地合并其他分支到本分支，再推送</h1><p>要将本地的 dev 分支合并到 main 分支，你可以按照以下步骤进行操作：</p><p>确保你当前位于 main 分支上。你可以通过以下命令来确保：</p><pre><code>git checkout main</code></pre><p>然后，执行 git pull 命令来确保你的 main 分支是最新的：</p><pre><code>git pull origin main</code></pre><p>接着，执行 git merge 命令来合并 dev 分支到 main 分支：</p><pre><code>git merge dev</code></pre><p>如果有冲突，在合并过程中会停下来，需要你解决这些冲突。解决完冲突后，你需要执行 <code>git add </code>命令来标记冲突已解决的文件，然后执行 <code>git merge --continue</code> 来继续合并过程。</p><p>最后，当合并完成，你可以将合并后的 main 分支推送到远程仓库：</p><pre><code>git push origin main</code></pre><p>通过这些步骤，你就可以将本地的 dev 分支成功合并到 main 分支，并将更新推送到远程仓库。</p>]]></content>
       
       
       <categories>
@@ -403,11 +384,11 @@
     
     
     <entry>
-      <title>新建某分支并推送、合并分支</title>
-      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
-      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</url>
+      <title>build a new repo</title>
+      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/"/>
+      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/</url>
       
-        <content type="html"><![CDATA[<h1 id="新建某分支并推送至某分支：以考试系统es为例版本管理"><a href="#新建某分支并推送至某分支：以考试系统es为例版本管理" class="headerlink" title="新建某分支并推送至某分支：以考试系统es为例版本管理"></a>新建某分支并推送至某分支：以考试系统es为例版本管理</h1><p>新建新分支并推送至新分支之前，需要检查当前分值是否还有未提交的状态</p><p><code>git status</code> # 可以检查是否有新文件未被track</p><p><code>git remote -v</code> # 查看远程分值，一般如下，同一个地址具有拿下或push的权限</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">origin  http://shenyanjian.cn:3000/senranja/exam_system.git (fetch)</span><br><span class="line">origin  http://shenyanjian.cn:3000/senranja/exam_system.git (push)</span><br></pre></td></tr></table></figure><p><code>git fetch</code> # 拿下仓库最新分值信息。<code>git pull==git fetch + git merge</code>，git fetch是安全的、不会合并的命令</p><p><code>git branch -r</code> # 查看全部的远程分支，通常显示如下：（若远程分支只有main）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">origin/HEAD -&gt; origin/main</span><br><span class="line">origin/main</span><br></pre></td></tr></table></figure><p><code>git checkout -b V0.0.2</code> # 以当前分支为副本创建V0.0.2</p><p><code>git checkout V0.0.2</code> # 切换到分值V0.0.2</p><p>（现在在此处放一些部署文档、版本交付说明）</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;V0.0.2&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fatal: The current branch V0.0.2 has no upstream branch.</span><br><span class="line">To push the current branch and set the remote as upstream, use</span><br><span class="line"></span><br><span class="line">    git push --set-upstream origin V0.0.2</span><br></pre></td></tr></table></figure><p>如上报错，意思是远程分值还没有V0.0.2，需要手动设置下</p><pre><code>git push --set-upstream origin V0.0.2</code></pre><p>完成</p><p>切换回主分支：</p><pre><code>git checkout main</code></pre><h1 id="本地合并其他分支到本分支，再推送"><a href="#本地合并其他分支到本分支，再推送" class="headerlink" title="本地合并其他分支到本分支，再推送"></a>本地合并其他分支到本分支，再推送</h1><p>要将本地的 dev 分支合并到 main 分支，你可以按照以下步骤进行操作：</p><p>确保你当前位于 main 分支上。你可以通过以下命令来确保：</p><pre><code>git checkout main</code></pre><p>然后，执行 git pull 命令来确保你的 main 分支是最新的：</p><pre><code>git pull origin main</code></pre><p>接着，执行 git merge 命令来合并 dev 分支到 main 分支：</p><pre><code>git merge dev</code></pre><p>如果有冲突，在合并过程中会停下来，需要你解决这些冲突。解决完冲突后，你需要执行 <code>git add </code>命令来标记冲突已解决的文件，然后执行 <code>git merge --continue</code> 来继续合并过程。</p><p>最后，当合并完成，你可以将合并后的 main 分支推送到远程仓库：</p><pre><code>git push origin main</code></pre><p>通过这些步骤，你就可以将本地的 dev 分支成功合并到 main 分支，并将更新推送到远程仓库。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="新建项目仓库"><a href="#新建项目仓库" class="headerlink" title="新建项目仓库"></a>新建项目仓库</h1><h3 id="创建本地git项目"><a href="#创建本地git项目" class="headerlink" title="创建本地git项目"></a>创建本地git项目</h3><pre><code>git init</code></pre><p>git init &lt;仓库名&gt;没法执行，init后面不要跟参数当名字。</p><h3 id="github上创建一个仓库"><a href="#github上创建一个仓库" class="headerlink" title="github上创建一个仓库"></a>github上创建一个仓库</h3><p>登录github创建个空的仓库</p><h3 id="登录github创建个空的仓库，添加远程仓库"><a href="#登录github创建个空的仓库，添加远程仓库" class="headerlink" title="登录github创建个空的仓库，添加远程仓库"></a>登录github创建个空的仓库，添加远程仓库</h3><pre><code>git remote add origin https://github.com/xxx/xxx.git</code></pre><p>从远程master合并到本地master</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;xxxx&quot; </span><br><span class="line">git config --global user.email xxxxx@xx.com</span><br></pre></td></tr></table></figure><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit - m &quot;init&quot;</span><br><span class="line">git remote add origin https://github.com/xxx/xxx.git</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure><p>如果有冲突就尝试（通常是你创建仓库的时候新建了什么readme和license）：<br>    git pull origin master:master</p><p>也可以直接强制推送：<br>    git push origin master –force</p><h3 id="提交本地分支到远程分支"><a href="#提交本地分支到远程分支" class="headerlink" title="提交本地分支到远程分支"></a>提交本地分支到远程分支</h3><pre><code>git push -u origin master</code></pre><h3 id="将现有项目添加并提交上传"><a href="#将现有项目添加并提交上传" class="headerlink" title="将现有项目添加并提交上传"></a>将现有项目添加并提交上传</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add -A</span><br><span class="line">（git add . 是提交当前路径  git add -A 是提交整个文件夹子文件夹路径）</span><br><span class="line">git commit -m &#x27;初始化git项目&#x27;</span><br><span class="line">git push --set-upstream origin master</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -441,6 +422,44 @@
     
     
     <entry>
+      <title>branch</title>
+      <link href="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"/>
+      <url>/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/</url>
+      
+        <content type="html"><![CDATA[<h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch </code></pre><p>查看分支详细信息，列出本地所有的分支, + hash 信息</p><pre><code>git branch -v</code></pre><h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p>git branch -vv #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p><p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p><h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><p>#列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</p><pre><code>git branch -agit branch -a | grep xxx</code></pre><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code>git checkout -b xxx origin/xxx</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pycharm</title>
+      <link href="/2024/04/08/Python/pycharm/"/>
+      <url>/2024/04/08/Python/pycharm/</url>
+      
+        <content type="html"><![CDATA[<h1 id="破解版安装"><a href="#破解版安装" class="headerlink" title="破解版安装"></a>破解版安装</h1><p>pycharm: <a href="https://www.exception.site/essay/pycharm-pojie-jihuoma">https://www.exception.site/essay/pycharm-pojie-jihuoma</a></p><h1 id="插件推荐"><a href="#插件推荐" class="headerlink" title="插件推荐"></a>插件推荐</h1><pre><code>汉化statisticrainbow brackets(部分功能30天限制，经常让你买注册码，已弃用)markdown（其实vscode的md阅览比pycharm的要很快，这个自行选择）code glance (强烈推荐，右侧滚动条变小地图)translation</code></pre><h1 id="py解释器和虚拟环境"><a href="#py解释器和虚拟环境" class="headerlink" title="py解释器和虚拟环境"></a>py解释器和虚拟环境</h1><h3 id="虚拟解释器和机器系统的解释器不同，包环境不同"><a href="#虚拟解释器和机器系统的解释器不同，包环境不同" class="headerlink" title="虚拟解释器和机器系统的解释器不同，包环境不同"></a>虚拟解释器和机器系统的解释器不同，包环境不同</h3><p>创建一个新的项目，会想创建venv的虚拟解释器和库包<br>会根据系统现有的py复制一个<br>但是库文件是不同的，因为环境不同，如图：</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-24-45.png" alt="2024-04-10-22-24-45"></p><h3 id="使用pycharm手动安装包环境"><a href="#使用pycharm手动安装包环境" class="headerlink" title="使用pycharm手动安装包环境"></a>使用pycharm手动安装包环境</h3><p><strong>目前我指定虚拟解释器的py环境路径 直接 install -r requirements.txt 失败，推测requirements的版本不太对，是pycharm不支持的包版本</strong></p><p>但是我是用pycharm的设置 -&gt; 项目  -&gt; py解释器 手动安装包是可以的<br>此处也容易显示版本</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-25-40.png" alt="2024-04-10-22-25-40"></p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-25-56.png" alt="2024-04-10-22-25-56"></p><p>成功解决虚拟环境运行django项目</p><p>可以正常启动</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-26-26.png" alt="2024-04-10-22-26-26"></p><h1 id="结合conda创建新版本的python解释器并配置到pycharm"><a href="#结合conda创建新版本的python解释器并配置到pycharm" class="headerlink" title="结合conda创建新版本的python解释器并配置到pycharm"></a>结合conda创建新版本的python解释器并配置到pycharm</h1><p><strong>我思考了下，pycharm本身无法直接下载python3的不同版本，而手动从python官网下载不同的python3版本，操作还是太麻烦。此处依赖conda能自动下载不同python3版本，以及pycharm可以指定conda下载的py复制解释器到不同的项目，并处理不同的包依赖，可以使得调试不同项目的python解释器版本、包依赖相对分离。唯一缺点就是，软件重复程序冗余程度较高，但是这是pip自身设计的问题。</strong></p><p>不清楚为什么pycharm直接加载conda的解释器，会出现各种网络问题</p><p>因此手动执行命令：</p><pre><code>conda.exe create -p E:\anaconda3\envs\yolov5\envs -y python=3.10</code></pre><p>（若此命令出现网络问题，参考conda的安装、运行一节的报错处理）</p><p>然后pycharm添加该环境下的venv解释器（非conda环境）：</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-27-33.png" alt="2024-04-10-22-27-33"></p><p>相当于，conda的目录下弄了py3.10，然后又在这个代码项目下的env复制了解释器，和弄了包依赖的东西</p><p>最后手动执行命令（用户加目录下的pip的换源配置文件有效）：</p><pre><code>python -m pip install -r C:\Users\ranja\Desktop\ToStudy\yolov5\requirements.txt</code></pre><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-27-59.png" alt="2024-04-10-22-27-59"></p><p>最终等待此处完成即可。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-28-25.png" alt="2024-04-10-22-28-25"></p><p>如果pycharm检查到安装包的版本需要更新，则更新。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-28-56.png" alt="2024-04-10-22-28-56"></p><p>至此，解释器设置成功，按住ctrl，鼠标移动到任何函数代码，都显示可调式的高亮。</p><h1 id="代码行数统计"><a href="#代码行数统计" class="headerlink" title="代码行数统计"></a>代码行数统计</h1><p>安装插件  statistic</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-29-28.png" alt="2024-04-10-22-29-28"></p><p>可以统计当前项目的不同类型代码、统计规则</p><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>ctrl alt shift x 部署</p><h1 id="增加SFTP部署"><a href="#增加SFTP部署" class="headerlink" title="增加SFTP部署"></a>增加SFTP部署</h1><p>点击 IDEA 的文件 -&gt; 设置 -&gt; 项目，如图</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-30-04.png" alt="2024-04-10-22-30-04"></p><p>点击加号减号就可以新增部署。如果部署中没有目标的SSH，则需要先添加“python解释器”，远程解释器里写新的SSH，这里的部署才会有新的SSH账密连接。</p><h1 id="函数文档"><a href="#函数文档" class="headerlink" title="函数文档"></a>函数文档</h1><p>在Python中，函数的文档字符串（docstring）通常被用来描述函数的功能、参数、返回值以及可能的异常等信息。这些文档字符串被包裹在一对三个双引号之间。</p><p>一种常见的格式是reStructuredText（reST）格式，这是Python的官方文档所使用的格式。在reST格式下，函数的参数（param）和返回值（return）可以这样标注：</p><pre><code>def function_name(param1, param2):    &quot;&quot;&quot;    这是一个函数的简单描述。    :param param1: 这是param1的描述。    :type param1: 这是param1的类型。    :param param2: 这是param2的描述。    :type param2: 这是param2的类型。    :return: 这是返回值的描述。    :rtype: 这是返回值的类型。    &quot;&quot;&quot;    pass</code></pre><p>此外，你也可以使用Google或NumPy风格的docstring。这是Google风格的例子：</p><pre><code>def function_name(param1, param2):    &quot;&quot;&quot;    这是一个函数的简单描述。    Args:        param1 (type): 这是param1的描述。        param2 (type): 这是param2的描述。    Returns:        type: 这是返回值的描述。    &quot;&quot;&quot;    pass</code></pre><p>PyCharm和其他一些IDE支持这些格式，并可以根据docstring生成相应的函数&#x2F;方法签名和文档。</p><h3 id="实际示例"><a href="#实际示例" class="headerlink" title="实际示例"></a>实际示例</h3><pre><code>def timeCompare(time1, time2):    &quot;&quot;&quot;用于比较两个类似&#39;2023-05-17&#39;的时间戳字符串看谁更早。time1如果比time2更早或同天的话，返回True；否则返回False    Args:        time1 (str):传入类似&#39;2023-05-17&#39;的时间字符串        time2 (str):传入类似&#39;2023-05-17&#39;的时间字符串    Return:        res (bool):        &quot;&quot;&quot;    datetime1 = datetime.strptime(time1, &#39;%Y-%m-%d&#39;)    datetime2 = datetime.strptime(time2, &#39;%Y-%m-%d&#39;)    if datetime1 &lt;= datetime2:        return True    else:        return Falsedef singleCveHrefSpider(avd_url, session):    &quot;&quot;&quot;使用avd编号，匹配单个漏洞详情页的数据    Args:        avd_url(str): avd漏洞的链接地址        session(requests.Session): 用于网络IO的session    Returns:        res(dict): 返回无键默认None的字典        &quot;&quot;&quot;</code></pre><h1 id="正确的增加远程python解释器"><a href="#正确的增加远程python解释器" class="headerlink" title="正确的增加远程python解释器"></a>正确的增加远程python解释器</h1><p>总结：<br>1.py解释器中的上传目录通常是默认传到&#x2F;tmp&#x2F;pycharmxxxx中，这个无所谓，改为正确的上传路径即可。<br>2.<code>部署</code>改成正确的上传路径<br>3.<code>py解释器</code>中的路径映射写对，就可以远程调试了。</p><p>设置 -&gt; 项目 -&gt; python解释器</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-31-57.png" alt="2024-04-10-22-31-57"></p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-32-10.png" alt="2024-04-10-22-32-10"></p><p>这里可以改为正确的路径，不一定非得下面的 &#x2F;tmp 路径</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-32-34.png" alt="2024-04-10-22-32-34"></p><p>映射路径选择本地路径就可以。如果解释器的映射路径不对，那回到上图改一下，再到这里选择正确的本地路径就可以进行远程调试了。</p><p>Py解释器中的路径映射填写正确，就可以正常进行远程调试了。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-33-14.png" alt="2024-04-10-22-33-14"></p><h3 id="坑点：Pycharm-Can’t-get-remote-credentials-for-deployment-server"><a href="#坑点：Pycharm-Can’t-get-remote-credentials-for-deployment-server" class="headerlink" title="坑点：Pycharm:Can’t get remote credentials for deployment server"></a>坑点：Pycharm:Can’t get remote credentials for deployment server</h3><p>不知道为啥我会遇到这个报错，去项目，python解释器，把现有的SSH解释器删除了，重新添加，就没问题了</p><h1 id="将项目启用为django支持"><a href="#将项目启用为django支持" class="headerlink" title="将项目启用为django支持"></a>将项目启用为django支持</h1><p>首先启用django支持，在 设置 –&gt;  语言和框架   Django  勾选“启用Django支持”</p><p>配置如下</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-33-54.png" alt="2024-04-10-22-33-54"></p><p>然后要运行，就点击调试配置器</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-34-08.png" alt="2024-04-10-22-34-08"></p><p>直接配置后，运行即可</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Py </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Dell 730风扇速度调整</title>
       <link href="/2024/04/08/Linux-Maintain/Dell730change_fans/"/>
       <url>/2024/04/08/Linux-Maintain/Dell730change_fans/</url>
@@ -460,16 +479,35 @@
     
     
     <entry>
-      <title>goland调试技巧</title>
-      <link href="/2024/04/08/Go/goland/"/>
-      <url>/2024/04/08/Go/goland/</url>
+      <title>boot after 1m30s</title>
+      <link href="/2024/04/08/Linux-Maintain/boot_slower_1m30/"/>
+      <url>/2024/04/08/Linux-Maintain/boot_slower_1m30/</url>
       
-        <content type="html"><![CDATA[<h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!&#x3D;nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH&#x2F;bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
+        <content type="html"><![CDATA[<p>开机启动1m30s慢</p><p>Ubuntu开机卡在 A start job is runing for wait for Network to be configured (1min 23s &#x2F; no limit)解决方法</p><p>参考链接：<a href="https://blog.csdn.net/weixin_42300866/article/details/123712774">https://blog.csdn.net/weixin_42300866/article/details/123712774</a></p><pre><code>root@k8s-master1:~# cd /etc/systemd/system/network-online.target.wants/root@k8s-master1:/etc/systemd/system/network-online.target.wants# lltotal 8drwxr-xr-x  2 root root 4096 Aug 24  2021 ./drwxr-xr-x 19 root root 4096 Mar 24 08:11 ../lrwxrwxrwx  1 root root   56 Aug 16  2021 systemd-networkd-wait-online.service -&gt; /lib/systemd/system/systemd-networkd-wait-online.service</code></pre><p>添加内容如下：<br>在【service】代码快最末尾加上</p><pre><code>TimeoutStartSec=2sec</code></pre><p>修改内容如下：</p><pre><code>#  SPDX-License-Identifier: LGPL-2.1+##  This file is part of systemd.##  systemd is free software; you can redistribute it and/or modify it#  under the terms of the GNU Lesser General Public License as published by#  the Free Software Foundation; either version 2.1 of the License, or#  (at your option) any later version.[Unit]Description=Wait for Network to be ConfiguredDocumentation=man:systemd-networkd-wait-online.service(8)DefaultDependencies=noConflicts=shutdown.targetRequires=systemd-networkd.serviceAfter=systemd-networkd.serviceBefore=network-online.target shutdown.target[Service]Type=oneshotExecStart=/lib/systemd/systemd-networkd-wait-onlineRemainAfterExit=yesTimeoutStartSec=2sec[Install]WantedBy=network-online.target</code></pre>]]></content>
       
       
       <categories>
           
-          <category> Go </category>
+          <category> Linux-Maintain </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>fail2ban</title>
+      <link href="/2024/04/08/Linux-Maintain/fail2ban/"/>
+      <url>/2024/04/08/Linux-Maintain/fail2ban/</url>
+      
+        <content type="html"><![CDATA[<p>2024年4月8日，我和其他前端同事合作开发的考试系统，mysql数据库被黑，宕机。</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-05-54.png" alt="2024-04-09-21-05-54"></p><p>随后我禁止公网暴露mysql数据库，开始研究对其他网络协议的防止暴力破解，于是使用fail2ban对sshd和http的爆破进行限制。</p><h1 id="fail2ban：禁止爆破"><a href="#fail2ban：禁止爆破" class="headerlink" title="fail2ban：禁止爆破"></a>fail2ban：禁止爆破</h1><p>参考链接：<a href="https://www.myfreax.cominstall-configure-fail2ban-on-ubuntu-20-04/">https://www.myfreax.cominstall-configure-fail2ban-on-ubuntu-20-04/</a></p><p>fail2ban是根据你配置好的日志文件，和jail服务，来临时ban ip的，<strong>如果需要永久拒绝某个ip，直接操作防火墙ufw更合适</strong>。fail2ban只能根据配置好的jail_name来临时ban ip.</p><p>直接日志位置: &#x2F;var&#x2F;log&#x2F;fail2ban.log</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-03-27.png" alt="2024-04-09-21-03-27.png"></p><pre><code>apt update &amp;&amp; apt install fail2ban</code></pre><p>在默认情况下是禁用的，因为它的一些默认设置可能会导致不良效果。</p><pre><code>systemctl status fail2banfail2ban.service - Fail2Ban Service    Loaded: loaded (/lib/systemd/system/fail2ban.service; disabled; vendor preset: enabled)    Active: inactive (dead)    Docs: man:fail2ban(1)</code></pre><p>配置目录：&#x2F;etc&#x2F;fail2ban</p><p>默认有jail.conf的配置文件，但是<strong>不要动conf</strong>，自己新建.local的配置文件在local中编辑：</p><pre><code>cp /etc/fail2ban/jail.&#123;conf,local&#125;</code></pre><p>jail.local中有三个重要的</p><pre><code>bantime  = 1d  findtime  = 10m  maxretry = 5</code></pre><p>Fail2ban附带许多Jail作为示例，系统每一项服务都可以找到对应Jail配置。 要启用Jail，您需要在添加enabled &#x3D; true。 以下示例显示了如何为sshd服务启用Jail：</p><pre><code>[sshd]enabled   = true（ubunt可以不写）port    = sshlogpath = %(sshd_log)sbackend = %(sshd_backend)s/etc/fail2ban/jail.local</code></pre><p>每次修改配置文件时，都必须重新启动Fail2ban服务，以使更改生效：</p><pre><code>sudo systemctl restart fail2ban</code></pre><h1 id="fail2ban-client"><a href="#fail2ban-client" class="headerlink" title="fail2ban-client"></a>fail2ban-client</h1><p>检查fail2ban监视的sshd：</p><pre><code>fail2ban-client status sshd</code></pre><p>unban ip：</p><pre><code>fail2ban-client set sshd unbanip 23.34.45.56</code></pre><p>banIP：</p><pre><code>fail2ban-client set sshd banip 23.34.45.56</code></pre><p>我自己爆破sshd测试了下，这里一次ssh有3次重试密码机会，然后jail写的5次，这里其实测试的时候输错了15次密码，才会被fail2ban认为是要ban的ip。</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-07-36.png" alt="2024-04-09-21-07-36"></p><h1 id="实战：自定义WEB系统django封禁404或者爆破问题"><a href="#实战：自定义WEB系统django封禁404或者爆破问题" class="headerlink" title="实战：自定义WEB系统django封禁404或者爆破问题"></a>实战：自定义WEB系统django封禁404或者爆破问题</h1><p>我是用uwsgi启用的django，日志文件与格式如下：</p><pre><code>/var/log/uwsgi/uwsgi.log[pid: 799467|app: 0|req: 36/44] 129.151.212.54 () &#123;40 vars in 544 bytes&#125; [Tue Apr  9 07:44:07 2024] POST /api/login/ =&gt; generated 41 bytes in 244 msecs (HTTP/1.1 304) 7 headers in 267 bytes (1 switches on core 0)[pid: 799467|app: 0|req: 37/45] 129.151.212.54 () &#123;40 vars in 543 bytes&#125; [Tue Apr  9 07:44:10 2024] POST /api/login/ =&gt; generated 41 bytes in 263 msecs (HTTP/1.1 304) 7 headers in 267 bytes (1 switches on core 0)</code></pre><p>可以看到登录接口响应304，</p><p>然后，网络做法通常为使用 正则表达式 测试看是否能匹配到日志中测试数据：<br>但是此处有坑点，日志中有非标准格式行，会直接报错IndexError: string index out of range。这个问题仅仅是fail2ban-regex本身这种小测试工具的问题。</p><pre><code>fail2ban-regex /var/log/uwsgi/uwsgi.log  &quot;&lt;HOST&gt; \(.*\) .* \(HTTP/[012.]+ [345][0-9][0-9]\)&quot;</code></pre><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-08-29.png" alt="2024-04-09-21-08-29"></p><p>此时为了测试，需要把测试数据完整行单独放如&#x2F;var&#x2F;log&#x2F;uwsgi&#x2F;uwsgi.log2 的文件中测试正则。</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-08-48.png" alt="2024-04-09-21-08-48"></p><p>说明测试通过。</p><p>新建jail，自行命名</p><pre><code>vim /etc/fail2ban/jail.d/jail_uwsgi.local[uwsgi]enabled = trueport = 8000protocol = tcpfilter = uwsgilogpath = /var/log/uwsgi/uwsgi.logbantime = 120mfindtime = 10mmaxretry = 15</code></pre><p>新建filter，自行命名</p><pre><code>vim /etc/fail2ban/filter.d/uwsgi.conf[Definition]failregex = &lt;HOST&gt; \(.*\) .* \(HTTP/[012.]+ [345][0-9][0-9]\)ignoreregex =</code></pre><hr><pre><code>/etc/fail2ban/jail.local (不要编辑jail.conf)一众配置中新增如下：[uwsgi]# 此处jail.d定义和本初jail.local的参数可互相迭代指定，此处可仅写个[uwsgi]而不写配置参数（因为我的方法，在jail中已写）</code></pre><p>重启fail2ban</p><pre><code>systemctl restart fail2ban</code></pre><p>自己在本地打15个304的HTTP请求包后，可以看到自己的IP在 uwsgi 的jail 中被ban：</p><pre><code>root@racknerd-c012d0:/etc/fail2ban/jail.d# fail2ban-client status uwsgiStatus for the jail: uwsgi|- Filter|  |- Currently failed: 0|  |- Total failed:     15|  `- File list:        /var/log/uwsgi/uwsgi.log`- Actions|- Currently banned: 1|- Total banned:     1`- Banned IP list:   129.151.212.54root@racknerd-c012d0:/etc/fail2ban/jail.d# fail2ban-client status sshdStatus for the jail: sshd|- Filter|  |- Currently failed: 2|  |- Total failed:     6|  `- File list:        /var/log/auth.log`- Actions|- Currently banned: 3|- Total banned:     3`- Banned IP list:   218.92.0.122 218.92.0.22 218.92.0.29</code></pre><p>postman此时由于触发ban，发送仅响应503 service unresposable, 触发ufw的reject行为</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux-Maintain </category>
           
       </categories>
       
@@ -536,44 +574,6 @@
     
     
     <entry>
-      <title>boot after 1m30s</title>
-      <link href="/2024/04/08/Linux-Maintain/boot_slower_1m30/"/>
-      <url>/2024/04/08/Linux-Maintain/boot_slower_1m30/</url>
-      
-        <content type="html"><![CDATA[<p>开机启动1m30s慢</p><p>Ubuntu开机卡在 A start job is runing for wait for Network to be configured (1min 23s &#x2F; no limit)解决方法</p><p>参考链接：<a href="https://blog.csdn.net/weixin_42300866/article/details/123712774">https://blog.csdn.net/weixin_42300866/article/details/123712774</a></p><pre><code>root@k8s-master1:~# cd /etc/systemd/system/network-online.target.wants/root@k8s-master1:/etc/systemd/system/network-online.target.wants# lltotal 8drwxr-xr-x  2 root root 4096 Aug 24  2021 ./drwxr-xr-x 19 root root 4096 Mar 24 08:11 ../lrwxrwxrwx  1 root root   56 Aug 16  2021 systemd-networkd-wait-online.service -&gt; /lib/systemd/system/systemd-networkd-wait-online.service</code></pre><p>添加内容如下：<br>在【service】代码快最末尾加上</p><pre><code>TimeoutStartSec=2sec</code></pre><p>修改内容如下：</p><pre><code>#  SPDX-License-Identifier: LGPL-2.1+##  This file is part of systemd.##  systemd is free software; you can redistribute it and/or modify it#  under the terms of the GNU Lesser General Public License as published by#  the Free Software Foundation; either version 2.1 of the License, or#  (at your option) any later version.[Unit]Description=Wait for Network to be ConfiguredDocumentation=man:systemd-networkd-wait-online.service(8)DefaultDependencies=noConflicts=shutdown.targetRequires=systemd-networkd.serviceAfter=systemd-networkd.serviceBefore=network-online.target shutdown.target[Service]Type=oneshotExecStart=/lib/systemd/systemd-networkd-wait-onlineRemainAfterExit=yesTimeoutStartSec=2sec[Install]WantedBy=network-online.target</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux-Maintain </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>fail2ban</title>
-      <link href="/2024/04/08/Linux-Maintain/fail2ban/"/>
-      <url>/2024/04/08/Linux-Maintain/fail2ban/</url>
-      
-        <content type="html"><![CDATA[<p>2024年4月8日，我和其他前端同事合作开发的考试系统，mysql数据库被黑，宕机。</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-05-54.png" alt="2024-04-09-21-05-54"></p><p>随后我禁止公网暴露mysql数据库，开始研究对其他网络协议的防止暴力破解，于是使用fail2ban对sshd和http的爆破进行限制。</p><h1 id="fail2ban：禁止爆破"><a href="#fail2ban：禁止爆破" class="headerlink" title="fail2ban：禁止爆破"></a>fail2ban：禁止爆破</h1><p>参考链接：<a href="https://www.myfreax.cominstall-configure-fail2ban-on-ubuntu-20-04/">https://www.myfreax.cominstall-configure-fail2ban-on-ubuntu-20-04/</a></p><p>fail2ban是根据你配置好的日志文件，和jail服务，来临时ban ip的，<strong>如果需要永久拒绝某个ip，直接操作防火墙ufw更合适</strong>。fail2ban只能根据配置好的jail_name来临时ban ip.</p><p>直接日志位置: &#x2F;var&#x2F;log&#x2F;fail2ban.log</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-03-27.png" alt="2024-04-09-21-03-27.png"></p><pre><code>apt update &amp;&amp; apt install fail2ban</code></pre><p>在默认情况下是禁用的，因为它的一些默认设置可能会导致不良效果。</p><pre><code>systemctl status fail2banfail2ban.service - Fail2Ban Service    Loaded: loaded (/lib/systemd/system/fail2ban.service; disabled; vendor preset: enabled)    Active: inactive (dead)    Docs: man:fail2ban(1)</code></pre><p>配置目录：&#x2F;etc&#x2F;fail2ban</p><p>默认有jail.conf的配置文件，但是<strong>不要动conf</strong>，自己新建.local的配置文件在local中编辑：</p><pre><code>cp /etc/fail2ban/jail.&#123;conf,local&#125;</code></pre><p>jail.local中有三个重要的</p><pre><code>bantime  = 1d  findtime  = 10m  maxretry = 5</code></pre><p>Fail2ban附带许多Jail作为示例，系统每一项服务都可以找到对应Jail配置。 要启用Jail，您需要在添加enabled &#x3D; true。 以下示例显示了如何为sshd服务启用Jail：</p><pre><code>[sshd]enabled   = true（ubunt可以不写）port    = sshlogpath = %(sshd_log)sbackend = %(sshd_backend)s/etc/fail2ban/jail.local</code></pre><p>每次修改配置文件时，都必须重新启动Fail2ban服务，以使更改生效：</p><pre><code>sudo systemctl restart fail2ban</code></pre><h1 id="fail2ban-client"><a href="#fail2ban-client" class="headerlink" title="fail2ban-client"></a>fail2ban-client</h1><p>检查fail2ban监视的sshd：</p><pre><code>fail2ban-client status sshd</code></pre><p>unban ip：</p><pre><code>fail2ban-client set sshd unbanip 23.34.45.56</code></pre><p>banIP：</p><pre><code>fail2ban-client set sshd banip 23.34.45.56</code></pre><p>我自己爆破sshd测试了下，这里一次ssh有3次重试密码机会，然后jail写的5次，这里其实测试的时候输错了15次密码，才会被fail2ban认为是要ban的ip。</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-07-36.png" alt="2024-04-09-21-07-36"></p><h1 id="实战：自定义WEB系统django封禁404或者爆破问题"><a href="#实战：自定义WEB系统django封禁404或者爆破问题" class="headerlink" title="实战：自定义WEB系统django封禁404或者爆破问题"></a>实战：自定义WEB系统django封禁404或者爆破问题</h1><p>我是用uwsgi启用的django，日志文件与格式如下：</p><pre><code>/var/log/uwsgi/uwsgi.log[pid: 799467|app: 0|req: 36/44] 129.151.212.54 () &#123;40 vars in 544 bytes&#125; [Tue Apr  9 07:44:07 2024] POST /api/login/ =&gt; generated 41 bytes in 244 msecs (HTTP/1.1 304) 7 headers in 267 bytes (1 switches on core 0)[pid: 799467|app: 0|req: 37/45] 129.151.212.54 () &#123;40 vars in 543 bytes&#125; [Tue Apr  9 07:44:10 2024] POST /api/login/ =&gt; generated 41 bytes in 263 msecs (HTTP/1.1 304) 7 headers in 267 bytes (1 switches on core 0)</code></pre><p>可以看到登录接口响应304，</p><p>然后，网络做法通常为使用 正则表达式 测试看是否能匹配到日志中测试数据：<br>但是此处有坑点，日志中有非标准格式行，会直接报错IndexError: string index out of range。这个问题仅仅是fail2ban-regex本身这种小测试工具的问题。</p><pre><code>fail2ban-regex /var/log/uwsgi/uwsgi.log  &quot;&lt;HOST&gt; \(.*\) .* \(HTTP/[012.]+ [345][0-9][0-9]\)&quot;</code></pre><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-08-29.png" alt="2024-04-09-21-08-29"></p><p>此时为了测试，需要把测试数据完整行单独放如&#x2F;var&#x2F;log&#x2F;uwsgi&#x2F;uwsgi.log2 的文件中测试正则。</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-08-48.png" alt="2024-04-09-21-08-48"></p><p>说明测试通过。</p><p>新建jail，自行命名</p><pre><code>vim /etc/fail2ban/jail.d/jail_uwsgi.local[uwsgi]enabled = trueport = 8000protocol = tcpfilter = uwsgilogpath = /var/log/uwsgi/uwsgi.logbantime = 120mfindtime = 10mmaxretry = 15</code></pre><p>新建filter，自行命名</p><pre><code>vim /etc/fail2ban/filter.d/uwsgi.conf[Definition]failregex = &lt;HOST&gt; \(.*\) .* \(HTTP/[012.]+ [345][0-9][0-9]\)ignoreregex =</code></pre><hr><pre><code>/etc/fail2ban/jail.local (不要编辑jail.conf)一众配置中新增如下：[uwsgi]# 此处jail.d定义和本初jail.local的参数可互相迭代指定，此处可仅写个[uwsgi]而不写配置参数（因为我的方法，在jail中已写）</code></pre><p>重启fail2ban</p><pre><code>systemctl restart fail2ban</code></pre><p>自己在本地打15个304的HTTP请求包后，可以看到自己的IP在 uwsgi 的jail 中被ban：</p><pre><code>root@racknerd-c012d0:/etc/fail2ban/jail.d# fail2ban-client status uwsgiStatus for the jail: uwsgi|- Filter|  |- Currently failed: 0|  |- Total failed:     15|  `- File list:        /var/log/uwsgi/uwsgi.log`- Actions|- Currently banned: 1|- Total banned:     1`- Banned IP list:   129.151.212.54root@racknerd-c012d0:/etc/fail2ban/jail.d# fail2ban-client status sshdStatus for the jail: sshd|- Filter|  |- Currently failed: 2|  |- Total failed:     6|  `- File list:        /var/log/auth.log`- Actions|- Currently banned: 3|- Total banned:     3`- Banned IP list:   218.92.0.122 218.92.0.22 218.92.0.29</code></pre><p>postman此时由于触发ban，发送仅响应503 service unresposable, 触发ufw的reject行为</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux-Maintain </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>ufw</title>
       <link href="/2024/04/08/Linux-Maintain/ufw/"/>
       <url>/2024/04/08/Linux-Maintain/ufw/</url>
@@ -593,16 +593,16 @@
     
     
     <entry>
-      <title>pycharm</title>
-      <link href="/2024/04/08/Python/pycharm/"/>
-      <url>/2024/04/08/Python/pycharm/</url>
+      <title>goland调试技巧</title>
+      <link href="/2024/04/08/Go/goland/"/>
+      <url>/2024/04/08/Go/goland/</url>
       
-        <content type="html"><![CDATA[<h1 id="破解版安装"><a href="#破解版安装" class="headerlink" title="破解版安装"></a>破解版安装</h1><p>pycharm: <a href="https://www.exception.site/essay/pycharm-pojie-jihuoma">https://www.exception.site/essay/pycharm-pojie-jihuoma</a></p><h1 id="插件推荐"><a href="#插件推荐" class="headerlink" title="插件推荐"></a>插件推荐</h1><pre><code>汉化statisticrainbow brackets(部分功能30天限制，经常让你买注册码，已弃用)markdown（其实vscode的md阅览比pycharm的要很快，这个自行选择）code glance (强烈推荐，右侧滚动条变小地图)translation</code></pre><h1 id="py解释器和虚拟环境"><a href="#py解释器和虚拟环境" class="headerlink" title="py解释器和虚拟环境"></a>py解释器和虚拟环境</h1><h3 id="虚拟解释器和机器系统的解释器不同，包环境不同"><a href="#虚拟解释器和机器系统的解释器不同，包环境不同" class="headerlink" title="虚拟解释器和机器系统的解释器不同，包环境不同"></a>虚拟解释器和机器系统的解释器不同，包环境不同</h3><p>创建一个新的项目，会想创建venv的虚拟解释器和库包<br>会根据系统现有的py复制一个<br>但是库文件是不同的，因为环境不同，如图：</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-24-45.png" alt="2024-04-10-22-24-45"></p><h3 id="使用pycharm手动安装包环境"><a href="#使用pycharm手动安装包环境" class="headerlink" title="使用pycharm手动安装包环境"></a>使用pycharm手动安装包环境</h3><p><strong>目前我指定虚拟解释器的py环境路径 直接 install -r requirements.txt 失败，推测requirements的版本不太对，是pycharm不支持的包版本</strong></p><p>但是我是用pycharm的设置 -&gt; 项目  -&gt; py解释器 手动安装包是可以的<br>此处也容易显示版本</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-25-40.png" alt="2024-04-10-22-25-40"></p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-25-56.png" alt="2024-04-10-22-25-56"></p><p>成功解决虚拟环境运行django项目</p><p>可以正常启动</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-26-26.png" alt="2024-04-10-22-26-26"></p><h1 id="结合conda创建新版本的python解释器并配置到pycharm"><a href="#结合conda创建新版本的python解释器并配置到pycharm" class="headerlink" title="结合conda创建新版本的python解释器并配置到pycharm"></a>结合conda创建新版本的python解释器并配置到pycharm</h1><p><strong>我思考了下，pycharm本身无法直接下载python3的不同版本，而手动从python官网下载不同的python3版本，操作还是太麻烦。此处依赖conda能自动下载不同python3版本，以及pycharm可以指定conda下载的py复制解释器到不同的项目，并处理不同的包依赖，可以使得调试不同项目的python解释器版本、包依赖相对分离。唯一缺点就是，软件重复程序冗余程度较高，但是这是pip自身设计的问题。</strong></p><p>不清楚为什么pycharm直接加载conda的解释器，会出现各种网络问题</p><p>因此手动执行命令：</p><pre><code>conda.exe create -p E:\anaconda3\envs\yolov5\envs -y python=3.10</code></pre><p>（若此命令出现网络问题，参考conda的安装、运行一节的报错处理）</p><p>然后pycharm添加该环境下的venv解释器（非conda环境）：</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-27-33.png" alt="2024-04-10-22-27-33"></p><p>相当于，conda的目录下弄了py3.10，然后又在这个代码项目下的env复制了解释器，和弄了包依赖的东西</p><p>最后手动执行命令（用户加目录下的pip的换源配置文件有效）：</p><pre><code>python -m pip install -r C:\Users\ranja\Desktop\ToStudy\yolov5\requirements.txt</code></pre><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-27-59.png" alt="2024-04-10-22-27-59"></p><p>最终等待此处完成即可。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-28-25.png" alt="2024-04-10-22-28-25"></p><p>如果pycharm检查到安装包的版本需要更新，则更新。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-28-56.png" alt="2024-04-10-22-28-56"></p><p>至此，解释器设置成功，按住ctrl，鼠标移动到任何函数代码，都显示可调式的高亮。</p><h1 id="代码行数统计"><a href="#代码行数统计" class="headerlink" title="代码行数统计"></a>代码行数统计</h1><p>安装插件  statistic</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-29-28.png" alt="2024-04-10-22-29-28"></p><p>可以统计当前项目的不同类型代码、统计规则</p><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>ctrl alt shift x 部署</p><h1 id="增加SFTP部署"><a href="#增加SFTP部署" class="headerlink" title="增加SFTP部署"></a>增加SFTP部署</h1><p>点击 IDEA 的文件 -&gt; 设置 -&gt; 项目，如图</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-30-04.png" alt="2024-04-10-22-30-04"></p><p>点击加号减号就可以新增部署。如果部署中没有目标的SSH，则需要先添加“python解释器”，远程解释器里写新的SSH，这里的部署才会有新的SSH账密连接。</p><h1 id="函数文档"><a href="#函数文档" class="headerlink" title="函数文档"></a>函数文档</h1><p>在Python中，函数的文档字符串（docstring）通常被用来描述函数的功能、参数、返回值以及可能的异常等信息。这些文档字符串被包裹在一对三个双引号之间。</p><p>一种常见的格式是reStructuredText（reST）格式，这是Python的官方文档所使用的格式。在reST格式下，函数的参数（param）和返回值（return）可以这样标注：</p><pre><code>def function_name(param1, param2):    &quot;&quot;&quot;    这是一个函数的简单描述。    :param param1: 这是param1的描述。    :type param1: 这是param1的类型。    :param param2: 这是param2的描述。    :type param2: 这是param2的类型。    :return: 这是返回值的描述。    :rtype: 这是返回值的类型。    &quot;&quot;&quot;    pass</code></pre><p>此外，你也可以使用Google或NumPy风格的docstring。这是Google风格的例子：</p><pre><code>def function_name(param1, param2):    &quot;&quot;&quot;    这是一个函数的简单描述。    Args:        param1 (type): 这是param1的描述。        param2 (type): 这是param2的描述。    Returns:        type: 这是返回值的描述。    &quot;&quot;&quot;    pass</code></pre><p>PyCharm和其他一些IDE支持这些格式，并可以根据docstring生成相应的函数&#x2F;方法签名和文档。</p><h3 id="实际示例"><a href="#实际示例" class="headerlink" title="实际示例"></a>实际示例</h3><pre><code>def timeCompare(time1, time2):    &quot;&quot;&quot;用于比较两个类似&#39;2023-05-17&#39;的时间戳字符串看谁更早。time1如果比time2更早或同天的话，返回True；否则返回False    Args:        time1 (str):传入类似&#39;2023-05-17&#39;的时间字符串        time2 (str):传入类似&#39;2023-05-17&#39;的时间字符串    Return:        res (bool):        &quot;&quot;&quot;    datetime1 = datetime.strptime(time1, &#39;%Y-%m-%d&#39;)    datetime2 = datetime.strptime(time2, &#39;%Y-%m-%d&#39;)    if datetime1 &lt;= datetime2:        return True    else:        return Falsedef singleCveHrefSpider(avd_url, session):    &quot;&quot;&quot;使用avd编号，匹配单个漏洞详情页的数据    Args:        avd_url(str): avd漏洞的链接地址        session(requests.Session): 用于网络IO的session    Returns:        res(dict): 返回无键默认None的字典        &quot;&quot;&quot;</code></pre><h1 id="正确的增加远程python解释器"><a href="#正确的增加远程python解释器" class="headerlink" title="正确的增加远程python解释器"></a>正确的增加远程python解释器</h1><p>总结：<br>1.py解释器中的上传目录通常是默认传到&#x2F;tmp&#x2F;pycharmxxxx中，这个无所谓，改为正确的上传路径即可。<br>2.<code>部署</code>改成正确的上传路径<br>3.<code>py解释器</code>中的路径映射写对，就可以远程调试了。</p><p>设置 -&gt; 项目 -&gt; python解释器</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-31-57.png" alt="2024-04-10-22-31-57"></p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-32-10.png" alt="2024-04-10-22-32-10"></p><p>这里可以改为正确的路径，不一定非得下面的 &#x2F;tmp 路径</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-32-34.png" alt="2024-04-10-22-32-34"></p><p>映射路径选择本地路径就可以。如果解释器的映射路径不对，那回到上图改一下，再到这里选择正确的本地路径就可以进行远程调试了。</p><p>Py解释器中的路径映射填写正确，就可以正常进行远程调试了。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-33-14.png" alt="2024-04-10-22-33-14"></p><h3 id="坑点：Pycharm-Can’t-get-remote-credentials-for-deployment-server"><a href="#坑点：Pycharm-Can’t-get-remote-credentials-for-deployment-server" class="headerlink" title="坑点：Pycharm:Can’t get remote credentials for deployment server"></a>坑点：Pycharm:Can’t get remote credentials for deployment server</h3><p>不知道为啥我会遇到这个报错，去项目，python解释器，把现有的SSH解释器删除了，重新添加，就没问题了</p><h1 id="将项目启用为django支持"><a href="#将项目启用为django支持" class="headerlink" title="将项目启用为django支持"></a>将项目启用为django支持</h1><p>首先启用django支持，在 设置 –&gt;  语言和框架   Django  勾选“启用Django支持”</p><p>配置如下</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-33-54.png" alt="2024-04-10-22-33-54"></p><p>然后要运行，就点击调试配置器</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-34-08.png" alt="2024-04-10-22-34-08"></p><p>直接配置后，运行即可</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!&#x3D;nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH&#x2F;bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
       
       
       <categories>
           
-          <category> Py </category>
+          <category> Go </category>
           
       </categories>
       
