@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>branch | SenRanJa</title>
+  <title>keep empty directory in git | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="branch | SenRanJa">
+  <meta name="description" content="keep empty directory in git | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeUNSW postgraduate student, major in Information Technology.">
 <meta property="og:type" content="website">
@@ -458,9 +458,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-git/分支操作" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-docker/gitkeep" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">branch</h1>
+        <h1 class="article-title">keep empty directory in git</h1>
     
     <div class="article-meta">
         
@@ -480,12 +480,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 19:58:38'>2024-04-09 17:58</time>
+            Created At : <time class="date" title='Updated At: 2024-04-09 19:57:38'>2024-04-09 17:58</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:180</span>
+        <span>Count:11</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -515,7 +515,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF"><span class="toc-text">查看分支</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%87%BA%E6%9C%AC%E5%9C%B0%E6%89%80%E6%9C%89%E7%9A%84%E5%88%86%E6%94%AF"><span class="toc-text">列出本地所有的分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF%E4%B8%8E%E8%BF%9C%E7%A8%8B%E7%9A%84%E5%85%B3%E8%81%94"><span class="toc-text">查看分支与远程的关联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF"><span class="toc-text">查看所有分支</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF"><span class="toc-text">切换分支</span></a></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -531,20 +531,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch 
-</code></pre>
-<p>查看分支详细信息，列出本地所有的分支, + hash 信息</p>
-<pre><code>git branch -v
-</code></pre>
-<h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p>git branch -vv #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p>
-<p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p>
-<h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><p>#列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</p>
-<pre><code>git branch -a
-
-git branch -a | grep xxx
-</code></pre>
-<h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code>git checkout -b xxx origin/xxx
-</code></pre>
+        <p>目录中新建空文件 <strong>.gitkeep</strong> 即可</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to comment with my incorrect words! </span>

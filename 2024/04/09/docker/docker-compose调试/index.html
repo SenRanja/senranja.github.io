@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>branch | SenRanJa</title>
+  <title>docker-compose调试和操作 | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="branch | SenRanJa">
+  <meta name="description" content="docker-compose调试和操作 | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeUNSW postgraduate student, major in Information Technology.">
 <meta property="og:type" content="website">
@@ -458,9 +458,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-git/分支操作" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-docker/docker-compose调试" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">branch</h1>
+        <h1 class="article-title">docker-compose调试和操作</h1>
     
     <div class="article-meta">
         
@@ -472,7 +472,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Git">Git</a>
+            <a  data-rel="Docker">Docker</a>
             
         </span>
         
@@ -480,12 +480,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 19:58:38'>2024-04-09 17:58</time>
+            Created At : <time class="date" title='Updated At: 2024-04-10 21:23:00'>2024-04-09 17:58</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:180</span>
+        <span>Count:573</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -515,7 +515,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF"><span class="toc-text">查看分支</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%87%BA%E6%9C%AC%E5%9C%B0%E6%89%80%E6%9C%89%E7%9A%84%E5%88%86%E6%94%AF"><span class="toc-text">列出本地所有的分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF%E4%B8%8E%E8%BF%9C%E7%A8%8B%E7%9A%84%E5%85%B3%E8%81%94"><span class="toc-text">查看分支与远程的关联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF"><span class="toc-text">查看所有分支</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF"><span class="toc-text">切换分支</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E4%BE%BF%E8%B0%83%E8%AF%95%E7%9A%84%E6%8A%80%E5%B7%A7"><span class="toc-text">方便调试的技巧</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#docker-compose%E6%93%8D%E4%BD%9C"><span class="toc-text">docker-compose操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E6%93%8D%E4%BD%9C"><span class="toc-text">导出导入操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%EF%BC%9Aexport%E5%92%8Cimport"><span class="toc-text">容器：export和import</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%EF%BC%9Asave%E5%92%8Cload"><span class="toc-text">镜像：save和load</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SD%E7%9A%84%E9%95%9C%E5%83%8F%E6%89%93%E5%8C%85%E5%8F%8A%E8%BF%90%E8%A1%8C"><span class="toc-text">SD的镜像打包及运行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E5%AF%BC%E5%87%BA"><span class="toc-text">打包导出</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -531,20 +531,51 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch 
+        <h1 id="方便调试的技巧"><a href="#方便调试的技巧" class="headerlink" title="方便调试的技巧"></a>方便调试的技巧</h1><pre><code>docker-compose down &amp;&amp; docker-compose rebuild &amp;&amp; docker-compose up -d
 </code></pre>
-<p>查看分支详细信息，列出本地所有的分支, + hash 信息</p>
-<pre><code>git branch -v
+<h1 id="docker-compose操作"><a href="#docker-compose操作" class="headerlink" title="docker-compose操作"></a>docker-compose操作</h1><pre><code>docker-compose build 构建镜像，镜像文件会存在docker images中
+docker-compose up -d 启动容器
+docker-compose down 移除容器（这点我以前以为down是类似于docker stop的命令，没想到docker-compose down是移除的意思，导致删库）
+docker-compose stop 暂停容器运行
 </code></pre>
-<h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p>git branch -vv #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p>
-<p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p>
-<h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><p>#列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</p>
-<pre><code>git branch -a
+<h1 id="导出导入操作"><a href="#导出导入操作" class="headerlink" title="导出导入操作"></a>导出导入操作</h1><p>参考链接:<a target="_blank" rel="noopener" href="https://www.hangge.com/blog/cache/detail_2411.html">https://www.hangge.com/blog/cache/detail_2411.html</a></p>
+<p>不过需要注意一下，导入导出的时候最好根据<code>docker ps -a</code>的 名字来操作，不要根据 container id 来操作。否则导入的时候，显示的名字可能是 <none>。这个时候虽然容器可以正常运行，但是很多人会感觉<none>是错误的。</none></none></p>
+<p>最重要的注意，<strong>docker-compose无法构建容器为镜像，而且也不会复制外部目录到内部</strong>，有的仅仅是volumns: xxx:xxx的挂载。如果容器是使用的挂载目录，而不是复制进去的文件，那么会无法运行相应目录中的文件和程序。</p>
+<p>所以Dockerfile和dockerf-compose.yml结合使用。</p>
+<h1 id="容器：export和import"><a href="#容器：export和import" class="headerlink" title="容器：export和import"></a>容器：export和import</h1><pre><code>docker export f299f501774c &gt; hangger_server.tar
+docker import - new_hangger_server &lt; hangger_server.tar
+</code></pre>
+<h1 id="镜像：save和load"><a href="#镜像：save和load" class="headerlink" title="镜像：save和load"></a>镜像：save和load</h1><p>（1）下面使用 docker save 命令根据 ID 将镜像保存成一个文件。</p>
+<pre><code>docker save 0fdf2b4c26d3 &gt; hangge_server.tar
+</code></pre>
+<p><strong>(这么打包，是没有标签名字的。最好指定镜像标签名而非镜像id打包)</strong></p>
+<p>（2）我们还可以同时将多个 image 打包成一个文件，比如下面将镜像库中的 postgres 和 mongo 打包：</p>
+<pre><code>docker save -o images.tar postgres:9.6 mongo:3.4
+</code></pre>
+<p>载入镜像</p>
+<pre><code>docker load &lt; hangge_server.tar
+</code></pre>
+<h1 id="SD的镜像打包及运行"><a href="#SD的镜像打包及运行" class="headerlink" title="SD的镜像打包及运行"></a>SD的镜像打包及运行</h1><h3 id="打包导出"><a href="#打包导出" class="headerlink" title="打包导出"></a>打包导出</h3><p>先命名个版本</p>
+<pre><code>docker tag f0b0777d65d7 sd_secretdetection_docker:2.3
+</code></pre>
+<p>打包，不要根据镜像id打包，不然未来没有名字，得指定tag：</p>
+<pre><code>docker save -o sd-2.3.tar sd_secretdetection_docker:2.3
+</code></pre>
+<p>加载运行</p>
+<pre><code>docker load &lt; sd-2.3.tar
+docker run -itd -p 8000:8000 sd_secretdetection_docker:2.3
+</code></pre>
+<p>run镜像，并指定容器名字</p>
+<p>指定镜像名字:</p>
+<pre><code>docker run --name my_container my_image
 
-git branch -a | grep xxx
+docker load &lt; shenyanjian.tar
+docker run -itd -p 8000:8000 --name secretdetection shenyanjian_secretdetection_docker:latest
 </code></pre>
-<h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code>git checkout -b xxx origin/xxx
+<p>将容器保存为本地镜像</p>
+<pre><code>docker commit -a &quot;blingsec&quot; -m &quot;sd2.0&quot; secret_detection_http secret_detection_http:v2.0
 </code></pre>
+<p>-a是作者名，-m 是标注信息，最后的secret_detection_http:v2.0 是命名</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to comment with my incorrect words! </span>

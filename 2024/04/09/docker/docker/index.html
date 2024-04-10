@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>branch | SenRanJa</title>
+  <title>dockerhub &amp;&amp; docker | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="branch | SenRanJa">
+  <meta name="description" content="dockerhub &amp;&amp; docker | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeUNSW postgraduate student, major in Information Technology.">
 <meta property="og:type" content="website">
@@ -458,9 +458,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-git/分支操作" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-docker/docker" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">branch</h1>
+        <h1 class="article-title">dockerhub &amp;&amp; docker</h1>
     
     <div class="article-meta">
         
@@ -472,7 +472,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Git">Git</a>
+            <a  data-rel="Docker">Docker</a>
             
         </span>
         
@@ -480,12 +480,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 19:58:38'>2024-04-09 17:58</time>
+            Created At : <time class="date" title='Updated At: 2024-04-10 21:15:30'>2024-04-09 17:58</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:180</span>
+        <span>Count:543</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -515,7 +515,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF"><span class="toc-text">查看分支</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%87%BA%E6%9C%AC%E5%9C%B0%E6%89%80%E6%9C%89%E7%9A%84%E5%88%86%E6%94%AF"><span class="toc-text">列出本地所有的分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF%E4%B8%8E%E8%BF%9C%E7%A8%8B%E7%9A%84%E5%85%B3%E8%81%94"><span class="toc-text">查看分支与远程的关联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF"><span class="toc-text">查看所有分支</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF"><span class="toc-text">切换分支</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%AD%E5%9B%BD%E7%94%A8%E6%88%B7%E6%8D%A2%E6%BA%90"><span class="toc-text">中国用户换源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#dockerhub"><span class="toc-text">dockerhub</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%90%AD%E5%BB%BAgitlab-ce%E4%B8%BA%E4%BE%8B"><span class="toc-text">搭建gitlab-ce为例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E7%9B%AE%E5%BD%95%E7%BB%86%E8%8A%82"><span class="toc-text">复制目录细节</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%A0%E9%99%A4none%E9%95%9C%E5%83%8F"><span class="toc-text">删除none镜像</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -531,19 +531,69 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch 
-</code></pre>
-<p>查看分支详细信息，列出本地所有的分支, + hash 信息</p>
-<pre><code>git branch -v
-</code></pre>
-<h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p>git branch -vv #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p>
-<p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p>
-<h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><p>#列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</p>
-<pre><code>git branch -a
+        <h1 id="中国用户换源"><a href="#中国用户换源" class="headerlink" title="中国用户换源"></a>中国用户换源</h1><pre><code>vim /etc/docker/daemon.json
+&#123;
+&quot;registry-mirrors&quot;:[&quot;https://hub-mirror.c.163.com&quot;,&quot;https://registry.aliyuncs.com&quot;,&quot;https://registry.docker-cn.com&quot;,&quot;https://docker.mirrors.ustc.edu.cn&quot;]
+&#125;
 
-git branch -a | grep xxx
+service docker restart
 </code></pre>
-<h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code>git checkout -b xxx origin/xxx
+<h1 id="dockerhub"><a href="#dockerhub" class="headerlink" title="dockerhub"></a>dockerhub</h1><p>log in <a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a>, register an account.</p>
+<p>pull your private image</p>
+<pre><code>docker pull senranja/secret_detection
+</code></pre>
+<p>build an image with tag, upload image to dockerhub</p>
+<pre><code>docker image build -t senranja/secret_detection:v2.1 .
+docker login
+docker push username/repo:tag
+</code></pre>
+<h1 id="搭建gitlab-ce为例"><a href="#搭建gitlab-ce为例" class="headerlink" title="搭建gitlab-ce为例"></a>搭建gitlab-ce为例</h1><p>安装gitlab-ce参考链接：</p>
+<pre><code>https://blog.csdn.net/BThinker/article/details/124097795
+</code></pre>
+<p>查找镜像</p>
+<pre><code>docker search gitlab
+</code></pre>
+<p>拉取Gitlab镜像</p>
+<pre><code>docker pull gitlab/gitlab-ce:latest
+</code></pre>
+<p>启动容器，这里docker run命令的-v和dockerfile以及docker-compose.yaml中的-v 挂在目录，不需要你自己手动创建目录。即便目录不存在，他会自动创建。</p>
+<pre><code>docker run \
+-itd  \
+-p 9980:80 \
+-p 9922:22 \
+-v /home/gitlab/etc:/etc/gitlab  \
+-v /home/gitlab/log:/var/log/gitlab \
+-v /home/gitlab/opt:/var/opt/gitlab \
+--restart always \
+--privileged=true \
+--name gitlab \
+gitlab/gitlab-ce
+</code></pre>
+<p>命令</p>
+<pre><code>-i	 以交互模式运行容器，通常与 -t 同时使用命令解释
+-t	 为容器重新分配一个伪输入终端，通常与 -i 同时使用
+-d	后台运行容器，并返回容器ID
+-p 9980:80	将容器内80端口映射至宿主机9980端口，这是访问gitlab的端口
+-p 9922:22	 将容器内22端口映射至宿主机9922端口，这是访问ssh的端口
+-v /home/gitlab/etc:/etc/gitlab	将容器/etc/gitlab目录挂载到宿主机/usr/local/gitlab-test/etc目录下，若宿主机内此目录不存在将会自动创建，其他两个挂载同这个一样
+--restart always	容器自启动
+--privileged=true	让容器获取宿主机root权限
+--name gitlab	设置容器名称为gitlab
+gitlab/gitlab-ce	镜像的名称，这里也可以写镜像ID
+</code></pre>
+<h1 id="复制目录细节"><a href="#复制目录细节" class="headerlink" title="复制目录细节"></a>复制目录细节</h1><p>屁股加不加 &#x2F;没区别</p>
+<ol>
+<li><p>   目录下文件复制到目标目录下，不包含目录本身</p>
+<p>  COPY .&#x2F;dist&#x2F; &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;</p>
+</li>
+</ol>
+<p>是将 .&#x2F;dist&#x2F;下文件 放入 &#x2F;html&#x2F;，dist本身没目录</p>
+<ol start="2">
+<li><p>   连带这个目录复制进入</p>
+<p>  COPY .&#x2F;dist &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;dist</p>
+</li>
+</ol>
+<h1 id="删除none镜像"><a href="#删除none镜像" class="headerlink" title="删除none镜像"></a>删除none镜像</h1><pre><code>docker images -a | grep &quot;&lt;none&gt;&quot; | awk &#39;&#123;print $3&#125;&#39; | xargs docker rmi
 </code></pre>
 
       

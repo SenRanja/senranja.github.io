@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>branch | SenRanJa</title>
+  <title>docker network | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="branch | SenRanJa">
+  <meta name="description" content="docker network | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeUNSW postgraduate student, major in Information Technology.">
 <meta property="og:type" content="website">
@@ -458,9 +458,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-git/分支操作" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-docker/docker-network" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">branch</h1>
+        <h1 class="article-title">docker network</h1>
     
     <div class="article-meta">
         
@@ -472,7 +472,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Git">Git</a>
+            <a  data-rel="Docker">Docker</a>
             
         </span>
         
@@ -480,12 +480,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-04-09 19:58:38'>2024-04-09 17:58</time>
+            Created At : <time class="date" title='Updated At: 2024-04-10 21:30:17'>2024-04-09 17:58</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:180</span>
+        <span>Count:366</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -515,7 +515,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF"><span class="toc-text">查看分支</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%87%BA%E6%9C%AC%E5%9C%B0%E6%89%80%E6%9C%89%E7%9A%84%E5%88%86%E6%94%AF"><span class="toc-text">列出本地所有的分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF%E4%B8%8E%E8%BF%9C%E7%A8%8B%E7%9A%84%E5%85%B3%E8%81%94"><span class="toc-text">查看分支与远程的关联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF"><span class="toc-text">查看所有分支</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF"><span class="toc-text">切换分支</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#docker-network%E7%BD%91%E7%BB%9C%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-text">docker network网络的优势</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAdocker-network"><span class="toc-text">创建docker network</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -531,20 +531,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch 
-</code></pre>
-<p>查看分支详细信息，列出本地所有的分支, + hash 信息</p>
-<pre><code>git branch -v
-</code></pre>
-<h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p>git branch -vv #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p>
-<p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p>
-<h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><p>#列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</p>
-<pre><code>git branch -a
-
-git branch -a | grep xxx
-</code></pre>
-<h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code>git checkout -b xxx origin/xxx
-</code></pre>
+        <h1 id="docker-network网络的优势"><a href="#docker-network网络的优势" class="headerlink" title="docker network网络的优势"></a><strong>docker network网络的优势</strong></h1><p>同一个 Docker <strong>网络中的容器之间可以使用容器名进行网络通信，就像访问域名一样</strong>。这是因为 Docker 默认提供了一个内置的 DNS 服务，它会为在同一网络中运行的容器分配主机名，并且其他容器可以使用这些主机名进行通信。</p>
+<h1 id="创建docker-network"><a href="#创建docker-network" class="headerlink" title="创建docker network"></a>创建docker network</h1><p>使用 Docker 网络：另一种可能的解决方案是创建一个新的 Docker 网络，并在这个网络上运行你的容器。你可以使用 docker network create 命令创建一个新的网络，然后使用 –network 选项运行你的容器。</p>
+<p>调整防火墙规则：如果你的主机上运行有防火墙，可能需要调整防火墙规则以允许 Docker 容器访问内网。具体的步骤取决于你的防火墙软件和配置。</p>
+<p><strong>检查 DNS 配置：如果你的问题与 DNS 解析有关，可能需要检查和调整你的 Docker 容器的 DNS 配置。你可以通过在 Docker 守护进程的配置文件（例如 &#x2F;etc&#x2F;docker&#x2F;daemon.json）中设置 dns 选项来全局配置 DNS，也可以使用 –dns 选项在运行容器时指定 DNS。</strong></p>
+<p><strong>使用 VPN：如果你的内网服务在 VPN 后面，你可能需要在 Docker 容器中设置 VPN。这可能需要在你的 Docker 镜像中安装和配置 VPN 客户端。</strong></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to comment with my incorrect words! </span>
