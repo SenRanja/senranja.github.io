@@ -2,7 +2,6 @@
 title: compile & packaging
 date: 2024-08-29 07:12:57
 tags:
-top: 10
 categories:
 - Go
 ---

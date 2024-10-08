@@ -2,7 +2,6 @@
 title: boot after 1m30s
 date: 2024-04-08 17:58:30
 tags:
-top: 16
 categories:
 - Linux-Maintain
 ---

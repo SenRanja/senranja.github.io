@@ -2,7 +2,6 @@
 title: delete something useless before gitignore
 date: 2024-04-09 17:58:30
 tags:
-top: 20
 categories:
 - Git
 ---

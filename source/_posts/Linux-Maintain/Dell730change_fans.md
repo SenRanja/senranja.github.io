@@ -2,7 +2,6 @@
 title: Dell 730风扇速度调整
 date: 2024-04-08 17:58:30
 tags:
-top: 19
 categories:
 - Linux-Maintain
 ---

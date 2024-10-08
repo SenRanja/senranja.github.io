@@ -2,7 +2,6 @@
 title: fsck：强行重启系统导致分区出现问题
 date: 2024-04-08 17:58:30
 tags:
-top: 1
 categories:
 - Linux-Maintain
 ---

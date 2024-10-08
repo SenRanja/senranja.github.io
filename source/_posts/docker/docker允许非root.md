@@ -2,7 +2,6 @@
 title: 只能有root操作docker，普通用户无法操作dockers处理方法
 date: 2024-04-09 17:58:30
 tags:
-top: 20
 categories:
 - Docker
 ---

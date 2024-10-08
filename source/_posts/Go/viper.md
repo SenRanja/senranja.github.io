@@ -2,7 +2,6 @@
 title: viper
 date: 2024-08-24 15:09:17
 tags:
-top: 30
 categories:
 - Go
 ---

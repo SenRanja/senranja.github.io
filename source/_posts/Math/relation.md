@@ -2,7 +2,7 @@
 title: relation(1)
 categories:
   - Math
-date: 2024-10-06 13:21:00
+date: 2024-10-03 13:21:00
 tags:
 mathjax: true
 ---

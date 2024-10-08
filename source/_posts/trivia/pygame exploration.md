@@ -1,10 +1,9 @@
 ---
 title: pygame exploration
 date: 2024-08-24 10:53:16
-top: 10
 tags:
 categories:
-- trivia
+  - trivia
 ---
 
 Sometimes I think interests can motivate programmers to explore new techniques and keep the enthusiam to optimise current workout. So last week I researched pygame and just had a little try to use it, unfortunately I found it is not such useful frames. I think as a new learner, you may heard Django, Flask and Pygame, because they are popular framework by Python. But eventually, I need to say, pygame is not such useful and interesting as Django.

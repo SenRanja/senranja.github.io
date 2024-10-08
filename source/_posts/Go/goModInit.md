@@ -2,7 +2,6 @@
 title: go mod init without cobra
 date: 2024-08-24 14:26:04
 tags:
-top: 30
 categories:
 - Go
 ---

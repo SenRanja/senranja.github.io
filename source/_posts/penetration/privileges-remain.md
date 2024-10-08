@@ -2,7 +2,6 @@
 title: privileges_remain
 date: 2024-08-28 19:02:33
 tags:
-top: 30
 categories:
 - penetration
 ---

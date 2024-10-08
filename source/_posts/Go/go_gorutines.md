@@ -2,7 +2,6 @@
 title: goland goroutine, workers and chan
 date: 2024-08-24 11:52:24
 tags:
-top: 30
 categories:
 - Go
 ---

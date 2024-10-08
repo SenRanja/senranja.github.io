@@ -2,7 +2,6 @@
 title: .gitignore
 date: 2024-04-09 17:58:30
 tags:
-top: 15
 categories:
 - Git
 ---

@@ -2,7 +2,6 @@
 title: gost
 date: 2024-04-08 17:58:30
 tags:
-top: 40
 categories:
 - Linux-Maintain
 ---

@@ -2,7 +2,6 @@
 title: Cobra
 date: 2024-08-24 16:55:04
 tags:
-top: 30
 categories:
 - Go
 ---

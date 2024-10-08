@@ -2,7 +2,6 @@
 title: gitlab-ee的破解版返回500，501响应
 date: 2024-04-08 17:58:30
 tags:
-top: 1
 categories:
 - Linux-Maintain
 ---
