@@ -1,6 +1,5 @@
 ---
 title: TuringMachine(UNSW)
-top: 10
 categories:
   - Algorithm
 date: 2024-10-03 21:17:19
