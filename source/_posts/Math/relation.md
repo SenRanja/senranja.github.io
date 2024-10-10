@@ -156,12 +156,14 @@ Two operations that apply to binary relations uniquely:
 Converse: If R⊆S×T is a relation, then $R ^ \leftarrow \subseteq T \times S$:
 
 $$
-R ^ \leftarrow \overset{def}{=} {(t,s) \in T \times S: (s,t) \in R}
+R^\leftarrow \overset{def}{=} \{ (t,s) \in T \times S: (s,t) \in R \}
 $$
 
 Composition: If R1⊆S×T and R2⊆T×U then R1;R2 ⊆ S×U:
 
-$R1;R2 \overset{def}{=} \{(s,u) \in S \times U: \quad \text{there exists t∈T such that (s,t)∈R1 and (t,u)∈R2} \}$
+$$
+R1;R2 \overset{def}{=} \{(s,u) \in S \times U: \quad \text{there exists t∈T such that (s,t)∈R1 and (t,u)∈R2} \}
+$$
 
 Fact:
 

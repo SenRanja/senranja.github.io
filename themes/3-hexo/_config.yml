@@ -9,7 +9,7 @@ favicon: /img/avatar.jpg
 
 #链接图标 显示顺序和下面顺序一致
 link:
-  theme: color # 链接样式，color: 彩色图标  white: 黑白图标
+  theme: white # 链接样式，color: 彩色图标  white: 黑白图标
   items:
     # rss: /atom.xml
     github: https://github.com/SenRanja/
@@ -145,12 +145,12 @@ article_list:
 
 # 文章列表背景图
 article_bg_img:
-  on: false # 是否开启
-  src: https://i.loli.net/2019/07/22/5d3521411f3f169375.png
+  on: on # 是否开启
+  src: /img/earth.jpg
   opacity: 0.3 # 背景图透明度，范围 0 ～ 1
 
 # 列表样式
-list: normal
+list: thread
 # normal : 普通样式
 # thread : 列表外圈有一个线框
 
@@ -166,9 +166,11 @@ table: green
 # green_title 头部为青色的table样式
 
 # 首页背景图
-index_bg_img:
+# index_bg_img: /img/earth.jpg
+index_bg_img: 
 # 其他页面背景图
-other_bg_img:
+# other_bg_img: /img/earth.jpg
+other_bg_img: 
 
 # 点击图片放大样式
 img_resize: default
