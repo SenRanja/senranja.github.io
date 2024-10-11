@@ -112,9 +112,10 @@ def sieve_of_primes_up_to(n):
 
 When the test cases are [8, 11, 20, 4321, 98_234, 980_234, 50_000_000]
 
-the different outputs are:
+the obviously different outputs of the final p are:
 
 ```
+for p in range(2, floor(sqrt(n)) + 1):
 2
 3
 4
@@ -124,6 +125,7 @@ the different outputs are:
 
 ------
 
+for p in range(2, round(sqrt(n)) + 1):
 3
 3
 4
@@ -131,6 +133,28 @@ the different outputs are:
 313
 990
 ```
+
+But they have the same prime numbers of different n, to `print(len(sieve_prime_list))`:
+
+```
+for p in range(2, floor(sqrt(n)) + 1):
+4
+5
+8
+590
+9434
+77082
+---------------
+
+for p in range(2, round(sqrt(n)) + 1):
+4
+5
+8
+590
+9434
+77082
+```
+
 
 PS: Oh, I think the proof is not much useful ... The bound of the parameter wont induce real redundant computing, because it is too simple just like the code below won't run redundantly:
 
