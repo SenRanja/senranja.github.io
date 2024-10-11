@@ -13,6 +13,7 @@ categories:
     - [使用pycharm手动安装包环境](#使用pycharm手动安装包环境)
 - [结合conda创建新版本的python解释器并配置到pycharm](#结合conda创建新版本的python解释器并配置到pycharm)
 - [代码行数统计](#代码行数统计)
+- [profile](#profile)
 - [常用快捷键](#常用快捷键)
 - [增加SFTP部署](#增加sftp部署)
 - [函数文档](#函数文档)
@@ -20,6 +21,7 @@ categories:
 - [正确的增加远程python解释器](#正确的增加远程python解释器)
     - [坑点：Pycharm:Can't get remote credentials for deployment server](#坑点pycharmcant-get-remote-credentials-for-deployment-server)
 - [将项目启用为django支持](#将项目启用为django支持)
+
 
 
 # 破解版安装
@@ -107,6 +109,16 @@ pycharm: https://www.exception.site/essay/pycharm-pojie-jihuoma
 ![2024-04-10-22-29-28](2024-04-10-22-29-28.png)
 
 可以统计当前项目的不同类型代码、统计规则
+
+# profile
+
+使用profile检查各函数、模块的运行时间、调用次数，这个可以用来排查程序中哪个地方出现问题、短板。
+
+比如之前在写大数中素数分解的代码时，我使用profile检查素数分解模块的运行效率，来比对不同代码算法下，这个模块是否存在优化可能。
+
+右上角编辑调试器右侧，有个`profile`，这个就是用来分析当前程序的。
+
+![](2024-10-11-12-27-41.png)
 
 # 常用快捷键
 
