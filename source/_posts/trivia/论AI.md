@@ -2,7 +2,7 @@
 title: 论诺奖与AI
 categories:
   - trivia
-date: 2024-10-10 15:11:21
+date: 2024-10-11 09:11:21
 tags:
 ---
 
