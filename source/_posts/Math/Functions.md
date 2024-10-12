@@ -4,6 +4,7 @@ categories:
   - Math
 date: 2024-10-11 15:10:18
 tags:
+mathjax: true
 ---
 
 - [Functions Recap](#functions-recap)
@@ -26,6 +27,7 @@ tags:
   - [exercise](#exercise)
 - [Inverse Functions](#inverse-functions)
   - [Properties of the inverse](#properties-of-the-inverse)
+    - [Exercises](#exercises)
 - [Matrices](#matrices)
   - [Matrix Motivation](#matrix-motivation)
   - [Basic Matrix Operations](#basic-matrix-operations)
@@ -47,7 +49,7 @@ tags:
     - [Properties](#properties-1)
     - [Observations](#observations)
       - [Examples](#examples-2)
-      - [Exercises](#exercises)
+      - [Exercises](#exercises-1)
 
 
 # Functions Recap
@@ -239,9 +241,90 @@ $$
 
 then $f^{−1}$ exists and is equal to g.
 
+### Exercises
+
+Q:
+f and g are ‘shift’ functions $\mathbb{N}→\mathbb{N}$ defined by f(n)=n+1, and g(n)=max(0,n−1)
+
+(c) Is f injective? surjective?
 
 
+A:
+f(n)=n+1 (Inj) but 0 belongs to the co-domain, and f(n) cannot point 0, so it is not (Sur)
 
+
+(d) Is g injective? surjective?
+
+g(n)=max{0,n−1}, g(0)=g(1)=0, so g(n) is not (Inj), it is (Suj)
+
+(e) Do f and g commute, i.e. ∀n((f◦g)(n) = (g◦f)(n))?
+
+f(g(n))=g(n)+1=max{0, n-1}+1=max{1,n}, n belongs to Natural Number. The function's result = 1 if n=0; =n if n>=1
+
+g(f(n))=max{0,n+1-1}=max{0,n}
+
+Thus f and g don't commute.
+
+---
+Q:
+Σ={a,b,c}
+
+(c) Is length:$Σ^∗→\mathbb{N} \quad surjective$?
+
+A:Yes, it is (Surj), $\lambda, a, aa, aaa, aaaa, \dots$.
+
+(d) $length^←(2)\overset{?}{=}$
+
+A:{aa,ab,ac,ba,bb,bc,ca,cb,cc}
+
+---
+Q:
+Verifythat $f:\mathbb{R} \times \mathbb{R}→\mathbb{R} \times \mathbb{R}$ defined by $f(x,y)=(x+y,x−y)$ is invertible.
+
+A: to prove the function is bijective.
+
+$f(x,y)=(x+y,x−y) invertible \iff bijective (Inj)(Sur)$
+
+$(Inj)$ suppose f(x,y)=(x+y,x−y),f(w,v)=(w+v,w−v)
+
+
+$$
+\begin{cases}
+  x+y=w+v \\
+  x−y=w−v
+\end{cases}
+\implies
+\begin{cases}
+  2x=2w \\
+  2y=2v
+\end{cases}
+\implies
+(x,y)=(w,v)
+$$
+
+$(Sur)$ for any $(m,n) \in \mathbb{R} \times \mathbb{R}$, we need to find (x,y), s.t. f(x,y)=(m,n)
+
+f(x,y)=(x+y,x−y)=(m,n)
+
+$$
+\implies
+\begin{cases}
+  x+y=m \\
+  x−y=n
+\end{cases}
+\implies
+\begin{cases}
+  2x=m+n \\
+  2y=m-n
+\end{cases}
+\implies
+\begin{cases}
+  x=\frac{m+n}{2} \\
+  y=\frac{m-n}{2}
+\end{cases}
+$$
+
+![](111.png)
 
 
 # Matrices
@@ -377,6 +460,8 @@ $$
 
 Then how to simultaneous equations?
 
+
+
 ## Basic Matrix Operations
 
 The $transpose A^T$ of an $m \times n$ matrix $A = [a_{ij}]$ is the $n \times m$ matrix whose entry in the ith row and jth column is $a_{ji}$.
@@ -495,24 +580,41 @@ The number of **columns** of A must be the same as the number of **rows** of B. 
 
 The product of a $1 \times n$ matrix and an $n \times 1$ matrix is usually called the **inner product** of two **n-dimensional vectors**. One line matrix multiples one column matrix, we could obtain only a number. Note, the 1 means only number 1, it is only a scalar, and n means 1-dimensional vector, just like.
 
-$\begin{bmatrix}
+$$
+\begin{bmatrix}
 a_{11} & a_{12}
-\end{bmatrix}$ to be the $1 \times n$ matrix, 
+\end{bmatrix}$ to be the $1 \times n
+$$
+ matrix, 
 and 
-$\begin{bmatrix}
+$$
+\begin{bmatrix}
 b_{11}\\
 b_{21}
-\end{bmatrix}$
-to be the $n \times 1$ matrix. $\begin{bmatrix}
+\end{bmatrix}
+$$
+to be the $n \times 1$ matrix. 
+$$
+\begin{bmatrix}
 a_{11} & a_{21}
-\end{bmatrix}$ to be the $1 \times n$ matrix.
+\end{bmatrix}
+$$
+to be the $1 \times n$ matrix.
 
-Then $\begin{bmatrix}
+Then 
+$$
+\begin{bmatrix}
 a_{11} & a_{12}
-\end{bmatrix}$ $\cdot$ $\begin{bmatrix}
+\end{bmatrix}
+$$
+$\cdot$ 
+$$
+\begin{bmatrix}
 b_{11}\\
 b_{21}
-\end{bmatrix}$ = $a_{11}b_{11} + a_{12}b_{21}$
+\end{bmatrix}
+$$
+= $a_{11}b_{11} + a_{12}b_{21}$
 
 It is the inner product, which is also resulting in a scalar.
 
@@ -561,7 +663,7 @@ In general, $A · B \neq B·A$
 
 Rotating an object w.r.t. the x axis by degree α:
 
-![](img/2024-10-11-18-08-45.png)
+![](2024-10-11-18-08-45.png)
 
 ---
 
@@ -643,6 +745,8 @@ $$
 
 means  “There exists a function $f (n) ∈ O(n)$ such that $T(n) = 2T(\frac{n}{2}) + f(n)$.”
 
+![](222.png)
+
 ## properties
 
 Suppose f (n) ∈ O(g(n)), g(n) ∈ O(h(n)) and j(n) ∈ O(k(n)).
@@ -697,6 +801,8 @@ $$
 Write Θ(f(n)) for the class of all functions g that have the same order of growth as f .
 
 If g ∈ O(f) (or Ω(f)) we say that f is an upper bound (lower bound) on the order of growth of g; if g ∈ Θ(f) we call it a **tight bound**.
+
+![](2024-10-12-09-24-05.png)
 
 ### Properties
 
@@ -772,6 +878,7 @@ $$
 (d) (√n+1)^4 ∈ O(n^2)
 $$
 
+A:
 TTF->$O(4^n)$
 TTFT
 
