@@ -583,7 +583,7 @@ The product of a $1 \times n$ matrix and an $n \times 1$ matrix is usually calle
 $$
 \begin{bmatrix}
 a_{11} & a_{12}
-\end{bmatrix}$ to be the $1 \times n
+\end{bmatrix} \text{ to be the } 1 \times n
 $$
  matrix, 
 and 
@@ -745,7 +745,7 @@ $$
 
 means  “There exists a function $f (n) ∈ O(n)$ such that $T(n) = 2T(\frac{n}{2}) + f(n)$.”
 
-![](222.png)
+![](BigOh.png)
 
 ## properties
 
@@ -851,6 +851,8 @@ Similarly for polynomials
 $$
 O(n^k) ⊊ O(n^l) ⊊ O(n^m) ... \quad for \quad k < l < m...
 $$
+
+
 
 #### Examples
 

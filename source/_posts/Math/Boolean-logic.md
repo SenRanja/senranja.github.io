@@ -7,6 +7,38 @@ tags:
 mathjax: true
 ---
 
+- [What is logic](#what-is-logic)
+  - [Loose history of logic](#loose-history-of-logic)
+  - [Logic in Computer Science](#logic-in-computer-science)
+- [Boolean Logic](#boolean-logic)
+  - [The Boolean Algebra $\\mathbb{B}$](#the-boolean-algebra-mathbbb)
+  - [Alternative notation](#alternative-notation)
+  - [Alternative notation](#alternative-notation-1)
+  - [Properties:Commutativity,Associativity,Distribution,Identity,Complementation](#propertiescommutativityassociativitydistributionidentitycomplementation)
+- [Boolean Functions](#boolean-functions)
+  - [example](#example)
+  - [Application: Adding two one-bit numbers](#application-adding-two-one-bit-numbers)
+- [Conjunctive and Disjunctive Normal Form](#conjunctive-and-disjunctive-normal-form)
+  - [Examples](#examples)
+  - [2 Theorems](#2-theorems)
+- [Canonical DNF](#canonical-dnf)
+  - [Theorem](#theorem)
+  - [Exercise](#exercise)
+- [Karnaugh Maps](#karnaugh-maps)
+  - [example](#example-1)
+  - [Exercise](#exercise-1)
+- [Boolean Algebras](#boolean-algebras)
+  - [definition](#definition)
+  - [property](#property)
+  - [Example](#example-2)
+  - [Proofs in Boolean Algebras](#proofs-in-boolean-algebras)
+  - [Duality](#duality)
+    - [Definition](#definition-1)
+    - [Definition](#definition-2)
+    - [Theorem (Principle of duality)](#theorem-principle-of-duality)
+    - [Example](#example-3)
+
+
 # What is logic
 
 Logic is about **formalizing reasoning** and **defining truth**
@@ -302,6 +334,10 @@ AND and OR are "generalizations" of && and ||.
 && and || are functions that take two inputs, AND and OR are (families of) functions that take arbitrarily many inputs.
 ```
 
+My thought:
+
+![](345.png)
+
 $$
 j(x, y,z) = x +y(z +x)
 $$
@@ -313,25 +349,270 @@ Every Boolean function can be written as a function in **DNF**.
 
 Every Boolean function can be written as a function in **CNF**.
 
+# Canonical DNF
+
+Given an n-ary Boolean function $f: \mathbb{B}^n \to \mathbb{B}$ we construct an equivalent DNF Boolean function as follows:
+
+For each $b = (b_1, \dots, b_n) \in \mathbb{B}^n$ we define the **minterm**
+
+Note, $\mathbb{B}^n$ means $\mathbb{B} \times \mathbb{B} \times \mathbb{B} \times \dots$, so $b = (b_1, \dots, b_n)$ is a **product (AND)** of them, and the product means **minterm**.
 
 
+$$
+m_b = AND(l_1(x_1),l_2(x_2), \dots,l_n(x_n))
+$$
+
+where
+
+$$
+l_i(x_i)=
+\begin{cases}
+  x_i \quad  if \quad b_i = 1\\
+  !x_i \quad  if \quad b_i = 0
+\end{cases}
+$$
+
+We then define the DNF formula:
+
+$$
+f_{DNF} = \sum\limits_{f(b)=1}^{} m_b
+$$
+
+that is, $f_{DNF}$ is the disjunction (or) over all minterms corresponding to elements $b ∈ \mathbb{B}$ where $f(b) = 1$.
+
+Note, $m_b$ is the each expression of $l_i(x_i)$. Cause we want to build a DNF, so the external operation is **AND()**. 
+
+Note to distinguish the opposite operations. Firstly, $+$ and $\times$; Secondly, $AND()$(CNF,$\times$) and $OR()$(DNF,$+$).
+
+“C与D或，与乘或加”
+
+![](2024-10-13-18-25-31.png)
+
+## Theorem
+
+f and $f_{DNF}$ are the same function.
+
+## Exercise
+
+Find the canonical DNF form of each of the following expressions in variables x,y,z
+
+- $xy$
+- $\overline{z}$
+- $xy + \overline{z}$
+- $f(x,y,z)=1$
 
 
+Note Jiaojiao's handwriting below, the addtional expressions with different colors are the corresponding answers.
 
-
-
+![](2024-10-13-18-43-46.png)
 
 
 # Karnaugh Maps
 
+Jiaojiao remark:"Not very useful."
+
+For up to four variables (propositional symbols) a diagrammatic method of simplification called **Karnaugh maps** works quite well.
+
+- For every propositional function of k = 2,3,4 variables we construct a rectangular array of $2^k$ cells.
+- Column labels and row labels are ordered by **Gray code**.
+- Squares corresponding to the value *true* are marked with eg “+”.
+- We try to cover these squares with as few rectangles with sides 1 or 2 or 4 as possible.
+
+## example
+
+Note, the Karnaugh Map is at the first, and then we got the Expression. Don't confuse the order of the pic and the expression.
+
+Use $2^n$ to circle the cells, and cover all the true cells.
+
+![](2024-10-13-17-42-36.png)
+
+$$
+E = (xy) \lor (\overline{x} \overline{y}) \lor (z)
+$$
+
+Canonical form would consist of writing all cells separately (6 clauses).
 
 
+For optimisation, the idea is to cover the + squares with the minimum number of rectangles. One cannot cover any empty cells.
 
+- The rectangles can go ‘around the corner’/the actual map should be seen as a torus.
+- Rectangles must have sides of 1, 2 or 4 squares (three adjacent cells are useless).
 
+![](2024-10-13-17-44-21.png)
 
+Of course it is similar to the manual calcute the 0 and 1.
 
+![](2024-10-13-19-23-15.png)
+
+## Exercise
+
+![](2024-10-13-17-44-39.png)
+
+![](2024-10-13-19-22-11.png)
+
+The Karnaught Map just generate the expression rapidly.
 
 # Boolean Algebras
+
+## definition
+
+A **Boolean algebra** is a structure $(T, \lor, \land, ', 0, 1)$ where
+
+- 0, 1 ∈ T
+- ∨,∧ : T ×T →T (called **join** and **meet** respectively)
+- ′ : T→T (called **complementation**)
+
+## property
+
+and the following laws hold for all x,y,z ∈ T:
+
+Commutativity:
+
+$$
+x ∨y =y ∨x, x∧y =y∧x
+$$
+
+Associativity:
+
+$$
+(x ∨y)∨z =x ∨(y ∨z)\\
+(x ∧y)∧z =x ∧(y ∧z)
+$$
+
+
+Distributivity:
+
+$$
+x ∨(y ∧z) =(x ∨y)∧(x ∨z) \\
+x ∧(y ∨z) =(x ∧y)∨(x ∧z)
+$$
+
+Identity:
+
+$$
+x ∨0=x, x∧1=x
+$$
+
+Complementation:
+
+$$
+x∨x' =1, x ∧x' =0
+$$
+
+## Example
+
+The set of subsets of a (singleton) set X = {x}:
+
+- T : Pow(X)=`{{x},∅}`
+- ∨ (join) : ∪
+- ∧ (meet) : ∩
+- ′ (complement) : $·^c$
+- 0 : ∅
+- 1 : $X \qquad (\mathbb{U})$
+
+
+The Laws of Boolean algebra follow from the Laws of Set Operations.
+
+---
+
+The two element Boolean Algebra :
+
+$$
+B =(\{true,false\},∥,\&\&,!,false,true)
+$$
+
+where !,&&,∥ are defined as:
+- !true = false; !false = true,
+- true && true = true; ...
+- true ∥ true = true; ...
+
+---
+
+Cartesian products of $\mathbb{B}$, that is n-tuples of 0’s and 1’s with Boolean operations, e.g. $\mathbb{B}^4$:
+
+join: $(1,0,0,1) ∨ (1,1,0,0) = (1,1,0,1)$
+
+meet: $(1,0,0,1) ∧ (1,1,0,0) = (1,0,0,0)$
+
+complement: $(1,0,0,1)' = (0,1,1,0)$
+
+0 : $(0,0,0,0)$
+
+1 : $(1,1,1,1)$
+
+---
+
+Functions from any set $S$ to $\mathbb{B}$; that is, $\mathbb{B}^S$
+
+If $f,g:S \to \mathbb{B}$ then
+
+$$
+(f ∨g) : S →B \quad defined by \quad s →f(s)∥g(s)
+$$
+
+$$
+(f ∧g) : S →B \quad defined by \quad s →f(s)\&\&g(s)
+$$
+
+$$
+f' : S →B \quad defined by \quad s→!f(s)
+$$
+
+$$
+0 : S →B \quad is the function \quad s → 0
+$$
+
+$$
+1 : S →B \quad is the function \quad s → 1
+$$
+
+## Proofs in Boolean Algebras
+
+If you can show that an identity holds using the laws of Boolean Algebra, then that identity holds **in all Boolean Algebras**.
+
+Example
+
+**Claim**: In all Boolean Algebras
+
+$$
+x ∧x =x \quad \text{for all } x ∈ T.
+$$
+
+**Proof**:
+
+$$
+x = \\
+x∧1 \quad [Identity] \\
+=x ∧(x ∨x') \quad [Complement] \\
+=(x ∧x)∨(x ∧x') \quad [Distributivity] \\
+=(x ∧x)∨0 \quad [Complement] \\
+=(x ∧x) \quad [Identity]
+$$
+
+## Duality
+
+### Definition
+
+If $E$ is an expression defined using variables $(x, y, z, etc)$, constants $(0 and 1)$, and the operations of Boolean Algebra $(∧, ∨, and ')$ then $dual(E)$ is the expression obtained by replacing $∧$ with $∨$ (and vice-versa) and $0$ with $1$ (and vice-versa).
+
+### Definition
+
+If $(T,∨,∧, ',0,1)$ is a Boolean Algebra, then $(T,∧,∨, ',1,0)$ is also a Boolean algebra, known as the **dual Boolean algebra**.
+
+(Dual means the contray operation and element: ∨->∧; ∧->∨; 0->1; 1->0; )
+
+### Theorem (Principle of duality)
+
+If you can show $E_1 = E_2$ using the laws of Boolean Algebra, then $dual(E_1) = dual(E_2)$.
+
+
+### Example
+
+We have shown $x ∧x = x$.
+
+By duality: $x ∨ x = x$.
+
+
 
 
 
