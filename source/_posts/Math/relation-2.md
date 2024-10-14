@@ -219,6 +219,23 @@ A finite lattice is always a complete lattice.
 
 An infinite lattice need not have a lub (or no glb) for an arbitrary infinite subset of its elements, in particular no such bound may exist for **all** its elements.
 
+For the pic below, for (b,c), {e,d,f} are the upper bounds, but there is no minimum of the ub. Hence lub doesnot exist, it is not a lattice.
+
+it is not a lattice. for (e,d), b,c,a are the minimals, but they are not the minimum.
+
+![](lattice1.png)
+
+
+is 30 the lub(5,15)? yes! is it a lattice? Yes, because it is finite.
+
+who is the lb({10,30})? it is 10! And 10 is also glb({10,30})! Remember the poset can include themselves.
+
+![](lattice3.png)
+
+not a lattice obviously.
+
+![](lattice4.png)
+
 ### example
 
 Q

@@ -25,6 +25,8 @@ mathjax: true
   - [Theorem](#theorem)
   - [Exercise](#exercise)
 - [Karnaugh Maps](#karnaugh-maps)
+  - [proof process of Karnaugh Maps (K Maps for short)](#proof-process-of-karnaugh-maps-k-maps-for-short)
+  - [Why, how to use Karnaugh Maps](#why-how-to-use-karnaugh-maps)
   - [example](#example-1)
   - [Exercise](#exercise-1)
 - [Boolean Algebras](#boolean-algebras)
@@ -37,6 +39,8 @@ mathjax: true
     - [Definition](#definition-2)
     - [Theorem (Principle of duality)](#theorem-principle-of-duality)
     - [Example](#example-3)
+
+
 
 
 # What is logic
@@ -418,6 +422,34 @@ For up to four variables (propositional symbols) a diagrammatic method of simpli
 - Squares corresponding to the value *true* are marked with eg “+”.
 - We try to cover these squares with as few rectangles with sides 1 or 2 or 4 as possible.
 
+
+## proof process of Karnaugh Maps (K Maps for short)
+
+The section would be in Chinese... just for next quiz of Data Structure.
+
+卡诺图只是为了获取一个随机DNF的方法。
+
+首先需要找到变量 `w,x,y,z`,然后我们还知道 `f(w, x, y, z)`, 我们先做一个**真值表(Truth table)**,然后我们让`f(w, x, y, z)`是随机的0或1.
+
+如下图，右侧真值表，得到左侧卡诺图，这是我们的题目，我们在随机真值的cell中打'+'
+
+![](KMaps.jpg)
+
+画卡诺图，比如4变量，就画4x4=16的table，如果是3变量，就画3x3=9的table。
+
+注意table的title，行列的title一次只变一个。比如，wx->w!x->!w!x->!wx, 不要一下子wx->!w!x，这样会错。
+
+## Why, how to use Karnaugh Maps
+
+接下来说卡诺图能解决的问题，主要就是为了消除单个minterm的无关变量，获得DNF的所有minterms。
+
+圈的时候，从最大往最小圈，记得每行每列首位相连。如图，左下侧俩和左上侧俩是最大的，因为一下子占2x2的方的四个cells，所以先圈他俩。
+
+然后开始往小圈，全部的+都被圈完后，就可以得到minterms。
+
+比如图中，有个孤零零的`w!x!y!z`，肯定是最后圈，可惜消不了任何变量，因此这个minterm就是`w!x!y!z`。
+
+
 ## example
 
 Note, the Karnaugh Map is at the first, and then we got the Expression. Don't confuse the order of the pic and the expression.
@@ -443,6 +475,7 @@ For optimisation, the idea is to cover the + squares with the minimum number of 
 Of course it is similar to the manual calcute the 0 and 1.
 
 ![](2024-10-13-19-23-15.png)
+
 
 ## Exercise
 
