@@ -24,12 +24,13 @@ mathjax: true
   - [Logical equivalence](#logical-equivalence)
   - [Applications II: Program Logic](#applications-ii-program-logic)
   - [Entailment and Validity](#entailment-and-validity)
-    - [Example](#example-3)
+    - [Example of Toyota and Ford](#example-of-toyota-and-ford)
+    - [Example of spaceship and the imposters](#example-of-spaceship-and-the-imposters)
   - [Applications III: Reasoning About Requirements/Specifications](#applications-iii-reasoning-about-requirementsspecifications)
-    - [Example](#example-4)
+    - [Example of alarm ringing](#example-of-alarm-ringing)
 - [Propositional Logic, formally](#propositional-logic-formally)
   - [Syntax vs Semantics](#syntax-vs-semantics)
-    - [example](#example-5)
+    - [example](#example-3)
   - [Syntax: Well-formed formulas](#syntax-well-formed-formulas)
     - [Examples](#examples-2)
   - [Syntax: Conventions](#syntax-conventions)
@@ -235,7 +236,7 @@ is logically equivalent to
 
 Example
 
-if x >0 or (x <=0 and y >100):
+if $x >0$ or $(x <=0 and y >100)$:
 
 
 $$
@@ -254,7 +255,7 @@ $p ∨(¬p ∧q)$ is equivalent to $p ∨q$.
 Hence the code can be simplified to
 
 $$
-if x >0 or y >100:
+if x >0 \quad or \quad y >100:
 $$
 
 ## Entailment and Validity
@@ -263,7 +264,7 @@ $$
 
 An **argument** consists of a set of propositions called **premises** and a declarative sentence called the **conclusion**.
 
-Example
+### Example of Toyota and Ford
 
 **Premises**:
 
@@ -273,9 +274,13 @@ Example
 
 - Frank is not late.
 
+![](Toyota.png)
+
 **Conclusion**:
 
 Frank took the Toyota
+
+---
 
 
 An argument is **valid** **if the conclusions are true whenever all the premises are true**. Thus: if we believe the premises, we should also believe the conclusion.
@@ -288,8 +293,9 @@ Other ways of saying the same thing:
 - The conclusion is a logical consequence of the premises.
 - The premises **entail** the conclusion.
 
+---
 
-The argument above is valid. The following is invalid:
+The **argument** **above** is **valid**. The following is **invalid**:
 
 Premises
 
@@ -301,7 +307,13 @@ Conclusion
 
 Frank took the Ford.
 
-### Example
+---
+
+The argument above is invalid, please refer to the pic I draw, and the reasoning is that, we cannot judge Frank took the Ford, because he could take the Toyota and hence he was late!
+
+---
+
+### Example of spaceship and the imposters
 
 You are on a spaceship with **crewmates** – who always tell the truth; and **imposters**– who always lie.
 
@@ -317,6 +329,12 @@ Everyone is either a crewmate, or an imposter, but not both
 
 -> Conclusion: Green is an imposter.
 
+---
+
+Jiaojiao: "Later we use propositional logic to prove it"
+
+---
+
 ## Applications III: Reasoning About Requirements/Specifications
 
 Suppose a set of English language requirements $R$ for a software/hardware system can be formalised by a set of formulas {$φ_1$,...,$φ_n$}.
@@ -329,7 +347,15 @@ Suppose $C$ is a statement formalised by a formula $ψ$. Then
 
 3. If $φ_1,...,φ_{n−1}$ entails $φ_n$, then the condition φn of the specification is **redundant** and need not be stated in the specification.
 
-### Example
+---
+
+![](TTT1.png)
+
+![](TTT2.png)
+
+---
+
+### Example of alarm ringing
 
 Requirements R: A burglar alarm system for a house is to operate as follows. The alarm should not sound unless the system has been armed or there is a fire. If the system has been armed and a door is disturbed, the alarm should ring. Irrespective of whether the system has been armed, the alarm should go off when there is a fire.
 
@@ -343,15 +369,12 @@ Conclusion C: If the alarm is ringing and there is no fire, then the system must
 
 
 
----
-
-Example
 
 Expressing the requirements as formulas of propositional logic, with
 
 - S = the alarm sounds = the alarm rings
 - A = the system is armed
-- D = adoor is disturbed
+- D = a door is disturbed
 - F = there is a fire
 
 we get
@@ -370,9 +393,7 @@ $$
 (S ∧ ¬F) → A
 $$
 
----
 
-Example
 
 Our two questions then correspond to
 
@@ -397,15 +418,17 @@ The first step in the formal definition of logic is the separation of **syntax**
 
 ## Syntax: Well-formed formulas
 
-Let $Prop =$ {p,q,r,...} be a set of propositional letters. Consider the alphabet
+Let $Prop =$ {p,q,r,...} be a set of propositional letters. Consider the alphabet. (Prop is proposition)
 
 $$
 Σ=Prop∪\{⊤,⊥,¬,∧,∨,→,↔,(,)\}.
 $$
 
+Prop就是之前我们说的 a(条件a语句),b（条件b语句）,c,d,e,C(常为Conclusion) 这些的，然后Σ是Prop并上逻辑推理符号。
+
 The **well-formed** **formulas** (wffs) over **Prop** is the smallest set of words over $Σ$ such that:
 
-- ⊤, ⊥ and all elements of Prop are wffs
+- **⊤, ⊥ and all elements of Prop are wffs**
 - If φ is a wff then ¬φ is a wf
 - If φ and ψ are wffs then (φ∧ψ), (φ∨ψ), (φ → ψ), and (φ ↔ψ) are wffs.
 
