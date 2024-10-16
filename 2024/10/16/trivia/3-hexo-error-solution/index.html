@@ -824,15 +824,6 @@
         </a>
         
         
-        <a  class="All Py "
-           href="/2024/04/08/Python/pycharm/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="pycharm技巧">pycharm技巧</span>
-            <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
-        </a>
-        
-        
         <a  class="All Linux-Maintain "
            href="/2024/04/08/Linux-Maintain/Dell730change_fans/"
            data-tag=""
@@ -852,19 +843,19 @@
         
         
         <a  class="All Linux-Maintain "
-           href="/2024/04/08/Linux-Maintain/fsck_boot_force_fdisk_err/"
+           href="/2024/04/08/Linux-Maintain/fail2ban/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="fsck：强行重启系统导致分区出现问题">fsck：强行重启系统导致分区出现问题</span>
+            <span class="post-title" title="fail2ban">fail2ban</span>
             <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
         </a>
         
         
         <a  class="All Linux-Maintain "
-           href="/2024/04/08/Linux-Maintain/fail2ban/"
+           href="/2024/04/08/Linux-Maintain/fsck_boot_force_fdisk_err/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="fail2ban">fail2ban</span>
+            <span class="post-title" title="fsck：强行重启系统导致分区出现问题">fsck：强行重启系统导致分区出现问题</span>
             <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
         </a>
         
@@ -892,6 +883,15 @@
            data-tag=""
            data-author="" >
             <span class="post-title" title="ufw">ufw</span>
+            <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
+        </a>
+        
+        
+        <a  class="All Py "
+           href="/2024/04/08/Python/pycharm/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="pycharm技巧">pycharm技巧</span>
             <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
         </a>
         
@@ -951,12 +951,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-10-16 12:51:35'>2024-10-16 10:12</time>
+            Created At : <time class="date" title='Updated At: 2024-10-16 13:09:33'>2024-10-16 10:12</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:376</span>
+        <span>Count:388</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1014,7 +1014,16 @@
 <p>直接删除 <code>node_modules</code> 目录，然后 <code>npm i</code> 命令重新下载这个 <code>node_modules</code></p>
 <p>然后删除<code>.deploy_git</code>，自己用<code>hexo d</code>重新生成。</p>
 <p>最后记得把<code>.deploy_git</code>加入<code>.gitignore</code>。</p>
-
+<pre><code>.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+_multiconfig.yml
+.deploy_git
+</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to point out the mistakes and faults! </span>
     </div>
