@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>go mod init without cobra | SenRanJa</title>
+  <title>3-hexo error solution | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="go mod init without cobra | SenRanJa">
+  <meta name="description" content="3-hexo error solution | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeCurrently a postgraduate student in university, and major in Information Technology. Github: senRanja_github Blog: senRanja_blog linkedIn: keep private Keep exploration!">
 <meta property="og:type" content="website">
@@ -940,9 +940,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-Go/goModInit" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-3-hexo-error-solution" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">go mod init without cobra</h1>
+        <h1 class="article-title">3-hexo error solution</h1>
     
     <div class="article-meta">
         
@@ -952,7 +952,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Go">Go</a>
+            <a  data-rel="trivia">trivia</a>
             
         </span>
         
@@ -960,12 +960,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-10-08 15:39:50'>2024-08-24 14:26</time>
+            Created At : <time class="date" title='Updated At: 2024-10-16 10:20:02'>2024-10-16 10:12</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:502</span>
+        <span>Count:290</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -995,7 +995,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD"><span class="toc-text">备份</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98-childProcess"><span class="toc-text">常见问题 childProcess</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1011,62 +1011,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>I wrote an article about how <strong>cobra</strong> inits a golang mod, and I think maybe cobra is more common and frequent. This page is describing without cobra.</p>
-<p>If you want to build a golang model:</p>
-<ol>
-<li>create a directory, for example, I want to create a project named ‘xxx’, then just create it</li>
-<li>cd into the directory, and execute command <code>go mod init github.com/senranja/xxx</code>, then you would see there is a <code>go.mod</code></li>
-<li>Then my case changes into another existent golang project.</li>
-<li>how to <code>import modules</code> and update the <code>go mod</code>?</li>
-</ol>
-<p><img src="/2024/08/24/Go/goModInit/GolangMod.png" alt="GolangMod"></p>
-<p>In goland, normally you can see in its builtin fire exploration, there is one only <code>go.mod</code>, and it actually represents both <code>go.mod</code> and <code>go.sum</code>. If you import exterior golang’s mod, then you <strong>right-click</strong> the <code>go.mod</code> and <code>go mod tidy</code>, IDE automaticly create or update <code>go.sum</code>, dwelt with your code’s new modules.</p>
-<p><img src="/2024/08/24/Go/goModInit/gomodTidy.png" alt="gomodTidy"></p>
-<p>Normally, you dont need to focus what is <code>go mod</code> or <code>go module</code> during using goland, goland will help you to deal with the download of different exterior go module.</p>
-<p>I will show you what are go.sum and go.mod. go.mod contains your name(in the init case I named the project xxx, and in the example files and pictures named gitlab-misconfig) and your module dependencies.</p>
-<p>go.sum is a checkfile, it contains the dependencies’ hash summary, to demostrate its raw dependencies’ hash.</p>
-<p>go.mod</p>
-<pre><code class="lang-go.mod">module gitlab-misconfig
-
-go 1.19
-
-require (
-    github.com/google/go-querystring v1.1.0
-    github.com/hashicorp/go-cleanhttp v0.5.2
-    github.com/hashicorp/go-retryablehttp v0.7.1
-    github.com/sirupsen/logrus v1.9.0
-    github.com/spf13/cobra v1.6.1
-    github.com/spf13/viper v1.14.0
-    github.com/stretchr/testify v1.8.1
-    github.com/xanzy/go-gitlab v0.79.1
-    github.com/xuri/excelize/v2 v2.7.0
-    golang.org/x/oauth2 v0.3.0
-    golang.org/x/time v0.3.0
-)
-
-require (
-    github.com/davecgh/go-spew v1.1.1 // indirect
-    github.com/fsnotify/fsnotify v1.6.0 // indirect
-    github.com/pelletier/go-toml v1.9.5 // indirect
-    github.com/pelletier/go-toml/v2 v2.0.5 // indirect
-    github.com/pmezard/go-difflib v1.0.0 // indirect
-    github.com/richardlehane/mscfb v1.0.4 // indirect
-    github.com/richardlehane/msoleps v1.0.3 // indirect
-    github.com/spf13/afero v1.9.2 // indirect
-    github.com/spf13/cast v1.5.0 // indirect
-    github.com/spf13/jwalterweatherman v1.1.0 // indirect
-    github.com/spf13/pflag v1.0.5 // indirect
-)
-</code></pre>
-<p>go.sum</p>
-<pre><code class="lang-go.sum">cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
-cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
-cloud.google.com/go v0.38.0/go.mod h1:990N+gfupTy94rShfmMCWGDn0LpTmnzTp2qbd1dvSRU=
-cloud.google.com/go v0.44.1/go.mod h1:iSa0KzasP4Uvy3f1mN/7PiObzGgflwredwwASm/v6AU=
-cloud.google.com/go v0.44.2/go.mod h1:60680Gw3Yr4ikxnPRS/oxxkBccT6SA1yMk63TGekxKY=
-cloud.google.com/go v0.44.3/go.mod h1:60680Gw3Yr4ikxnPRS/oxxkBccT6SA1yMk63TGekxKY=
-</code></pre>
-
+        <p>3-hexo博客系统最近老是出问题，我阐述下博客如何备份、常见问题解决。</p>
+<h1 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h1><p>hexo只负责生成前端页面，然后<code>hexo d</code>命令直接推到你的github 仓库然后部署到 git page上，因此需要注意hexo d命令并不会把你的md的博客源文件备份。你如果不小心删除了自己的md源文件，必须自己想办法抄自己git page抄回来才行。</p>
+<p>如果要备份，参考下3-hexo原作者文章，已经直接提到了建议自行 git init 对博客源文件进行备份。</p>
+<p><a target="_blank" rel="noopener" href="https://yelog.org/2017/03/23/3-hexo-instruction/">https://yelog.org/2017/03/23/3-hexo-instruction/</a></p>
+<p>参考 <strong>6.3 博客备份（快捷命令升级版）</strong> 一章。</p>
+<p>另外记得把<code>\themes\3-hexo</code>目录下的<code>.git</code>目录直接删除。</p>
+<p>因为你已经配置了一些东西在这个目录下的<code>.config.yml</code>，所以不要把这个东西当submodule或者什么不值得上传的目录。因为我们配置很麻烦，干脆备份直接把配置文件、图片、博客md全都上传到github，这样最方便和彻底。</p>
+<h1 id="常见问题-childProcess"><a href="#常见问题-childProcess" class="headerlink" title="常见问题 childProcess"></a>常见问题 childProcess</h1>
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to point out the mistakes and faults! </span>
     </div>
