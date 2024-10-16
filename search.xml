@@ -646,11 +646,11 @@
     
     
     <entry>
-      <title>docker network</title>
-      <link href="/2024/04/09/docker/docker-network/"/>
-      <url>/2024/04/09/docker/docker-network/</url>
+      <title>docker volume</title>
+      <link href="/2024/04/09/docker/docker-volume/"/>
+      <url>/2024/04/09/docker/docker-volume/</url>
       
-        <content type="html"><![CDATA[<h1 id="docker-network网络的优势"><a href="#docker-network网络的优势" class="headerlink" title="docker network网络的优势"></a><strong>docker network网络的优势</strong></h1><p>同一个 Docker <strong>网络中的容器之间可以使用容器名进行网络通信，就像访问域名一样</strong>。这是因为 Docker 默认提供了一个内置的 DNS 服务，它会为在同一网络中运行的容器分配主机名，并且其他容器可以使用这些主机名进行通信。</p><h1 id="创建docker-network"><a href="#创建docker-network" class="headerlink" title="创建docker network"></a>创建docker network</h1><p>使用 Docker 网络：另一种可能的解决方案是创建一个新的 Docker 网络，并在这个网络上运行你的容器。你可以使用 docker network create 命令创建一个新的网络，然后使用 —network 选项运行你的容器。</p><p>调整防火墙规则：如果你的主机上运行有防火墙，可能需要调整防火墙规则以允许 Docker 容器访问内网。具体的步骤取决于你的防火墙软件和配置。</p><p><strong>检查 DNS 配置：如果你的问题与 DNS 解析有关，可能需要检查和调整你的 Docker 容器的 DNS 配置。你可以通过在 Docker 守护进程的配置文件（例如 /etc/docker/daemon.json）中设置 dns 选项来全局配置 DNS，也可以使用 —dns 选项在运行容器时指定 DNS。</strong></p><p><strong>使用 VPN：如果你的内网服务在 VPN 后面，你可能需要在 Docker 容器中设置 VPN。这可能需要在你的 Docker 镜像中安装和配置 VPN 客户端。</strong></p>]]></content>
+        <content type="html"><![CDATA[<p>docker volume 有 ls rm等子命令</p><p>使用 docker rm 命令删除容器时，默认情况下不会删除与该容器关联的挂载的 <strong>Docker 卷（Docker volume）</strong>。Docker volume 是一个独立于容器的数据存储区域，通常用于持久化存储容器内的数据。</p><p>如果您使用了 -v 参数来挂载卷，那么删除容器时不会删除这个卷。要删除与容器关联的卷，您需要使用 docker volume rm 命令。</p><p>例如，如果您的容器启动命令中有如下的 -v 参数：</p><pre><code>docker run -v /host/path:/container/path my_image</code></pre><p>那么删除容器时，卷 /host/path 不会被自动删除。要手动删除该卷，可以运行以下命令：</p><pre><code>docker volume rm $(docker volume ls -qf &quot;mount=/host/path&quot;)</code></pre><p>这将删除与指定路径关联的 Docker 卷。请注意替换 /host/path 为实际使用的卷路径。</p><p>总之，docker rm 默认不会删除挂载的 Docker 卷，您需要使用 docker volume rm 命令手动删除它们。</p>]]></content>
       
       
       <categories>
@@ -665,11 +665,11 @@
     
     
     <entry>
-      <title>docker volume</title>
-      <link href="/2024/04/09/docker/docker-volume/"/>
-      <url>/2024/04/09/docker/docker-volume/</url>
+      <title>docker network</title>
+      <link href="/2024/04/09/docker/docker-network/"/>
+      <url>/2024/04/09/docker/docker-network/</url>
       
-        <content type="html"><![CDATA[<p>docker volume 有 ls rm等子命令</p><p>使用 docker rm 命令删除容器时，默认情况下不会删除与该容器关联的挂载的 <strong>Docker 卷（Docker volume）</strong>。Docker volume 是一个独立于容器的数据存储区域，通常用于持久化存储容器内的数据。</p><p>如果您使用了 -v 参数来挂载卷，那么删除容器时不会删除这个卷。要删除与容器关联的卷，您需要使用 docker volume rm 命令。</p><p>例如，如果您的容器启动命令中有如下的 -v 参数：</p><pre><code>docker run -v /host/path:/container/path my_image</code></pre><p>那么删除容器时，卷 /host/path 不会被自动删除。要手动删除该卷，可以运行以下命令：</p><pre><code>docker volume rm $(docker volume ls -qf &quot;mount=/host/path&quot;)</code></pre><p>这将删除与指定路径关联的 Docker 卷。请注意替换 /host/path 为实际使用的卷路径。</p><p>总之，docker rm 默认不会删除挂载的 Docker 卷，您需要使用 docker volume rm 命令手动删除它们。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="docker-network网络的优势"><a href="#docker-network网络的优势" class="headerlink" title="docker network网络的优势"></a><strong>docker network网络的优势</strong></h1><p>同一个 Docker <strong>网络中的容器之间可以使用容器名进行网络通信，就像访问域名一样</strong>。这是因为 Docker 默认提供了一个内置的 DNS 服务，它会为在同一网络中运行的容器分配主机名，并且其他容器可以使用这些主机名进行通信。</p><h1 id="创建docker-network"><a href="#创建docker-network" class="headerlink" title="创建docker network"></a>创建docker network</h1><p>使用 Docker 网络：另一种可能的解决方案是创建一个新的 Docker 网络，并在这个网络上运行你的容器。你可以使用 docker network create 命令创建一个新的网络，然后使用 —network 选项运行你的容器。</p><p>调整防火墙规则：如果你的主机上运行有防火墙，可能需要调整防火墙规则以允许 Docker 容器访问内网。具体的步骤取决于你的防火墙软件和配置。</p><p><strong>检查 DNS 配置：如果你的问题与 DNS 解析有关，可能需要检查和调整你的 Docker 容器的 DNS 配置。你可以通过在 Docker 守护进程的配置文件（例如 /etc/docker/daemon.json）中设置 dns 选项来全局配置 DNS，也可以使用 —dns 选项在运行容器时指定 DNS。</strong></p><p><strong>使用 VPN：如果你的内网服务在 VPN 后面，你可能需要在 Docker 容器中设置 VPN。这可能需要在你的 Docker 镜像中安装和配置 VPN 客户端。</strong></p>]]></content>
       
       
       <categories>
