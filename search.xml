@@ -5,25 +5,6 @@
     
     <entry>
       <title>3-hexo error solution</title>
-      <link href="/2024/10/16/3-hexo-error-solution/"/>
-      <url>/2024/10/16/3-hexo-error-solution/</url>
-      
-        <content type="html"><![CDATA[<p>3-hexo博客系统最近老是出问题，我阐述下博客如何备份、常见问题解决。</p><h1 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h1><p>hexo只负责生成前端页面，然后<code>hexo d</code>命令直接推到你的github 仓库然后部署到 git page上，因此需要注意hexo d命令并不会把你的md的博客源文件备份。你如果不小心删除了自己的md源文件，必须自己想办法抄自己git page抄回来才行。</p><p>如果要备份，参考下3-hexo原作者文章，已经直接提到了建议自行 git init 对博客源文件进行备份。</p><p><a href="https://yelog.org/2017/03/23/3-hexo-instruction/">https://yelog.org/2017/03/23/3-hexo-instruction/</a></p><p>参考 <strong>6.3 博客备份（快捷命令升级版）</strong> 一章。</p><p>另外记得把<code>\themes\3-hexo</code>目录下的<code>.git</code>目录直接删除。</p><p>因为你已经配置了一些东西在这个目录下的<code>.config.yml</code>，所以不要把这个东西当submodule或者什么不值得上传的目录。因为我们配置很麻烦，干脆备份直接把配置文件、图片、博客md全都上传到github，这样最方便和彻底。</p><h1 id="常见问题-childProcess"><a href="#常见问题-childProcess" class="headerlink" title="常见问题 childProcess"></a>常见问题 childProcess</h1>]]></content>
-      
-      
-      <categories>
-          
-          <category> trivia </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>3-hexo error solution</title>
       <link href="/2024/10/16/trivia/3-hexo-error-solution/"/>
       <url>/2024/10/16/trivia/3-hexo-error-solution/</url>
       
@@ -646,11 +627,11 @@
     
     
     <entry>
-      <title>docker volume</title>
-      <link href="/2024/04/09/docker/docker-volume/"/>
-      <url>/2024/04/09/docker/docker-volume/</url>
+      <title>docker network</title>
+      <link href="/2024/04/09/docker/docker-network/"/>
+      <url>/2024/04/09/docker/docker-network/</url>
       
-        <content type="html"><![CDATA[<p>docker volume 有 ls rm等子命令</p><p>使用 docker rm 命令删除容器时，默认情况下不会删除与该容器关联的挂载的 <strong>Docker 卷（Docker volume）</strong>。Docker volume 是一个独立于容器的数据存储区域，通常用于持久化存储容器内的数据。</p><p>如果您使用了 -v 参数来挂载卷，那么删除容器时不会删除这个卷。要删除与容器关联的卷，您需要使用 docker volume rm 命令。</p><p>例如，如果您的容器启动命令中有如下的 -v 参数：</p><pre><code>docker run -v /host/path:/container/path my_image</code></pre><p>那么删除容器时，卷 /host/path 不会被自动删除。要手动删除该卷，可以运行以下命令：</p><pre><code>docker volume rm $(docker volume ls -qf &quot;mount=/host/path&quot;)</code></pre><p>这将删除与指定路径关联的 Docker 卷。请注意替换 /host/path 为实际使用的卷路径。</p><p>总之，docker rm 默认不会删除挂载的 Docker 卷，您需要使用 docker volume rm 命令手动删除它们。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="docker-network网络的优势"><a href="#docker-network网络的优势" class="headerlink" title="docker network网络的优势"></a><strong>docker network网络的优势</strong></h1><p>同一个 Docker <strong>网络中的容器之间可以使用容器名进行网络通信，就像访问域名一样</strong>。这是因为 Docker 默认提供了一个内置的 DNS 服务，它会为在同一网络中运行的容器分配主机名，并且其他容器可以使用这些主机名进行通信。</p><h1 id="创建docker-network"><a href="#创建docker-network" class="headerlink" title="创建docker network"></a>创建docker network</h1><p>使用 Docker 网络：另一种可能的解决方案是创建一个新的 Docker 网络，并在这个网络上运行你的容器。你可以使用 docker network create 命令创建一个新的网络，然后使用 —network 选项运行你的容器。</p><p>调整防火墙规则：如果你的主机上运行有防火墙，可能需要调整防火墙规则以允许 Docker 容器访问内网。具体的步骤取决于你的防火墙软件和配置。</p><p><strong>检查 DNS 配置：如果你的问题与 DNS 解析有关，可能需要检查和调整你的 Docker 容器的 DNS 配置。你可以通过在 Docker 守护进程的配置文件（例如 /etc/docker/daemon.json）中设置 dns 选项来全局配置 DNS，也可以使用 —dns 选项在运行容器时指定 DNS。</strong></p><p><strong>使用 VPN：如果你的内网服务在 VPN 后面，你可能需要在 Docker 容器中设置 VPN。这可能需要在你的 Docker 镜像中安装和配置 VPN 客户端。</strong></p>]]></content>
       
       
       <categories>
@@ -665,11 +646,11 @@
     
     
     <entry>
-      <title>docker network</title>
-      <link href="/2024/04/09/docker/docker-network/"/>
-      <url>/2024/04/09/docker/docker-network/</url>
+      <title>docker volume</title>
+      <link href="/2024/04/09/docker/docker-volume/"/>
+      <url>/2024/04/09/docker/docker-volume/</url>
       
-        <content type="html"><![CDATA[<h1 id="docker-network网络的优势"><a href="#docker-network网络的优势" class="headerlink" title="docker network网络的优势"></a><strong>docker network网络的优势</strong></h1><p>同一个 Docker <strong>网络中的容器之间可以使用容器名进行网络通信，就像访问域名一样</strong>。这是因为 Docker 默认提供了一个内置的 DNS 服务，它会为在同一网络中运行的容器分配主机名，并且其他容器可以使用这些主机名进行通信。</p><h1 id="创建docker-network"><a href="#创建docker-network" class="headerlink" title="创建docker network"></a>创建docker network</h1><p>使用 Docker 网络：另一种可能的解决方案是创建一个新的 Docker 网络，并在这个网络上运行你的容器。你可以使用 docker network create 命令创建一个新的网络，然后使用 —network 选项运行你的容器。</p><p>调整防火墙规则：如果你的主机上运行有防火墙，可能需要调整防火墙规则以允许 Docker 容器访问内网。具体的步骤取决于你的防火墙软件和配置。</p><p><strong>检查 DNS 配置：如果你的问题与 DNS 解析有关，可能需要检查和调整你的 Docker 容器的 DNS 配置。你可以通过在 Docker 守护进程的配置文件（例如 /etc/docker/daemon.json）中设置 dns 选项来全局配置 DNS，也可以使用 —dns 选项在运行容器时指定 DNS。</strong></p><p><strong>使用 VPN：如果你的内网服务在 VPN 后面，你可能需要在 Docker 容器中设置 VPN。这可能需要在你的 Docker 镜像中安装和配置 VPN 客户端。</strong></p>]]></content>
+        <content type="html"><![CDATA[<p>docker volume 有 ls rm等子命令</p><p>使用 docker rm 命令删除容器时，默认情况下不会删除与该容器关联的挂载的 <strong>Docker 卷（Docker volume）</strong>。Docker volume 是一个独立于容器的数据存储区域，通常用于持久化存储容器内的数据。</p><p>如果您使用了 -v 参数来挂载卷，那么删除容器时不会删除这个卷。要删除与容器关联的卷，您需要使用 docker volume rm 命令。</p><p>例如，如果您的容器启动命令中有如下的 -v 参数：</p><pre><code>docker run -v /host/path:/container/path my_image</code></pre><p>那么删除容器时，卷 /host/path 不会被自动删除。要手动删除该卷，可以运行以下命令：</p><pre><code>docker volume rm $(docker volume ls -qf &quot;mount=/host/path&quot;)</code></pre><p>这将删除与指定路径关联的 Docker 卷。请注意替换 /host/path 为实际使用的卷路径。</p><p>总之，docker rm 默认不会删除挂载的 Docker 卷，您需要使用 docker volume rm 命令手动删除它们。</p>]]></content>
       
       
       <categories>
