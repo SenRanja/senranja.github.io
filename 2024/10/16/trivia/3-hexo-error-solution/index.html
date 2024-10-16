@@ -870,19 +870,19 @@
         
         
         <a  class="All Linux-Maintain "
-           href="/2024/04/08/Linux-Maintain/gost/"
+           href="/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="gost">gost</span>
+            <span class="post-title" title="gitlab-ee的破解版返回500，501响应">gitlab-ee的破解版返回500，501响应</span>
             <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
         </a>
         
         
         <a  class="All Linux-Maintain "
-           href="/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/"
+           href="/2024/04/08/Linux-Maintain/gost/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="gitlab-ee的破解版返回500，501响应">gitlab-ee的破解版返回500，501响应</span>
+            <span class="post-title" title="gost">gost</span>
             <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
         </a>
         
@@ -960,12 +960,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-10-16 10:22:26'>2024-10-16 10:12</time>
+            Created At : <time class="date" title='Updated At: 2024-10-16 10:24:14'>2024-10-16 10:12</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:367</span>
+        <span>Count:389</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1022,7 +1022,17 @@
 <p>这个问题解决办法（90%的办法）：</p>
 <p>直接删除 <code>node_modules</code> 目录，然后 <code>npm i</code> 命令重新下载这个 <code>node_modules</code></p>
 <p>然后删除<code>.deploy_git</code>，自己用<code>hexo d</code>重新生成。</p>
-
+<p>最后记得<code>.gitignore</code>加上这个<code>.deploy_git</code></p>
+<pre><code>.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+_multiconfig.yml
+.deploy_git
+</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to point out the mistakes and faults! </span>
     </div>
