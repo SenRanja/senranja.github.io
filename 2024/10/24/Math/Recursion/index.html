@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>gitlab-ee的破解版返回500，501响应 | SenRanJa</title>
+  <title>Recursion | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="gitlab-ee的破解版返回500，501响应 | SenRanJa">
+  <meta name="description" content="Recursion | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeCurrently a postgraduate student in university, and major in Information Technology. Github: senRanja_github Blog: senRanja_blog linkedIn: keep private Keep exploration!">
 <meta property="og:type" content="website">
@@ -949,9 +949,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-Linux-Maintain/gitlab-ee的破解版返回500，501响应" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Math/Recursion" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">gitlab-ee的破解版返回500，501响应</h1>
+        <h1 class="article-title">Recursion</h1>
     
     <div class="article-meta">
         
@@ -961,7 +961,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Linux-Maintain">Linux-Maintain</a>
+            <a  data-rel="Math">Math</a>
             
         </span>
         
@@ -969,12 +969,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-10-08 15:40:19'>2024-04-08 17:58</time>
+            Created At : <time class="date" title='Updated At: 2024-10-24 17:27:36'>2024-10-24 16:42</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:137</span>
+        <span>Count:191</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1004,7 +1004,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%89%8D%E4%BF%AE%E6%94%B9"><span class="toc-text">方法一：容器启动前修改</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%90%8E%E4%BF%AE%E6%94%B9"><span class="toc-text">方法二：容器启动后修改</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction-Recursion-in-Computer-Science"><span class="toc-text">Introduction: Recursion in Computer Science</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Recursion"><span class="toc-text">Recursion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Example-Factorial"><span class="toc-text">Example: Factorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Example-Euclid%E2%80%99s-gcd-algorithm"><span class="toc-text">Example: Euclid’s gcd algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Example-Towers-of-Hanoi"><span class="toc-text">Example: Towers of Hanoi</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#move-1-disks"><span class="toc-text">move 1 disks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#move-2-disks"><span class="toc-text">move 2 disks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#move-3-disks"><span class="toc-text">move 3 disks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#move-4-disks"><span class="toc-text">move 4 disks</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Recursive-Data-Structures"><span class="toc-text">Recursive Data Structures</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Recursive-Programming"><span class="toc-text">Recursive Programming</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Solving-Recurrences"><span class="toc-text">Solving Recurrences</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1020,18 +1020,106 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>鹏哥参考过的链接</p>
-<pre><code>https://docs.gitlab.com/ee/install/docker.html#devshm-mount-not-having-enough-space-in-docker-container
-https://blog.kelu.org/tech/2021/12/16/docker-shm.html
-https://blog.csdn.net/weixin_43545410/article/details/120963125
-</code></pre><h1 id="方法一：容器启动前修改"><a href="#方法一：容器启动前修改" class="headerlink" title="方法一：容器启动前修改"></a>方法一：容器启动前修改</h1><pre><code>docker run -it --shm-size=&quot;1g&quot; --name 001 busybox:latest /bin/sh
-</code></pre><h1 id="方法二：容器启动后修改"><a href="#方法二：容器启动后修改" class="headerlink" title="方法二：容器启动后修改"></a>方法二：容器启动后修改</h1><p>1.docker ps | grep containerName</p>
-<p>2.获取完整 Id</p>
-<pre><code>[root@linfs-bigdata containers]# docker inspect 641ae8c59c0d | grep Id
-    &quot;Id&quot;: &quot;641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269&quot;,
-</code></pre><p>3.修改 ShmSize，单位为 kb，默认大小为 64M，修改完后重启 docker 就生效了</p>
-<pre><code>vim /var/lib/docker/containers/641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269/hostconfig.json
-</code></pre>
+        <p>Lecture 11: Recursion</p>
+<h1 id="Introduction-Recursion-in-Computer-Science"><a href="#Introduction-Recursion-in-Computer-Science" class="headerlink" title="Introduction: Recursion in Computer Science"></a>Introduction: Recursion in Computer Science</h1><p>Fundamental concept in Computer Science</p>
+<ul>
+<li>Defining complex objects from simpler ones</li>
+<li>Unbounded complexity with a finite description</li>
+</ul>
+<p>Recursive Data Structures:</p>
+<p>Finite definitions of <strong>arbitrarily large</strong> objects</p>
+<ul>
+<li>Natural numbers</li>
+<li>Words</li>
+<li>Linked lists</li>
+<li>Formulas</li>
+<li>Binary trees</li>
+</ul>
+<p>Recursive Algorithms:</p>
+<p>Solving problems/calculations by reducing to smaller cases</p>
+<ul>
+<li>Factorial</li>
+<li>Euclidean gcd algorithm</li>
+<li>Towers of Hanoi</li>
+<li>Mergesort, Quicksort</li>
+</ul>
+<p>Analysis of Recursion:</p>
+<p>Reasoning about recursive objects</p>
+<ul>
+<li>Induction, Structural Induction</li>
+<li>Recursive sequences (e.g. Fibonacci sequence)</li>
+<li>Asymptotic analysis of recursive functions</li>
+</ul>
+<h1 id="Recursion"><a href="#Recursion" class="headerlink" title="Recursion"></a>Recursion</h1><p>Consists of a basis <strong>(B)</strong> and recursive process <strong>(R)</strong>.</p>
+<p>A sequence/object/algorithm is recursively defined when (typically)</p>
+<p><strong>(B)</strong> some initial terms are specified, perhaps only the first one;</p>
+<p><strong>(R)</strong> later terms stated as functional expressions of the earlier<br>terms.</p>
+<p>Take Notice</p>
+<p>(R) also called <strong>recurrence formula (especially when dealing with sequences)</strong></p>
+<h2 id="Example-Factorial"><a href="#Example-Factorial" class="headerlink" title="Example: Factorial"></a>Example: Factorial</h2><p>$Factorial$:</p>
+<p>(B) $0! =1$</p>
+<p>(R) $(n+1)! = (n+1)·n!$</p>
+<p>$fact(n)$:</p>
+<p>(B) $if(n = 0): 1$</p>
+<p>(R) $else: n ∗ fact(n −1)$</p>
+<p>TAKE NOTICE: $0! =1$</p>
+<h2 id="Example-Euclid’s-gcd-algorithm"><a href="#Example-Euclid’s-gcd-algorithm" class="headerlink" title="Example: Euclid’s gcd algorithm"></a>Example: Euclid’s gcd algorithm</h2><script type="math/tex; mode=display">
+gcd(m,n)
+\begin{cases}
+    m & \text{if m = n} \\
+    gcd(m −n,n) & \text{if m >n} \\
+    gcd(m,n−m) & \text{if m <n}
+\end{cases}</script><h2 id="Example-Towers-of-Hanoi"><a href="#Example-Towers-of-Hanoi" class="headerlink" title="Example: Towers of Hanoi"></a>Example: Towers of Hanoi</h2><ul>
+<li>There are 3 towers (pegs)</li>
+<li>n disks of decreasing size placed on the first tower</li>
+<li>You need to move all disks from the first tower to the last tower</li>
+<li>Larger disks cannot be placed on top of smaller disks</li>
+<li>The third tower can be used to temporarily hold disks</li>
+</ul>
+<p>Questions:</p>
+<ul>
+<li>Describe a general solution for n disks</li>
+<li>How many moves does it take?</li>
+</ul>
+<h3 id="move-1-disks"><a href="#move-1-disks" class="headerlink" title="move 1 disks"></a>move 1 disks</h3><p><strong>One step</strong> obviously.</p>
+<h3 id="move-2-disks"><a href="#move-2-disks" class="headerlink" title="move 2 disks"></a>move 2 disks</h3><p><strong>Three steps</strong> obviously.</p>
+<h3 id="move-3-disks"><a href="#move-3-disks" class="headerlink" title="move 3 disks"></a>move 3 disks</h3><p><img src="/2024/10/24/Math/Recursion/Honai_tower.png" alt></p>
+<p>We move 3 towers that takes <strong>7 steps</strong>. —-(1)</p>
+<h3 id="move-4-disks"><a href="#move-4-disks" class="headerlink" title="move 4 disks"></a>move 4 disks</h3><p>And if we need to move 4 towers, we move the top 3 towers into the middle pillar ((1) move to the second pillar rather not third one, but takes the same steps), <strong>7 steps</strong></p>
+<p>then take <strong>1 step</strong> to move the biggest disk to the third pillar —- (2)</p>
+<p>then take 7 steps to the third pillar —- (3)</p>
+<p>hence 4 disks take $7+1+7=15$ steps.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">disks</th>
+<th style="text-align:left">steps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">3</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">7</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">15</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Hence the recursion formula is</p>
+<script type="math/tex; mode=display">
+M(n) ≤ 2M(n−1)+1</script><h1 id="Recursive-Data-Structures"><a href="#Recursive-Data-Structures" class="headerlink" title="Recursive Data Structures"></a>Recursive Data Structures</h1><h1 id="Recursive-Programming"><a href="#Recursive-Programming" class="headerlink" title="Recursive Programming"></a>Recursive Programming</h1><h1 id="Solving-Recurrences"><a href="#Solving-Recurrences" class="headerlink" title="Solving Recurrences"></a>Solving Recurrences</h1>
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to point out the mistakes and faults! </span>
     </div>
@@ -1064,6 +1152,46 @@ https://blog.csdn.net/weixin_43545410/article/details/120963125
 
 
 
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
     
 
 
