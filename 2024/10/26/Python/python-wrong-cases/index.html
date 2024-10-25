@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>学渣考试答题模板 | SenRanJa</title>
+  <title>python wrong cases | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="学渣考试答题模板 | SenRanJa">
+  <meta name="description" content="python wrong cases | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeCurrently a postgraduate student in university, and major in Information Technology. Github: senRanja_github Blog: senRanja_blog linkedIn: keep private Keep exploration!">
 <meta property="og:type" content="website">
@@ -985,9 +985,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-Math/学渣考试答题模板" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Python/python-wrong-cases" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">学渣考试答题模板</h1>
+        <h1 class="article-title">python wrong cases</h1>
     
     <div class="article-meta">
         
@@ -997,7 +997,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Math">Math</a>
+            <a  data-rel="Py">Py</a>
             
         </span>
         
@@ -1005,12 +1005,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-10-14 10:13:10'>2024-10-14 10:07</time>
+            Created At : <time class="date" title='Updated At: 2024-10-26 07:10:06'>2024-10-26 06:40</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:9</span>
+        <span>Count:697</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1040,7 +1040,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#step1"><span class="toc-text">step1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#step2"><span class="toc-text">step2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#step3"><span class="toc-text">step3</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#list-direct-assignment-list-copy-and"><span class="toc-text">list direct assignment, list.copy() and</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#a-reference-to-the-original-list-with-always-the-same-changes"><span class="toc-text">a reference to the original list with always the same changes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shallow-Copy"><span class="toc-text">Shallow Copy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deep-copy"><span class="toc-text">deep copy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#conclusion"><span class="toc-text">conclusion</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#improper-global-variables-use-and-forget-reseting-the-global-flag-after-finished"><span class="toc-text">improper global variables use and forget reseting the global flag after finished</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1056,11 +1056,68 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="/2024/10/14/Math/%E5%AD%A6%E6%B8%A3%E8%80%83%E8%AF%95%E7%AD%94%E9%A2%98%E6%A8%A1%E6%9D%BF/answer.jpg" alt></p>
-<p>正如tutor所言，</p>
-<h1 id="step1"><a href="#step1" class="headerlink" title="step1"></a>step1</h1><p>Given</p>
-<h1 id="step2"><a href="#step2" class="headerlink" title="step2"></a>step2</h1><p>To prove</p>
-<h1 id="step3"><a href="#step3" class="headerlink" title="step3"></a>step3</h1><p>Hence</p>
+        <p>This article would be updating for long long term, which is used to record every details of my programming career. Maybe you also often make a wrong programe which is non-compliant. I hope this article could help you and me to develop good programming habits, so that we can program rapidly, reasonably and correctly.</p>
+<ul>
+<li><a href="#list-direct-assignment-listcopy-and">list direct assignment, list.copy() and</a><ul>
+<li><a href="#a-reference-to-the-original-list-with-always-the-same-changes">a reference to the original list with always the same changes</a></li>
+<li><a href="#shallow-copy">Shallow Copy</a></li>
+<li><a href="#deep-copy">deep copy</a></li>
+<li><a href="#conclusion">conclusion</a></li>
+</ul>
+</li>
+<li><a href="#improper-global-variables-use-and-forget-reseting-the-global-flag-after-finished">improper global variables use and forget reseting the global flag after finished</a></li>
+</ul>
+<h1 id="list-direct-assignment-list-copy-and"><a href="#list-direct-assignment-list-copy-and" class="headerlink" title="list direct assignment, list.copy() and"></a>list direct assignment, list.copy() and</h1><p>what is the differences of <code>tmp = list_a</code>, <code>tmp = list_a.copy()</code> and <code>tmp = copy.deepcopy(list_a)</code></p>
+<h2 id="a-reference-to-the-original-list-with-always-the-same-changes"><a href="#a-reference-to-the-original-list-with-always-the-same-changes" class="headerlink" title="a reference to the original list with always the same changes"></a>a reference to the original list with always the same changes</h2><p>tmp = list_a (Assignment):</p>
+<ul>
+<li>This creates a reference to the original list, list_a.</li>
+<li>Any changes made to tmp will directly affect list_a because they both point to the same memory location.</li>
+<li>This is known as a shallow reference.</li>
+</ul>
+<h2 id="Shallow-Copy"><a href="#Shallow-Copy" class="headerlink" title="Shallow Copy"></a>Shallow Copy</h2><ul>
+<li>This creates a new list with a shallow copy of list_a’s elements.</li>
+<li>The new list, tmp, is separate from list_a, so modifying tmp won’t affect list_a (and vice versa) if they contain only simple data types (like integers or strings).</li>
+<li>However, if list_a contains <strong>mutable elements</strong> (<strong>like other lists or dictionaries</strong>), tmp will still reference those same nested objects. Therefore, modifying these nested elements in tmp will also affect list_a.</li>
+</ul>
+<p>Take notice, mutable elements are the same such as a sublist as its element: [5,6,7] and [9,10]. The object in the list would have the same changes if you changed the new copy or original list.</p>
+<p>But the single simple element are seperately, you change 1 to 2, they won’t impact mutually.</p>
+<pre><code class="lang-python"># [5,6,7] and [9,10] are mutable elements
+a = [1,2,3,4, [5,6,7], 8, [9,10]]
+
+b = a.copy()
+
+print(&quot;a: &quot;, a)
+print(&quot;b: &quot;, b)
+
+# won&#39;t change the original
+b[0] = 11
+print(&quot;a: &quot;, a)
+print(&quot;b: &quot;, b)
+
+# Will change the original
+b[4][0] = 12
+print(&quot;a: &quot;, a)
+print(&quot;b: &quot;, b)
+</code></pre>
+<pre><code class="lang-output">a:  [1, 2, 3, 4, [5, 6, 7], 8, [9, 10]]
+b:  [1, 2, 3, 4, [5, 6, 7], 8, [9, 10]]
+a:  [1, 2, 3, 4, [5, 6, 7], 8, [9, 10]]
+b:  [11, 2, 3, 4, [5, 6, 7], 8, [9, 10]]
+a:  [1, 2, 3, 4, [12, 6, 7], 8, [9, 10]]
+b:  [11, 2, 3, 4, [12, 6, 7], 8, [9, 10]]
+</code></pre>
+<h2 id="deep-copy"><a href="#deep-copy" class="headerlink" title="deep copy"></a>deep copy</h2><p><code>tmp = copy.deepcopy(list_a)</code> (<strong>Deep Copy</strong>):</p>
+<p>This creates a completely independent copy of list_a, including all nested objects.<br>Any changes made to tmp or its nested elements won’t affect list_a, and vice versa.<br>This approach is useful when working with complex, nested structures where you want a fully independent duplicate of the original list.</p>
+<h2 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h2><ul>
+<li>Assignment (tmp = list_a): tmp and list_a are <strong>the same object</strong>.</li>
+<li>Shallow Copy (tmp = list_a.copy()): tmp is a new list, but it <strong>shares nested objects with list_a</strong>.</li>
+<li>Deep Copy (tmp = copy.deepcopy(list_a)): tmp is a <strong>completely independent</strong> copy, including all nested objects.</li>
+</ul>
+<h1 id="improper-global-variables-use-and-forget-reseting-the-global-flag-after-finished"><a href="#improper-global-variables-use-and-forget-reseting-the-global-flag-after-finished" class="headerlink" title="improper global variables use and forget reseting the global flag after finished"></a>improper global variables use and forget reseting the global flag after finished</h1><p>During 20th, 21st Oct 2024, I was doing Martin’s large assignment 1. In the solitaire case, I wrongly used the <code>ROUND_FLAG=1</code> to be a flag to record the rounds of the game. Hence, when I singly run the program, then it would generate correct result; but if I called simulate() for many times, it would generate wrong results. For example, I put 7 as the random seed, then it would generate correct result; when I give 7 also to simulate(), I debugged and saw 7 into the seed variable, but it would generate wrong result.</p>
+<p>Then I found the global variable mattered. T_T . I shouldn’t use global variable, because it’s not worthy to use global variable, and then, I should reset it after every round.</p>
+<p><img src="/2024/10/26/Python/python-wrong-cases/2024-10-26-07-01-11.png" alt></p>
+<p><img src="/2024/10/26/Python/python-wrong-cases/2024-10-26-07-04-09.png" alt></p>
+<p>It is a good thought that reset every global variable after running the functions, if you want to call your function with the global variables, in one script to call for many times at once.</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to point out the mistakes and faults! </span>

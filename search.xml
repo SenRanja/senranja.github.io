@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>python wrong cases</title>
+      <link href="/2024/10/26/Python/python-wrong-cases/"/>
+      <url>/2024/10/26/Python/python-wrong-cases/</url>
+      
+        <content type="html"><![CDATA[<p>This article would be updating for long long term, which is used to record every details of my programming career. Maybe you also often make a wrong programe which is non-compliant. I hope this article could help you and me to develop good programming habits, so that we can program rapidly, reasonably and correctly.</p><ul><li><a href="#list-direct-assignment-listcopy-and">list direct assignment, list.copy() and</a><ul><li><a href="#a-reference-to-the-original-list-with-always-the-same-changes">a reference to the original list with always the same changes</a></li><li><a href="#shallow-copy">Shallow Copy</a></li><li><a href="#deep-copy">deep copy</a></li><li><a href="#conclusion">conclusion</a></li></ul></li><li><a href="#improper-global-variables-use-and-forget-reseting-the-global-flag-after-finished">improper global variables use and forget reseting the global flag after finished</a></li></ul><h1 id="list-direct-assignment-list-copy-and"><a href="#list-direct-assignment-list-copy-and" class="headerlink" title="list direct assignment, list.copy() and"></a>list direct assignment, list.copy() and</h1><p>what is the differences of <code>tmp = list_a</code>, <code>tmp = list_a.copy()</code> and <code>tmp = copy.deepcopy(list_a)</code></p><h2 id="a-reference-to-the-original-list-with-always-the-same-changes"><a href="#a-reference-to-the-original-list-with-always-the-same-changes" class="headerlink" title="a reference to the original list with always the same changes"></a>a reference to the original list with always the same changes</h2><p>tmp = list_a (Assignment):</p><ul><li>This creates a reference to the original list, list_a.</li><li>Any changes made to tmp will directly affect list_a because they both point to the same memory location.</li><li>This is known as a shallow reference.</li></ul><h2 id="Shallow-Copy"><a href="#Shallow-Copy" class="headerlink" title="Shallow Copy"></a>Shallow Copy</h2><ul><li>This creates a new list with a shallow copy of list_a’s elements.</li><li>The new list, tmp, is separate from list_a, so modifying tmp won’t affect list_a (and vice versa) if they contain only simple data types (like integers or strings).</li><li>However, if list_a contains <strong>mutable elements</strong> (<strong>like other lists or dictionaries</strong>), tmp will still reference those same nested objects. Therefore, modifying these nested elements in tmp will also affect list_a.</li></ul><p>Take notice, mutable elements are the same such as a sublist as its element: [5,6,7] and [9,10]. The object in the list would have the same changes if you changed the new copy or original list.</p><p>But the single simple element are seperately, you change 1 to 2, they won’t impact mutually.</p><pre><code class="lang-python"># [5,6,7] and [9,10] are mutable elementsa = [1,2,3,4, [5,6,7], 8, [9,10]]b = a.copy()print(&quot;a: &quot;, a)print(&quot;b: &quot;, b)# won&#39;t change the originalb[0] = 11print(&quot;a: &quot;, a)print(&quot;b: &quot;, b)# Will change the originalb[4][0] = 12print(&quot;a: &quot;, a)print(&quot;b: &quot;, b)</code></pre><pre><code class="lang-output">a:  [1, 2, 3, 4, [5, 6, 7], 8, [9, 10]]b:  [1, 2, 3, 4, [5, 6, 7], 8, [9, 10]]a:  [1, 2, 3, 4, [5, 6, 7], 8, [9, 10]]b:  [11, 2, 3, 4, [5, 6, 7], 8, [9, 10]]a:  [1, 2, 3, 4, [12, 6, 7], 8, [9, 10]]b:  [11, 2, 3, 4, [12, 6, 7], 8, [9, 10]]</code></pre><h2 id="deep-copy"><a href="#deep-copy" class="headerlink" title="deep copy"></a>deep copy</h2><p><code>tmp = copy.deepcopy(list_a)</code> (<strong>Deep Copy</strong>):</p><p>This creates a completely independent copy of list_a, including all nested objects.<br>Any changes made to tmp or its nested elements won’t affect list_a, and vice versa.<br>This approach is useful when working with complex, nested structures where you want a fully independent duplicate of the original list.</p><h2 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h2><ul><li>Assignment (tmp = list_a): tmp and list_a are <strong>the same object</strong>.</li><li>Shallow Copy (tmp = list_a.copy()): tmp is a new list, but it <strong>shares nested objects with list_a</strong>.</li><li>Deep Copy (tmp = copy.deepcopy(list_a)): tmp is a <strong>completely independent</strong> copy, including all nested objects.</li></ul><h1 id="improper-global-variables-use-and-forget-reseting-the-global-flag-after-finished"><a href="#improper-global-variables-use-and-forget-reseting-the-global-flag-after-finished" class="headerlink" title="improper global variables use and forget reseting the global flag after finished"></a>improper global variables use and forget reseting the global flag after finished</h1><p>During 20th, 21st Oct 2024, I was doing Martin’s large assignment 1. In the solitaire case, I wrongly used the <code>ROUND_FLAG=1</code> to be a flag to record the rounds of the game. Hence, when I singly run the program, then it would generate correct result; but if I called simulate() for many times, it would generate wrong results. For example, I put 7 as the random seed, then it would generate correct result; when I give 7 also to simulate(), I debugged and saw 7 into the seed variable, but it would generate wrong result.</p><p>Then I found the global variable mattered. T_T . I shouldn’t use global variable, because it’s not worthy to use global variable, and then, I should reset it after every round.</p><p><img src="/2024/10/26/Python/python-wrong-cases/2024-10-26-07-01-11.png" alt></p><p><img src="/2024/10/26/Python/python-wrong-cases/2024-10-26-07-04-09.png" alt></p><p>It is a good thought that reset every global variable after running the functions, if you want to call your function with the global variables, in one script to call for many times at once.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Py </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>truth table solves imposter and crewmate</title>
       <link href="/2024/10/25/Math/truth-table-solves-imposter-and-crewmate/"/>
       <url>/2024/10/25/Math/truth-table-solves-imposter-and-crewmate/</url>
@@ -684,177 +703,6 @@
     
     
     <entry>
-      <title>.gitignore</title>
-      <link href="/2024/04/09/git/gitignore/"/>
-      <url>/2024/04/09/git/gitignore/</url>
-      
-        <content type="html"><![CDATA[<p>官方文档：<code>https://github.com/github/gitignore</code></p><h3 id="我的-gitignore模板"><a href="#我的-gitignore模板" class="headerlink" title="我的.gitignore模板"></a>我的.gitignore模板</h3><pre><code># Logslogs*.lognpm-debug.log*yarn-debug.log*yarn-error.log*pnpm-debug.log*lerna-debug.log*node_modulesdistdist-ssr*.local# big files*.mp4backend/volume/media/documents/*!backend/volume/media/documents/.gitkeepbackend/volume/media/import_excel_upload/*!backend/volume/media/import_excel_upload/.gitkeepbackend/volume/media/videos/*!backend/volume/media/videos/.gitkeep# python**/__pycache__/**.pyc# 忽略pycharm**/.idea/# 忽略虚拟环境**/venv# Editor directories and files**/.vscode/*!.vscode/extensions.json.idea.DS_Store*.suo*.ntvs**.njsproj*.sln*.sw?</code></pre><h3 id="其他示例"><a href="#其他示例" class="headerlink" title="其他示例"></a>其他示例</h3><pre><code># 忽略所有 .a 结尾的文件a# 但lib.a 除外!lib.a# 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO/TODO# 忽略build/ 目录下的所有文件build/# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txtdoc/.txt</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>keep empty directory in git</title>
-      <link href="/2024/04/09/git/gitkeep/"/>
-      <url>/2024/04/09/git/gitkeep/</url>
-      
-        <content type="html"><![CDATA[<p>目录中新建空文件 <strong>.gitkeep</strong> 即可</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>远程获取所有分支</title>
-      <link href="/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/"/>
-      <url>/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/</url>
-      
-        <content type="html"><![CDATA[<pre><code>git clone xxxcd xxxgit branch -r | grep -v &#39;\-&gt;&#39; | while read remote; do git branch --track &quot;$&#123;remote#origin/&#125;&quot; &quot;$remote&quot;; donegit fetch --allgit pull --all(git pull –all在功能上包含git fetch --all)</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>merge conflict</title>
-      <link href="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"/>
-      <url>/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</url>
-      
-        <content type="html"><![CDATA[<p>git push提示冲突</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-47-59.png" alt="2024-04-09-19-47-59"></p><p>会在源文件中看到标记的冲突的HEAD</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-48-22.png" alt="2024-04-09-19-48-22"></p><p>修改完在git add . 再commit push</p><p>如果没有实质差异，“current change”是你的修改的，那个commit id的是已存在的，按照已存在的来</p><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><pre><code>git stashgit commitgit stash pop</code></pre><p>接下来diff一下此文件看看自动合并的情况，并作出相应修改。</p><p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。</p><p>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。</p><p>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。</p><p>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>branch</title>
-      <link href="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"/>
-      <url>/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/</url>
-      
-        <content type="html"><![CDATA[<ul><li><a href="#查看分支">查看分支</a><ul><li><a href="#列出本地所有的分支">列出本地所有的分支</a></li><li><a href="#分支合并行为可视化">分支合并行为可视化</a></li><li><a href="#查看分支与远程的关联">查看分支与远程的关联</a></li><li><a href="#查看所有分支">查看所有分支</a></li></ul></li><li><a href="#切换分支">切换分支</a></li><li><a href="#detached-head-和-checkout-commit然后修改入新branch">Detached HEAD 和 checkout commit然后修改入新branch</a></li></ul><h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch </code></pre><p>查看分支详细信息，列出本地所有的分支, + hash 信息</p><pre><code>git branch -v</code></pre><h3 id="分支合并行为可视化"><a href="#分支合并行为可视化" class="headerlink" title="分支合并行为可视化"></a>分支合并行为可视化</h3><p>为了方便查看分支来源，比如大型项目通常会有多个分支以及分支合并的行为，单纯的使用终端查看分支来源、log并不直观。如果发生分支合并的异常行为，需要溯源，直观的观察git分支是必须的一个审计行为。</p><p>我看有推荐<code>github desktop</code>, <code>source tree</code>和<code>GitKraken</code>(收费)，但是之前上班的时候看师傅用的<strong>IDEA GIT分支图</strong>也有不错的效果，基本Jetbrain的所有IDE都有这个插件。点击菜单栏的<code>git</code>-&gt;<code>log</code>。</p><p><img src="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/pycharm_git_log.png" alt="pycharm_git_log"></p><h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p><code>git branch -vv</code> #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p><p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p><h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><h1 id="列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如"><a href="#列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如" class="headerlink" title="列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如"></a>列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</h1><pre><code>git branch -agit branch -a | grep xxx</code></pre><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code># `-b` means create a new branchgit checkout -b new-branch-namegit checkout &lt;commit-hash&gt;</code></pre><h1 id="Detached-HEAD-和-checkout-commit然后修改入新branch"><a href="#Detached-HEAD-和-checkout-commit然后修改入新branch" class="headerlink" title="Detached HEAD 和 checkout commit然后修改入新branch"></a>Detached HEAD 和 checkout commit然后修改入新branch</h1><p>In Git, a <strong>detached HEAD</strong> state occurs when you are working directly on <strong>a specific commit(not the lastest)</strong> rather than on <strong>the latest commit</strong> of a branch. This can happen when you <strong>checkout a commit, a tag, or a remote branch</strong> directly, without creating a new branch.</p><p><strong>HEAD</strong> is a <code>pointer</code> in Git that typically points to the latest commit on the current branch.</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>delete something useless before gitignore</title>
-      <link href="/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/"/>
-      <url>/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/</url>
-      
-        <content type="html"><![CDATA[<h1 id="重写了gitignore但是想删除已提交但想忽略的内容"><a href="#重写了gitignore但是想删除已提交但想忽略的内容" class="headerlink" title="重写了gitignore但是想删除已提交但想忽略的内容"></a>重写了gitignore但是想删除已提交但想忽略的内容</h1><p>已经提交过的文件或者文件夹怎么办？此时更改.gitignore文件对已经提交的文件是无效的。</p><p>首先，编辑.gitignore文件。</p><p>然后如果是单个文件，可以使用如下命令从仓库中删除：</p><pre><code>git rm --cached logs/xx.log</code></pre><p>如果是整个目录：</p><pre><code>git rm --cached -r logs</code></pre><p>如果文件很多，那么直接</p><pre><code>git rm --cached -r .</code></pre><p>如果提示某个文件无法忽略，可以添加-f参数强制忽略。</p><pre><code>git rm -f --cached logs/xx.log</code></pre><p>然后</p><pre><code>git add .git commit -m &quot;Update .gitignore&quot;</code></pre><p>把被忽略的某个文件强制添加回去：</p><pre><code>git add -f filename</code></pre><p>ignore规则检查：</p><pre><code>git check-ignore</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>build a new repo</title>
-      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/"/>
-      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/</url>
-      
-        <content type="html"><![CDATA[<h1 id="新建项目仓库"><a href="#新建项目仓库" class="headerlink" title="新建项目仓库"></a>新建项目仓库</h1><h3 id="创建本地git项目"><a href="#创建本地git项目" class="headerlink" title="创建本地git项目"></a>创建本地git项目</h3><pre><code>git init</code></pre><p>git init &lt;仓库名&gt;没法执行，init后面不要跟参数当名字。</p><h3 id="github上创建一个仓库"><a href="#github上创建一个仓库" class="headerlink" title="github上创建一个仓库"></a>github上创建一个仓库</h3><p>登录github创建个空的仓库</p><h3 id="登录github创建个空的仓库，添加远程仓库"><a href="#登录github创建个空的仓库，添加远程仓库" class="headerlink" title="登录github创建个空的仓库，添加远程仓库"></a>登录github创建个空的仓库，添加远程仓库</h3><pre><code>git remote add origin https://github.com/xxx/xxx.git</code></pre><p>从远程master合并到本地master</p><pre><code class="lang-shell">git config --global user.name &quot;xxxx&quot; git config --global user.email xxxxx@xx.com</code></pre><pre><code class="lang-shell">git initgit add .git commit - m &quot;init&quot;git remote add origin https://github.com/xxx/xxx.gitgit push origin master</code></pre><p>如果有冲突就尝试（通常是你创建仓库的时候新建了什么readme和license）：<br>    git pull origin master:master</p><p>也可以直接强制推送：<br>    git push origin master —force</p><h3 id="提交本地分支到远程分支"><a href="#提交本地分支到远程分支" class="headerlink" title="提交本地分支到远程分支"></a>提交本地分支到远程分支</h3><pre><code>git push -u origin master</code></pre><h3 id="将现有项目添加并提交上传"><a href="#将现有项目添加并提交上传" class="headerlink" title="将现有项目添加并提交上传"></a>将现有项目添加并提交上传</h3><pre><code class="lang-shell">git add -A（git add . 是提交当前路径  git add -A 是提交整个文件夹子文件夹路径）git commit -m &#39;初始化git项目&#39;git push --set-upstream origin master</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>新建某分支并推送、合并分支</title>
-      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
-      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</url>
-      
-        <content type="html"><![CDATA[<h1 id="新建某分支并推送至某分支：以考试系统es为例版本管理"><a href="#新建某分支并推送至某分支：以考试系统es为例版本管理" class="headerlink" title="新建某分支并推送至某分支：以考试系统es为例版本管理"></a>新建某分支并推送至某分支：以考试系统es为例版本管理</h1><p>新建新分支并推送至新分支之前，需要检查当前分值是否还有未提交的状态</p><p><code>git status</code> # 可以检查是否有新文件未被track</p><p><code>git remote -v</code> # 查看远程分值，一般如下，同一个地址具有拿下或push的权限</p><pre><code>origin  http://shenyanjian.cn:3000/senranja/exam_system.git (fetch)origin  http://shenyanjian.cn:3000/senranja/exam_system.git (push)</code></pre><p><code>git fetch</code> # 拿下仓库最新分值信息。<code>git pull==git fetch + git merge</code>，git fetch是安全的、不会合并的命令</p><p><code>git branch -r</code> # 查看全部的远程分支，通常显示如下：（若远程分支只有main）</p><pre><code>  origin/HEAD -&gt; origin/main  origin/main</code></pre><p><code>git checkout -b V0.0.2</code> # 以当前分支为副本创建V0.0.2</p><p><code>git checkout V0.0.2</code> # 切换到分值V0.0.2</p><p>（现在在此处放一些部署文档、版本交付说明）</p><pre><code class="lang-shell">git add .git commit -m &quot;V0.0.2&quot;git push</code></pre><pre><code>fatal: The current branch V0.0.2 has no upstream branch.To push the current branch and set the remote as upstream, use    git push --set-upstream origin V0.0.2</code></pre><p>如上报错，意思是远程分值还没有V0.0.2，需要手动设置下</p><pre><code>git push --set-upstream origin V0.0.2</code></pre><p>完成</p><p>切换回主分支：</p><pre><code>git checkout main</code></pre><h1 id="本地合并其他分支到本分支，再推送"><a href="#本地合并其他分支到本分支，再推送" class="headerlink" title="本地合并其他分支到本分支，再推送"></a>本地合并其他分支到本分支，再推送</h1><p>要将本地的 dev 分支合并到 main 分支，你可以按照以下步骤进行操作：</p><p>确保你当前位于 main 分支上。你可以通过以下命令来确保：</p><pre><code>git checkout main</code></pre><p>然后，执行 git pull 命令来确保你的 main 分支是最新的：</p><pre><code>git pull origin main</code></pre><p>接着，执行 git merge 命令来合并 dev 分支到 main 分支：</p><pre><code>git merge dev</code></pre><p>如果有冲突，在合并过程中会停下来，需要你解决这些冲突。解决完冲突后，你需要执行 <code>git add</code>命令来标记冲突已解决的文件，然后执行 <code>git merge --continue</code> 来继续合并过程。</p><p>最后，当合并完成，你可以将合并后的 main 分支推送到远程仓库：</p><pre><code>git push origin main</code></pre><p>通过这些步骤，你就可以将本地的 dev 分支成功合并到 main 分支，并将更新推送到远程仓库。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>push existed local repo</title>
-      <link href="/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/"/>
-      <url>/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/</url>
-      
-        <content type="html"><![CDATA[<h1 id="现有仓库提交到github"><a href="#现有仓库提交到github" class="headerlink" title="现有仓库提交到github"></a>现有仓库提交到github</h1><h3 id="纯新建项目push"><a href="#纯新建项目push" class="headerlink" title="纯新建项目push"></a>纯新建项目push</h3><pre><code class="lang-shell">echo &quot;# licenseGenerator&quot; &gt;&gt; README.mdgit initgit add README.mdgit commit -m &quot;first commit&quot;git branch -M mastergit remote add origin https://github.com/SenRanja/licenseGenerator.gitgit push -u origin master</code></pre><h3 id="push已存在项目"><a href="#push已存在项目" class="headerlink" title="push已存在项目"></a>push已存在项目</h3><p>先做的：如果你手贱，github创建项目的时候，新建了什么license、readme有的没的的东西，本地push之前，得先git pull 一下：</p><pre><code>git pull github master --allow-unrelated-histories</code></pre><p>（git pull 远程名字 远程分支， 后面的 –allow-unreleated-histories ，比如你手贱新建了license，你git pull 的时候会拒绝，因为github新建项目弄的license有第一次的commit，和你本地历史对不上merge默认不允许，所以你得手动指定）</p><p>比如，如果本地gitea已经有项目了，应该是推送此处。<br>比如，我的evo系统，在本地已经推送gitea，默认的远程地址名字 origin 必须重命名。</p><pre><code>git remote add origin https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（git branch -M 命令用于重命名当前分支。具体来说，-M 选项告诉 Git 强制重命名分支，即使新的分支名与已存在的分支名冲突也会强制执行。这个命令的常见用途是将当前分支重命名为一个新的分支名。）</p><pre><code>git push -u origin master</code></pre><p>更改origin的远程名字的命令如下：</p><pre><code>git remote add github https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（强行将现在所在分支，重命名为 master 分支）</p><pre><code>git push -u github master</code></pre><p>（将本地的master分支代码提交到 github 的远程链接上）</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>构建gitleaks-Docker服务</title>
       <link href="/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
       <url>/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
@@ -1074,6 +922,177 @@
       <categories>
           
           <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>.gitignore</title>
+      <link href="/2024/04/09/git/gitignore/"/>
+      <url>/2024/04/09/git/gitignore/</url>
+      
+        <content type="html"><![CDATA[<p>官方文档：<code>https://github.com/github/gitignore</code></p><h3 id="我的-gitignore模板"><a href="#我的-gitignore模板" class="headerlink" title="我的.gitignore模板"></a>我的.gitignore模板</h3><pre><code># Logslogs*.lognpm-debug.log*yarn-debug.log*yarn-error.log*pnpm-debug.log*lerna-debug.log*node_modulesdistdist-ssr*.local# big files*.mp4backend/volume/media/documents/*!backend/volume/media/documents/.gitkeepbackend/volume/media/import_excel_upload/*!backend/volume/media/import_excel_upload/.gitkeepbackend/volume/media/videos/*!backend/volume/media/videos/.gitkeep# python**/__pycache__/**.pyc# 忽略pycharm**/.idea/# 忽略虚拟环境**/venv# Editor directories and files**/.vscode/*!.vscode/extensions.json.idea.DS_Store*.suo*.ntvs**.njsproj*.sln*.sw?</code></pre><h3 id="其他示例"><a href="#其他示例" class="headerlink" title="其他示例"></a>其他示例</h3><pre><code># 忽略所有 .a 结尾的文件a# 但lib.a 除外!lib.a# 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO/TODO# 忽略build/ 目录下的所有文件build/# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txtdoc/.txt</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>keep empty directory in git</title>
+      <link href="/2024/04/09/git/gitkeep/"/>
+      <url>/2024/04/09/git/gitkeep/</url>
+      
+        <content type="html"><![CDATA[<p>目录中新建空文件 <strong>.gitkeep</strong> 即可</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>远程获取所有分支</title>
+      <link href="/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/"/>
+      <url>/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/</url>
+      
+        <content type="html"><![CDATA[<pre><code>git clone xxxcd xxxgit branch -r | grep -v &#39;\-&gt;&#39; | while read remote; do git branch --track &quot;$&#123;remote#origin/&#125;&quot; &quot;$remote&quot;; donegit fetch --allgit pull --all(git pull –all在功能上包含git fetch --all)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>merge conflict</title>
+      <link href="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"/>
+      <url>/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</url>
+      
+        <content type="html"><![CDATA[<p>git push提示冲突</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-47-59.png" alt="2024-04-09-19-47-59"></p><p>会在源文件中看到标记的冲突的HEAD</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-48-22.png" alt="2024-04-09-19-48-22"></p><p>修改完在git add . 再commit push</p><p>如果没有实质差异，“current change”是你的修改的，那个commit id的是已存在的，按照已存在的来</p><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><pre><code>git stashgit commitgit stash pop</code></pre><p>接下来diff一下此文件看看自动合并的情况，并作出相应修改。</p><p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。</p><p>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。</p><p>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。</p><p>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>branch</title>
+      <link href="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"/>
+      <url>/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#查看分支">查看分支</a><ul><li><a href="#列出本地所有的分支">列出本地所有的分支</a></li><li><a href="#分支合并行为可视化">分支合并行为可视化</a></li><li><a href="#查看分支与远程的关联">查看分支与远程的关联</a></li><li><a href="#查看所有分支">查看所有分支</a></li></ul></li><li><a href="#切换分支">切换分支</a></li><li><a href="#detached-head-和-checkout-commit然后修改入新branch">Detached HEAD 和 checkout commit然后修改入新branch</a></li></ul><h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch </code></pre><p>查看分支详细信息，列出本地所有的分支, + hash 信息</p><pre><code>git branch -v</code></pre><h3 id="分支合并行为可视化"><a href="#分支合并行为可视化" class="headerlink" title="分支合并行为可视化"></a>分支合并行为可视化</h3><p>为了方便查看分支来源，比如大型项目通常会有多个分支以及分支合并的行为，单纯的使用终端查看分支来源、log并不直观。如果发生分支合并的异常行为，需要溯源，直观的观察git分支是必须的一个审计行为。</p><p>我看有推荐<code>github desktop</code>, <code>source tree</code>和<code>GitKraken</code>(收费)，但是之前上班的时候看师傅用的<strong>IDEA GIT分支图</strong>也有不错的效果，基本Jetbrain的所有IDE都有这个插件。点击菜单栏的<code>git</code>-&gt;<code>log</code>。</p><p><img src="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/pycharm_git_log.png" alt="pycharm_git_log"></p><h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p><code>git branch -vv</code> #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p><p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p><h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><h1 id="列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如"><a href="#列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如" class="headerlink" title="列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如"></a>列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</h1><pre><code>git branch -agit branch -a | grep xxx</code></pre><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code># `-b` means create a new branchgit checkout -b new-branch-namegit checkout &lt;commit-hash&gt;</code></pre><h1 id="Detached-HEAD-和-checkout-commit然后修改入新branch"><a href="#Detached-HEAD-和-checkout-commit然后修改入新branch" class="headerlink" title="Detached HEAD 和 checkout commit然后修改入新branch"></a>Detached HEAD 和 checkout commit然后修改入新branch</h1><p>In Git, a <strong>detached HEAD</strong> state occurs when you are working directly on <strong>a specific commit(not the lastest)</strong> rather than on <strong>the latest commit</strong> of a branch. This can happen when you <strong>checkout a commit, a tag, or a remote branch</strong> directly, without creating a new branch.</p><p><strong>HEAD</strong> is a <code>pointer</code> in Git that typically points to the latest commit on the current branch.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>delete something useless before gitignore</title>
+      <link href="/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/"/>
+      <url>/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="重写了gitignore但是想删除已提交但想忽略的内容"><a href="#重写了gitignore但是想删除已提交但想忽略的内容" class="headerlink" title="重写了gitignore但是想删除已提交但想忽略的内容"></a>重写了gitignore但是想删除已提交但想忽略的内容</h1><p>已经提交过的文件或者文件夹怎么办？此时更改.gitignore文件对已经提交的文件是无效的。</p><p>首先，编辑.gitignore文件。</p><p>然后如果是单个文件，可以使用如下命令从仓库中删除：</p><pre><code>git rm --cached logs/xx.log</code></pre><p>如果是整个目录：</p><pre><code>git rm --cached -r logs</code></pre><p>如果文件很多，那么直接</p><pre><code>git rm --cached -r .</code></pre><p>如果提示某个文件无法忽略，可以添加-f参数强制忽略。</p><pre><code>git rm -f --cached logs/xx.log</code></pre><p>然后</p><pre><code>git add .git commit -m &quot;Update .gitignore&quot;</code></pre><p>把被忽略的某个文件强制添加回去：</p><pre><code>git add -f filename</code></pre><p>ignore规则检查：</p><pre><code>git check-ignore</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>build a new repo</title>
+      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/"/>
+      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/</url>
+      
+        <content type="html"><![CDATA[<h1 id="新建项目仓库"><a href="#新建项目仓库" class="headerlink" title="新建项目仓库"></a>新建项目仓库</h1><h3 id="创建本地git项目"><a href="#创建本地git项目" class="headerlink" title="创建本地git项目"></a>创建本地git项目</h3><pre><code>git init</code></pre><p>git init &lt;仓库名&gt;没法执行，init后面不要跟参数当名字。</p><h3 id="github上创建一个仓库"><a href="#github上创建一个仓库" class="headerlink" title="github上创建一个仓库"></a>github上创建一个仓库</h3><p>登录github创建个空的仓库</p><h3 id="登录github创建个空的仓库，添加远程仓库"><a href="#登录github创建个空的仓库，添加远程仓库" class="headerlink" title="登录github创建个空的仓库，添加远程仓库"></a>登录github创建个空的仓库，添加远程仓库</h3><pre><code>git remote add origin https://github.com/xxx/xxx.git</code></pre><p>从远程master合并到本地master</p><pre><code class="lang-shell">git config --global user.name &quot;xxxx&quot; git config --global user.email xxxxx@xx.com</code></pre><pre><code class="lang-shell">git initgit add .git commit - m &quot;init&quot;git remote add origin https://github.com/xxx/xxx.gitgit push origin master</code></pre><p>如果有冲突就尝试（通常是你创建仓库的时候新建了什么readme和license）：<br>    git pull origin master:master</p><p>也可以直接强制推送：<br>    git push origin master —force</p><h3 id="提交本地分支到远程分支"><a href="#提交本地分支到远程分支" class="headerlink" title="提交本地分支到远程分支"></a>提交本地分支到远程分支</h3><pre><code>git push -u origin master</code></pre><h3 id="将现有项目添加并提交上传"><a href="#将现有项目添加并提交上传" class="headerlink" title="将现有项目添加并提交上传"></a>将现有项目添加并提交上传</h3><pre><code class="lang-shell">git add -A（git add . 是提交当前路径  git add -A 是提交整个文件夹子文件夹路径）git commit -m &#39;初始化git项目&#39;git push --set-upstream origin master</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>新建某分支并推送、合并分支</title>
+      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
+      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="新建某分支并推送至某分支：以考试系统es为例版本管理"><a href="#新建某分支并推送至某分支：以考试系统es为例版本管理" class="headerlink" title="新建某分支并推送至某分支：以考试系统es为例版本管理"></a>新建某分支并推送至某分支：以考试系统es为例版本管理</h1><p>新建新分支并推送至新分支之前，需要检查当前分值是否还有未提交的状态</p><p><code>git status</code> # 可以检查是否有新文件未被track</p><p><code>git remote -v</code> # 查看远程分值，一般如下，同一个地址具有拿下或push的权限</p><pre><code>origin  http://shenyanjian.cn:3000/senranja/exam_system.git (fetch)origin  http://shenyanjian.cn:3000/senranja/exam_system.git (push)</code></pre><p><code>git fetch</code> # 拿下仓库最新分值信息。<code>git pull==git fetch + git merge</code>，git fetch是安全的、不会合并的命令</p><p><code>git branch -r</code> # 查看全部的远程分支，通常显示如下：（若远程分支只有main）</p><pre><code>  origin/HEAD -&gt; origin/main  origin/main</code></pre><p><code>git checkout -b V0.0.2</code> # 以当前分支为副本创建V0.0.2</p><p><code>git checkout V0.0.2</code> # 切换到分值V0.0.2</p><p>（现在在此处放一些部署文档、版本交付说明）</p><pre><code class="lang-shell">git add .git commit -m &quot;V0.0.2&quot;git push</code></pre><pre><code>fatal: The current branch V0.0.2 has no upstream branch.To push the current branch and set the remote as upstream, use    git push --set-upstream origin V0.0.2</code></pre><p>如上报错，意思是远程分值还没有V0.0.2，需要手动设置下</p><pre><code>git push --set-upstream origin V0.0.2</code></pre><p>完成</p><p>切换回主分支：</p><pre><code>git checkout main</code></pre><h1 id="本地合并其他分支到本分支，再推送"><a href="#本地合并其他分支到本分支，再推送" class="headerlink" title="本地合并其他分支到本分支，再推送"></a>本地合并其他分支到本分支，再推送</h1><p>要将本地的 dev 分支合并到 main 分支，你可以按照以下步骤进行操作：</p><p>确保你当前位于 main 分支上。你可以通过以下命令来确保：</p><pre><code>git checkout main</code></pre><p>然后，执行 git pull 命令来确保你的 main 分支是最新的：</p><pre><code>git pull origin main</code></pre><p>接着，执行 git merge 命令来合并 dev 分支到 main 分支：</p><pre><code>git merge dev</code></pre><p>如果有冲突，在合并过程中会停下来，需要你解决这些冲突。解决完冲突后，你需要执行 <code>git add</code>命令来标记冲突已解决的文件，然后执行 <code>git merge --continue</code> 来继续合并过程。</p><p>最后，当合并完成，你可以将合并后的 main 分支推送到远程仓库：</p><pre><code>git push origin main</code></pre><p>通过这些步骤，你就可以将本地的 dev 分支成功合并到 main 分支，并将更新推送到远程仓库。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>push existed local repo</title>
+      <link href="/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/"/>
+      <url>/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/</url>
+      
+        <content type="html"><![CDATA[<h1 id="现有仓库提交到github"><a href="#现有仓库提交到github" class="headerlink" title="现有仓库提交到github"></a>现有仓库提交到github</h1><h3 id="纯新建项目push"><a href="#纯新建项目push" class="headerlink" title="纯新建项目push"></a>纯新建项目push</h3><pre><code class="lang-shell">echo &quot;# licenseGenerator&quot; &gt;&gt; README.mdgit initgit add README.mdgit commit -m &quot;first commit&quot;git branch -M mastergit remote add origin https://github.com/SenRanja/licenseGenerator.gitgit push -u origin master</code></pre><h3 id="push已存在项目"><a href="#push已存在项目" class="headerlink" title="push已存在项目"></a>push已存在项目</h3><p>先做的：如果你手贱，github创建项目的时候，新建了什么license、readme有的没的的东西，本地push之前，得先git pull 一下：</p><pre><code>git pull github master --allow-unrelated-histories</code></pre><p>（git pull 远程名字 远程分支， 后面的 –allow-unreleated-histories ，比如你手贱新建了license，你git pull 的时候会拒绝，因为github新建项目弄的license有第一次的commit，和你本地历史对不上merge默认不允许，所以你得手动指定）</p><p>比如，如果本地gitea已经有项目了，应该是推送此处。<br>比如，我的evo系统，在本地已经推送gitea，默认的远程地址名字 origin 必须重命名。</p><pre><code>git remote add origin https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（git branch -M 命令用于重命名当前分支。具体来说，-M 选项告诉 Git 强制重命名分支，即使新的分支名与已存在的分支名冲突也会强制执行。这个命令的常见用途是将当前分支重命名为一个新的分支名。）</p><pre><code>git push -u origin master</code></pre><p>更改origin的远程名字的命令如下：</p><pre><code>git remote add github https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（强行将现在所在分支，重命名为 master 分支）</p><pre><code>git push -u github master</code></pre><p>（将本地的master分支代码提交到 github 的远程链接上）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
           
       </categories>
       
