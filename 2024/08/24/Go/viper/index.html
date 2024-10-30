@@ -6,17 +6,21 @@
   <meta name="keywords" content="">
   <meta name="description" content="viper | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="About MeCurrently a postgraduate student in university, and major in Information Technology. Github: senRanja_github Blog: senRanja_blog linkedIn: keep private Keep exploration!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="https://senranja.github.io/about/index.html">
+<meta name="description" content="声明数组方式 格式化字符串（典型静态数组） 动态内存分配 动态分配内存，追加数组长度：realloc 两种方式比较 静态数组 优点 缺点   动态内存分配（如 malloc） 优点 缺点：     关于越界操作：越界赋值和访问 数组默认值   数组指针及访问方式 字符指针（字符串首地址(即字符串本身)） 如多名字数组赋值   结构体的成员变量是一个指针，但是可以直接malloc多个当作数组使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Declaring arrays and out of bounds">
+<meta property="og:url" content="https://senranja.github.io/2024/10/30/Cpp/Declaring-arrays-and-out-of-bounds/index.html">
 <meta property="og:site_name" content="SenRanJa">
-<meta property="og:description" content="About MeCurrently a postgraduate student in university, and major in Information Technology. Github: senRanja_github Blog: senRanja_blog linkedIn: keep private Keep exploration!">
+<meta property="og:description" content="声明数组方式 格式化字符串（典型静态数组） 动态内存分配 动态分配内存，追加数组长度：realloc 两种方式比较 静态数组 优点 缺点   动态内存分配（如 malloc） 优点 缺点：     关于越界操作：越界赋值和访问 数组默认值   数组指针及访问方式 字符指针（字符串首地址(即字符串本身)） 如多名字数组赋值   结构体的成员变量是一个指针，但是可以直接malloc多个当作数组使用">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-04-09T10:18:35.000Z">
-<meta property="article:modified_time" content="2024-10-08T12:38:04.045Z">
+<meta property="og:image" content="https://senranja.github.io/2024/10/30/Cpp/Declaring-arrays-and-out-of-bounds/2024-10-30-14-18-57.png">
+<meta property="og:image" content="https://senranja.github.io/2024/10/30/Cpp/Declaring-arrays-and-out-of-bounds/2024-10-30-14-19-22.png">
+<meta property="og:image" content="https://senranja.github.io/2024/10/30/Cpp/Declaring-arrays-and-out-of-bounds/2024-10-30-14-19-40.png">
+<meta property="article:published_time" content="2024-10-30T06:09:06.000Z">
+<meta property="article:modified_time" content="2024-10-30T06:38:58.564Z">
 <meta property="article:author" content="senranja">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://senranja.github.io/2024/10/30/Cpp/Declaring-arrays-and-out-of-bounds/2024-10-30-14-18-57.png">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -93,7 +97,7 @@
     <li>
         <div class="all active" data-rel="All">All
             
-                <small>(70)</small>
+                <small>(81)</small>
             
         </div>
     </li>
@@ -105,7 +109,7 @@
         <div data-rel="Math">
             <i class="fold iconfont icon-right"></i>
             Math
-            <small>(17)</small>
+            <small>(18)</small>
         </div>
         
             <ul class="sub hide">
@@ -135,7 +139,7 @@
         <div data-rel="Algorithm">
             
             Algorithm
-            <small>(2)</small>
+            <small>(4)</small>
         </div>
         
     </li>
@@ -226,6 +230,21 @@
             
                 
     <li>
+        <div data-rel="C-Cpp">
+            
+            C-Cpp
+            <small>(8)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
         <div data-rel="Py">
             
             Py
@@ -287,8 +306,8 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="70">
-<input type="hidden" id="yelog_site_word_count" value="58.8k">
+<input type="hidden" id="yelog_site_posts_number" value="81">
+<input type="hidden" id="yelog_site_word_count" value="64.6k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -353,6 +372,42 @@
            data-author="" >
             <span class="post-title" title="PREFACE">PREFACE</span>
             <span class="post-date" title="2024-08-29 16:35:38">2024/08/29</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/10/30/Cpp/Declaring-arrays-and-out-of-bounds/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Declaring arrays and out of bounds">Declaring arrays and out of bounds</span>
+            <span class="post-date" title="2024-10-30 14:09:06">2024/10/30</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/28/Math/prove-floor-s-floor/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="prove floor&#39;s floor">prove floor&#39;s floor</span>
+            <span class="post-date" title="2024-10-28 06:47:27">2024/10/28</span>
+        </a>
+        
+        
+        <a  class="All Algorithm "
+           href="/2024/10/27/Algorithm/Dijkstra/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Dijkstra">Dijkstra</span>
+            <span class="post-date" title="2024-10-27 12:44:47">2024/10/27</span>
+        </a>
+        
+        
+        <a  class="All Algorithm "
+           href="/2024/10/27/Algorithm/dot-and-graph/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="dot and graph">dot and graph</span>
+            <span class="post-date" title="2024-10-27 10:13:37">2024/10/27</span>
         </a>
         
         
@@ -581,6 +636,69 @@
         </a>
         
         
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/basic/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="basic">basic</span>
+            <span class="post-date" title="2024-09-10 14:29:35">2024/09/10</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/header-file/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="header file">header file</span>
+            <span class="post-date" title="2024-09-10 14:00:30">2024/09/10</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/if-endif/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="if-endif">if-endif</span>
+            <span class="post-date" title="2024-09-10 13:57:46">2024/09/10</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/how-double-scanf-to-eat-the-line/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="how double scanf to eat the line">how double scanf to eat the line</span>
+            <span class="post-date" title="2024-09-10 13:54:01">2024/09/10</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/CmakeLists-txt/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="CmakeLists.txt">CmakeLists.txt</span>
+            <span class="post-date" title="2024-09-10 13:32:21">2024/09/10</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/Makefile/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Makefile">Makefile</span>
+            <span class="post-date" title="2024-09-10 13:32:11">2024/09/10</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/Clion-Debug-Trick/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Clion Debug Trick">Clion Debug Trick</span>
+            <span class="post-date" title="2024-09-10 13:03:29">2024/09/10</span>
+        </a>
+        
+        
         <a  class="All Docker "
            href="/2024/08/29/docker/docker-cron/"
            data-tag=""
@@ -600,7 +718,7 @@
         
         
         <a  class="All penetration "
-           href="/2024/08/28/penetration/privileges-remain/"
+           href="/2024/08/28/Python/penetration/privileges-remain/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="privileges_remain">privileges_remain</span>
@@ -699,6 +817,15 @@
         
         
         <a  class="All Docker "
+           href="/2024/04/09/docker/docker-compose%E8%B0%83%E8%AF%95/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker-compose调试和操作">docker-compose调试和操作</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Docker "
            href="/2024/04/09/docker/docker-network/"
            data-tag=""
            data-author="" >
@@ -730,15 +857,6 @@
            data-tag=""
            data-author="" >
             <span class="post-title" title="gitlab EE实例">gitlab EE实例</span>
-            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
-        </a>
-        
-        
-        <a  class="All Docker "
-           href="/2024/04/09/docker/docker-compose%E8%B0%83%E8%AF%95/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="docker-compose调试和操作">docker-compose调试和操作</span>
             <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
         </a>
         
@@ -878,15 +996,6 @@
         </a>
         
         
-        <a  class="All Go "
-           href="/2024/04/08/Go/goland/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="goland技巧">goland技巧</span>
-            <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
-        </a>
-        
-        
         <a  class="All Linux-Maintain "
            href="/2024/04/08/Linux-Maintain/Dell730change_fans/"
            data-tag=""
@@ -946,6 +1055,15 @@
            data-tag=""
            data-author="" >
             <span class="post-title" title="ufw">ufw</span>
+            <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
+        </a>
+        
+        
+        <a  class="All Go "
+           href="/2024/04/08/Go/goland/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="goland技巧">goland技巧</span>
             <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
         </a>
         
