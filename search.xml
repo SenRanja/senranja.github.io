@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Combinatorics</title>
+      <link href="/2024/11/18/Math/Combinatorics/"/>
+      <url>/2024/11/18/Math/Combinatorics/</url>
+      
+        <content type="html"><![CDATA[<p>Lecture 13: Combinatorics</p><ul><li><a href="#combinatorics-in-computer-science">Combinatorics in Computer Science</a></li><li><a href="#counting-principles">Counting Principles</a><ul><li><a href="#basic-counting-rules-principles">Basic Counting Rules: Principles</a></li></ul></li><li><a href="#basic-counting-rules-union">Basic Counting Rules: Union</a><ul><li><a href="#example">Example</a></li><li><a href="#consequences-of-the-union-rule">Consequences of the Union Rule</a><ul><li><a href="#fact">Fact</a></li><li><a href="#fact-1">Fact</a></li><li><a href="#proof">Proof</a></li><li><a href="#exercises">Exercises</a></li></ul></li></ul></li><li><a href="#basic-counting-rules-product">Basic Counting Rules: Product</a><ul><li><a href="#the-product-rule">The Product Rule</a><ul><li><a href="#example-1">Example</a></li></ul></li><li><a href="#product-rule-sequences-of-selections">Product rule: Sequences of selections</a><ul><li><a href="#example-2">Example</a></li></ul></li><li><a href="#exercises-1">Exercises 1</a></li><li><a href="#exercises-2">Exercises 2</a></li></ul></li><li><a href="#combinatorial-symmetry">Combinatorial Symmetry</a><ul><li><a href="#definition">Definition</a></li><li><a href="#take-notice">Take Notice</a></li><li><a href="#product-rule-symmetries-and-duplications">Product rule: Symmetries and duplications</a></li><li><a href="#example-3">Example</a></li><li><a href="#product-rule-symmetries-and-duplications-1">Product rule: Symmetries and duplications</a><ul><li><a href="#example-4">Example</a></li></ul></li></ul></li><li><a href="#combinations-and-permutations">Combinations and Permutations</a><ul><li><a href="#permutations-with-duplicates">Permutations with duplicates</a><ul><li><a href="#example-1">Example 1</a></li><li><a href="#example-2">Example 2</a></li></ul></li><li><a href="#r-selections-or-r-combinations">r-selections (or: r-combinations)</a></li><li><a href="#simple-counting-problems">Simple Counting Problems</a></li><li><a href="#exercises-choose-to-from-committees">Exercises: choose to from committees</a></li><li><a href="#exercisescounting-poker-hands">Exercises:Counting Poker Hands</a></li><li><a href="#summary">Summary</a></li><li><a href="#balls-in-boxes">“Balls in boxes”</a></li></ul></li><li><a href="#alternative-techniques">Alternative Techniques</a><ul><li><a href="#example-5">Example</a></li></ul></li><li><a href="#difficult-counting-problems-not-assessed">Difficult Counting Problems (not assessed)</a><ul><li><a href="#using-programs-to-count">Using Programs to Count</a></li><li><a href="#approximate-counting">Approximate Counting</a></li></ul></li></ul><h1 id="Combinatorics-in-Computer-Science"><a href="#Combinatorics-in-Computer-Science" class="headerlink" title="Combinatorics in Computer Science"></a>Combinatorics in Computer Science</h1><p>Informally, combinatorics is the mathematics of counting.</p><p>More formally, combinatorics is about understanding finite systems of discrete objects.</p><p>For example:</p><ul><li>How many different ways are there of getting a flush in poker?</li></ul><p>In computer science, we use combinatorics when:</p><ul><li>Computing cost functions in algorithmic analysis</li><li>Identifying (in-)efficiencies in data management</li><li>Developing effective techniques for enumerating objects</li><li>Probability calculations</li></ul><h1 id="Counting-Principles"><a href="#Counting-Principles" class="headerlink" title="Counting Principles"></a>Counting Principles</h1><p>General idea: find methods, algorithms or precise formulae to count the number of elements in various sets or collections derived, in a structured way, from some basic sets.</p><p>Examples</p><p>Single base set </p><script type="math/tex; mode=display">S = \{s_1,...,s_n\}</script><p>, and $∣S∣ = n$; find the number of</p><ul><li>all subsets of S</li><li>ordered selections of r different elements of S</li><li>unordered selections of r different elements of S</li><li>selections of r elements from S such that …</li><li>functions $S ⟶ S (onto, 1-1)$</li><li>partitions of S into k equivalence classes</li></ul><div class="table-container"><table><thead><tr><th>Starter</th><th>Main Course</th><th>Dessert</th></tr></thead><tbody><tr><td>Soup</td><td>Fish</td><td>Ice-cream</td></tr><tr><td>Bread</td><td>Beef</td><td>Fruit</td></tr><tr><td></td><td>Pork</td><td>Cheese</td></tr><tr><td></td><td>Chicken</td></tr></tbody></table></div><hr><p>How many:</p><ul><li>3 course meals (Starter-Main-Dessert) are possible?</li><li>3 course meals (Any item for each course) are possible?</li><li>3 course meals (Any item, no duplicates) are possible?</li><li>Meals consisting of 3 items (order is unimportant)?</li></ul><p><strong>These problems are translated into these below:</strong></p><p>How many:</p><ul><li>Starter-Main-Dessert?</li></ul><script type="math/tex; mode=display">2 ×4×3=24</script><ul><li>Any item for 3 courses?</li></ul><script type="math/tex; mode=display">9 ×9×9=729</script><ul><li>Any item, no duplicates, for 3 courses?</li></ul><script type="math/tex; mode=display">9 ×8×7=504</script><ul><li>Meals of 3 different items?</li></ul><script type="math/tex; mode=display">504/6 = 84</script><p>Note, why $504/6 = 84$? Because <strong>(order is unimportant)</strong>, and the order of 3 items is $3!=6$. 504 is the number of 3 ordered items, and 84 is the number of 3 unordered items.</p><p>How to understand the <strong>number of 3 ordered items</strong> is $3!=3 \times 2 \times 1=6$? We could think it’s $3 \times 2 \times 1$ of each time we choose the left items, and it’s exactly the <strong>factorial</strong>!</p><hr><h2 id="Basic-Counting-Rules-Principles"><a href="#Basic-Counting-Rules-Principles" class="headerlink" title="Basic Counting Rules: Principles"></a>Basic Counting Rules: Principles</h2><p>Two simple rules:</p><ul><li><strong>Union rule</strong> (“or”): If $S$ and $T$ are disjoint $∣S ∪T∣ =∣S∣+∣T∣$</li><li><strong>Product rule</strong> (“followed by”): $∣S × T∣ = ∣S∣ ⋅ ∣T∣$</li></ul><p>These cover many examples, though the rule application is not always obvious.</p><p>Common strategies:</p><ul><li>Direct application of the rule</li><li>Relate unknown quantities to known quantities (e.g.  $∣S∣ +∣T∣ = ∣S ∪T∣+∣S ∩T∣$)</li><li>Find a bijection to a set that can be counted</li></ul><script type="math/tex; mode=display">∣S∣ +∣T∣ = ∣S ∪T∣+∣S ∩T∣</script><h1 id="Basic-Counting-Rules-Union"><a href="#Basic-Counting-Rules-Union" class="headerlink" title="Basic Counting Rules: Union"></a>Basic Counting Rules: Union</h1><p>Union rule — S and T <strong>disjoint</strong></p><script type="math/tex; mode=display">∣S ∪T∣ =∣S∣+∣T∣</script><p>$S_1,S_2,…,S_n$ pairwise disjoint ($S_i ∩ S_j = ∅ \quad for \quad i ≠ j$)</p><script type="math/tex; mode=display">∣S_1 ∪... ∪S_n∣ = ∑∣S_i∣</script><h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>How many numbers in $A = [1,2,…,999]$ are divisible by 31 or 41?</p><p>A:</p><script type="math/tex; mode=display">\lfloor 999/31 \rfloor = 32 \text{ numbers are divisible by 31 }\\\lfloor 999/41 \rfloor = 24 \text{ numbers are divisible by 41}\\\text{No number in A divisible by both 31 and 41}\\Hence, 32+24=56 \text{ divisible by 31 and 41}</script><h2 id="Consequences-of-the-Union-Rule"><a href="#Consequences-of-the-Union-Rule" class="headerlink" title="Consequences of the Union Rule"></a>Consequences of the Union Rule</h2><h3 id="Fact"><a href="#Fact" class="headerlink" title="Fact"></a>Fact</h3><p>For any sets X, Y, Z:</p><script type="math/tex; mode=display">∣Y \setminus X∣ = ∣Y∣−∣X ∩Y∣ \\∣X ∪Y∣ = ∣X∣+∣Y∣−∣X ∩Y∣ \\∣X ∪Y ∪Z∣ = ∣X∣+∣Y∣+∣Z∣  −∣X ∩Y∣−∣Y ∩Z∣−∣Z ∩X∣  +∣X ∩Y ∩Z∣</script><h3 id="Fact-1"><a href="#Fact-1" class="headerlink" title="Fact"></a>Fact</h3><p>(1) If $∣S ∪T∣ = ∣S∣+∣T∣$ then $S$ and $T$ are disjoint</p><p>(2) If $∣⋃^n<em>{i=1} S_i∣ = ∑^n</em>{i=1} ∣S_i∣$ then $S_i$ are pairwise disjoint</p><p>(3) If $∣T \setminus S∣ = ∣T∣−∣S∣$ then $S ⊆ T$</p><p>These properties can serve to identify cases when sets are disjoint </p><p>(resp. one is contained in the other).</p><h3 id="Proof"><a href="#Proof" class="headerlink" title="Proof"></a>Proof</h3><p>We can prove these facts using the inclusion-exclusion identity for two sets. Namely, that $∣S ∩ T∣ +∣S ∪T∣ = ∣S∣+∣T∣$.</p><p>(1) Suppose ∣S∣ +∣T∣ = ∣S ∪T∣. Then inclusion-exclusion gives $∣S ∩T∣ =∣S∣+∣T∣−∣S ∪T∣ =0, so S ∩T =∅$.</p><p>(3) Suppose $∣T \setminus S∣ = ∣T∣−∣S∣$. Then inclusion-exclusion gives $∣S ∩T∣ =∣S∣$, so $S ⊆ T$.</p><h3 id="Exercises"><a href="#Exercises" class="headerlink" title="Exercises"></a>Exercises</h3><p>Q: 200 people. 150 swim or jog, 85 swim and 60 do both. How many jog?</p><p>A:</p><p>Let S ∶= {people who swim} and J ∶= {people who jog}.</p><p>Then $∣S ∪J∣ = ∣S∣+∣J∣−∣S ∩J∣$; thus $150 = 85+∣J∣−60$, hence $∣J∣ = 125$.</p><p>Note that the answer does not depend on the number of people overall (200).</p><hr><p>Q: (Supp)There are 100 problems, 75 of which are ‘easy’ and 40 ‘important’. What’s the smallest possible number of problems that are both easy and important?.</p><p>A:</p><script type="math/tex; mode=display">∣E ∩I∣ = ∣E∣+∣I∣−∣E∪I∣ = 75+40−∣E∪I∣ ≥ 75+40−100 = 15</script><h1 id="Basic-Counting-Rules-Product"><a href="#Basic-Counting-Rules-Product" class="headerlink" title="Basic Counting Rules: Product"></a>Basic Counting Rules: Product</h1><h2 id="The-Product-Rule"><a href="#The-Product-Rule" class="headerlink" title="The Product Rule"></a>The Product Rule</h2><p><strong>Product rule</strong>:</p><script type="math/tex; mode=display">∣S_1 ×... ×S_k∣ = ∣S_1∣⋅∣S_2∣⋯∣S_k∣ = \prod^k_{i=1}∣S_i∣</script><p>Take Notice</p><p>This counts the number of <strong>sequences</strong> where the first item is from $S_1$, the second is from $S_2$, and so on.</p><p>Sequences mean that it’s an ordered pair.</p><p><strong>Special case of the product rule</strong>: If all $S_i = S$ for all i and $∣S∣ = m$ then</p><script type="math/tex; mode=display">∣S_1 ×S_2 ×⋯×S_k∣ =∣S ×S ×⋯×S∣=∣S^k∣=m^k</script><h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h3><p>Let Σ = {a,b,c,d,e,f,g}.</p><p>Question. How many 5-letter words can we make?</p><script type="math/tex; mode=display">∣Σ ×Σ×Σ×Σ×Σ∣=∣Σ^5∣=∣Σ∣^5 =7^5 =16,807</script><hr><p>Question. How many words with no letter repeated?</p><script type="math/tex; mode=display">7 \times 6 \times 5 \times 4 \times 3 = 2520</script><p>Or firstly choose 5 letters from the 7 letters, and this is a combination. Then arrange the 5 chosen letters.</p><script type="math/tex; mode=display">\binom{7}{5} = \frac{7!}{5!(7-5)!} = \frac{7 \times 6}{2} = 21 \\5! = 120 \\\binom{7}{5} \times 5! = 2520</script><p>Or permutation number:</p><script type="math/tex; mode=display">P(7, 5) = 2520</script><hr><script type="math/tex; mode=display">P(n, k) = \binom{n}{k} \times k!</script><script type="math/tex; mode=display">P(n, k)=\frac{n!}{(n-k)!}</script><script type="math/tex; mode=display">\binom{n}{k} = \frac{n!}{k!(n-k)!}</script><h2 id="Product-rule-Sequences-of-selections"><a href="#Product-rule-Sequences-of-selections" class="headerlink" title="Product rule: Sequences of selections"></a>Product rule: Sequences of selections</h2><p>Question: How can we count sequences when the underlying set changes?</p><p>A:</p><p>To count sequences <strong>without replacement</strong>:</p><ul><li><p>Define an <strong>order</strong> on the whole underlying set</p></li><li><p>Select from $[1,n]$, where n is the size of the “remaining” set, and a selection of i represents choosing the i-th element in that set</p></li></ul><h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example"></a>Example</h3><p>Let Σ = {a,b,c,d,e,f,g}.</p><p>How many 5-letter words with no letter repeated?</p><script type="math/tex; mode=display">\prod^4_{i=0}(∣Σ∣ −i) = 7⋅6⋅5⋅4⋅3 = 2,520</script><h2 id="Exercises-1"><a href="#Exercises-1" class="headerlink" title="Exercises 1"></a>Exercises 1</h2><p>S,T finite. How many functions $S ⟶ T$ are there?</p><script type="math/tex; mode=display">∣T∣^{∣S∣}</script><p>For all in S has the element in T. So it’s $|T| \times |T| \times … |T| \quad \therefore ∣T∣^{∣S∣}$</p><h2 id="Exercises-2"><a href="#Exercises-2" class="headerlink" title="Exercises 2"></a>Exercises 2</h2><p>Q:</p><p>$S=[100…999]$, thus $∣S∣=900$.</p><p>(a) How many numbers in S contain a 3 <strong>or</strong> 7 in their digits?</p><p>(b) How many numbers in S have a 3 <strong>and</strong> a 7?</p><hr><p>A:</p><p>(a) How many numbers in S contain a 3 <strong>or</strong> 7 </p><p>Let $A_3$ = {at least one ‘3’} and $A_7$ = {at least one ‘7’}.  Then </p><script type="math/tex; mode=display">(A_3 ∪A_7)^c = \{ n ∈ [100,999]∶ \text{ n digits } ∈ \{0,1,2,4,5,6,8,9\} \}</script><p>Note that for each number in S, there are 7 choices for the first digit and 8 choices for the later digits. So</p><script type="math/tex; mode=display">(A_3 ∪A_7)^c = |{1,2,4,5,6,8,9}| \cdot |{0,1,2,4,5,6,8,9}|^2</script><p>Therefore $∣A_3 ∪ A_7∣ = ∣S∣ −∣(A_3 ∪A_7)^c∣ = 900−448 = 452$.</p><p>(b) How many numbers in S have a 3 <strong>and</strong> a 7?</p><script type="math/tex; mode=display">∣A_3 ∩A_7∣ = ∣A_3∣+∣A_7∣−∣A_3 ∪A_7∣ \\ = (900−8⋅9⋅9)+(900−8⋅9⋅9)−452 \\= 2⋅252−452 = 52</script><h1 id="Combinatorial-Symmetry"><a href="#Combinatorial-Symmetry" class="headerlink" title="Combinatorial Symmetry"></a>Combinatorial Symmetry</h1><p>A <strong>symmetry</strong> of a mathematical object is a <strong>bijective</strong> mapping from the object to itself which preserves “structure”.</p><p>A <strong>(combinatorial) symmetry</strong> defines an equivalence relation where the equivalence classes all have the same size.</p><p>We are often interested in counting a set “up to symmetry”. That is, counting the number of equivalence classes.</p><p>This can also be stated as a constraint that identifies a specific item in each equivalence class (<strong>symmetric constraint</strong>).</p><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>A <strong>k-to-1 function</strong> is a function that maps exactly k inputs to an output.</p><h2 id="Take-Notice"><a href="#Take-Notice" class="headerlink" title="Take Notice"></a>Take Notice</h2><p>A <strong>k-to-1 function</strong> defines the equivalence relation of a combinatorial symmetry and vice-versa.</p><h2 id="Product-rule-Symmetries-and-duplications"><a href="#Product-rule-Symmetries-and-duplications" class="headerlink" title="Product rule: Symmetries and duplications"></a>Product rule: Symmetries and duplications</h2><p>Question</p><ul><li>How can we count sequences when we have symmetric<br>constraints?</li><li>How can we count sequences when we have duplicates?</li></ul><h2 id="Example-3"><a href="#Example-3" class="headerlink" title="Example"></a>Example</h2><p>Let <strong>Σ = {a,b,c,d,e}</strong>.</p><ul><li>How many 5-letter words with no letter repeated and a before b before c?</li><li>How many 5-letter words can be made from <em>a,a,a,d,e</em>?</li></ul><p><strong>Take Notice</strong></p><p>The answer will be the same.</p><p>Jiaojiao’s solution:</p><script type="math/tex; mode=display">5*4 = 20</script><p>and for the second question, we just consider the d and e, and it’s equivalent to the first question.</p><p>My stupid and slow solution:</p><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-13-10-25.png" alt></p><p>Hence 2*10 = 20</p><h2 id="Product-rule-Symmetries-and-duplications-1"><a href="#Product-rule-Symmetries-and-duplications-1" class="headerlink" title="Product rule: Symmetries and duplications"></a>Product rule: Symmetries and duplications</h2><script type="math/tex; mode=display">S_1 = \{\text{ accounting for symmetry }\}, \\ S_2 = \{ \text{ symmetries }\}, \\ S =\{\text{ sequences without symmetry }\}</script><script type="math/tex; mode=display">S =S_1×S_2,</script><p>so</p><script type="math/tex; mode=display">∣S1∣ = ∣S∣/∣S2∣</script><p>Alternatively, $\frac{1}{∣S_2∣}$ of the $∣S∣$ sequences meet the symmetric constraint.</p><h3 id="Example-4"><a href="#Example-4" class="headerlink" title="Example"></a>Example</h3><p><strong>Question</strong>. Let <strong>Σ = {a,b,c,d,e}</strong>. How many 5-letter words with no letter repeated and a before b before c?</p><p><strong>Answer</strong></p><p>Let Σ′ = {a,b,c}. Then</p><script type="math/tex; mode=display">∣S∣ = ∣\{\text{ 5 letter words using letters from Σ with no repeats }\}∣ \\= \prod^4_{i=0}(∣Σ∣ −i) = 5⋅4⋅3⋅2⋅1 = 120</script><p>and</p><script type="math/tex; mode=display">∣S_2∣ = ∣\{ \text{ orderings of elements in Σ′ }\}∣ \\ = \prod^2_{i=0}(∣Σ′∣ −i)= 3⋅2⋅1 = 6</script><p>So</p><script type="math/tex; mode=display">∣S_1∣ = ∣\{ \text{ words in S containing a,b,c in order }\}∣ = \frac{120}{6} = 20</script><h1 id="Combinations-and-Permutations"><a href="#Combinations-and-Permutations" class="headerlink" title="Combinations and Permutations"></a>Combinations and Permutations</h1><p>Combinatorial Objects: How Many?</p><p><strong>permutations</strong></p><p><strong>Ordering</strong> of all objects from a set S; equivalently: Selecting all objects while recognising the <strong>order</strong> of selection.</p><p>The number of permutations of n elements is</p><script type="math/tex; mode=display">n! = n⋅(n−1) ... 1, \\0! =1! =1</script><p><strong>r-permutations (sequences without repetition)</strong></p><p>Selecting any r objects from a set S of size n without repetition while recognising the <strong>order</strong> of selection.</p><p>Their number is</p><script type="math/tex; mode=display">(n)_r = {}^n P_r =  n⋅(n−1)⋯(n−r +1) = \frac{n!}{(n-r)!}</script><h2 id="Permutations-with-duplicates"><a href="#Permutations-with-duplicates" class="headerlink" title="Permutations with duplicates"></a>Permutations with duplicates</h2><h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1"></a>Example 1</h3><p>Q: How many anagrams of ASSESS? Namely $\Sigma$={A,S,S,E,S,S}, and what is the number to permutate them?</p><p>A:</p><p>Label S’s: $AS_1S_2ES_3S_4: 6!$</p><p>In each anagram we can label the S’s in 4! ways.</p><p>Suppose there are m anagrams. So $m ⋅4!=6!$, i.e. $m=\frac{6!}{4!}$</p><h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2"></a>Example 2</h3><p>Number of anagrams of MISSISSIPPI?</p><script type="math/tex; mode=display">\frac{11!}{4!4!2!}</script><h2 id="r-selections-or-r-combinations"><a href="#r-selections-or-r-combinations" class="headerlink" title="r-selections (or: r-combinations)"></a>r-selections (or: r-combinations)</h2><p><strong>Collecting</strong> any r distinct objects without repetition; equivalently: selecting r objects from a set S of size n and <strong>not recognising the order</strong> of selection.</p><script type="math/tex; mode=display">\binom{n}{r} = \frac{(n)_r}{r!} = \frac{n!}{(n-r)!r!} = \frac{n(n-1)...(n-r+1)}{1 \cdot 2 \dots r}</script><p>Take Notice</p><p>These numbers are usually called binomial coefficients due to</p><script type="math/tex; mode=display">(a+b)^n = a^n + \binom{n}{1}a^{n-1}b + \binom{n}{2}a^{n-2}b^{2} + \dots + b^n = \Sigma^n_{i=0} \binom{n}{i}a^{n-i}b^i</script><p>Also defined for any $\alpha \in \mathbb{R}$ as $\binom{\alpha}{r}=\frac{\alpha(\alpha-1)…(\alpha-r+1)}{r!}$</p><h2 id="Simple-Counting-Problems"><a href="#Simple-Counting-Problems" class="headerlink" title="Simple Counting Problems"></a>Simple Counting Problems</h2><p>Give an example of acounting problem whose answer is</p><p>(a) $(26)_{10}$</p><p>(b) $\binom{26}{10}$</p><p>Draw 10 cards from a half deck (eg. black cards only)</p><p>(a) the cards are recorded in the order of appearance</p><p>(b) only the complete draw is recorded</p><hr><p>Examples</p><p>Number of diagonals in a convex polygon</p><p>Number of poker hands</p><p>Decisions in games, lotteries etc.</p><h2 id="Exercises-choose-to-from-committees"><a href="#Exercises-choose-to-from-committees" class="headerlink" title="Exercises: choose to from committees"></a>Exercises: choose to from committees</h2><p>From a group of 12 men and 16 women, how many committees can be chosen consisting of</p><p>(a) 7 members?</p><p>$\binom{12+16}{7}$</p><p>(b) 3 men and 4 women?</p><p>$\binom{12}{3}\binom{16}{4}$</p><p>(c) 7 women or 7 men?</p><p>$\binom{12}{7} + \binom{16}{7}$</p><p>As above,but any 4 people (male or female) out of 9 and two, Alice and Bob, unwilling to serve on the same committee.</p><p>Method 1:</p><p>Firstly, choose 4 people from 9 people. Secondly, consider Alice and Bob are in one committee, so 7 people remained, choose 2 more people from these 7 people, and could form a committee with Alice and Bob.</p><script type="math/tex; mode=display">{all committees} − {committees with both A and B} = \binom{9}{4} - \binom{7}{2} = 126 −21 = 105</script><p>Method 2:</p><p>equivalently, {A in, B out} + {A out, B in} + {none in} = $\binom{7}{3}+\binom{7}{3}+\binom{7}{4}$ = 35 +35+35 = 105</p><h2 id="Exercises-Counting-Poker-Hands"><a href="#Exercises-Counting-Poker-Hands" class="headerlink" title="Exercises:Counting Poker Hands"></a>Exercises:Counting Poker Hands</h2><p>A poker hand consists of 5 cards drawn without replacement from a standard deck of 52 cards</p><p>{A,2-10,J,Q,K} ×{club ♣,spade ♠,heart ♥,diamond ♦}</p><p>(a) Number of “4 of a kind” hands (e.g. 4 Jacks)</p><p>∣rank of the 4-of-a-kind∣ ⋅ ∣any other card∣ = 13 ⋅ (52 − 4)</p><p>这里问的是几种组合，所以13是A-&gt;K的同点数之一，然后因为一手5个牌还差一个，因此从(52-4)中随便选一个牌。</p><p>(b) Number of non-straight flushes, i.e. all ards of same suit but not consecutive (e.g. 8,9,10,J,K)</p><p>∣all flush∣ − ∣straight flush∣ = ∣suit∣⋅∣5-hand in a given suit∣ − ∣suit∣ ⋅ ∣rank of a straight flush in a given suit∣  = $4 \cdot \binom{13}{5} - 4 \cdot 10$</p><p>在问非顺子但同花的组合，4个花色乘13（同花）中抽5张（同花牌的数量），减去顺子同花：这种情况有10种可能的顺子（从 A, 2, 3, 4, 5 到 10, J, Q, K, A），因此顺子同花是$4 \cdot 10$. 故最终结果是以上两项相减。</p><p>注意，A在“A2345”和“10 JQKA”都可以是同花顺，所以同花情况下，应该是10个情况而不是9个情况。</p><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-14-39-24.png" alt></p><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-14-41-30.png" alt></p><h2 id="“Balls-in-boxes”"><a href="#“Balls-in-boxes”" class="headerlink" title="“Balls in boxes”"></a>“Balls in boxes”</h2><p>Have n “distinguishable” boxes.</p><p>Have k balls which are either:</p><ol><li>Indistinguishable</li><li>Distinguishable</li></ol><p>How many ways to place balls in boxes with</p><ol><li>At most one</li><li>Any number of<br>balls per box</li></ol><p>Take Notice</p><p>Suppose K is a set with $∣K∣ = k$ and N is a set with $∣N∣ = n$:</p><ul><li>2A counts the number of injective functions from K to N</li><li>2B counts the number of functions from K to N</li></ul><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-14-43-40.png" alt></p><h1 id="Alternative-Techniques"><a href="#Alternative-Techniques" class="headerlink" title="Alternative Techniques"></a>Alternative Techniques</h1><p>What if the current techniques are unwieldy?<br>Other techniques for obtaining an exact count:</p><ul><li>Find a different approach for counting</li><li>Make use of symmetries</li><li>Make use of recursion</li><li>Write a program (running time?)</li></ul><h2 id="Example-5"><a href="#Example-5" class="headerlink" title="Example"></a>Example</h2><p>How many sequences of 15 coin flips have an even number of heads?</p><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-14-45-22.png" alt></p><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-14-45-37.png" alt></p><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-14-45-51.png" alt></p><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-14-46-06.png" alt></p><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-14-46-14.png" alt></p><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-14-46-28.png" alt></p><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-14-46-39.png" alt></p><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-14-47-00.png" alt></p><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-14-47-06.png" alt></p><h1 id="Difficult-Counting-Problems-not-assessed"><a href="#Difficult-Counting-Problems-not-assessed" class="headerlink" title="Difficult Counting Problems (not assessed)"></a>Difficult Counting Problems (not assessed)</h1><h2 id="Using-Programs-to-Count"><a href="#Using-Programs-to-Count" class="headerlink" title="Using Programs to Count"></a>Using Programs to Count</h2><p>Two dice, a red die and a black die, are rolled.<br>(Note: one die, two or more dice)</p><p>Write a program to list all the pairs {(R,B) ∶ R &gt; B}</p><p>Similarly, for three dice, list all triples R &gt; B &gt; G</p><p>Generally, for n dice, all of which are m-sided (n ≤ m), list all decreasing n-tuples</p><p>Take Notice</p><p>In order to just find the number of such n-tuples, it is not<br>necessary to list them all. One can write a recurrence relation for<br>these numbers and compute (or try to solve) it.</p><h2 id="Approximate-Counting"><a href="#Approximate-Counting" class="headerlink" title="Approximate Counting"></a>Approximate Counting</h2><p><img src="/2024/11/18/Math/Combinatorics/2024-11-18-14-48-34.png" alt></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Math </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>yolo_trainning</title>
       <link href="/2024/11/15/Python/yolo-trainning/"/>
       <url>/2024/11/15/Python/yolo-trainning/</url>
@@ -969,16 +988,168 @@
     
     
     <entry>
-      <title>构建gitleaks-Docker服务</title>
-      <link href="/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
-      <url>/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
+      <title>.gitignore</title>
+      <link href="/2024/04/09/git/gitignore/"/>
+      <url>/2024/04/09/git/gitignore/</url>
       
-        <content type="html"><![CDATA[<p>两个一块儿用，Dockerfile在docker-compose.yaml的同目录下。</p><h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><pre><code>FROM amd64/alpine:3.14RUN apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdataADD ./SecretDetectionDir /webscan/WORKDIR /webscanEXPOSE 8000ENTRYPOINT [&quot;/webscan/http&quot;]</code></pre><h1 id="docker-compose-yaml"><a href="#docker-compose-yaml" class="headerlink" title="docker-compose.yaml"></a>docker-compose.yaml</h1><pre><code>version: &quot;3&quot;services:secretdetection_docker:    build: .    container_name: secretdetection_http    ports:    - &quot;8000:8000&quot;    restart: always</code></pre>]]></content>
+        <content type="html"><![CDATA[<p>官方文档：<code>https://github.com/github/gitignore</code></p><h3 id="我的-gitignore模板"><a href="#我的-gitignore模板" class="headerlink" title="我的.gitignore模板"></a>我的.gitignore模板</h3><pre><code># Logslogs*.lognpm-debug.log*yarn-debug.log*yarn-error.log*pnpm-debug.log*lerna-debug.log*node_modulesdistdist-ssr*.local# big files*.mp4backend/volume/media/documents/*!backend/volume/media/documents/.gitkeepbackend/volume/media/import_excel_upload/*!backend/volume/media/import_excel_upload/.gitkeepbackend/volume/media/videos/*!backend/volume/media/videos/.gitkeep# python**/__pycache__/**.pyc# 忽略pycharm**/.idea/# 忽略虚拟环境**/venv# Editor directories and files**/.vscode/*!.vscode/extensions.json.idea.DS_Store*.suo*.ntvs**.njsproj*.sln*.sw?</code></pre><h3 id="其他示例"><a href="#其他示例" class="headerlink" title="其他示例"></a>其他示例</h3><pre><code># 忽略所有 .a 结尾的文件a# 但lib.a 除外!lib.a# 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO/TODO# 忽略build/ 目录下的所有文件build/# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txtdoc/.txt</code></pre>]]></content>
       
       
       <categories>
           
-          <category> Docker </category>
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>keep empty directory in git</title>
+      <link href="/2024/04/09/git/gitkeep/"/>
+      <url>/2024/04/09/git/gitkeep/</url>
+      
+        <content type="html"><![CDATA[<p>目录中新建空文件 <strong>.gitkeep</strong> 即可</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>远程获取所有分支</title>
+      <link href="/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/"/>
+      <url>/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/</url>
+      
+        <content type="html"><![CDATA[<pre><code>git clone xxxcd xxxgit branch -r | grep -v &#39;\-&gt;&#39; | while read remote; do git branch --track &quot;$&#123;remote#origin/&#125;&quot; &quot;$remote&quot;; donegit fetch --allgit pull --all(git pull –all在功能上包含git fetch --all)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>merge conflict</title>
+      <link href="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"/>
+      <url>/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</url>
+      
+        <content type="html"><![CDATA[<p>git push提示冲突</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-47-59.png" alt="2024-04-09-19-47-59"></p><p>会在源文件中看到标记的冲突的HEAD</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-48-22.png" alt="2024-04-09-19-48-22"></p><p>修改完在git add . 再commit push</p><p>如果没有实质差异，“current change”是你的修改的，那个commit id的是已存在的，按照已存在的来</p><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><pre><code>git stashgit commitgit stash pop</code></pre><p>接下来diff一下此文件看看自动合并的情况，并作出相应修改。</p><p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。</p><p>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。</p><p>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。</p><p>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>branch</title>
+      <link href="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"/>
+      <url>/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#查看分支">查看分支</a><ul><li><a href="#列出本地所有的分支">列出本地所有的分支</a></li><li><a href="#分支合并行为可视化">分支合并行为可视化</a></li><li><a href="#查看分支与远程的关联">查看分支与远程的关联</a></li><li><a href="#查看所有分支">查看所有分支</a></li></ul></li><li><a href="#切换分支">切换分支</a></li><li><a href="#detached-head-和-checkout-commit然后修改入新branch">Detached HEAD 和 checkout commit然后修改入新branch</a></li></ul><h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch </code></pre><p>查看分支详细信息，列出本地所有的分支, + hash 信息</p><pre><code>git branch -v</code></pre><h3 id="分支合并行为可视化"><a href="#分支合并行为可视化" class="headerlink" title="分支合并行为可视化"></a>分支合并行为可视化</h3><p>为了方便查看分支来源，比如大型项目通常会有多个分支以及分支合并的行为，单纯的使用终端查看分支来源、log并不直观。如果发生分支合并的异常行为，需要溯源，直观的观察git分支是必须的一个审计行为。</p><p>我看有推荐<code>github desktop</code>, <code>source tree</code>和<code>GitKraken</code>(收费)，但是之前上班的时候看师傅用的<strong>IDEA GIT分支图</strong>也有不错的效果，基本Jetbrain的所有IDE都有这个插件。点击菜单栏的<code>git</code>-&gt;<code>log</code>。</p><p><img src="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/pycharm_git_log.png" alt="pycharm_git_log"></p><h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p><code>git branch -vv</code> #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p><p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p><h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><h1 id="列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如"><a href="#列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如" class="headerlink" title="列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如"></a>列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</h1><pre><code>git branch -agit branch -a | grep xxx</code></pre><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code># `-b` means create a new branchgit checkout -b new-branch-namegit checkout &lt;commit-hash&gt;</code></pre><h1 id="Detached-HEAD-和-checkout-commit然后修改入新branch"><a href="#Detached-HEAD-和-checkout-commit然后修改入新branch" class="headerlink" title="Detached HEAD 和 checkout commit然后修改入新branch"></a>Detached HEAD 和 checkout commit然后修改入新branch</h1><p>In Git, a <strong>detached HEAD</strong> state occurs when you are working directly on <strong>a specific commit(not the lastest)</strong> rather than on <strong>the latest commit</strong> of a branch. This can happen when you <strong>checkout a commit, a tag, or a remote branch</strong> directly, without creating a new branch.</p><p><strong>HEAD</strong> is a <code>pointer</code> in Git that typically points to the latest commit on the current branch.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>delete something useless before gitignore</title>
+      <link href="/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/"/>
+      <url>/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="重写了gitignore但是想删除已提交但想忽略的内容"><a href="#重写了gitignore但是想删除已提交但想忽略的内容" class="headerlink" title="重写了gitignore但是想删除已提交但想忽略的内容"></a>重写了gitignore但是想删除已提交但想忽略的内容</h1><p>已经提交过的文件或者文件夹怎么办？此时更改.gitignore文件对已经提交的文件是无效的。</p><p>首先，编辑.gitignore文件。</p><p>然后如果是单个文件，可以使用如下命令从仓库中删除：</p><pre><code>git rm --cached logs/xx.log</code></pre><p>如果是整个目录：</p><pre><code>git rm --cached -r logs</code></pre><p>如果文件很多，那么直接</p><pre><code>git rm --cached -r .</code></pre><p>如果提示某个文件无法忽略，可以添加-f参数强制忽略。</p><pre><code>git rm -f --cached logs/xx.log</code></pre><p>然后</p><pre><code>git add .git commit -m &quot;Update .gitignore&quot;</code></pre><p>把被忽略的某个文件强制添加回去：</p><pre><code>git add -f filename</code></pre><p>ignore规则检查：</p><pre><code>git check-ignore</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>build a new repo</title>
+      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/"/>
+      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/</url>
+      
+        <content type="html"><![CDATA[<h1 id="新建项目仓库"><a href="#新建项目仓库" class="headerlink" title="新建项目仓库"></a>新建项目仓库</h1><h3 id="创建本地git项目"><a href="#创建本地git项目" class="headerlink" title="创建本地git项目"></a>创建本地git项目</h3><pre><code>git init</code></pre><p>git init &lt;仓库名&gt;没法执行，init后面不要跟参数当名字。</p><h3 id="github上创建一个仓库"><a href="#github上创建一个仓库" class="headerlink" title="github上创建一个仓库"></a>github上创建一个仓库</h3><p>登录github创建个空的仓库</p><h3 id="登录github创建个空的仓库，添加远程仓库"><a href="#登录github创建个空的仓库，添加远程仓库" class="headerlink" title="登录github创建个空的仓库，添加远程仓库"></a>登录github创建个空的仓库，添加远程仓库</h3><pre><code>git remote add origin https://github.com/xxx/xxx.git</code></pre><p>从远程master合并到本地master</p><pre><code class="lang-shell">git config --global user.name &quot;xxxx&quot; git config --global user.email xxxxx@xx.com</code></pre><pre><code class="lang-shell">git initgit add .git commit - m &quot;init&quot;git remote add origin https://github.com/xxx/xxx.gitgit push origin master</code></pre><p>如果有冲突就尝试（通常是你创建仓库的时候新建了什么readme和license）：<br>    git pull origin master:master</p><p>也可以直接强制推送：<br>    git push origin master —force</p><h3 id="提交本地分支到远程分支"><a href="#提交本地分支到远程分支" class="headerlink" title="提交本地分支到远程分支"></a>提交本地分支到远程分支</h3><pre><code>git push -u origin master</code></pre><h3 id="将现有项目添加并提交上传"><a href="#将现有项目添加并提交上传" class="headerlink" title="将现有项目添加并提交上传"></a>将现有项目添加并提交上传</h3><pre><code class="lang-shell">git add -A（git add . 是提交当前路径  git add -A 是提交整个文件夹子文件夹路径）git commit -m &#39;初始化git项目&#39;git push --set-upstream origin master</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>新建某分支并推送、合并分支</title>
+      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
+      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="新建某分支并推送至某分支：以考试系统es为例版本管理"><a href="#新建某分支并推送至某分支：以考试系统es为例版本管理" class="headerlink" title="新建某分支并推送至某分支：以考试系统es为例版本管理"></a>新建某分支并推送至某分支：以考试系统es为例版本管理</h1><p>新建新分支并推送至新分支之前，需要检查当前分值是否还有未提交的状态</p><p><code>git status</code> # 可以检查是否有新文件未被track</p><p><code>git remote -v</code> # 查看远程分值，一般如下，同一个地址具有拿下或push的权限</p><pre><code>origin  http://shenyanjian.cn:3000/senranja/exam_system.git (fetch)origin  http://shenyanjian.cn:3000/senranja/exam_system.git (push)</code></pre><p><code>git fetch</code> # 拿下仓库最新分值信息。<code>git pull==git fetch + git merge</code>，git fetch是安全的、不会合并的命令</p><p><code>git branch -r</code> # 查看全部的远程分支，通常显示如下：（若远程分支只有main）</p><pre><code>  origin/HEAD -&gt; origin/main  origin/main</code></pre><p><code>git checkout -b V0.0.2</code> # 以当前分支为副本创建V0.0.2</p><p><code>git checkout V0.0.2</code> # 切换到分值V0.0.2</p><p>（现在在此处放一些部署文档、版本交付说明）</p><pre><code class="lang-shell">git add .git commit -m &quot;V0.0.2&quot;git push</code></pre><pre><code>fatal: The current branch V0.0.2 has no upstream branch.To push the current branch and set the remote as upstream, use    git push --set-upstream origin V0.0.2</code></pre><p>如上报错，意思是远程分值还没有V0.0.2，需要手动设置下</p><pre><code>git push --set-upstream origin V0.0.2</code></pre><p>完成</p><p>切换回主分支：</p><pre><code>git checkout main</code></pre><h1 id="本地合并其他分支到本分支，再推送"><a href="#本地合并其他分支到本分支，再推送" class="headerlink" title="本地合并其他分支到本分支，再推送"></a>本地合并其他分支到本分支，再推送</h1><p>要将本地的 dev 分支合并到 main 分支，你可以按照以下步骤进行操作：</p><p>确保你当前位于 main 分支上。你可以通过以下命令来确保：</p><pre><code>git checkout main</code></pre><p>然后，执行 git pull 命令来确保你的 main 分支是最新的：</p><pre><code>git pull origin main</code></pre><p>接着，执行 git merge 命令来合并 dev 分支到 main 分支：</p><pre><code>git merge dev</code></pre><p>如果有冲突，在合并过程中会停下来，需要你解决这些冲突。解决完冲突后，你需要执行 <code>git add</code>命令来标记冲突已解决的文件，然后执行 <code>git merge --continue</code> 来继续合并过程。</p><p>最后，当合并完成，你可以将合并后的 main 分支推送到远程仓库：</p><pre><code>git push origin main</code></pre><p>通过这些步骤，你就可以将本地的 dev 分支成功合并到 main 分支，并将更新推送到远程仓库。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>push existed local repo</title>
+      <link href="/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/"/>
+      <url>/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/</url>
+      
+        <content type="html"><![CDATA[<h1 id="现有仓库提交到github"><a href="#现有仓库提交到github" class="headerlink" title="现有仓库提交到github"></a>现有仓库提交到github</h1><h3 id="纯新建项目push"><a href="#纯新建项目push" class="headerlink" title="纯新建项目push"></a>纯新建项目push</h3><pre><code class="lang-shell">echo &quot;# licenseGenerator&quot; &gt;&gt; README.mdgit initgit add README.mdgit commit -m &quot;first commit&quot;git branch -M mastergit remote add origin https://github.com/SenRanja/licenseGenerator.gitgit push -u origin master</code></pre><h3 id="push已存在项目"><a href="#push已存在项目" class="headerlink" title="push已存在项目"></a>push已存在项目</h3><p>先做的：如果你手贱，github创建项目的时候，新建了什么license、readme有的没的的东西，本地push之前，得先git pull 一下：</p><pre><code>git pull github master --allow-unrelated-histories</code></pre><p>（git pull 远程名字 远程分支， 后面的 –allow-unreleated-histories ，比如你手贱新建了license，你git pull 的时候会拒绝，因为github新建项目弄的license有第一次的commit，和你本地历史对不上merge默认不允许，所以你得手动指定）</p><p>比如，如果本地gitea已经有项目了，应该是推送此处。<br>比如，我的evo系统，在本地已经推送gitea，默认的远程地址名字 origin 必须重命名。</p><pre><code>git remote add origin https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（git branch -M 命令用于重命名当前分支。具体来说，-M 选项告诉 Git 强制重命名分支，即使新的分支名与已存在的分支名冲突也会强制执行。这个命令的常见用途是将当前分支重命名为一个新的分支名。）</p><pre><code>git push -u origin master</code></pre><p>更改origin的远程名字的命令如下：</p><pre><code>git remote add github https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（强行将现在所在分支，重命名为 master 分支）</p><pre><code>git push -u github master</code></pre><p>（将本地的master分支代码提交到 github 的远程链接上）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
           
       </categories>
       
@@ -993,6 +1164,25 @@
       <url>/2024/04/09/docker/docker-compose%E8%B0%83%E8%AF%95/</url>
       
         <content type="html"><![CDATA[<h1 id="方便调试的技巧"><a href="#方便调试的技巧" class="headerlink" title="方便调试的技巧"></a>方便调试的技巧</h1><pre><code>docker-compose down &amp;&amp; docker-compose rebuild &amp;&amp; docker-compose up -d</code></pre><h1 id="docker-compose操作"><a href="#docker-compose操作" class="headerlink" title="docker-compose操作"></a>docker-compose操作</h1><pre><code>docker-compose build 构建镜像，镜像文件会存在docker images中docker-compose up -d 启动容器docker-compose down 移除容器（这点我以前以为down是类似于docker stop的命令，没想到docker-compose down是移除的意思，导致删库）docker-compose stop 暂停容器运行</code></pre><h1 id="导出导入操作"><a href="#导出导入操作" class="headerlink" title="导出导入操作"></a>导出导入操作</h1><p>参考链接:<a href="https://www.hangge.com/blog/cache/detail_2411.html">https://www.hangge.com/blog/cache/detail_2411.html</a></p><p>不过需要注意一下，导入导出的时候最好根据<code>docker ps -a</code>的 名字来操作，不要根据 container id 来操作。否则导入的时候，显示的名字可能是 <none>。这个时候虽然容器可以正常运行，但是很多人会感觉<none>是错误的。</none></none></p><p>最重要的注意，<strong>docker-compose无法构建容器为镜像，而且也不会复制外部目录到内部</strong>，有的仅仅是volumns: xxx:xxx的挂载。如果容器是使用的挂载目录，而不是复制进去的文件，那么会无法运行相应目录中的文件和程序。</p><p>所以Dockerfile和dockerf-compose.yml结合使用。</p><h1 id="容器：export和import"><a href="#容器：export和import" class="headerlink" title="容器：export和import"></a>容器：export和import</h1><pre><code>docker export f299f501774c &gt; hangger_server.tardocker import - new_hangger_server &lt; hangger_server.tar</code></pre><h1 id="镜像：save和load"><a href="#镜像：save和load" class="headerlink" title="　镜像：save和load"></a>　镜像：save和load</h1><p>（1）下面使用 docker save 命令根据 ID 将镜像保存成一个文件。</p><pre><code>docker save 0fdf2b4c26d3 &gt; hangge_server.tar</code></pre><p><strong>(这么打包，是没有标签名字的。最好指定镜像标签名而非镜像id打包)</strong></p><p>（2）我们还可以同时将多个 image 打包成一个文件，比如下面将镜像库中的 postgres 和 mongo 打包：</p><pre><code>docker save -o images.tar postgres:9.6 mongo:3.4</code></pre><p>载入镜像</p><pre><code>docker load &lt; hangge_server.tar</code></pre><h1 id="SD的镜像打包及运行"><a href="#SD的镜像打包及运行" class="headerlink" title="SD的镜像打包及运行"></a>SD的镜像打包及运行</h1><h3 id="打包导出"><a href="#打包导出" class="headerlink" title="打包导出"></a>打包导出</h3><p>先命名个版本</p><pre><code>docker tag f0b0777d65d7 sd_secretdetection_docker:2.3</code></pre><p>打包，不要根据镜像id打包，不然未来没有名字，得指定tag：</p><pre><code>docker save -o sd-2.3.tar sd_secretdetection_docker:2.3</code></pre><p>加载运行</p><pre><code>docker load &lt; sd-2.3.tardocker run -itd -p 8000:8000 sd_secretdetection_docker:2.3</code></pre><p>run镜像，并指定容器名字</p><p>指定镜像名字:</p><pre><code>docker run --name my_container my_imagedocker load &lt; shenyanjian.tardocker run -itd -p 8000:8000 --name secretdetection shenyanjian_secretdetection_docker:latest</code></pre><p>将容器保存为本地镜像</p><pre><code>docker commit -a &quot;blingsec&quot; -m &quot;sd2.0&quot; secret_detection_http secret_detection_http:v2.0</code></pre><p>-a是作者名，-m 是标注信息，最后的secret_detection_http:v2.0 是命名</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>构建gitleaks-Docker服务</title>
+      <link href="/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
+      <url>/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
+      
+        <content type="html"><![CDATA[<p>两个一块儿用，Dockerfile在docker-compose.yaml的同目录下。</p><h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><pre><code>FROM amd64/alpine:3.14RUN apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdataADD ./SecretDetectionDir /webscan/WORKDIR /webscanEXPOSE 8000ENTRYPOINT [&quot;/webscan/http&quot;]</code></pre><h1 id="docker-compose-yaml"><a href="#docker-compose-yaml" class="headerlink" title="docker-compose.yaml"></a>docker-compose.yaml</h1><pre><code>version: &quot;3&quot;services:secretdetection_docker:    build: .    container_name: secretdetection_http    ports:    - &quot;8000:8000&quot;    restart: always</code></pre>]]></content>
       
       
       <categories>
@@ -1197,168 +1387,16 @@
     
     
     <entry>
-      <title>.gitignore</title>
-      <link href="/2024/04/09/git/gitignore/"/>
-      <url>/2024/04/09/git/gitignore/</url>
+      <title>goland技巧</title>
+      <link href="/2024/04/08/Go/goland/"/>
+      <url>/2024/04/08/Go/goland/</url>
       
-        <content type="html"><![CDATA[<p>官方文档：<code>https://github.com/github/gitignore</code></p><h3 id="我的-gitignore模板"><a href="#我的-gitignore模板" class="headerlink" title="我的.gitignore模板"></a>我的.gitignore模板</h3><pre><code># Logslogs*.lognpm-debug.log*yarn-debug.log*yarn-error.log*pnpm-debug.log*lerna-debug.log*node_modulesdistdist-ssr*.local# big files*.mp4backend/volume/media/documents/*!backend/volume/media/documents/.gitkeepbackend/volume/media/import_excel_upload/*!backend/volume/media/import_excel_upload/.gitkeepbackend/volume/media/videos/*!backend/volume/media/videos/.gitkeep# python**/__pycache__/**.pyc# 忽略pycharm**/.idea/# 忽略虚拟环境**/venv# Editor directories and files**/.vscode/*!.vscode/extensions.json.idea.DS_Store*.suo*.ntvs**.njsproj*.sln*.sw?</code></pre><h3 id="其他示例"><a href="#其他示例" class="headerlink" title="其他示例"></a>其他示例</h3><pre><code># 忽略所有 .a 结尾的文件a# 但lib.a 除外!lib.a# 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO/TODO# 忽略build/ 目录下的所有文件build/# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txtdoc/.txt</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>keep empty directory in git</title>
-      <link href="/2024/04/09/git/gitkeep/"/>
-      <url>/2024/04/09/git/gitkeep/</url>
-      
-        <content type="html"><![CDATA[<p>目录中新建空文件 <strong>.gitkeep</strong> 即可</p>]]></content>
+        <content type="html"><![CDATA[<ul><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#添加远程调试">添加远程调试</a></li><li><a href="#delve升级go无法调试">delve：升级go无法调试</a></li></ul><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!=nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH/bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
       
       
       <categories>
           
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>远程获取所有分支</title>
-      <link href="/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/"/>
-      <url>/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/</url>
-      
-        <content type="html"><![CDATA[<pre><code>git clone xxxcd xxxgit branch -r | grep -v &#39;\-&gt;&#39; | while read remote; do git branch --track &quot;$&#123;remote#origin/&#125;&quot; &quot;$remote&quot;; donegit fetch --allgit pull --all(git pull –all在功能上包含git fetch --all)</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>merge conflict</title>
-      <link href="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"/>
-      <url>/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</url>
-      
-        <content type="html"><![CDATA[<p>git push提示冲突</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-47-59.png" alt="2024-04-09-19-47-59"></p><p>会在源文件中看到标记的冲突的HEAD</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-48-22.png" alt="2024-04-09-19-48-22"></p><p>修改完在git add . 再commit push</p><p>如果没有实质差异，“current change”是你的修改的，那个commit id的是已存在的，按照已存在的来</p><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><pre><code>git stashgit commitgit stash pop</code></pre><p>接下来diff一下此文件看看自动合并的情况，并作出相应修改。</p><p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。</p><p>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。</p><p>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。</p><p>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>branch</title>
-      <link href="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"/>
-      <url>/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/</url>
-      
-        <content type="html"><![CDATA[<ul><li><a href="#查看分支">查看分支</a><ul><li><a href="#列出本地所有的分支">列出本地所有的分支</a></li><li><a href="#分支合并行为可视化">分支合并行为可视化</a></li><li><a href="#查看分支与远程的关联">查看分支与远程的关联</a></li><li><a href="#查看所有分支">查看所有分支</a></li></ul></li><li><a href="#切换分支">切换分支</a></li><li><a href="#detached-head-和-checkout-commit然后修改入新branch">Detached HEAD 和 checkout commit然后修改入新branch</a></li></ul><h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch </code></pre><p>查看分支详细信息，列出本地所有的分支, + hash 信息</p><pre><code>git branch -v</code></pre><h3 id="分支合并行为可视化"><a href="#分支合并行为可视化" class="headerlink" title="分支合并行为可视化"></a>分支合并行为可视化</h3><p>为了方便查看分支来源，比如大型项目通常会有多个分支以及分支合并的行为，单纯的使用终端查看分支来源、log并不直观。如果发生分支合并的异常行为，需要溯源，直观的观察git分支是必须的一个审计行为。</p><p>我看有推荐<code>github desktop</code>, <code>source tree</code>和<code>GitKraken</code>(收费)，但是之前上班的时候看师傅用的<strong>IDEA GIT分支图</strong>也有不错的效果，基本Jetbrain的所有IDE都有这个插件。点击菜单栏的<code>git</code>-&gt;<code>log</code>。</p><p><img src="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/pycharm_git_log.png" alt="pycharm_git_log"></p><h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p><code>git branch -vv</code> #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p><p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p><h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><h1 id="列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如"><a href="#列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如" class="headerlink" title="列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如"></a>列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</h1><pre><code>git branch -agit branch -a | grep xxx</code></pre><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code># `-b` means create a new branchgit checkout -b new-branch-namegit checkout &lt;commit-hash&gt;</code></pre><h1 id="Detached-HEAD-和-checkout-commit然后修改入新branch"><a href="#Detached-HEAD-和-checkout-commit然后修改入新branch" class="headerlink" title="Detached HEAD 和 checkout commit然后修改入新branch"></a>Detached HEAD 和 checkout commit然后修改入新branch</h1><p>In Git, a <strong>detached HEAD</strong> state occurs when you are working directly on <strong>a specific commit(not the lastest)</strong> rather than on <strong>the latest commit</strong> of a branch. This can happen when you <strong>checkout a commit, a tag, or a remote branch</strong> directly, without creating a new branch.</p><p><strong>HEAD</strong> is a <code>pointer</code> in Git that typically points to the latest commit on the current branch.</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>delete something useless before gitignore</title>
-      <link href="/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/"/>
-      <url>/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/</url>
-      
-        <content type="html"><![CDATA[<h1 id="重写了gitignore但是想删除已提交但想忽略的内容"><a href="#重写了gitignore但是想删除已提交但想忽略的内容" class="headerlink" title="重写了gitignore但是想删除已提交但想忽略的内容"></a>重写了gitignore但是想删除已提交但想忽略的内容</h1><p>已经提交过的文件或者文件夹怎么办？此时更改.gitignore文件对已经提交的文件是无效的。</p><p>首先，编辑.gitignore文件。</p><p>然后如果是单个文件，可以使用如下命令从仓库中删除：</p><pre><code>git rm --cached logs/xx.log</code></pre><p>如果是整个目录：</p><pre><code>git rm --cached -r logs</code></pre><p>如果文件很多，那么直接</p><pre><code>git rm --cached -r .</code></pre><p>如果提示某个文件无法忽略，可以添加-f参数强制忽略。</p><pre><code>git rm -f --cached logs/xx.log</code></pre><p>然后</p><pre><code>git add .git commit -m &quot;Update .gitignore&quot;</code></pre><p>把被忽略的某个文件强制添加回去：</p><pre><code>git add -f filename</code></pre><p>ignore规则检查：</p><pre><code>git check-ignore</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>build a new repo</title>
-      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/"/>
-      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/</url>
-      
-        <content type="html"><![CDATA[<h1 id="新建项目仓库"><a href="#新建项目仓库" class="headerlink" title="新建项目仓库"></a>新建项目仓库</h1><h3 id="创建本地git项目"><a href="#创建本地git项目" class="headerlink" title="创建本地git项目"></a>创建本地git项目</h3><pre><code>git init</code></pre><p>git init &lt;仓库名&gt;没法执行，init后面不要跟参数当名字。</p><h3 id="github上创建一个仓库"><a href="#github上创建一个仓库" class="headerlink" title="github上创建一个仓库"></a>github上创建一个仓库</h3><p>登录github创建个空的仓库</p><h3 id="登录github创建个空的仓库，添加远程仓库"><a href="#登录github创建个空的仓库，添加远程仓库" class="headerlink" title="登录github创建个空的仓库，添加远程仓库"></a>登录github创建个空的仓库，添加远程仓库</h3><pre><code>git remote add origin https://github.com/xxx/xxx.git</code></pre><p>从远程master合并到本地master</p><pre><code class="lang-shell">git config --global user.name &quot;xxxx&quot; git config --global user.email xxxxx@xx.com</code></pre><pre><code class="lang-shell">git initgit add .git commit - m &quot;init&quot;git remote add origin https://github.com/xxx/xxx.gitgit push origin master</code></pre><p>如果有冲突就尝试（通常是你创建仓库的时候新建了什么readme和license）：<br>    git pull origin master:master</p><p>也可以直接强制推送：<br>    git push origin master —force</p><h3 id="提交本地分支到远程分支"><a href="#提交本地分支到远程分支" class="headerlink" title="提交本地分支到远程分支"></a>提交本地分支到远程分支</h3><pre><code>git push -u origin master</code></pre><h3 id="将现有项目添加并提交上传"><a href="#将现有项目添加并提交上传" class="headerlink" title="将现有项目添加并提交上传"></a>将现有项目添加并提交上传</h3><pre><code class="lang-shell">git add -A（git add . 是提交当前路径  git add -A 是提交整个文件夹子文件夹路径）git commit -m &#39;初始化git项目&#39;git push --set-upstream origin master</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>新建某分支并推送、合并分支</title>
-      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
-      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</url>
-      
-        <content type="html"><![CDATA[<h1 id="新建某分支并推送至某分支：以考试系统es为例版本管理"><a href="#新建某分支并推送至某分支：以考试系统es为例版本管理" class="headerlink" title="新建某分支并推送至某分支：以考试系统es为例版本管理"></a>新建某分支并推送至某分支：以考试系统es为例版本管理</h1><p>新建新分支并推送至新分支之前，需要检查当前分值是否还有未提交的状态</p><p><code>git status</code> # 可以检查是否有新文件未被track</p><p><code>git remote -v</code> # 查看远程分值，一般如下，同一个地址具有拿下或push的权限</p><pre><code>origin  http://shenyanjian.cn:3000/senranja/exam_system.git (fetch)origin  http://shenyanjian.cn:3000/senranja/exam_system.git (push)</code></pre><p><code>git fetch</code> # 拿下仓库最新分值信息。<code>git pull==git fetch + git merge</code>，git fetch是安全的、不会合并的命令</p><p><code>git branch -r</code> # 查看全部的远程分支，通常显示如下：（若远程分支只有main）</p><pre><code>  origin/HEAD -&gt; origin/main  origin/main</code></pre><p><code>git checkout -b V0.0.2</code> # 以当前分支为副本创建V0.0.2</p><p><code>git checkout V0.0.2</code> # 切换到分值V0.0.2</p><p>（现在在此处放一些部署文档、版本交付说明）</p><pre><code class="lang-shell">git add .git commit -m &quot;V0.0.2&quot;git push</code></pre><pre><code>fatal: The current branch V0.0.2 has no upstream branch.To push the current branch and set the remote as upstream, use    git push --set-upstream origin V0.0.2</code></pre><p>如上报错，意思是远程分值还没有V0.0.2，需要手动设置下</p><pre><code>git push --set-upstream origin V0.0.2</code></pre><p>完成</p><p>切换回主分支：</p><pre><code>git checkout main</code></pre><h1 id="本地合并其他分支到本分支，再推送"><a href="#本地合并其他分支到本分支，再推送" class="headerlink" title="本地合并其他分支到本分支，再推送"></a>本地合并其他分支到本分支，再推送</h1><p>要将本地的 dev 分支合并到 main 分支，你可以按照以下步骤进行操作：</p><p>确保你当前位于 main 分支上。你可以通过以下命令来确保：</p><pre><code>git checkout main</code></pre><p>然后，执行 git pull 命令来确保你的 main 分支是最新的：</p><pre><code>git pull origin main</code></pre><p>接着，执行 git merge 命令来合并 dev 分支到 main 分支：</p><pre><code>git merge dev</code></pre><p>如果有冲突，在合并过程中会停下来，需要你解决这些冲突。解决完冲突后，你需要执行 <code>git add</code>命令来标记冲突已解决的文件，然后执行 <code>git merge --continue</code> 来继续合并过程。</p><p>最后，当合并完成，你可以将合并后的 main 分支推送到远程仓库：</p><pre><code>git push origin main</code></pre><p>通过这些步骤，你就可以将本地的 dev 分支成功合并到 main 分支，并将更新推送到远程仓库。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>push existed local repo</title>
-      <link href="/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/"/>
-      <url>/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/</url>
-      
-        <content type="html"><![CDATA[<h1 id="现有仓库提交到github"><a href="#现有仓库提交到github" class="headerlink" title="现有仓库提交到github"></a>现有仓库提交到github</h1><h3 id="纯新建项目push"><a href="#纯新建项目push" class="headerlink" title="纯新建项目push"></a>纯新建项目push</h3><pre><code class="lang-shell">echo &quot;# licenseGenerator&quot; &gt;&gt; README.mdgit initgit add README.mdgit commit -m &quot;first commit&quot;git branch -M mastergit remote add origin https://github.com/SenRanja/licenseGenerator.gitgit push -u origin master</code></pre><h3 id="push已存在项目"><a href="#push已存在项目" class="headerlink" title="push已存在项目"></a>push已存在项目</h3><p>先做的：如果你手贱，github创建项目的时候，新建了什么license、readme有的没的的东西，本地push之前，得先git pull 一下：</p><pre><code>git pull github master --allow-unrelated-histories</code></pre><p>（git pull 远程名字 远程分支， 后面的 –allow-unreleated-histories ，比如你手贱新建了license，你git pull 的时候会拒绝，因为github新建项目弄的license有第一次的commit，和你本地历史对不上merge默认不允许，所以你得手动指定）</p><p>比如，如果本地gitea已经有项目了，应该是推送此处。<br>比如，我的evo系统，在本地已经推送gitea，默认的远程地址名字 origin 必须重命名。</p><pre><code>git remote add origin https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（git branch -M 命令用于重命名当前分支。具体来说，-M 选项告诉 Git 强制重命名分支，即使新的分支名与已存在的分支名冲突也会强制执行。这个命令的常见用途是将当前分支重命名为一个新的分支名。）</p><pre><code>git push -u origin master</code></pre><p>更改origin的远程名字的命令如下：</p><pre><code>git remote add github https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（强行将现在所在分支，重命名为 master 分支）</p><pre><code>git push -u github master</code></pre><p>（将本地的master分支代码提交到 github 的远程链接上）</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
+          <category> Go </category>
           
       </categories>
       
@@ -1492,25 +1530,6 @@
       <categories>
           
           <category> Linux-Maintain </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>goland技巧</title>
-      <link href="/2024/04/08/Go/goland/"/>
-      <url>/2024/04/08/Go/goland/</url>
-      
-        <content type="html"><![CDATA[<ul><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#添加远程调试">添加远程调试</a></li><li><a href="#delve升级go无法调试">delve：升级go无法调试</a></li></ul><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!=nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH/bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Go </category>
           
       </categories>
       
