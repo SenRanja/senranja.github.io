@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>git tag &amp; github release | SenRanJa</title>
+  <title>Graph_Theory | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="git tag &amp; github release | SenRanJa">
+  <meta name="description" content="Graph_Theory | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeCurrently a postgraduate student in university, and major in Information Technology. Github: senRanja_github Blog: senRanja_blog linkedIn: keep private Keep exploration!">
 <meta property="og:type" content="website">
@@ -1162,9 +1162,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-git/git-tag" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Math/Graph-Theory" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">git tag &amp; github release</h1>
+        <h1 class="article-title">Graph_Theory</h1>
     
     <div class="article-meta">
         
@@ -1174,7 +1174,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Git">Git</a>
+            <a  data-rel="Math">Math</a>
             
         </span>
         
@@ -1182,12 +1182,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2024-10-08 15:38:43'>2024-08-28 10:49</time>
+            Created At : <time class="date" title='Updated At: 2024-11-19 20:20:04'>2024-11-19 18:33</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:300</span>
+        <span>Count:599</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1217,7 +1217,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#tag"><span class="toc-text">tag</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#github-release"><span class="toc-text">github release</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Motivation-and-Applications"><span class="toc-text">Motivation and Applications</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Graph-theory-Historical-Motivation"><span class="toc-text">Graph theory: Historical Motivation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Graphs-in-Computer-Science"><span class="toc-text">Graphs in Computer Science</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Terminology-and-Notation"><span class="toc-text">Terminology and Notation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Graph-representations"><span class="toc-text">Graph representations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Paths"><span class="toc-text">Paths</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Connectedness"><span class="toc-text">Connectedness</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vertex-Degrees-Undirected-graphs"><span class="toc-text">Vertex Degrees (Undirected graphs)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Graph-Traversals"><span class="toc-text">Graph Traversals</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Properties-of-Graphs"><span class="toc-text">Properties of Graphs</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1233,32 +1233,116 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li><a href="#tag">tag</a></li>
-<li><a href="#github-release">github release</a></li>
+        <p>Lecture 16: Graph Theory</p>
+<ul>
+<li><a href="#motivation-and-applications">Motivation and Applications</a><ul>
+<li><a href="#graph-theory-historical-motivation">Graph theory: Historical Motivation</a></li>
+<li><a href="#graphs-in-computer-science">Graphs in Computer Science</a></li>
 </ul>
-<h1 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h1><p><code>git tag</code>只能自己git命令打，没法在github上进行处理。git tag是独立于正常push存在的，比如新建一个tag然后push上去，不会有新commit。push tag仅是推了tag的名字而已。</p>
-<pre><code>git tag 2.0
-# tag本质就是这个a参数 annotated，也可以附带message信息（通常较少见使用-m）
-git tag -a v1.0 -m &quot;Release version 1.0&quot;
-
-git tag
-&gt;&gt;&gt; 2.0
-
-# 方便未来checkout切换到tag表示的某具体版本
-git checkout v1.0
-</code></pre><p>以上仅仅是<strong>local tag</strong>，推tag上去需要执行命令</p>
-<pre><code>git push origin --tags
-</code></pre><p>或者某个单一的tag</p>
-<pre><code>git push origin &lt;tag&gt;
-</code></pre><p><img src="/2024/08/28/git/git-tag/git_tag.png" alt="git_tag"></p>
-<h1 id="github-release"><a href="#github-release" class="headerlink" title="github release"></a>github release</h1><p>打了tag后，可以发布<code>release的tarballs的source code</code>或者<code>二进制文件</code>（这些功能是<strong>github特有功能</strong>，而<strong>非git</strong>自身能支持的功能）</p>
-<p>比如，如果没有选择tag，那么你发布不成功release。如图我暂时保存为草稿，再选择个tag进行发布。点击“笔”那个进行编辑。</p>
-<p><img src="/2024/08/28/git/git-tag/tag2.png" alt="tag2"></p>
-<p><img src="/2024/08/28/git/git-tag/tag3.png" alt="tag3"></p>
-<p>点击 发布release后，如下，可以看到这个tag的源代码，默认会以tar.gz和zip的形式放在release中，另外我们手动一个一个传的文件也在其中。</p>
-<p><img src="/2024/08/28/git/git-tag/tag4.png" alt="tag4"></p>
-
+</li>
+<li><a href="#terminology-and-notation">Terminology and Notation</a><ul>
+<li><a href="#graph-representations">Graph representations</a></li>
+<li><a href="#paths">Paths</a></li>
+<li><a href="#connectedness">Connectedness</a></li>
+<li><a href="#vertex-degrees-undirected-graphs">Vertex Degrees (Undirected graphs)</a></li>
+</ul>
+</li>
+<li><a href="#graph-traversals">Graph Traversals</a></li>
+<li><a href="#properties-of-graphs">Properties of Graphs</a></li>
+</ul>
+<h1 id="Motivation-and-Applications"><a href="#Motivation-and-Applications" class="headerlink" title="Motivation and Applications"></a>Motivation and Applications</h1><h2 id="Graph-theory-Historical-Motivation"><a href="#Graph-theory-Historical-Motivation" class="headerlink" title="Graph theory: Historical Motivation"></a>Graph theory: Historical Motivation</h2><p>Bridges of K¨onigsberg problem</p>
+<p><img src="/2024/11/19/Math/Graph-Theory/2024-11-19-18-35-23.png" alt></p>
+<p><img src="/2024/11/19/Math/Graph-Theory/2024-11-19-18-35-38.png" alt></p>
+<p>Can you find a route which crosses each bridge exactly once?</p>
+<p>No! It doesn’t have such a solution.</p>
+<p>Five rooms problem</p>
+<p><img src="/2024/11/19/Math/Graph-Theory/2024-11-19-18-38-30.png" alt></p>
+<p>Can you find a route which passes through each door exactly once?</p>
+<p>Crossed house problem</p>
+<p><img src="/2024/11/19/Math/Graph-Theory/2024-11-19-18-38-50.png" alt></p>
+<p>Can you draw this without taking your pen off the paper?</p>
+<p>Three utilities problem</p>
+<p><img src="/2024/11/19/Math/Graph-Theory/2024-11-19-18-39-20.png" alt></p>
+<p>Can you connect all utilities to all houses without crossing connections?</p>
+<p>The following table describes several subjects and the students taking them:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Potions</th>
+<th>Charms</th>
+<th>Herbology</th>
+<th>Astronomy</th>
+<th>Transfiguration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Harry</td>
+<td>Ron</td>
+<td>Harry</td>
+<td>Hermione</td>
+<td>Hermione</td>
+</tr>
+<tr>
+<td>Ron</td>
+<td>Luna</td>
+<td>George</td>
+<td>Neville</td>
+<td>Fred</td>
+</tr>
+<tr>
+<td>Malfoy</td>
+<td>Ginny</td>
+<td>Neville</td>
+<td>Seamus</td>
+<td>Luna</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>How many examination timeslots are needed so that no student has two (or more) exams at the same time?</p>
+<h2 id="Graphs-in-Computer-Science"><a href="#Graphs-in-Computer-Science" class="headerlink" title="Graphs in Computer Science"></a>Graphs in Computer Science</h2><p>Applications of graphs in Computer Science are abundant, e.g.</p>
+<ul>
+<li>route planning in navigation systems, robotics</li>
+<li>optimisation, e.g. timetables, utilisation of network structures, bandwidth allocation</li>
+<li>compilers using “graph colouring” to assign registers to program variables</li>
+<li>circuit layout (Untangle game)</li>
+<li>determining the significance of a web page (Google’s pagerank algorithm)</li>
+<li>modelling the spread of a virus in a computer network or news in social network</li>
+</ul>
+<h1 id="Terminology-and-Notation"><a href="#Terminology-and-Notation" class="headerlink" title="Terminology and Notation"></a>Terminology and Notation</h1><p>Terminology (the most common; there are many variants): </p>
+<p><strong>Graph</strong> — pair (V,E) where V– set of vertices (or nodes) E– set of edges</p>
+<p><strong>Undirected graph</strong>: Every edge e ∈ E is a two-element set of vertices, i.e. e = {x,y} ⊆ V where x= y</p>
+<p><strong>Directed graph</strong>: Every edge (or arc) e ∈ E is an ordered pair of vertices, i.e. e = (x,y) ∈ V ×V, note x may equal y.</p>
+<h2 id="Graph-representations"><a href="#Graph-representations" class="headerlink" title="Graph representations"></a>Graph representations</h2><p><img src="/2024/11/19/Math/Graph-Theory/2024-11-19-18-46-04.png" alt></p>
+<p><img src="/2024/11/19/Math/Graph-Theory/2024-11-19-18-46-14.png" alt></p>
+<p><img src="/2024/11/19/Math/Graph-Theory/2024-11-19-18-47-07.png" alt></p>
+<p><img src="/2024/11/19/Math/Graph-Theory/2024-11-19-18-48-17.png" alt></p>
+<p>我对这个图的理解，无向图，横坐标是定点，纵坐标是那几个Edge；有向图，横纵坐标都是定点，纵射向横（好像不对），完了问问。</p>
+<h2 id="Paths"><a href="#Paths" class="headerlink" title="Paths"></a>Paths</h2><p>A (directed) walk in a (directed) graph (V,E) is a sequence of edges that link up</p>
+<script type="math/tex; mode=display">
+v_0 \overset{\{v_0,v_1\}}{→} v_1 \overset{\{v_1,v_2\}}{→} ... \overset{\{v_{n-1},v_n\}}{→} v_n</script><p>where $e<em>i$ = {$v</em>{i−1},v<em>i$} ∈ $E (or \quad e_i = (v</em>{i−1},v_i) ∈ E)$</p>
+<p>A <strong>trail</strong> is a walk where no edge is repeated. $(∀i, j ∈ [n],e_i \neq e_j)$</p>
+<p>trail过边，点重复</p>
+<p>A <strong>path</strong> is a walk where no vertex is repeated $(∀i, j ∈$ {0,…n − 1}$,v_i \neq v_j)$</p>
+<p>path过点，边重复</p>
+<p><strong>length</strong> of a walk is the number of edges: n neither the vertices nor the edges have to be all different</p>
+<p>Subpath\subwalk of length $r: (e<em>m,e</em>{m+1},…,e_{m+r−1})$</p>
+<p>Path of length 0: single vertex $v_0$</p>
+<h2 id="Connectedness"><a href="#Connectedness" class="headerlink" title="Connectedness"></a>Connectedness</h2><p><strong>Connected set/graph</strong> (<strong>undirected</strong>) — each pair of vertices joined by a path</p>
+<p><strong>Strongly connected set/graph</strong> (<strong>directed</strong>) — each pair of vertices joined by a directed <strong>path</strong> in both directions</p>
+<p><img src="/2024/11/19/Math/Graph-Theory/2024-11-19-19-15-23.png" alt></p>
+<p>Given a graph $G = (V,E)$, we call a set of vertices $U ⊆ V$ a <strong>connected component</strong> of G, if every pair of vertices $u, v ∈ U$ is connected by some <strong>path</strong>, and $U$ is maximal with this property.</p>
+<p><img src="/2024/11/19/Math/Graph-Theory/2024-11-19-19-18-25.png" alt></p>
+<p><img src="/2024/11/19/Math/Graph-Theory/2024-11-19-19-23-40.png" alt></p>
+<p><img src="/2024/11/19/Math/Graph-Theory/2024-11-19-19-27-00.png" alt></p>
+<h2 id="Vertex-Degrees-Undirected-graphs"><a href="#Vertex-Degrees-Undirected-graphs" class="headerlink" title="Vertex Degrees (Undirected graphs)"></a>Vertex Degrees (Undirected graphs)</h2><p><strong>Degree</strong> of a vertex</p>
+<script type="math/tex; mode=display">
+deg(v) = |\{ w ∈ V :\{v,w\} ∈ E \}|</script><p>i.e., the number of edges attached to the vertex</p>
+<p><strong>Regular graph</strong> — all degrees are equal</p>
+<p><strong>Degree sequence</strong> $D_0,D_1,D_2,…,D_k$ of graph $G = (V,E)$, where $D_i$ = no. of vertices of degree i</p>
+<h1 id="Graph-Traversals"><a href="#Graph-Traversals" class="headerlink" title="Graph Traversals"></a>Graph Traversals</h1><h1 id="Properties-of-Graphs"><a href="#Properties-of-Graphs" class="headerlink" title="Properties of Graphs"></a>Properties of Graphs</h1>
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to point out the mistakes and faults! </span>
     </div>
@@ -1291,6 +1375,46 @@ git checkout v1.0
 
 
 
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
     
 
 
