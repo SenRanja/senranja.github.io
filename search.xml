@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>Statistics</title>
+      <link href="/2024/11/19/Math/Statistics/"/>
+      <url>/2024/11/19/Math/Statistics/</url>
+      
+        <content type="html"><![CDATA[<p>Lecture 15: Statistics</p><ul><li><a href="#random-variables-and-expectation">Random Variables and Expectation</a><ul><li><a href="#definition">Definition</a></li><li><a href="#definition-1">Definition</a></li><li><a href="#example">Example</a></li><li><a href="#example-1">Example</a></li><li><a href="#question">Question</a></li><li><a href="#expectation">Expectation</a><ul><li><a href="#definition-2">Definition</a></li><li><a href="#examples-dice">Examples: dice</a></li><li><a href="#examples-dice-1">Examples: dice</a></li></ul></li></ul></li><li><a href="#linearity-of-expectation">Linearity of Expectation</a><ul><li><a href="#theorem-linearity-of-expected-value">Theorem (linearity of expected value)</a><ul><li><a href="#example-1">Example 1</a></li><li><a href="#example-2">Example 2</a><ul><li><a href="#answer-1-the-hard-way">Answer 1. (the ‘hard way’)</a></li><li><a href="#answer-2-the-easy-way">Answer 2. (the ‘easy way’)</a></li></ul></li></ul></li><li><a href="#observations">Observations</a><ul><li><a href="#exercises-1">Exercises 1</a></li><li><a href="#exercises-2">Exercises 2</a></li></ul></li></ul></li><li><a href="#expected-time-to-success">Expected Time to Success</a><ul><li><a href="#expected-time-to-success-1">Expected time to success</a><ul><li><a href="#theorem">Theorem</a></li><li><a href="#exercise-1">Exercise 1</a></li><li><a href="#exercise-2">Exercise 2</a></li><li><a href="#success-vs-expected-value">Success vs Expected value</a><ul><li><a href="#example-2">Example</a></li></ul></li></ul></li><li><a href="#gamblers-ruin">Gambler’s ruin</a></li></ul></li><li><a href="#standard-deviation-and-variance">Standard Deviation and Variance</a><ul><li><a href="#definition-3">Definition</a></li><li><a href="#example-3">example</a></li><li><a href="#exercise">exercise</a></li></ul></li></ul><h1 id="Random-Variables-and-Expectation"><a href="#Random-Variables-and-Expectation" class="headerlink" title="Random Variables and Expectation"></a>Random Variables and Expectation</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>An (integer-valued) <strong>random variable</strong> X is a <strong>function</strong> from <strong>Ω</strong> to <strong>Z</strong>. In other words, <strong>it associates a number value with every outcome</strong>.</p><p>Random variables are often denoted by X,Y,Z,…</p><p>We extend arithmetic to random variables in the natural way.</p><h2 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h2><p>Given random variable $X : Ω → Z$, random variable $Y : Ω → Z$ and integer k, we can combine X,Y and k to obtain the following functions on all $ω ∈ Ω$:</p><p>Addition of variables:</p><script type="math/tex; mode=display">X +Y : ω→X(ω)+Y(ω)</script><p>Multiplication of variables:</p><script type="math/tex; mode=display">X ·Y : ω→X(ω)·Y(ω)</script><p>Scalar addition:</p><script type="math/tex; mode=display">X −k : ω→X(ω)−k</script><p>Scalar multiplication:</p><script type="math/tex; mode=display">kX : ω→k·X(ω)</script><h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Random variable X: value of rolling one die</p><p>Ω={1,2,3,4,5,6}</p><p>X(i) = i</p><h2 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h2><p>Random variable $X_s$: sum of rolling two dice</p><p>Ω={(1,1),(1,2),…,(6,6)}</p><script type="math/tex; mode=display">X_s((1,1)) = 2, X_s((1,2)) = 3 = X_s((2,1)) ...</script><h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><p>Is $X_s = X +X$?</p><p>No! X_s 是两个独立随机变量的和，每次扔色子的结果是独立的。因此应该看下面这个等式。从写法上，X+X是自身相加，是相关的，因为两个X是同一个骰子自身的结果。</p><script type="math/tex; mode=display">X_s(ω_1,ω_2) = X(ω_1)+Y(ω_2)</script><p>where $X : ω_1 → ω_1$ and $Y :ω_2 → ω_2$ are <strong>independent and identically distributed (i.i.d)</strong></p><h2 id="Expectation"><a href="#Expectation" class="headerlink" title="Expectation"></a>Expectation</h2><h3 id="Definition-2"><a href="#Definition-2" class="headerlink" title="Definition"></a>Definition</h3><p>The <strong>expected value</strong> (often called “expectation” or “average”) of a random variable X is</p><script type="math/tex; mode=display">E(X)=\sum_{k \in \mathbb{Z}} P(X =k)·k</script><p><strong>Take Notice</strong></p><p>Expectation is a truly universal concept; it is the basis of all decision making, of estimating gains and losses, in all actions under risk. Historically, a rudimentary concept of expected value arose long before the notion of probability.</p><h3 id="Examples-dice"><a href="#Examples-dice" class="headerlink" title="Examples: dice"></a>Examples: dice</h3><p>The expected value when rolling one die is:</p><script type="math/tex; mode=display">E(X) = \frac{1}{6} \cdot 1 + \frac{1}{6} \cdot 2 + \dots + \frac{1}{6} \cdot 6 = 3.5</script><p>The expected sum when rolling two dice is</p><script type="math/tex; mode=display">E(X_s) = \frac{2}{36} \cdot 1 + \frac{2}{36} \cdot 3 + \dots + \frac{6}{36} \cdot 7 + \dots + \frac{1}{36} \cdot 12 = 7</script><h3 id="Examples-dice-1"><a href="#Examples-dice-1" class="headerlink" title="Examples: dice"></a>Examples: dice</h3><p><strong>Question</strong>. Buy one lottery ticket for $1. The only prize is $1M. Each ticket has probability $6 · 10^{−7}$ of winning. What is the expected value of the lottery ticket?</p><p><strong>Answer</strong></p><p>There are two types of ticket, winning tickets and losing tickets, so we let  Ω = {win,lose}, and $X_L : Ω → \mathbb{Z}$ such that $X_L(win) = $999,999$ and $X_L(lose)= −$1$ Then</p><script type="math/tex; mode=display">E(X_L) = 6·10^{−7}·\$999,999+(1−6·10^{−7})·−\$1= −\$0.4</script><h1 id="Linearity-of-Expectation"><a href="#Linearity-of-Expectation" class="headerlink" title="Linearity of Expectation"></a>Linearity of Expectation</h1><h2 id="Theorem-linearity-of-expected-value"><a href="#Theorem-linearity-of-expected-value" class="headerlink" title="Theorem (linearity of expected value)"></a>Theorem (linearity of expected value)</h2><p>For any random variables X,Y and integer k:</p><script type="math/tex; mode=display">E(X +Y)=E(X)+E(Y)</script><script type="math/tex; mode=display">E(k · X) = k ·E(X)</script><h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1"></a>Example 1</h3><p>The expected sum when rolling two dice can be computed as</p><script type="math/tex; mode=display">E(X_s) = E(X)+E(Y) = 3.5+3.5 = 7</script><h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2"></a>Example 2</h3><p><strong>Question</strong>. Calculate $E(S_n)$, where</p><script type="math/tex; mode=display">S_n \overset{def}{=} no. of \quad heads \quad \text{ in n coin tosses }</script><h4 id="Answer-1-the-‘hard-way’"><a href="#Answer-1-the-‘hard-way’" class="headerlink" title="Answer 1. (the ‘hard way’)"></a>Answer 1. (the ‘hard way’)</h4><p>Using the definition of the expectation, we have</p><script type="math/tex; mode=display">E(S_n) = \sum^n_{k=0} P(S_n = k)·k = \sum^n_{k=0} \frac{1}{2^n} \binom{n}{k} \cdot k</script><p>Since there are $\binom{n}{k}$ sequences of n coin tosses with k heads, and each sequence has the probability $\frac{1}{2^n}$, this gives</p><script type="math/tex; mode=display">E(S_n) = \frac{1}{2^n} \sum^n_{k=1} \frac{n}{k} \binom{n-1}{k-1} k = \frac{n}{2^n} \sum^{n-1}_{k=0} \binom{n-1}{k} = \frac{n}{2^n} \codt 2^{n-1} = \frac{n}{2}</script><p>where we used the ‘binomial identity’ $\sum^{n}_{k=0}=2^n$ to simplify.</p><h4 id="Answer-2-the-‘easy-way’"><a href="#Answer-2-the-‘easy-way’" class="headerlink" title="Answer 2. (the ‘easy way’)"></a>Answer 2. (the ‘easy way’)</h4><p>When n =1, we have that $S_1$ : {tails,heads} → {0,1} denotes the number of heads obtained in one coin toss.</p><p>For general n &gt; 1, we can think of $S<em>n$ as being equivalent to repeating a single $S_1$ coin toss, n distinct (and independent) times.  Let $S</em>{1_i}$ denote coin toss number i in this sequence. Then</p><script type="math/tex; mode=display">E(S_n) = E(S_{1_1} + S_{1_2} +...+S_{1_n} ) = \sum^{n}_{i=1} E(S_{1_i}) =  n·E(S_1) = n \cdot \frac{1}{2}</script><h2 id="Observations"><a href="#Observations" class="headerlink" title="Observations"></a>Observations</h2><p><strong>Fact</strong></p><p>If $X_1,X_2,…,X_n$ are <strong>independent, identically distributed (i.i.d)</strong> random variables, then $E(X_1+X_2+…+X_n) = E(nX_1) = nE(X_1)$.</p><p><strong>Take Notice</strong></p><p>$X_1 +X_2+…+X_n$ and $nX_1$ are very different random variables.</p><h3 id="Exercises-1"><a href="#Exercises-1" class="headerlink" title="Exercises 1"></a>Exercises 1</h3><p><strong>Question</strong>.You face a quiz consisting of six true/false questions, and your plan is to guess the answer to each question (randomly, with probability 0.5 of being right). There are nonegative marks, and answering four or more questions correctly suffices to pass.</p><ol><li><p>What is the probability of passing?</p></li><li><p>What is the expected score?</p></li></ol><p><img src="/2024/11/19/Math/Statistics/2024-11-19-12-38-14.png" alt></p><h3 id="Exercises-2"><a href="#Exercises-2" class="headerlink" title="Exercises 2"></a>Exercises 2</h3><p><strong>Question</strong>. An urn has $m+n=10$ marbles, m≥0 red and n≥0 blue. 7 marbles selected at random without replacement. What is the expected numberof red marbles drawn?</p><p><img src="/2024/11/19/Math/Statistics/2024-11-19-12-41-47.png" alt></p><h1 id="Expected-Time-to-Success"><a href="#Expected-Time-to-Success" class="headerlink" title="Expected Time to Success"></a>Expected Time to Success</h1><p><strong>Question</strong>. Find the average waiting time for the first <em>head</em>, with no upper bound on the ‘duration’ (one allows for all possible sequences of tosses, regardless of how many times tails occur initially).</p><p><strong>Answer</strong>. Let Ω be the sample space of all possible sequences of H and T.</p><p>Let $X_w : Ω →\mathbb{N}$ such that $X_w(ω)$ is the first location in ω containing an H (i.e. the waiting time for ω).For example $X_w(TTHTH···)=3$</p><p>Then the average waiting time is</p><script type="math/tex; mode=display">A =E(Xw) = \sum^{\infty}_{k=1} k ·P(X_w =k) = \sum^{\infty}_{k=1} k \cdot \frac{1}{2^k} = \frac{1}{2^1}+\frac{2}{2^2}+\frac{3}{2^3} + \dots</script><h2 id="Expected-time-to-success"><a href="#Expected-time-to-success" class="headerlink" title="Expected time to success"></a>Expected time to success</h2><p><img src="/2024/11/19/Math/Statistics/2024-11-19-17-06-51.png" alt></p><h3 id="Theorem"><a href="#Theorem" class="headerlink" title="Theorem"></a>Theorem</h3><p>If the probability of success is p then:</p><ul><li>The expected number of (indep.) trials before <strong>1</strong> success is $\frac{1}{p}$</li><li>The expected number of (indep.) trials before <strong>k</strong> successes is $\frac{k}{p}$</li></ul><h3 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise 1"></a>Exercise 1</h3><p><strong>Question</strong>. Adieisrolled until the first 4 appears. What is the expected waiting time?</p><p><strong>Answer</strong></p><script type="math/tex; mode=display">P(roll 4) = \frac{1}{6}</script><p>hence E(no. of rolls until first 4) = 6.</p><h3 id="Exercise-2"><a href="#Exercise-2" class="headerlink" title="Exercise 2"></a>Exercise 2</h3><p>Question. To find an object $X$ in an unsorted list L of n elements, one needs to search linearly through L. Let the probability of X ∈Lbe p. Then there is 1−p likelihood of X being absent altogether. Find the expected number of comparison operations.</p><p><strong>Answer</strong>. If the element X is in the list, then the number of comparisons averages to $\frac{1}{n}(1+ \dots + n)$. If X is absent, we need n comparisons.</p><p>The first case has probability p, the second 1 − p. Combining these we find</p><script type="math/tex; mode=display">E_n = p(\frac{1+ \dots + n}{n}) +(1−p)n \\ =p(\frac{n+1}{2})+(1−p)n \\ =(1-\frac{p}{2})n+\frac{p}{2}</script><p>As one would expect, <strong>increasing p leads to a lower</strong> $E_n$.</p><p><img src="/2024/11/19/Math/Statistics/2024-11-19-17-21-52.png" alt></p><h3 id="Success-vs-Expected-value"><a href="#Success-vs-Expected-value" class="headerlink" title="Success vs Expected value"></a>Success vs Expected value</h3><p><strong>Question</strong></p><p>Does high probability of success lead to a high expected value?</p><p>Generally, no.</p><h4 id="Example-2"><a href="#Example-2" class="headerlink" title="Example"></a>Example</h4><p>Buying more tickets in the lottery increases your chances of winning, but the expected value of winnings decreases.</p><p>赢35块钱加上格子上的钱。因此策略2的概率p指向(35-24+1)=12$</p><p>Roulette (outcomes 0,1,…,36). Win: $35 × bet$</p><p><strong>Strategy 1</strong>: Bet $1 on a single number</p><ul><li>Probability of winning: $\frac{1}{37}$</li><li>Expected winnings: $\frac{1}{37}.($35)+\frac{36}{37}.(-$1)\approx −2.7c$</li></ul><p><strong>Strategy 2</strong>: Place $1 bets on 24 numbers, selected from among 0 to 36.</p><ul><li>Probability of winning: $\frac{24}{37} \approx 65\%$</li><li>Expected winnings:</li><li><ul><li>If one of the numbers comes up, win $35 from the bet on that number and lose $23 from the bets on the remaining numbers,</li></ul></li></ul><p>So expected winnings are:</p><script type="math/tex; mode=display">p·\$12−q·\$24 = \$12 \frac{24}{37} −\$24 \frac{13}{37} = −\$ \frac{24}{37} ≈ −65c = 24×−2.7c</script><h2 id="Gambler’s-ruin"><a href="#Gambler’s-ruin" class="headerlink" title="Gambler’s ruin"></a>Gambler’s ruin</h2><p>Many so-called ’winning systems’ that purport to offer a winning strategy do something akin — they provide a scheme for frequent relatively moderate wins, but at the cost of an occasional very big loss.</p><p>It turns out (it is a formal theorem) that there can be no system that converts an ‘unfair’ game into a ’fair’ one. In the language of decision theory, ‘unfair’ denotes a game whose individual bets have negative expectation.</p><p><strong>It can be easily checked that any individual bets on roulette, on lottery tickets or on just about any commercially offered game have negative expected value.</strong></p><h1 id="Standard-Deviation-and-Variance"><a href="#Standard-Deviation-and-Variance" class="headerlink" title="Standard Deviation and Variance"></a>Standard Deviation and Variance</h1><h2 id="Definition-3"><a href="#Definition-3" class="headerlink" title="Definition"></a>Definition</h2><p>For random variable X with expected value (or: <strong>mean</strong>) $µ = E(X)$, the <strong>standard deviation</strong> of X is</p><script type="math/tex; mode=display">\sigma = \sqrt{E((X −µ)^2)}</script><p>and the <strong>variance</strong> of X is</p><script type="math/tex; mode=display">\sigma^2</script><p>Standard deviation and variance measure how spread out the values of a random variable are. The smaller $σ^2$ the more confident we can be that $X(ω)$ is close to $E(X)$, for a randomly selected $ω$.</p><p><strong>Take Notice</strong></p><p>The variance can be calculated as $E((X − µ)^2) = E(X^2)−µ^2$, where $E(X^2) = \sum^{}_{k \in \mathbb{Z}} P(X = k)·k^2$</p><p>此处方差计算公式和我在中国学的方差计算公式，本质上是一样的，这里是简化的另一种形式。</p><p><img src="/2024/11/19/Math/Statistics/2024-11-19-18-03-20.png" alt></p><p><img src="/2024/11/19/Math/Statistics/2024-11-19-18-04-05.png" alt></p><h2 id="example"><a href="#example" class="headerlink" title="example"></a>example</h2><p><strong>Question</strong>. Let the random variable $X_d \overset{def}{=} value$ of a rolled die. What is(a)the mean, (b)the variance and (c) the standard deviation?</p><p>(a)</p><script type="math/tex; mode=display">µ=E(X_d)=3.5</script><p>(b)</p><script type="math/tex; mode=display">E(X_d^2)= \frac{1}{6} \cdot 1 + \frac{1}{6} \cdot 4 + \frac{1}{6} \cdot 9 + \frac{1}{6} \cdot 16+ \frac{1}{6} \cdot 25+ \frac{1}{6} \cdot 36 = \frac{91}{6}</script><p>Hence $\sigma^2=E(X_d^2)- \mu^2 = \frac{35}{12}$</p><p>(c)</p><script type="math/tex; mode=display">\mu = \sqrt{ \frac{35}{12} } \approx 1.71</script><h2 id="exercise"><a href="#exercise" class="headerlink" title="exercise"></a>exercise</h2><p><strong>Question (Supp)</strong>. Two independent experiments are performed.</p><p>$p_1$ = P(1st experiment succeeds) = 0.7</p><p>$p_2$ = P(2nd experiment succeeds) = 0.2. Random variable X counts the number of successful experiments.</p><ul><li>Expected value of X?</li><li>Probability of exactly one success?</li><li>Probability of at most one success?</li><li>Variance of X?</li></ul><p><strong>Answer</strong>. For experiment i, let $X_i = 1$ if the experiment is successful and $X_i = 0$ otherwise.</p><p>(a) $E(X) = E(X1)+E(X2) = 1·p1 +1·p2 = 0.7+0.2 = 0.9$.</p><p>这里问的期望值，一次成功就是1，失败就是0.所以Omega是2，成功和失败是对立事件。因为两个实验是独立，且问的是成功的期望值，所以算和即可，不用考虑乘。成功是0.9，失败的期望值是0.3+0.8=1.1。</p><p>(b) $P(X = 1) = P(X1 =1,X2 = 0)+P(X1 =0,X2 = 1) =0.7·0.8 +0.3·0.2 = 0.62$.</p><p>(c) $P(X = 1)+P(X1 = X2 =0) =0.62+0.3·0.8 = 0.86$.</p><p>(d) $σ^2 = E(X^2)−E(X)^2 = (0.62·1+0.14·4)−0.92 = 0.37$.</p><p>成功一次的期望值是1，概率是(c)中结果；成功两次的期望值是2，概率是 0.7*0.2。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Math </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Probability</title>
+      <link href="/2024/11/18/Math/Probability/"/>
+      <url>/2024/11/18/Math/Probability/</url>
+      
+        <content type="html"><![CDATA[<p>Lecture 14: Probability</p><ul><li><a href="#elementary-discrete-probability">Elementary Discrete Probability</a><ul><li><a href="#definition">Definition</a><ul><li><a href="#examples">Examples</a></li></ul></li><li><a href="#uniform-distribution">Uniform distribution</a><ul><li><a href="#examples-1">Examples</a></li></ul></li><li><a href="#computing-probabilities-by-counting">Computing Probabilities by Counting</a></li><li><a href="#combining-events">Combining events</a></li><li><a href="#inclusion-exclusion-rule">Inclusion-exclusion rule</a><ul><li><a href="#exercises">Exercises</a></li></ul></li><li><a href="#examples-2">Examples</a></li><li><a href="#exercises-1">Exercises 1</a></li><li><a href="#exercises-2">Exercises 2</a></li></ul></li><li><a href="#independence">Independence</a><ul><li><a href="#unifying-sets-of-outcomes">Unifying sets of outcomes</a></li><li><a href="#events-in-the-product-space">Events in the product space</a></li></ul></li><li><a href="#infinite-sample-spaces-not-examinable">Infinite Sample Spaces (not examinable)</a></li><li><a href="#recursive-probability-computations">Recursive Probability Computations</a></li><li><a href="#conditional-probability">Conditional Probability</a></li><li><a href="#independence-revisited">Independence, revisited</a></li></ul><h1 id="Elementary-Discrete-Probability"><a href="#Elementary-Discrete-Probability" class="headerlink" title="Elementary Discrete Probability"></a>Elementary Discrete Probability</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p><strong>Sample space</strong>:</p><script type="math/tex; mode=display">\Omega = \{ w_1, \dots, w_n \}</script><p>Each point represents an outcome. 样本空间：包含所有可能结果的集合。</p><p><strong>Event</strong>: a collection of outcomes = subset of $Ω$. 事件，是样本空间的一个子集。</p><p><strong>Probability distribution</strong>: A function P : $Pow(\Omega)→ [0,1]$ （概率分布，定义了每个事件发生的概率。Pow是幂集，意思是所有的子集。）such that:</p><ul><li>$P(Ω) = 1$</li><li>$E$ and $F$ <strong>disjoint</strong> events then $P(E ∪F) = P(E)+P(F)$.</li></ul><p>Fact</p><script type="math/tex; mode=display">P(∅) = 0, P(E^c) = 1−P(E)</script><h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h3><p>Tossing a coin: <strong>Ω = {H,T}</strong></p><script type="math/tex; mode=display">P(H) = P(T) =0.5</script><p>Rolling a die: <strong>Ω = {1,2,3,4,5,6}</strong></p><script type="math/tex; mode=display">P(1) = P(2) = P(3) = P(4) = P(5) = P(6) = \frac{1}{6}</script><h2 id="Uniform-distribution"><a href="#Uniform-distribution" class="headerlink" title="Uniform distribution"></a>Uniform distribution</h2><p>Each outcome $ω_i$ equally likely:</p><script type="math/tex; mode=display">P(w_1)=P(w_2)= \dots =P(w_n)= \frac{1}{n}</script><p>This a called a <strong>uniform probability distribution</strong> over $Ω$</p><h3 id="Examples-1"><a href="#Examples-1" class="headerlink" title="Examples"></a>Examples</h3><p>Tossing a coin: <strong>Ω = {H,T}</strong></p><script type="math/tex; mode=display">P(H) = P(T) =0.5</script><p>Rolling a die: <strong>Ω = {1,2,3,4,5,6}</strong></p><script type="math/tex; mode=display">P(1) = P(2) = P(3) = P(4) = P(5) = P(6) = \frac{1}{6}</script><h2 id="Computing-Probabilities-by-Counting"><a href="#Computing-Probabilities-by-Counting" class="headerlink" title="Computing Probabilities by Counting"></a>Computing Probabilities by Counting</h2><p>Computing probabilities with respect to a <strong>uniform</strong> distribution comes down to counting the size of the event.</p><p>If E = {$e_1$,…,$e_k$} then</p><script type="math/tex; mode=display">P(E) = \Sigma^k_{i=1} P(e_i) = \Sigma^k_{i=1} \frac{1}{|\Omega|} = \frac{|E|}{|\Omega|}</script><p>Most of the counting rules carry over to probabilities wrt. a uniform distribution.</p><p>Important!</p><p>The expression “<strong>selected at random</strong>”, when not further qualified, means:</p><p>“subject to/according to/…a <strong>uniform</strong> distribution.”</p><h2 id="Combining-events"><a href="#Combining-events" class="headerlink" title="Combining events"></a>Combining events</h2><p>We can create complex events by combining simpler ones.</p><p>Common constructions:</p><ul><li><p>A and B: $A∩B$</p></li><li><p>A or B: $A∪B$</p></li><li><p>Not A: $Ω \setminus A$</p></li><li><p><strong>A followed by B</strong></p></li></ul><p>The first three involve events from the <strong>same</strong> set of outcomes. The last may involve events from <strong>different</strong> sets of outcomes (e.g. roll die and flip coin).</p><h2 id="Inclusion-exclusion-rule"><a href="#Inclusion-exclusion-rule" class="headerlink" title="Inclusion-exclusion rule"></a>Inclusion-exclusion rule</h2><p>Fact</p><script type="math/tex; mode=display">P(A∪B) = P(A)+P(B)−P(A∩B) \\ P(A∪B ∪C) = P(A)+P(B)+P(C)  −P(A∩B)−P(B ∩C)−P(C ∩A) +P(A∩B ∩C)</script><h3 id="Exercises"><a href="#Exercises" class="headerlink" title="Exercises"></a>Exercises</h3><p>Suppose an experiment leads to events A,B with probabilities $P(A) = 0.5,P(B) = 0.8,P(A ∩ B) = 0.4$.</p><p>Find</p><ul><li>$P(B^c)$</li><li>$P(A∪B)$</li><li>$P(A^c ∪B^c)$</li></ul><p>$1 −P(B) =0.2$</p><p>$P(A) +P(B)−P(A∩B) =0.9$</p><p>$1 −P((A^c ∪B^c)^c) = 1−P(A∩B) =0.6$</p><p>You could draw a venn diagram, and found it’s the intersection between A and B.</p><p><img src="/2024/11/18/Math/Probability/2024-11-18-18-56-32.png" alt></p><hr><p>Given $P(A)=0.6$, $P(B)=0.7$, show $P(A∩B)≥0.3$</p><script type="math/tex; mode=display">P(A∩B) =P(A)+P(B)−P(A∪B) \\=0.6+0.7−P(A∪B) \\≥0.6+0.7−1 = 0.3</script><h2 id="Examples-2"><a href="#Examples-2" class="headerlink" title="Examples"></a>Examples</h2><p><strong>Question</strong>. A four-digit number n is selected at random (i.e. randomly from [1000,…,9999]). Find the probability p that n has all of 0, 1, 2 among its digits.</p><p><strong>Answer (approach)</strong>. Let $q = 1−p$ be the complementary probability and define</p><script type="math/tex; mode=display">A_i = \{n : \text{ no digit } i\},A_{ij} = \{n : \text{ no digits } i,j\},A_{ijk} = \{n : no \quad i,j,k\}</script><p>Then define</p><p>$T =A_0∪A_1∪A_2 =${n: missing at least one of 0,1,2}</p><p>$S =(A_0∪A_1∪A_2)^c =${n : containing all of 0,1,2}</p><p>Once we find the cardinality of T, the solution is</p><script type="math/tex; mode=display">q = \frac{|T|}{9000}, p = 1-q</script><p>To find $|A<em>i|,|A</em>{ij}|,|A_{ijk}|$ we reflect on how many choices are available for the first digit, for the second etc. A special case is the leading digit, which must be 1,…,9</p><p><strong>Answer (arithmetic).</strong></p><script type="math/tex; mode=display">|A_0|=9^4, |A_1| = |A_2| = 8 \cdot 9^3 \\ |A_{01}| = |A_{02}| = 8^4, \\ |A_{12}| = 7 \cdot 8^3,|A_{012}| = 7^4, \\|T| = |A_0 ∪A_1 ∪A_2| \\= |A_0| +|A_1|+|A_2|−|A_0 ∩A_1|−|A_0 ∩A_2|−|A_1 ∩A_2| \\+|A_0 ∩A_1 ∩A_2| \\=9^4 +2·8·9^3 −2·8^4 −7·8^3 +7^4 \\=25·9^3 −23·8^3 +7^4 = 8850</script><p>Hence</p><script type="math/tex; mode=display">q=\frac{8850}{9000}, p =1−q \approx 0.01667</script><p>Previous example generalised: Probability of an r-digit number having all of 0,1,2,3 among its digits.</p><p>We use the previous notation: $A<em>i$ — set of numbers n missing digit i, and similarly for all $A</em>{ij}$…</p><p>We aim to find the size of $T = A_0 ∪A_1 ∪A_2 ∪A_3$, and then to compute $|S| = 9·10^{r−1} −|T|$.</p><script type="math/tex; mode=display">|A_0 ∪A_1 ∪A_2 ∪A_3| = sum of |A_i| \\− sum of |A_i ∩A_j| \\+ sum of |A_i ∩A_j ∩A_k| \\− sum of |A_i ∩A_j ∩A_k ∩A_l|</script><h2 id="Exercises-1"><a href="#Exercises-1" class="headerlink" title="Exercises 1"></a>Exercises 1</h2><p>(Supp) Of 100 problems, 75 are ‘easy’ and 40 ‘important’.</p><p>(b) n problems <strong>chosen randomly</strong>. What is the probability that all n are important?</p><script type="math/tex; mode=display">p=\frac{\binom{40}{n}}{\binom{100}{n}}</script><h2 id="Exercises-2"><a href="#Exercises-2" class="headerlink" title="Exercises 2"></a>Exercises 2</h2><p>A 4-letter word is selected at random from $Σ^4$,where <strong>Σ={a,b,c,d,e}</strong>. What is the probability that</p><p>(a) the letters in the word are all distinct?</p><script type="math/tex; mode=display">|E| = (5)_4, P(E)=\frac{5 \cdot 4 \cdot 3 \cdot 2 \cdot 1}{(5-4)! \cdot 5^4} = \frac{120}{625} \approx 19\%</script><p>(b) there are no vowels (“a”,“e”) in the word?</p><script type="math/tex; mode=display">|E| = 3^4, P(E)=\frac{3^4}{5^4}=\frac{81}{625} \approx 13\%</script><p>(c) the word begins with a vowel?</p><script type="math/tex; mode=display">|E| = 2·5^3,  P(E) = \frac{2·5^3}{5^4} = \frac{2}{5}</script><h1 id="Independence"><a href="#Independence" class="headerlink" title="Independence"></a>Independence</h1><h2 id="Unifying-sets-of-outcomes"><a href="#Unifying-sets-of-outcomes" class="headerlink" title="Unifying sets of outcomes"></a>Unifying sets of outcomes</h2><p>To combine events from different sets of outcomes we unify the sample space using the <strong>product space</strong>: $\Omega_1 \times \Omega_2 \times \dots \times \Omega_n$</p><p>Example</p><p>Flipping a coin and rolling a die:</p><p>Ω1 ={heads,tails}</p><p>Ω2 ={1,2,3,4,5,6}</p><p>Ω=Ω1×Ω2 ={(heads,1),(heads,2),…}</p><p>Take Notice</p><p>This approach can also be used to model sequences of outcomes.</p><h2 id="Events-in-the-product-space"><a href="#Events-in-the-product-space" class="headerlink" title="Events in the product space"></a>Events in the product space</h2><p>Events are lifted into the product space by restricting the appropriate co-ordinate. E.g. $A ⊆ Ω_1$ translates to $A′ = A×Ω_2×…×Ω_n$</p><p>Example</p><p>Coin shows heads and die shows an even number:</p><p>Ω1 ={heads,tails}</p><p>Ω2 ={1,2,3,4,5,6}</p><h1 id="Infinite-Sample-Spaces-not-examinable"><a href="#Infinite-Sample-Spaces-not-examinable" class="headerlink" title="Infinite Sample Spaces (not examinable)"></a>Infinite Sample Spaces (not examinable)</h1><h1 id="Recursive-Probability-Computations"><a href="#Recursive-Probability-Computations" class="headerlink" title="Recursive Probability Computations"></a>Recursive Probability Computations</h1><h1 id="Conditional-Probability"><a href="#Conditional-Probability" class="headerlink" title="Conditional Probability"></a>Conditional Probability</h1><h1 id="Independence-revisited"><a href="#Independence-revisited" class="headerlink" title="Independence, revisited"></a>Independence, revisited</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> Math </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Combinatorics</title>
       <link href="/2024/11/18/Math/Combinatorics/"/>
       <url>/2024/11/18/Math/Combinatorics/</url>
@@ -988,168 +1026,16 @@
     
     
     <entry>
-      <title>.gitignore</title>
-      <link href="/2024/04/09/git/gitignore/"/>
-      <url>/2024/04/09/git/gitignore/</url>
+      <title>构建gitleaks-Docker服务</title>
+      <link href="/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
+      <url>/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
       
-        <content type="html"><![CDATA[<p>官方文档：<code>https://github.com/github/gitignore</code></p><h3 id="我的-gitignore模板"><a href="#我的-gitignore模板" class="headerlink" title="我的.gitignore模板"></a>我的.gitignore模板</h3><pre><code># Logslogs*.lognpm-debug.log*yarn-debug.log*yarn-error.log*pnpm-debug.log*lerna-debug.log*node_modulesdistdist-ssr*.local# big files*.mp4backend/volume/media/documents/*!backend/volume/media/documents/.gitkeepbackend/volume/media/import_excel_upload/*!backend/volume/media/import_excel_upload/.gitkeepbackend/volume/media/videos/*!backend/volume/media/videos/.gitkeep# python**/__pycache__/**.pyc# 忽略pycharm**/.idea/# 忽略虚拟环境**/venv# Editor directories and files**/.vscode/*!.vscode/extensions.json.idea.DS_Store*.suo*.ntvs**.njsproj*.sln*.sw?</code></pre><h3 id="其他示例"><a href="#其他示例" class="headerlink" title="其他示例"></a>其他示例</h3><pre><code># 忽略所有 .a 结尾的文件a# 但lib.a 除外!lib.a# 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO/TODO# 忽略build/ 目录下的所有文件build/# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txtdoc/.txt</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>keep empty directory in git</title>
-      <link href="/2024/04/09/git/gitkeep/"/>
-      <url>/2024/04/09/git/gitkeep/</url>
-      
-        <content type="html"><![CDATA[<p>目录中新建空文件 <strong>.gitkeep</strong> 即可</p>]]></content>
+        <content type="html"><![CDATA[<p>两个一块儿用，Dockerfile在docker-compose.yaml的同目录下。</p><h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><pre><code>FROM amd64/alpine:3.14RUN apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdataADD ./SecretDetectionDir /webscan/WORKDIR /webscanEXPOSE 8000ENTRYPOINT [&quot;/webscan/http&quot;]</code></pre><h1 id="docker-compose-yaml"><a href="#docker-compose-yaml" class="headerlink" title="docker-compose.yaml"></a>docker-compose.yaml</h1><pre><code>version: &quot;3&quot;services:secretdetection_docker:    build: .    container_name: secretdetection_http    ports:    - &quot;8000:8000&quot;    restart: always</code></pre>]]></content>
       
       
       <categories>
           
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>远程获取所有分支</title>
-      <link href="/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/"/>
-      <url>/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/</url>
-      
-        <content type="html"><![CDATA[<pre><code>git clone xxxcd xxxgit branch -r | grep -v &#39;\-&gt;&#39; | while read remote; do git branch --track &quot;$&#123;remote#origin/&#125;&quot; &quot;$remote&quot;; donegit fetch --allgit pull --all(git pull –all在功能上包含git fetch --all)</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>merge conflict</title>
-      <link href="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"/>
-      <url>/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</url>
-      
-        <content type="html"><![CDATA[<p>git push提示冲突</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-47-59.png" alt="2024-04-09-19-47-59"></p><p>会在源文件中看到标记的冲突的HEAD</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-48-22.png" alt="2024-04-09-19-48-22"></p><p>修改完在git add . 再commit push</p><p>如果没有实质差异，“current change”是你的修改的，那个commit id的是已存在的，按照已存在的来</p><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><pre><code>git stashgit commitgit stash pop</code></pre><p>接下来diff一下此文件看看自动合并的情况，并作出相应修改。</p><p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。</p><p>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。</p><p>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。</p><p>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>branch</title>
-      <link href="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"/>
-      <url>/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/</url>
-      
-        <content type="html"><![CDATA[<ul><li><a href="#查看分支">查看分支</a><ul><li><a href="#列出本地所有的分支">列出本地所有的分支</a></li><li><a href="#分支合并行为可视化">分支合并行为可视化</a></li><li><a href="#查看分支与远程的关联">查看分支与远程的关联</a></li><li><a href="#查看所有分支">查看所有分支</a></li></ul></li><li><a href="#切换分支">切换分支</a></li><li><a href="#detached-head-和-checkout-commit然后修改入新branch">Detached HEAD 和 checkout commit然后修改入新branch</a></li></ul><h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch </code></pre><p>查看分支详细信息，列出本地所有的分支, + hash 信息</p><pre><code>git branch -v</code></pre><h3 id="分支合并行为可视化"><a href="#分支合并行为可视化" class="headerlink" title="分支合并行为可视化"></a>分支合并行为可视化</h3><p>为了方便查看分支来源，比如大型项目通常会有多个分支以及分支合并的行为，单纯的使用终端查看分支来源、log并不直观。如果发生分支合并的异常行为，需要溯源，直观的观察git分支是必须的一个审计行为。</p><p>我看有推荐<code>github desktop</code>, <code>source tree</code>和<code>GitKraken</code>(收费)，但是之前上班的时候看师傅用的<strong>IDEA GIT分支图</strong>也有不错的效果，基本Jetbrain的所有IDE都有这个插件。点击菜单栏的<code>git</code>-&gt;<code>log</code>。</p><p><img src="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/pycharm_git_log.png" alt="pycharm_git_log"></p><h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p><code>git branch -vv</code> #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p><p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p><h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><h1 id="列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如"><a href="#列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如" class="headerlink" title="列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如"></a>列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</h1><pre><code>git branch -agit branch -a | grep xxx</code></pre><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code># `-b` means create a new branchgit checkout -b new-branch-namegit checkout &lt;commit-hash&gt;</code></pre><h1 id="Detached-HEAD-和-checkout-commit然后修改入新branch"><a href="#Detached-HEAD-和-checkout-commit然后修改入新branch" class="headerlink" title="Detached HEAD 和 checkout commit然后修改入新branch"></a>Detached HEAD 和 checkout commit然后修改入新branch</h1><p>In Git, a <strong>detached HEAD</strong> state occurs when you are working directly on <strong>a specific commit(not the lastest)</strong> rather than on <strong>the latest commit</strong> of a branch. This can happen when you <strong>checkout a commit, a tag, or a remote branch</strong> directly, without creating a new branch.</p><p><strong>HEAD</strong> is a <code>pointer</code> in Git that typically points to the latest commit on the current branch.</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>delete something useless before gitignore</title>
-      <link href="/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/"/>
-      <url>/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/</url>
-      
-        <content type="html"><![CDATA[<h1 id="重写了gitignore但是想删除已提交但想忽略的内容"><a href="#重写了gitignore但是想删除已提交但想忽略的内容" class="headerlink" title="重写了gitignore但是想删除已提交但想忽略的内容"></a>重写了gitignore但是想删除已提交但想忽略的内容</h1><p>已经提交过的文件或者文件夹怎么办？此时更改.gitignore文件对已经提交的文件是无效的。</p><p>首先，编辑.gitignore文件。</p><p>然后如果是单个文件，可以使用如下命令从仓库中删除：</p><pre><code>git rm --cached logs/xx.log</code></pre><p>如果是整个目录：</p><pre><code>git rm --cached -r logs</code></pre><p>如果文件很多，那么直接</p><pre><code>git rm --cached -r .</code></pre><p>如果提示某个文件无法忽略，可以添加-f参数强制忽略。</p><pre><code>git rm -f --cached logs/xx.log</code></pre><p>然后</p><pre><code>git add .git commit -m &quot;Update .gitignore&quot;</code></pre><p>把被忽略的某个文件强制添加回去：</p><pre><code>git add -f filename</code></pre><p>ignore规则检查：</p><pre><code>git check-ignore</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>build a new repo</title>
-      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/"/>
-      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/</url>
-      
-        <content type="html"><![CDATA[<h1 id="新建项目仓库"><a href="#新建项目仓库" class="headerlink" title="新建项目仓库"></a>新建项目仓库</h1><h3 id="创建本地git项目"><a href="#创建本地git项目" class="headerlink" title="创建本地git项目"></a>创建本地git项目</h3><pre><code>git init</code></pre><p>git init &lt;仓库名&gt;没法执行，init后面不要跟参数当名字。</p><h3 id="github上创建一个仓库"><a href="#github上创建一个仓库" class="headerlink" title="github上创建一个仓库"></a>github上创建一个仓库</h3><p>登录github创建个空的仓库</p><h3 id="登录github创建个空的仓库，添加远程仓库"><a href="#登录github创建个空的仓库，添加远程仓库" class="headerlink" title="登录github创建个空的仓库，添加远程仓库"></a>登录github创建个空的仓库，添加远程仓库</h3><pre><code>git remote add origin https://github.com/xxx/xxx.git</code></pre><p>从远程master合并到本地master</p><pre><code class="lang-shell">git config --global user.name &quot;xxxx&quot; git config --global user.email xxxxx@xx.com</code></pre><pre><code class="lang-shell">git initgit add .git commit - m &quot;init&quot;git remote add origin https://github.com/xxx/xxx.gitgit push origin master</code></pre><p>如果有冲突就尝试（通常是你创建仓库的时候新建了什么readme和license）：<br>    git pull origin master:master</p><p>也可以直接强制推送：<br>    git push origin master —force</p><h3 id="提交本地分支到远程分支"><a href="#提交本地分支到远程分支" class="headerlink" title="提交本地分支到远程分支"></a>提交本地分支到远程分支</h3><pre><code>git push -u origin master</code></pre><h3 id="将现有项目添加并提交上传"><a href="#将现有项目添加并提交上传" class="headerlink" title="将现有项目添加并提交上传"></a>将现有项目添加并提交上传</h3><pre><code class="lang-shell">git add -A（git add . 是提交当前路径  git add -A 是提交整个文件夹子文件夹路径）git commit -m &#39;初始化git项目&#39;git push --set-upstream origin master</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>新建某分支并推送、合并分支</title>
-      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
-      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</url>
-      
-        <content type="html"><![CDATA[<h1 id="新建某分支并推送至某分支：以考试系统es为例版本管理"><a href="#新建某分支并推送至某分支：以考试系统es为例版本管理" class="headerlink" title="新建某分支并推送至某分支：以考试系统es为例版本管理"></a>新建某分支并推送至某分支：以考试系统es为例版本管理</h1><p>新建新分支并推送至新分支之前，需要检查当前分值是否还有未提交的状态</p><p><code>git status</code> # 可以检查是否有新文件未被track</p><p><code>git remote -v</code> # 查看远程分值，一般如下，同一个地址具有拿下或push的权限</p><pre><code>origin  http://shenyanjian.cn:3000/senranja/exam_system.git (fetch)origin  http://shenyanjian.cn:3000/senranja/exam_system.git (push)</code></pre><p><code>git fetch</code> # 拿下仓库最新分值信息。<code>git pull==git fetch + git merge</code>，git fetch是安全的、不会合并的命令</p><p><code>git branch -r</code> # 查看全部的远程分支，通常显示如下：（若远程分支只有main）</p><pre><code>  origin/HEAD -&gt; origin/main  origin/main</code></pre><p><code>git checkout -b V0.0.2</code> # 以当前分支为副本创建V0.0.2</p><p><code>git checkout V0.0.2</code> # 切换到分值V0.0.2</p><p>（现在在此处放一些部署文档、版本交付说明）</p><pre><code class="lang-shell">git add .git commit -m &quot;V0.0.2&quot;git push</code></pre><pre><code>fatal: The current branch V0.0.2 has no upstream branch.To push the current branch and set the remote as upstream, use    git push --set-upstream origin V0.0.2</code></pre><p>如上报错，意思是远程分值还没有V0.0.2，需要手动设置下</p><pre><code>git push --set-upstream origin V0.0.2</code></pre><p>完成</p><p>切换回主分支：</p><pre><code>git checkout main</code></pre><h1 id="本地合并其他分支到本分支，再推送"><a href="#本地合并其他分支到本分支，再推送" class="headerlink" title="本地合并其他分支到本分支，再推送"></a>本地合并其他分支到本分支，再推送</h1><p>要将本地的 dev 分支合并到 main 分支，你可以按照以下步骤进行操作：</p><p>确保你当前位于 main 分支上。你可以通过以下命令来确保：</p><pre><code>git checkout main</code></pre><p>然后，执行 git pull 命令来确保你的 main 分支是最新的：</p><pre><code>git pull origin main</code></pre><p>接着，执行 git merge 命令来合并 dev 分支到 main 分支：</p><pre><code>git merge dev</code></pre><p>如果有冲突，在合并过程中会停下来，需要你解决这些冲突。解决完冲突后，你需要执行 <code>git add</code>命令来标记冲突已解决的文件，然后执行 <code>git merge --continue</code> 来继续合并过程。</p><p>最后，当合并完成，你可以将合并后的 main 分支推送到远程仓库：</p><pre><code>git push origin main</code></pre><p>通过这些步骤，你就可以将本地的 dev 分支成功合并到 main 分支，并将更新推送到远程仓库。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>push existed local repo</title>
-      <link href="/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/"/>
-      <url>/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/</url>
-      
-        <content type="html"><![CDATA[<h1 id="现有仓库提交到github"><a href="#现有仓库提交到github" class="headerlink" title="现有仓库提交到github"></a>现有仓库提交到github</h1><h3 id="纯新建项目push"><a href="#纯新建项目push" class="headerlink" title="纯新建项目push"></a>纯新建项目push</h3><pre><code class="lang-shell">echo &quot;# licenseGenerator&quot; &gt;&gt; README.mdgit initgit add README.mdgit commit -m &quot;first commit&quot;git branch -M mastergit remote add origin https://github.com/SenRanja/licenseGenerator.gitgit push -u origin master</code></pre><h3 id="push已存在项目"><a href="#push已存在项目" class="headerlink" title="push已存在项目"></a>push已存在项目</h3><p>先做的：如果你手贱，github创建项目的时候，新建了什么license、readme有的没的的东西，本地push之前，得先git pull 一下：</p><pre><code>git pull github master --allow-unrelated-histories</code></pre><p>（git pull 远程名字 远程分支， 后面的 –allow-unreleated-histories ，比如你手贱新建了license，你git pull 的时候会拒绝，因为github新建项目弄的license有第一次的commit，和你本地历史对不上merge默认不允许，所以你得手动指定）</p><p>比如，如果本地gitea已经有项目了，应该是推送此处。<br>比如，我的evo系统，在本地已经推送gitea，默认的远程地址名字 origin 必须重命名。</p><pre><code>git remote add origin https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（git branch -M 命令用于重命名当前分支。具体来说，-M 选项告诉 Git 强制重命名分支，即使新的分支名与已存在的分支名冲突也会强制执行。这个命令的常见用途是将当前分支重命名为一个新的分支名。）</p><pre><code>git push -u origin master</code></pre><p>更改origin的远程名字的命令如下：</p><pre><code>git remote add github https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（强行将现在所在分支，重命名为 master 分支）</p><pre><code>git push -u github master</code></pre><p>（将本地的master分支代码提交到 github 的远程链接上）</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
+          <category> Docker </category>
           
       </categories>
       
@@ -1178,11 +1064,11 @@
     
     
     <entry>
-      <title>构建gitleaks-Docker服务</title>
-      <link href="/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
-      <url>/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
+      <title>dockerhub &amp;&amp; docker</title>
+      <link href="/2024/04/09/docker/docker/"/>
+      <url>/2024/04/09/docker/docker/</url>
       
-        <content type="html"><![CDATA[<p>两个一块儿用，Dockerfile在docker-compose.yaml的同目录下。</p><h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><pre><code>FROM amd64/alpine:3.14RUN apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdataADD ./SecretDetectionDir /webscan/WORKDIR /webscanEXPOSE 8000ENTRYPOINT [&quot;/webscan/http&quot;]</code></pre><h1 id="docker-compose-yaml"><a href="#docker-compose-yaml" class="headerlink" title="docker-compose.yaml"></a>docker-compose.yaml</h1><pre><code>version: &quot;3&quot;services:secretdetection_docker:    build: .    container_name: secretdetection_http    ports:    - &quot;8000:8000&quot;    restart: always</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="中国用户换源"><a href="#中国用户换源" class="headerlink" title="中国用户换源"></a>中国用户换源</h1><pre><code>vim /etc/docker/daemon.json&#123;&quot;registry-mirrors&quot;:[&quot;https://hub-mirror.c.163.com&quot;,&quot;https://registry.aliyuncs.com&quot;,&quot;https://registry.docker-cn.com&quot;,&quot;https://docker.mirrors.ustc.edu.cn&quot;]&#125;service docker restart</code></pre><h1 id="dockerhub"><a href="#dockerhub" class="headerlink" title="dockerhub"></a>dockerhub</h1><p>log in <a href="https://hub.docker.com/">https://hub.docker.com/</a>, register an account.</p><p>pull your private image</p><pre><code>docker pull senranja/secret_detection</code></pre><p>build an image with tag, upload image to dockerhub</p><pre><code>docker image build -t senranja/secret_detection:v2.1 .docker logindocker push username/repo:tag</code></pre><h1 id="搭建gitlab-ce为例"><a href="#搭建gitlab-ce为例" class="headerlink" title="搭建gitlab-ce为例"></a>搭建gitlab-ce为例</h1><p>安装gitlab-ce参考链接：</p><pre><code>https://blog.csdn.net/BThinker/article/details/124097795</code></pre><p>查找镜像</p><pre><code>docker search gitlab</code></pre><p>拉取Gitlab镜像</p><pre><code>docker pull gitlab/gitlab-ce:latest</code></pre><p>启动容器，这里docker run命令的-v和dockerfile以及docker-compose.yaml中的-v 挂在目录，不需要你自己手动创建目录。即便目录不存在，他会自动创建。</p><pre><code>docker run \-itd  \-p 9980:80 \-p 9922:22 \-v /home/gitlab/etc:/etc/gitlab  \-v /home/gitlab/log:/var/log/gitlab \-v /home/gitlab/opt:/var/opt/gitlab \--restart always \--privileged=true \--name gitlab \gitlab/gitlab-ce</code></pre><p>命令</p><pre><code>-i     以交互模式运行容器，通常与 -t 同时使用命令解释-t     为容器重新分配一个伪输入终端，通常与 -i 同时使用-d    后台运行容器，并返回容器ID-p 9980:80    将容器内80端口映射至宿主机9980端口，这是访问gitlab的端口-p 9922:22     将容器内22端口映射至宿主机9922端口，这是访问ssh的端口-v /home/gitlab/etc:/etc/gitlab    将容器/etc/gitlab目录挂载到宿主机/usr/local/gitlab-test/etc目录下，若宿主机内此目录不存在将会自动创建，其他两个挂载同这个一样--restart always    容器自启动--privileged=true    让容器获取宿主机root权限--name gitlab    设置容器名称为gitlabgitlab/gitlab-ce    镜像的名称，这里也可以写镜像ID</code></pre><h1 id="复制目录细节"><a href="#复制目录细节" class="headerlink" title="复制目录细节"></a>复制目录细节</h1><p>屁股加不加 /没区别</p><ol><li><p>目录下文件复制到目标目录下，不包含目录本身</p><p>COPY ./dist/ /usr/share/nginx/html/</p></li></ol><p>是将 ./dist/下文件 放入 /html/，dist本身没目录</p><ol><li><p>连带这个目录复制进入</p><p>COPY ./dist /usr/share/nginx/html/dist</p></li></ol><h1 id="删除none镜像"><a href="#删除none镜像" class="headerlink" title="删除none镜像"></a>删除none镜像</h1><pre><code>docker images -a | grep &quot;&lt;none&gt;&quot; | awk &#39;&#123;print $3&#125;&#39; | xargs docker rmi</code></pre>]]></content>
       
       
       <categories>
@@ -1221,25 +1107,6 @@
       <url>/2024/04/09/docker/docker-volume/</url>
       
         <content type="html"><![CDATA[<p>docker volume 有 ls rm等子命令</p><p>使用 docker rm 命令删除容器时，默认情况下不会删除与该容器关联的挂载的 <strong>Docker 卷（Docker volume）</strong>。Docker volume 是一个独立于容器的数据存储区域，通常用于持久化存储容器内的数据。</p><p>如果您使用了 -v 参数来挂载卷，那么删除容器时不会删除这个卷。要删除与容器关联的卷，您需要使用 docker volume rm 命令。</p><p>例如，如果您的容器启动命令中有如下的 -v 参数：</p><pre><code>docker run -v /host/path:/container/path my_image</code></pre><p>那么删除容器时，卷 /host/path 不会被自动删除。要手动删除该卷，可以运行以下命令：</p><pre><code>docker volume rm $(docker volume ls -qf &quot;mount=/host/path&quot;)</code></pre><p>这将删除与指定路径关联的 Docker 卷。请注意替换 /host/path 为实际使用的卷路径。</p><p>总之，docker rm 默认不会删除挂载的 Docker 卷，您需要使用 docker volume rm 命令手动删除它们。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>dockerhub &amp;&amp; docker</title>
-      <link href="/2024/04/09/docker/docker/"/>
-      <url>/2024/04/09/docker/docker/</url>
-      
-        <content type="html"><![CDATA[<h1 id="中国用户换源"><a href="#中国用户换源" class="headerlink" title="中国用户换源"></a>中国用户换源</h1><pre><code>vim /etc/docker/daemon.json&#123;&quot;registry-mirrors&quot;:[&quot;https://hub-mirror.c.163.com&quot;,&quot;https://registry.aliyuncs.com&quot;,&quot;https://registry.docker-cn.com&quot;,&quot;https://docker.mirrors.ustc.edu.cn&quot;]&#125;service docker restart</code></pre><h1 id="dockerhub"><a href="#dockerhub" class="headerlink" title="dockerhub"></a>dockerhub</h1><p>log in <a href="https://hub.docker.com/">https://hub.docker.com/</a>, register an account.</p><p>pull your private image</p><pre><code>docker pull senranja/secret_detection</code></pre><p>build an image with tag, upload image to dockerhub</p><pre><code>docker image build -t senranja/secret_detection:v2.1 .docker logindocker push username/repo:tag</code></pre><h1 id="搭建gitlab-ce为例"><a href="#搭建gitlab-ce为例" class="headerlink" title="搭建gitlab-ce为例"></a>搭建gitlab-ce为例</h1><p>安装gitlab-ce参考链接：</p><pre><code>https://blog.csdn.net/BThinker/article/details/124097795</code></pre><p>查找镜像</p><pre><code>docker search gitlab</code></pre><p>拉取Gitlab镜像</p><pre><code>docker pull gitlab/gitlab-ce:latest</code></pre><p>启动容器，这里docker run命令的-v和dockerfile以及docker-compose.yaml中的-v 挂在目录，不需要你自己手动创建目录。即便目录不存在，他会自动创建。</p><pre><code>docker run \-itd  \-p 9980:80 \-p 9922:22 \-v /home/gitlab/etc:/etc/gitlab  \-v /home/gitlab/log:/var/log/gitlab \-v /home/gitlab/opt:/var/opt/gitlab \--restart always \--privileged=true \--name gitlab \gitlab/gitlab-ce</code></pre><p>命令</p><pre><code>-i     以交互模式运行容器，通常与 -t 同时使用命令解释-t     为容器重新分配一个伪输入终端，通常与 -i 同时使用-d    后台运行容器，并返回容器ID-p 9980:80    将容器内80端口映射至宿主机9980端口，这是访问gitlab的端口-p 9922:22     将容器内22端口映射至宿主机9922端口，这是访问ssh的端口-v /home/gitlab/etc:/etc/gitlab    将容器/etc/gitlab目录挂载到宿主机/usr/local/gitlab-test/etc目录下，若宿主机内此目录不存在将会自动创建，其他两个挂载同这个一样--restart always    容器自启动--privileged=true    让容器获取宿主机root权限--name gitlab    设置容器名称为gitlabgitlab/gitlab-ce    镜像的名称，这里也可以写镜像ID</code></pre><h1 id="复制目录细节"><a href="#复制目录细节" class="headerlink" title="复制目录细节"></a>复制目录细节</h1><p>屁股加不加 /没区别</p><ol><li><p>目录下文件复制到目标目录下，不包含目录本身</p><p>COPY ./dist/ /usr/share/nginx/html/</p></li></ol><p>是将 ./dist/下文件 放入 /html/，dist本身没目录</p><ol><li><p>连带这个目录复制进入</p><p>COPY ./dist /usr/share/nginx/html/dist</p></li></ol><h1 id="删除none镜像"><a href="#删除none镜像" class="headerlink" title="删除none镜像"></a>删除none镜像</h1><pre><code>docker images -a | grep &quot;&lt;none&gt;&quot; | awk &#39;&#123;print $3&#125;&#39; | xargs docker rmi</code></pre>]]></content>
       
       
       <categories>
@@ -1387,6 +1254,177 @@
     
     
     <entry>
+      <title>.gitignore</title>
+      <link href="/2024/04/09/git/gitignore/"/>
+      <url>/2024/04/09/git/gitignore/</url>
+      
+        <content type="html"><![CDATA[<p>官方文档：<code>https://github.com/github/gitignore</code></p><h3 id="我的-gitignore模板"><a href="#我的-gitignore模板" class="headerlink" title="我的.gitignore模板"></a>我的.gitignore模板</h3><pre><code># Logslogs*.lognpm-debug.log*yarn-debug.log*yarn-error.log*pnpm-debug.log*lerna-debug.log*node_modulesdistdist-ssr*.local# big files*.mp4backend/volume/media/documents/*!backend/volume/media/documents/.gitkeepbackend/volume/media/import_excel_upload/*!backend/volume/media/import_excel_upload/.gitkeepbackend/volume/media/videos/*!backend/volume/media/videos/.gitkeep# python**/__pycache__/**.pyc# 忽略pycharm**/.idea/# 忽略虚拟环境**/venv# Editor directories and files**/.vscode/*!.vscode/extensions.json.idea.DS_Store*.suo*.ntvs**.njsproj*.sln*.sw?</code></pre><h3 id="其他示例"><a href="#其他示例" class="headerlink" title="其他示例"></a>其他示例</h3><pre><code># 忽略所有 .a 结尾的文件a# 但lib.a 除外!lib.a# 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO/TODO# 忽略build/ 目录下的所有文件build/# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txtdoc/.txt</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>远程获取所有分支</title>
+      <link href="/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/"/>
+      <url>/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/</url>
+      
+        <content type="html"><![CDATA[<pre><code>git clone xxxcd xxxgit branch -r | grep -v &#39;\-&gt;&#39; | while read remote; do git branch --track &quot;$&#123;remote#origin/&#125;&quot; &quot;$remote&quot;; donegit fetch --allgit pull --all(git pull –all在功能上包含git fetch --all)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>branch</title>
+      <link href="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"/>
+      <url>/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#查看分支">查看分支</a><ul><li><a href="#列出本地所有的分支">列出本地所有的分支</a></li><li><a href="#分支合并行为可视化">分支合并行为可视化</a></li><li><a href="#查看分支与远程的关联">查看分支与远程的关联</a></li><li><a href="#查看所有分支">查看所有分支</a></li></ul></li><li><a href="#切换分支">切换分支</a></li><li><a href="#detached-head-和-checkout-commit然后修改入新branch">Detached HEAD 和 checkout commit然后修改入新branch</a></li></ul><h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch </code></pre><p>查看分支详细信息，列出本地所有的分支, + hash 信息</p><pre><code>git branch -v</code></pre><h3 id="分支合并行为可视化"><a href="#分支合并行为可视化" class="headerlink" title="分支合并行为可视化"></a>分支合并行为可视化</h3><p>为了方便查看分支来源，比如大型项目通常会有多个分支以及分支合并的行为，单纯的使用终端查看分支来源、log并不直观。如果发生分支合并的异常行为，需要溯源，直观的观察git分支是必须的一个审计行为。</p><p>我看有推荐<code>github desktop</code>, <code>source tree</code>和<code>GitKraken</code>(收费)，但是之前上班的时候看师傅用的<strong>IDEA GIT分支图</strong>也有不错的效果，基本Jetbrain的所有IDE都有这个插件。点击菜单栏的<code>git</code>-&gt;<code>log</code>。</p><p><img src="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/pycharm_git_log.png" alt="pycharm_git_log"></p><h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p><code>git branch -vv</code> #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p><p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p><h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><h1 id="列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如"><a href="#列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如" class="headerlink" title="列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如"></a>列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</h1><pre><code>git branch -agit branch -a | grep xxx</code></pre><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code># `-b` means create a new branchgit checkout -b new-branch-namegit checkout &lt;commit-hash&gt;</code></pre><h1 id="Detached-HEAD-和-checkout-commit然后修改入新branch"><a href="#Detached-HEAD-和-checkout-commit然后修改入新branch" class="headerlink" title="Detached HEAD 和 checkout commit然后修改入新branch"></a>Detached HEAD 和 checkout commit然后修改入新branch</h1><p>In Git, a <strong>detached HEAD</strong> state occurs when you are working directly on <strong>a specific commit(not the lastest)</strong> rather than on <strong>the latest commit</strong> of a branch. This can happen when you <strong>checkout a commit, a tag, or a remote branch</strong> directly, without creating a new branch.</p><p><strong>HEAD</strong> is a <code>pointer</code> in Git that typically points to the latest commit on the current branch.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>merge conflict</title>
+      <link href="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"/>
+      <url>/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</url>
+      
+        <content type="html"><![CDATA[<p>git push提示冲突</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-47-59.png" alt="2024-04-09-19-47-59"></p><p>会在源文件中看到标记的冲突的HEAD</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-48-22.png" alt="2024-04-09-19-48-22"></p><p>修改完在git add . 再commit push</p><p>如果没有实质差异，“current change”是你的修改的，那个commit id的是已存在的，按照已存在的来</p><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><pre><code>git stashgit commitgit stash pop</code></pre><p>接下来diff一下此文件看看自动合并的情况，并作出相应修改。</p><p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。</p><p>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。</p><p>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。</p><p>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>delete something useless before gitignore</title>
+      <link href="/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/"/>
+      <url>/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="重写了gitignore但是想删除已提交但想忽略的内容"><a href="#重写了gitignore但是想删除已提交但想忽略的内容" class="headerlink" title="重写了gitignore但是想删除已提交但想忽略的内容"></a>重写了gitignore但是想删除已提交但想忽略的内容</h1><p>已经提交过的文件或者文件夹怎么办？此时更改.gitignore文件对已经提交的文件是无效的。</p><p>首先，编辑.gitignore文件。</p><p>然后如果是单个文件，可以使用如下命令从仓库中删除：</p><pre><code>git rm --cached logs/xx.log</code></pre><p>如果是整个目录：</p><pre><code>git rm --cached -r logs</code></pre><p>如果文件很多，那么直接</p><pre><code>git rm --cached -r .</code></pre><p>如果提示某个文件无法忽略，可以添加-f参数强制忽略。</p><pre><code>git rm -f --cached logs/xx.log</code></pre><p>然后</p><pre><code>git add .git commit -m &quot;Update .gitignore&quot;</code></pre><p>把被忽略的某个文件强制添加回去：</p><pre><code>git add -f filename</code></pre><p>ignore规则检查：</p><pre><code>git check-ignore</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>build a new repo</title>
+      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/"/>
+      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/</url>
+      
+        <content type="html"><![CDATA[<h1 id="新建项目仓库"><a href="#新建项目仓库" class="headerlink" title="新建项目仓库"></a>新建项目仓库</h1><h3 id="创建本地git项目"><a href="#创建本地git项目" class="headerlink" title="创建本地git项目"></a>创建本地git项目</h3><pre><code>git init</code></pre><p>git init &lt;仓库名&gt;没法执行，init后面不要跟参数当名字。</p><h3 id="github上创建一个仓库"><a href="#github上创建一个仓库" class="headerlink" title="github上创建一个仓库"></a>github上创建一个仓库</h3><p>登录github创建个空的仓库</p><h3 id="登录github创建个空的仓库，添加远程仓库"><a href="#登录github创建个空的仓库，添加远程仓库" class="headerlink" title="登录github创建个空的仓库，添加远程仓库"></a>登录github创建个空的仓库，添加远程仓库</h3><pre><code>git remote add origin https://github.com/xxx/xxx.git</code></pre><p>从远程master合并到本地master</p><pre><code class="lang-shell">git config --global user.name &quot;xxxx&quot; git config --global user.email xxxxx@xx.com</code></pre><pre><code class="lang-shell">git initgit add .git commit - m &quot;init&quot;git remote add origin https://github.com/xxx/xxx.gitgit push origin master</code></pre><p>如果有冲突就尝试（通常是你创建仓库的时候新建了什么readme和license）：<br>    git pull origin master:master</p><p>也可以直接强制推送：<br>    git push origin master —force</p><h3 id="提交本地分支到远程分支"><a href="#提交本地分支到远程分支" class="headerlink" title="提交本地分支到远程分支"></a>提交本地分支到远程分支</h3><pre><code>git push -u origin master</code></pre><h3 id="将现有项目添加并提交上传"><a href="#将现有项目添加并提交上传" class="headerlink" title="将现有项目添加并提交上传"></a>将现有项目添加并提交上传</h3><pre><code class="lang-shell">git add -A（git add . 是提交当前路径  git add -A 是提交整个文件夹子文件夹路径）git commit -m &#39;初始化git项目&#39;git push --set-upstream origin master</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>push existed local repo</title>
+      <link href="/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/"/>
+      <url>/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/</url>
+      
+        <content type="html"><![CDATA[<h1 id="现有仓库提交到github"><a href="#现有仓库提交到github" class="headerlink" title="现有仓库提交到github"></a>现有仓库提交到github</h1><h3 id="纯新建项目push"><a href="#纯新建项目push" class="headerlink" title="纯新建项目push"></a>纯新建项目push</h3><pre><code class="lang-shell">echo &quot;# licenseGenerator&quot; &gt;&gt; README.mdgit initgit add README.mdgit commit -m &quot;first commit&quot;git branch -M mastergit remote add origin https://github.com/SenRanja/licenseGenerator.gitgit push -u origin master</code></pre><h3 id="push已存在项目"><a href="#push已存在项目" class="headerlink" title="push已存在项目"></a>push已存在项目</h3><p>先做的：如果你手贱，github创建项目的时候，新建了什么license、readme有的没的的东西，本地push之前，得先git pull 一下：</p><pre><code>git pull github master --allow-unrelated-histories</code></pre><p>（git pull 远程名字 远程分支， 后面的 –allow-unreleated-histories ，比如你手贱新建了license，你git pull 的时候会拒绝，因为github新建项目弄的license有第一次的commit，和你本地历史对不上merge默认不允许，所以你得手动指定）</p><p>比如，如果本地gitea已经有项目了，应该是推送此处。<br>比如，我的evo系统，在本地已经推送gitea，默认的远程地址名字 origin 必须重命名。</p><pre><code>git remote add origin https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（git branch -M 命令用于重命名当前分支。具体来说，-M 选项告诉 Git 强制重命名分支，即使新的分支名与已存在的分支名冲突也会强制执行。这个命令的常见用途是将当前分支重命名为一个新的分支名。）</p><pre><code>git push -u origin master</code></pre><p>更改origin的远程名字的命令如下：</p><pre><code>git remote add github https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（强行将现在所在分支，重命名为 master 分支）</p><pre><code>git push -u github master</code></pre><p>（将本地的master分支代码提交到 github 的远程链接上）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>新建某分支并推送、合并分支</title>
+      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
+      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="新建某分支并推送至某分支：以考试系统es为例版本管理"><a href="#新建某分支并推送至某分支：以考试系统es为例版本管理" class="headerlink" title="新建某分支并推送至某分支：以考试系统es为例版本管理"></a>新建某分支并推送至某分支：以考试系统es为例版本管理</h1><p>新建新分支并推送至新分支之前，需要检查当前分值是否还有未提交的状态</p><p><code>git status</code> # 可以检查是否有新文件未被track</p><p><code>git remote -v</code> # 查看远程分值，一般如下，同一个地址具有拿下或push的权限</p><pre><code>origin  http://shenyanjian.cn:3000/senranja/exam_system.git (fetch)origin  http://shenyanjian.cn:3000/senranja/exam_system.git (push)</code></pre><p><code>git fetch</code> # 拿下仓库最新分值信息。<code>git pull==git fetch + git merge</code>，git fetch是安全的、不会合并的命令</p><p><code>git branch -r</code> # 查看全部的远程分支，通常显示如下：（若远程分支只有main）</p><pre><code>  origin/HEAD -&gt; origin/main  origin/main</code></pre><p><code>git checkout -b V0.0.2</code> # 以当前分支为副本创建V0.0.2</p><p><code>git checkout V0.0.2</code> # 切换到分值V0.0.2</p><p>（现在在此处放一些部署文档、版本交付说明）</p><pre><code class="lang-shell">git add .git commit -m &quot;V0.0.2&quot;git push</code></pre><pre><code>fatal: The current branch V0.0.2 has no upstream branch.To push the current branch and set the remote as upstream, use    git push --set-upstream origin V0.0.2</code></pre><p>如上报错，意思是远程分值还没有V0.0.2，需要手动设置下</p><pre><code>git push --set-upstream origin V0.0.2</code></pre><p>完成</p><p>切换回主分支：</p><pre><code>git checkout main</code></pre><h1 id="本地合并其他分支到本分支，再推送"><a href="#本地合并其他分支到本分支，再推送" class="headerlink" title="本地合并其他分支到本分支，再推送"></a>本地合并其他分支到本分支，再推送</h1><p>要将本地的 dev 分支合并到 main 分支，你可以按照以下步骤进行操作：</p><p>确保你当前位于 main 分支上。你可以通过以下命令来确保：</p><pre><code>git checkout main</code></pre><p>然后，执行 git pull 命令来确保你的 main 分支是最新的：</p><pre><code>git pull origin main</code></pre><p>接着，执行 git merge 命令来合并 dev 分支到 main 分支：</p><pre><code>git merge dev</code></pre><p>如果有冲突，在合并过程中会停下来，需要你解决这些冲突。解决完冲突后，你需要执行 <code>git add</code>命令来标记冲突已解决的文件，然后执行 <code>git merge --continue</code> 来继续合并过程。</p><p>最后，当合并完成，你可以将合并后的 main 分支推送到远程仓库：</p><pre><code>git push origin main</code></pre><p>通过这些步骤，你就可以将本地的 dev 分支成功合并到 main 分支，并将更新推送到远程仓库。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>keep empty directory in git</title>
+      <link href="/2024/04/09/git/gitkeep/"/>
+      <url>/2024/04/09/git/gitkeep/</url>
+      
+        <content type="html"><![CDATA[<p>目录中新建空文件 <strong>.gitkeep</strong> 即可</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>goland技巧</title>
       <link href="/2024/04/08/Go/goland/"/>
       <url>/2024/04/08/Go/goland/</url>
@@ -1397,6 +1435,25 @@
       <categories>
           
           <category> Go </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pycharm技巧</title>
+      <link href="/2024/04/08/Python/pycharm/"/>
+      <url>/2024/04/08/Python/pycharm/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#破解版安装">破解版安装</a></li><li><a href="#插件推荐">插件推荐</a></li><li><a href="#py解释器和虚拟环境">py解释器和虚拟环境</a><ul><li><a href="#虚拟解释器和机器系统的解释器不同包环境不同">虚拟解释器和机器系统的解释器不同，包环境不同</a></li><li><a href="#使用pycharm手动安装包环境">使用pycharm手动安装包环境</a></li></ul></li><li><a href="#结合conda创建新版本的python解释器并配置到pycharm">结合conda创建新版本的python解释器并配置到pycharm</a></li><li><a href="#代码行数统计">代码行数统计</a></li><li><a href="#profile">profile</a></li><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#增加sftp部署">增加SFTP部署</a></li><li><a href="#函数文档">函数文档</a><ul><li><a href="#实际示例">实际示例</a></li></ul></li><li><a href="#正确的增加远程python解释器">正确的增加远程python解释器</a><ul><li><a href="#坑点pycharmcant-get-remote-credentials-for-deployment-server">坑点：Pycharm:Can’t get remote credentials for deployment server</a></li></ul></li><li><a href="#将项目启用为django支持">将项目启用为django支持</a></li></ul><h1 id="破解版安装"><a href="#破解版安装" class="headerlink" title="破解版安装"></a>破解版安装</h1><p>pycharm: <a href="https://www.exception.site/essay/pycharm-pojie-jihuoma">https://www.exception.site/essay/pycharm-pojie-jihuoma</a></p><h1 id="插件推荐"><a href="#插件推荐" class="headerlink" title="插件推荐"></a>插件推荐</h1><pre><code>汉化statisticrainbow brackets(部分功能30天限制，经常让你买注册码，已弃用)markdown（其实vscode的md阅览比pycharm的要很快，这个自行选择）code glance (强烈推荐，右侧滚动条变小地图)translation</code></pre><h1 id="py解释器和虚拟环境"><a href="#py解释器和虚拟环境" class="headerlink" title="py解释器和虚拟环境"></a>py解释器和虚拟环境</h1><h3 id="虚拟解释器和机器系统的解释器不同，包环境不同"><a href="#虚拟解释器和机器系统的解释器不同，包环境不同" class="headerlink" title="虚拟解释器和机器系统的解释器不同，包环境不同"></a>虚拟解释器和机器系统的解释器不同，包环境不同</h3><p>创建一个新的项目，会想创建venv的虚拟解释器和库包<br>会根据系统现有的py复制一个<br>但是库文件是不同的，因为环境不同，如图：</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-24-45.png" alt="2024-04-10-22-24-45"></p><h3 id="使用pycharm手动安装包环境"><a href="#使用pycharm手动安装包环境" class="headerlink" title="使用pycharm手动安装包环境"></a>使用pycharm手动安装包环境</h3><p><strong>目前我指定虚拟解释器的py环境路径 直接 install -r requirements.txt 失败，推测requirements的版本不太对，是pycharm不支持的包版本</strong></p><p>但是我是用pycharm的设置 -&gt; 项目  -&gt; py解释器 手动安装包是可以的<br>此处也容易显示版本</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-25-40.png" alt="2024-04-10-22-25-40"></p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-25-56.png" alt="2024-04-10-22-25-56"></p><p>成功解决虚拟环境运行django项目</p><p>可以正常启动</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-26-26.png" alt="2024-04-10-22-26-26"></p><h1 id="结合conda创建新版本的python解释器并配置到pycharm"><a href="#结合conda创建新版本的python解释器并配置到pycharm" class="headerlink" title="结合conda创建新版本的python解释器并配置到pycharm"></a>结合conda创建新版本的python解释器并配置到pycharm</h1><p><strong>我思考了下，pycharm本身无法直接下载python3的不同版本，而手动从python官网下载不同的python3版本，操作还是太麻烦。此处依赖conda能自动下载不同python3版本，以及pycharm可以指定conda下载的py复制解释器到不同的项目，并处理不同的包依赖，可以使得调试不同项目的python解释器版本、包依赖相对分离。唯一缺点就是，软件重复程序冗余程度较高，但是这是pip自身设计的问题。</strong></p><p>不清楚为什么pycharm直接加载conda的解释器，会出现各种网络问题</p><p>因此手动执行命令：</p><pre><code>conda.exe create -p E:\anaconda3\envs\yolov5\envs -y python=3.10</code></pre><p>（若此命令出现网络问题，参考conda的安装、运行一节的报错处理）</p><p>然后pycharm添加该环境下的venv解释器（非conda环境）：</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-27-33.png" alt="2024-04-10-22-27-33"></p><p>相当于，conda的目录下弄了py3.10，然后又在这个代码项目下的env复制了解释器，和弄了包依赖的东西</p><p>最后手动执行命令（用户加目录下的pip的换源配置文件有效）：</p><pre><code>python -m pip install -r C:\Users\ranja\Desktop\ToStudy\yolov5\requirements.txt</code></pre><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-27-59.png" alt="2024-04-10-22-27-59"></p><p>最终等待此处完成即可。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-28-25.png" alt="2024-04-10-22-28-25"></p><p>如果pycharm检查到安装包的版本需要更新，则更新。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-28-56.png" alt="2024-04-10-22-28-56"></p><p>至此，解释器设置成功，按住ctrl，鼠标移动到任何函数代码，都显示可调式的高亮。</p><h1 id="代码行数统计"><a href="#代码行数统计" class="headerlink" title="代码行数统计"></a>代码行数统计</h1><p>安装插件  statistic</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-29-28.png" alt="2024-04-10-22-29-28"></p><p>可以统计当前项目的不同类型代码、统计规则</p><h1 id="profile"><a href="#profile" class="headerlink" title="profile"></a>profile</h1><p>使用profile检查各函数、模块的运行时间、调用次数，这个可以用来排查程序中哪个地方出现问题、短板。</p><p>比如之前在写大数中素数分解的代码时，我使用profile检查素数分解模块的运行效率，来比对不同代码算法下，这个模块是否存在优化可能。</p><p>右上角编辑调试器右侧，有个<code>profile</code>，这个就是用来分析当前程序的。</p><p><img src="/2024/04/08/Python/pycharm/2024-10-11-12-27-41.png" alt></p><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>ctrl alt shift x 部署</p><h1 id="增加SFTP部署"><a href="#增加SFTP部署" class="headerlink" title="增加SFTP部署"></a>增加SFTP部署</h1><p>点击 IDEA 的文件 -&gt; 设置 -&gt; 项目，如图</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-30-04.png" alt="2024-04-10-22-30-04"></p><p>点击加号减号就可以新增部署。如果部署中没有目标的SSH，则需要先添加“python解释器”，远程解释器里写新的SSH，这里的部署才会有新的SSH账密连接。</p><h1 id="函数文档"><a href="#函数文档" class="headerlink" title="函数文档"></a>函数文档</h1><p>在Python中，函数的文档字符串（docstring）通常被用来描述函数的功能、参数、返回值以及可能的异常等信息。这些文档字符串被包裹在一对三个双引号之间。</p><p>一种常见的格式是reStructuredText（reST）格式，这是Python的官方文档所使用的格式。在reST格式下，函数的参数（param）和返回值（return）可以这样标注：</p><pre><code>def function_name(param1, param2):    &quot;&quot;&quot;    这是一个函数的简单描述。    :param param1: 这是param1的描述。    :type param1: 这是param1的类型。    :param param2: 这是param2的描述。    :type param2: 这是param2的类型。    :return: 这是返回值的描述。    :rtype: 这是返回值的类型。    &quot;&quot;&quot;    pass</code></pre><p>此外，你也可以使用Google或NumPy风格的docstring。这是Google风格的例子：</p><pre><code>def function_name(param1, param2):    &quot;&quot;&quot;    这是一个函数的简单描述。    Args:        param1 (type): 这是param1的描述。        param2 (type): 这是param2的描述。    Returns:        type: 这是返回值的描述。    &quot;&quot;&quot;    pass</code></pre><p>PyCharm和其他一些IDE支持这些格式，并可以根据docstring生成相应的函数/方法签名和文档。</p><h3 id="实际示例"><a href="#实际示例" class="headerlink" title="实际示例"></a>实际示例</h3><pre><code>def timeCompare(time1, time2):    &quot;&quot;&quot;用于比较两个类似&#39;2023-05-17&#39;的时间戳字符串看谁更早。time1如果比time2更早或同天的话，返回True；否则返回False    Args:        time1 (str):传入类似&#39;2023-05-17&#39;的时间字符串        time2 (str):传入类似&#39;2023-05-17&#39;的时间字符串    Return:        res (bool):        &quot;&quot;&quot;    datetime1 = datetime.strptime(time1, &#39;%Y-%m-%d&#39;)    datetime2 = datetime.strptime(time2, &#39;%Y-%m-%d&#39;)    if datetime1 &lt;= datetime2:        return True    else:        return Falsedef singleCveHrefSpider(avd_url, session):    &quot;&quot;&quot;使用avd编号，匹配单个漏洞详情页的数据    Args:        avd_url(str): avd漏洞的链接地址        session(requests.Session): 用于网络IO的session    Returns:        res(dict): 返回无键默认None的字典        &quot;&quot;&quot;</code></pre><h1 id="正确的增加远程python解释器"><a href="#正确的增加远程python解释器" class="headerlink" title="正确的增加远程python解释器"></a>正确的增加远程python解释器</h1><p>总结：<br>1.py解释器中的上传目录通常是默认传到/tmp/pycharmxxxx中，这个无所谓，改为正确的上传路径即可。<br>2.<code>部署</code>改成正确的上传路径<br>3.<code>py解释器</code>中的路径映射写对，就可以远程调试了。</p><p>设置 -&gt; 项目 -&gt; python解释器</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-31-57.png" alt="2024-04-10-22-31-57"></p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-32-10.png" alt="2024-04-10-22-32-10"></p><p>这里可以改为正确的路径，不一定非得下面的 /tmp 路径</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-32-34.png" alt="2024-04-10-22-32-34"></p><p>映射路径选择本地路径就可以。如果解释器的映射路径不对，那回到上图改一下，再到这里选择正确的本地路径就可以进行远程调试了。</p><p>Py解释器中的路径映射填写正确，就可以正常进行远程调试了。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-33-14.png" alt="2024-04-10-22-33-14"></p><h3 id="坑点：Pycharm-Can’t-get-remote-credentials-for-deployment-server"><a href="#坑点：Pycharm-Can’t-get-remote-credentials-for-deployment-server" class="headerlink" title="坑点：Pycharm:Can’t get remote credentials for deployment server"></a>坑点：Pycharm:Can’t get remote credentials for deployment server</h3><p>不知道为啥我会遇到这个报错，去项目，python解释器，把现有的SSH解释器删除了，重新添加，就没问题了</p><h1 id="将项目启用为django支持"><a href="#将项目启用为django支持" class="headerlink" title="将项目启用为django支持"></a>将项目启用为django支持</h1><p>首先启用django支持，在 设置 –&gt;  语言和框架   Django  勾选“启用Django支持”</p><p>配置如下</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-33-54.png" alt="2024-04-10-22-33-54"></p><p>然后要运行，就点击调试配置器</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-34-08.png" alt="2024-04-10-22-34-08"></p><p>直接配置后，运行即可</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Py </category>
           
       </categories>
       
@@ -1530,25 +1587,6 @@
       <categories>
           
           <category> Linux-Maintain </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>pycharm技巧</title>
-      <link href="/2024/04/08/Python/pycharm/"/>
-      <url>/2024/04/08/Python/pycharm/</url>
-      
-        <content type="html"><![CDATA[<ul><li><a href="#破解版安装">破解版安装</a></li><li><a href="#插件推荐">插件推荐</a></li><li><a href="#py解释器和虚拟环境">py解释器和虚拟环境</a><ul><li><a href="#虚拟解释器和机器系统的解释器不同包环境不同">虚拟解释器和机器系统的解释器不同，包环境不同</a></li><li><a href="#使用pycharm手动安装包环境">使用pycharm手动安装包环境</a></li></ul></li><li><a href="#结合conda创建新版本的python解释器并配置到pycharm">结合conda创建新版本的python解释器并配置到pycharm</a></li><li><a href="#代码行数统计">代码行数统计</a></li><li><a href="#profile">profile</a></li><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#增加sftp部署">增加SFTP部署</a></li><li><a href="#函数文档">函数文档</a><ul><li><a href="#实际示例">实际示例</a></li></ul></li><li><a href="#正确的增加远程python解释器">正确的增加远程python解释器</a><ul><li><a href="#坑点pycharmcant-get-remote-credentials-for-deployment-server">坑点：Pycharm:Can’t get remote credentials for deployment server</a></li></ul></li><li><a href="#将项目启用为django支持">将项目启用为django支持</a></li></ul><h1 id="破解版安装"><a href="#破解版安装" class="headerlink" title="破解版安装"></a>破解版安装</h1><p>pycharm: <a href="https://www.exception.site/essay/pycharm-pojie-jihuoma">https://www.exception.site/essay/pycharm-pojie-jihuoma</a></p><h1 id="插件推荐"><a href="#插件推荐" class="headerlink" title="插件推荐"></a>插件推荐</h1><pre><code>汉化statisticrainbow brackets(部分功能30天限制，经常让你买注册码，已弃用)markdown（其实vscode的md阅览比pycharm的要很快，这个自行选择）code glance (强烈推荐，右侧滚动条变小地图)translation</code></pre><h1 id="py解释器和虚拟环境"><a href="#py解释器和虚拟环境" class="headerlink" title="py解释器和虚拟环境"></a>py解释器和虚拟环境</h1><h3 id="虚拟解释器和机器系统的解释器不同，包环境不同"><a href="#虚拟解释器和机器系统的解释器不同，包环境不同" class="headerlink" title="虚拟解释器和机器系统的解释器不同，包环境不同"></a>虚拟解释器和机器系统的解释器不同，包环境不同</h3><p>创建一个新的项目，会想创建venv的虚拟解释器和库包<br>会根据系统现有的py复制一个<br>但是库文件是不同的，因为环境不同，如图：</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-24-45.png" alt="2024-04-10-22-24-45"></p><h3 id="使用pycharm手动安装包环境"><a href="#使用pycharm手动安装包环境" class="headerlink" title="使用pycharm手动安装包环境"></a>使用pycharm手动安装包环境</h3><p><strong>目前我指定虚拟解释器的py环境路径 直接 install -r requirements.txt 失败，推测requirements的版本不太对，是pycharm不支持的包版本</strong></p><p>但是我是用pycharm的设置 -&gt; 项目  -&gt; py解释器 手动安装包是可以的<br>此处也容易显示版本</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-25-40.png" alt="2024-04-10-22-25-40"></p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-25-56.png" alt="2024-04-10-22-25-56"></p><p>成功解决虚拟环境运行django项目</p><p>可以正常启动</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-26-26.png" alt="2024-04-10-22-26-26"></p><h1 id="结合conda创建新版本的python解释器并配置到pycharm"><a href="#结合conda创建新版本的python解释器并配置到pycharm" class="headerlink" title="结合conda创建新版本的python解释器并配置到pycharm"></a>结合conda创建新版本的python解释器并配置到pycharm</h1><p><strong>我思考了下，pycharm本身无法直接下载python3的不同版本，而手动从python官网下载不同的python3版本，操作还是太麻烦。此处依赖conda能自动下载不同python3版本，以及pycharm可以指定conda下载的py复制解释器到不同的项目，并处理不同的包依赖，可以使得调试不同项目的python解释器版本、包依赖相对分离。唯一缺点就是，软件重复程序冗余程度较高，但是这是pip自身设计的问题。</strong></p><p>不清楚为什么pycharm直接加载conda的解释器，会出现各种网络问题</p><p>因此手动执行命令：</p><pre><code>conda.exe create -p E:\anaconda3\envs\yolov5\envs -y python=3.10</code></pre><p>（若此命令出现网络问题，参考conda的安装、运行一节的报错处理）</p><p>然后pycharm添加该环境下的venv解释器（非conda环境）：</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-27-33.png" alt="2024-04-10-22-27-33"></p><p>相当于，conda的目录下弄了py3.10，然后又在这个代码项目下的env复制了解释器，和弄了包依赖的东西</p><p>最后手动执行命令（用户加目录下的pip的换源配置文件有效）：</p><pre><code>python -m pip install -r C:\Users\ranja\Desktop\ToStudy\yolov5\requirements.txt</code></pre><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-27-59.png" alt="2024-04-10-22-27-59"></p><p>最终等待此处完成即可。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-28-25.png" alt="2024-04-10-22-28-25"></p><p>如果pycharm检查到安装包的版本需要更新，则更新。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-28-56.png" alt="2024-04-10-22-28-56"></p><p>至此，解释器设置成功，按住ctrl，鼠标移动到任何函数代码，都显示可调式的高亮。</p><h1 id="代码行数统计"><a href="#代码行数统计" class="headerlink" title="代码行数统计"></a>代码行数统计</h1><p>安装插件  statistic</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-29-28.png" alt="2024-04-10-22-29-28"></p><p>可以统计当前项目的不同类型代码、统计规则</p><h1 id="profile"><a href="#profile" class="headerlink" title="profile"></a>profile</h1><p>使用profile检查各函数、模块的运行时间、调用次数，这个可以用来排查程序中哪个地方出现问题、短板。</p><p>比如之前在写大数中素数分解的代码时，我使用profile检查素数分解模块的运行效率，来比对不同代码算法下，这个模块是否存在优化可能。</p><p>右上角编辑调试器右侧，有个<code>profile</code>，这个就是用来分析当前程序的。</p><p><img src="/2024/04/08/Python/pycharm/2024-10-11-12-27-41.png" alt></p><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>ctrl alt shift x 部署</p><h1 id="增加SFTP部署"><a href="#增加SFTP部署" class="headerlink" title="增加SFTP部署"></a>增加SFTP部署</h1><p>点击 IDEA 的文件 -&gt; 设置 -&gt; 项目，如图</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-30-04.png" alt="2024-04-10-22-30-04"></p><p>点击加号减号就可以新增部署。如果部署中没有目标的SSH，则需要先添加“python解释器”，远程解释器里写新的SSH，这里的部署才会有新的SSH账密连接。</p><h1 id="函数文档"><a href="#函数文档" class="headerlink" title="函数文档"></a>函数文档</h1><p>在Python中，函数的文档字符串（docstring）通常被用来描述函数的功能、参数、返回值以及可能的异常等信息。这些文档字符串被包裹在一对三个双引号之间。</p><p>一种常见的格式是reStructuredText（reST）格式，这是Python的官方文档所使用的格式。在reST格式下，函数的参数（param）和返回值（return）可以这样标注：</p><pre><code>def function_name(param1, param2):    &quot;&quot;&quot;    这是一个函数的简单描述。    :param param1: 这是param1的描述。    :type param1: 这是param1的类型。    :param param2: 这是param2的描述。    :type param2: 这是param2的类型。    :return: 这是返回值的描述。    :rtype: 这是返回值的类型。    &quot;&quot;&quot;    pass</code></pre><p>此外，你也可以使用Google或NumPy风格的docstring。这是Google风格的例子：</p><pre><code>def function_name(param1, param2):    &quot;&quot;&quot;    这是一个函数的简单描述。    Args:        param1 (type): 这是param1的描述。        param2 (type): 这是param2的描述。    Returns:        type: 这是返回值的描述。    &quot;&quot;&quot;    pass</code></pre><p>PyCharm和其他一些IDE支持这些格式，并可以根据docstring生成相应的函数/方法签名和文档。</p><h3 id="实际示例"><a href="#实际示例" class="headerlink" title="实际示例"></a>实际示例</h3><pre><code>def timeCompare(time1, time2):    &quot;&quot;&quot;用于比较两个类似&#39;2023-05-17&#39;的时间戳字符串看谁更早。time1如果比time2更早或同天的话，返回True；否则返回False    Args:        time1 (str):传入类似&#39;2023-05-17&#39;的时间字符串        time2 (str):传入类似&#39;2023-05-17&#39;的时间字符串    Return:        res (bool):        &quot;&quot;&quot;    datetime1 = datetime.strptime(time1, &#39;%Y-%m-%d&#39;)    datetime2 = datetime.strptime(time2, &#39;%Y-%m-%d&#39;)    if datetime1 &lt;= datetime2:        return True    else:        return Falsedef singleCveHrefSpider(avd_url, session):    &quot;&quot;&quot;使用avd编号，匹配单个漏洞详情页的数据    Args:        avd_url(str): avd漏洞的链接地址        session(requests.Session): 用于网络IO的session    Returns:        res(dict): 返回无键默认None的字典        &quot;&quot;&quot;</code></pre><h1 id="正确的增加远程python解释器"><a href="#正确的增加远程python解释器" class="headerlink" title="正确的增加远程python解释器"></a>正确的增加远程python解释器</h1><p>总结：<br>1.py解释器中的上传目录通常是默认传到/tmp/pycharmxxxx中，这个无所谓，改为正确的上传路径即可。<br>2.<code>部署</code>改成正确的上传路径<br>3.<code>py解释器</code>中的路径映射写对，就可以远程调试了。</p><p>设置 -&gt; 项目 -&gt; python解释器</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-31-57.png" alt="2024-04-10-22-31-57"></p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-32-10.png" alt="2024-04-10-22-32-10"></p><p>这里可以改为正确的路径，不一定非得下面的 /tmp 路径</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-32-34.png" alt="2024-04-10-22-32-34"></p><p>映射路径选择本地路径就可以。如果解释器的映射路径不对，那回到上图改一下，再到这里选择正确的本地路径就可以进行远程调试了。</p><p>Py解释器中的路径映射填写正确，就可以正常进行远程调试了。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-33-14.png" alt="2024-04-10-22-33-14"></p><h3 id="坑点：Pycharm-Can’t-get-remote-credentials-for-deployment-server"><a href="#坑点：Pycharm-Can’t-get-remote-credentials-for-deployment-server" class="headerlink" title="坑点：Pycharm:Can’t get remote credentials for deployment server"></a>坑点：Pycharm:Can’t get remote credentials for deployment server</h3><p>不知道为啥我会遇到这个报错，去项目，python解释器，把现有的SSH解释器删除了，重新添加，就没问题了</p><h1 id="将项目启用为django支持"><a href="#将项目启用为django支持" class="headerlink" title="将项目启用为django支持"></a>将项目启用为django支持</h1><p>首先启用django支持，在 设置 –&gt;  语言和框架   Django  勾选“启用Django支持”</p><p>配置如下</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-33-54.png" alt="2024-04-10-22-33-54"></p><p>然后要运行，就点击调试配置器</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-34-08.png" alt="2024-04-10-22-34-08"></p><p>直接配置后，运行即可</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Py </category>
           
       </categories>
       
