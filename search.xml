@@ -4,6 +4,101 @@
   
     
     <entry>
+      <title>python考试感悟</title>
+      <link href="/2024/11/22/trivia/python%E8%80%83%E8%AF%95%E6%84%9F%E6%82%9F/"/>
+      <url>/2024/11/22/trivia/python%E8%80%83%E8%AF%95%E6%84%9F%E6%82%9F/</url>
+      
+        <content type="html"><![CDATA[<p>今天早上9:45-13:00多，参加了COMP9024考试，题目发了8道题目。</p><p>考试时，由于英语阅读能力和做题策略问题，导致本来可以做对7个题，最终由于时间不够，只交了6个题。</p><p>心情很是郁闷，下考后算了下分数，大概能拿80-84(DN)，但是拿不到85以上(HD)了。很难受。愧对我多年来以python为主语言的依赖，愧对我数年IT的职业生涯。</p><p>下午吃了饭后躺床上刷手机，恰好看到帖子：“你能得到的就是你的能力给你的”。心里想了想，其实说的也对，我的失误点在于 1. 英语阅读能力 2. 做题策略 3. 心态崩溃。</p><ol><li>英语阅读能力 </li></ol><p>考试时遇到很简答的一个题，但是第一时间花了大概五六分钟没有理解题意，也没有根据testcases猜出来这是什么题，遂选择跳过绕后。这导致这个简单的题多花点时间理解下，其实就小十分钟做出来了。</p><ol><li>做题策略</li></ol><p>作死挑战了最后的递归回溯题目，但是我最开始以为是quiz2的连点跳跃题目，做了半天发现是递归回溯题目，做了大半个小时没做出来。</p><ol><li>心态崩溃</li></ol><p>经历以上两个步骤，我无望的看了制作出来3个题的时候，感觉时间在流逝，我不知道应该如何分配时间了，无望的看着简单的题也没直接思考，已经在想挂科了怎么办。</p><p>但是最终好在，我还是调整回心态，努力肝题。一下子做了3个题，只剩最后两个题没写。</p><p>最后一刻，可惜我在做第7个题，这是一个简单题，但是时间不够了，监考者说时间到了，让交卷。</p><p>我想了想，其实当时没有严格时间限制，我应该多花3分钟把那个题写完，保证HD。略有些难受。</p><p>这些困难证明了我目前还是存在心态、策略问题，没有搏高分的策略。一味依赖自己的自以为是的挑战难题，导致考试期间心态奔溃、时间不够给简单题、时间浪费给大题的低级失误。</p><p>没拿到HD无所谓了，毕竟已经有了DN。</p><p>细细想想，有个迎头一棒也是个好事儿，日本人如果没有被欧洲打开国门，痛定思痛，估计也不会明治维新。清朝长期没有反思，结果越混越差，甲午战争被日本击败。</p><p>我应该抱有长期计划和心态，这是策略、战略问题，不应该因为一次局部的失败心态奔溃，更不应该考场上因为低级失误心态崩溃。</p><p>Soo十年拿了好几个世界大赛亚军，熬到第十年，才拿了IEM冠军。Olivera在夺冠前一年的IEM比赛都惨淡小组赛被零封出局。职业选手的例子已经告诉我，没必要气馁，痛定思痛，自己消化，咬牙坚持。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> trivia </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>DepthFirstSearch</title>
+      <link href="/2024/11/22/Algorithm/DepthFirstSearch/"/>
+      <url>/2024/11/22/Algorithm/DepthFirstSearch/</url>
+      
+        <content type="html"><![CDATA[<p>redfer to <a href="https://github.com/sheisc/COMP9024/tree/main/Tutorials/Week5">UNSW COMP9024</a></p><ul><li><a href="#recursive">recursive</a></li><li><a href="#non-recursive">non-recursive</a></li></ul><p>Note it’s graph, not only tree!</p><h1 id="recursive"><a href="#recursive" class="headerlink" title="recursive"></a>recursive</h1><pre><code class="lang-C">static void DepthFirstSearch(struct Graph *pGraph, long u, int *visited) &#123;    visited[u] = 1;    printf(&quot;visiting %s\n&quot;, pGraph-&gt;pNodes[u].name);    // recursively visit the adjacent nodes of u, if they have not been visited yet    for(long v = 0; v &lt; pGraph-&gt;n; v++) &#123;        if (MatrixElement(pGraph, u, v) == CONNECTED &amp;&amp; !visited[v]) &#123;            DepthFirstSearch(pGraph, v, visited);        &#125;    &#125;&#125;void RecursiveDFS(struct Graph *pGraph, long u) &#123;    // Note visited is an array, not only an int    int *visited = (int *) malloc(pGraph-&gt;n * sizeof(int));    //memset(visited, 0, sizeof(int) * pGraph-&gt;n);    for (long v = 0; v &lt; pGraph-&gt;n; v++) &#123;        visited[v] = 0;    &#125;    DepthFirstSearch(pGraph, u, visited);    printf(&quot;\n&quot;);    free(visited);&#125;</code></pre><p>For example, search from node 3.</p><p><img src="/2024/11/22/Algorithm/DepthFirstSearch/2024-11-22-16-09-17.png" alt></p><h1 id="non-recursive"><a href="#non-recursive" class="headerlink" title="non-recursive"></a>non-recursive</h1><p>if use non-recursive algorithm, we must use a stack.</p><pre><code class="lang-C">#if 1/*    Please complete the code in Q1-Q5:    Q1:  create a data stack    Q2:  push u onto the data stack    Q3:  test whether the data stack is empty    Q4:  push v onto the data stack    Q5:  free the heap space occupied by the data stack  */void NonRecursiveDFS(struct Graph *pGraph, long u) &#123;    assert(IsLegalNodeNum(pGraph, u));    static long cnt = 0;    int *visited = (int *) malloc(sizeof(int) * pGraph-&gt;n);    // struct Stack *pStack = ______Q1______;    struct Stack *pStack = createStack();    assert(visited &amp;&amp; pStack);    for (long i = 0; i &lt; pGraph-&gt;n; i++) &#123;        visited[i] = 0;    &#125;    printf(&quot;\n\t\t\t\tpush %ld\n&quot;, u);    // ______Q2______;    StackPush(pStack, u);    // while (______Q3______) &#123;    while (!StackIsEmpty(pStack)) &#123;        printf(&quot;\n&quot;);        // If visited the node, just Pop it!        PrintStack(pStack);        STACK_ITEM_T curNodeId = StackPop(pStack);        printf(&quot;\t\t\t\tpop %ld\n&quot;, curNodeId);        if (!visited[curNodeId]) &#123;            visited[curNodeId] = 1;            printf(&quot;\t\t\t\t\t\tvisiting %s\n&quot;, pGraph-&gt;pNodes[curNodeId].name);            // Put all the adjancient node into the stack            for (long v = pGraph-&gt;n - 1; v &gt;= 0; v--) &#123;                if (MatrixElement(pGraph, curNodeId, v) == CONNECTED &amp;&amp; !visited[v]) &#123;                    // ______Q4______;                    StackPush(pStack, v);                    printf(&quot;\t\t\t\tpush %ld\n&quot;, v);                &#125;            &#125;                    &#125;    &#125;    printf(&quot;\n&quot;);    // ______Q5______;    StackRelease(pStack);    free(visited);    &#125;#endif</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Algorithm </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ParseTree</title>
+      <link href="/2024/11/22/Algorithm/ParseTree/"/>
+      <url>/2024/11/22/Algorithm/ParseTree/</url>
+      
+        <content type="html"><![CDATA[<p>refer to <a href="https://github.com/sheisc/COMP9024/tree/main/Tutorials/Week4"></a></p><ul><li><a href="#parse-tree">Parse Tree</a></li><li><a href="#9000--24">9000 + 24</a></li><li><a href="#9000--64">9000 + (6*4)</a></li><li><a href="#parse-tree-operator">Parse Tree Operator</a><ul><li><a href="#primaryexpression">PrimaryExpression</a></li><li><a href="#multiplicativeexpression">MultiplicativeExpression</a></li><li><a href="#additiveexpression">AdditiveExpression</a></li><li><a href="#arithmetic-expression">Arithmetic expression</a></li></ul></li></ul><h1 id="Parse-Tree"><a href="#Parse-Tree" class="headerlink" title="Parse Tree"></a>Parse Tree</h1><p><img src="/2024/11/22/Algorithm/ParseTree/2024-11-22-15-51-04.png" alt></p><h1 id="9000-24"><a href="#9000-24" class="headerlink" title="9000 + 24"></a>9000 + 24</h1><p><img src="/2024/11/22/Algorithm/ParseTree/2024-11-22-15-50-03.png" alt></p><h1 id="9000-6-4"><a href="#9000-6-4" class="headerlink" title="9000 + (6*4)"></a>9000 + (6*4)</h1><p><img src="/2024/11/22/Algorithm/ParseTree/2024-11-22-15-50-17.png" alt></p><h1 id="Parse-Tree-Operator"><a href="#Parse-Tree-Operator" class="headerlink" title="Parse Tree Operator"></a>Parse Tree Operator</h1><h2 id="PrimaryExpression"><a href="#PrimaryExpression" class="headerlink" title="PrimaryExpression"></a>PrimaryExpression</h2><pre><code>PrimaryExpression:    NUM    (Expression)</code></pre><h2 id="MultiplicativeExpression"><a href="#MultiplicativeExpression" class="headerlink" title="MultiplicativeExpression"></a>MultiplicativeExpression</h2><pre><code>MultiplicativeExpression:        PrimaryExpression        PrimaryExpression  mop PrimaryExpression  ...   mop PrimaryExpression  // multiplicative operatormop:            *              / </code></pre><h2 id="AdditiveExpression"><a href="#AdditiveExpression" class="headerlink" title="AdditiveExpression"></a>AdditiveExpression</h2><pre><code>AdditiveExpression:      MultiplicativeExpression      MultiplicativeExpression  aop MultiplicativeExpression  ...   aop MultiplicativeExpression  // additive operatoraop:            +              -</code></pre><h2 id="Arithmetic-expression"><a href="#Arithmetic-expression" class="headerlink" title="Arithmetic expression"></a>Arithmetic expression</h2><pre><code>Expression:      AdditiveExpression</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Algorithm </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Stack</title>
+      <link href="/2024/11/22/Algorithm/Stack/"/>
+      <url>/2024/11/22/Algorithm/Stack/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#base-conversion">Base conversion</a></li><li><a href="#enlarge-the-size">Enlarge the size</a></li></ul><p>Refer to <a href="https://github.com/sheisc/COMP9024/tree/main/Tutorials/Week3">UNSW COMP9024</a></p><h1 id="Base-conversion"><a href="#Base-conversion" class="headerlink" title="Base conversion"></a>Base conversion</h1><pre><code class="lang-C">typedef long STACK_ITEM_T;void PrintInteger(STACK_ITEM_T x, int base) &#123;    struct Stack *pStack = CreateStack();    int r;    x = (x &gt;= 0 ? x : -x);    base = (base &gt;= 0 ? base: -base);    printf(&quot;------------- x = %ld, base = %d -------------\n\n&quot;, (long) x, base);    // push the remainders onto the stack    do &#123;        r = x % base;        x = x / base;        printf(&quot;push %d\n&quot;, r);        StackPush(pStack, r);    &#125; while (x != 0);    printf(&quot;\n\nAfter popping (First In Last Out):\n\n&quot;);    PrintPrefix(base);    // output the remainders in the FILO order    while(!StackIsEmpty(pStack)) &#123;        r = StackPop(pStack);        // see https://www.asciitable.com/        // IF-ELSE just want to output A==10, B==11, ... F==15        // LIFO is OK, Last digit put into the stack is the highest digit of other Base.        if (r &lt;= 9) &#123;            // 1 --&gt; &#39;1&#39; (0x31, 49); ...            // 1 + 48 == 49            printf(&quot;%c&quot;, r + 48);        &#125; else if (r &lt;= 15) &#123;            // 10 --&gt; &#39;A&#39; (0x41, 65);  11 --&gt; &#39;B&#39;, ...            // 10 + 55 == 65            printf(&quot;%c&quot;, r + 55);        &#125; else &#123;            // unknown base            printf(&quot;?&quot;);        &#125;    &#125;    ReleaseStack(pStack);    printf(&quot;\n&quot;);&#125;</code></pre><pre><code>Week3$ makeWeek3$ ./main------------- x = 20249024, base = 10 -------------push 4push 2push 0push 9push 4push 2push 0push 2After popping (First In Last Out):20249024------------- x = 20249024, base = 16 -------------push 0push 12push 9push 15push 4push 3push 1After popping (First In Last Out):0x134F9C0------------- x = 20249024, base = 8 -------------push 0push 0push 7push 4push 7push 1push 5push 1push 1After popping (First In Last Out):0o115174700------------- x = 20249024, base = 2 -------------push 0push 0push 0push 0push 0push 0push 1push 1push 1push 0push 0push 1push 1push 1push 1push 1push 0push 0push 1push 0push 1push 1push 0push 0push 1After popping (First In Last Out):0b1001101001111100111000000</code></pre><h1 id="Enlarge-the-size"><a href="#Enlarge-the-size" class="headerlink" title="Enlarge the size"></a>Enlarge the size</h1><pre><code class="lang-C">#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;assert.h&gt;#include &lt;string.h&gt;#include &quot;Stack.h&quot;// number of items, not in bytes#define INITIAL_STACK_SIZE   64// the top position when a stack is empty#define TOP_POS_FOR_EMPTY_STACK  -1// The type defintion of our Stackstruct Stack &#123;    // the current capacity size of a stack, in the number of items, not in bytes    long size;    // the stack top position    long top;    // pItems points to an array dynamically allocated in heap    STACK_ITEM_T *pItems;&#125;;// Test whether the stack is fullstatic int StackIsFull(struct Stack *pStack) &#123;    return pStack-&gt;top == pStack-&gt;size - 1;    &#125;// Test whether the stack is emptyint StackIsEmpty(struct Stack *pStack) &#123;    return pStack-&gt;top == TOP_POS_FOR_EMPTY_STACK;&#125;// Create a stackstruct Stack *CreateStack(void) &#123;    struct Stack *pStack;    STACK_ITEM_T *pItems;    //printf(&quot;sizeof(STACK_ITEM_T) == %ld\n&quot;, sizeof(STACK_ITEM_T));    pStack = (struct Stack *) malloc(sizeof(struct Stack));    pItems = (STACK_ITEM_T *) malloc(sizeof(STACK_ITEM_T) * INITIAL_STACK_SIZE);    assert(pStack &amp;&amp; pItems);    pStack-&gt;size = INITIAL_STACK_SIZE;        pStack-&gt;top = TOP_POS_FOR_EMPTY_STACK;    pStack-&gt;pItems = pItems;    return pStack;&#125;// Release the heap spacevoid ReleaseStack(struct Stack *pStack) &#123;    if (pStack) &#123;        free(pStack-&gt;pItems);        free(pStack);    &#125;&#125;// Push an item onto/at the top of the stack void StackPush(struct Stack *pStack, STACK_ITEM_T item) &#123;    if (StackIsFull(pStack)) &#123;        // if the Stack is not enough, it would increase its size automatically        /*            Please complete the following code in Q1-Q5.            Q1. call malloc() to allocate enough bytes of heap memory,                and save the return value in a pointer variable named as newItems                       Q2. call memcpy() to copy the items pointed to by pStack-&gt;pItems                 to the heap memory pointed to by newItems                For help, please type &#39;man memcpy&#39; in the command line.                $ man memcpy            Q3. call free() to release the unused heap memory            Q4. double the capacity size of the stack            Q5. let pStack-&gt;pItems point to the heap space allocated in Q1            You need to echo these questions in our weekly Quiz.            Our tutors will NOT answer these questions in the tutorial.            To test the code you have completed, you can set INITIAL_STACK_SIZE to be 2 (line 8 in Stack.c)         */        // Double the capacity of the stack                // Q1. ___________________        STACK_ITEM_T *newItems = (STACK_ITEM_T *) malloc(pStack-&gt;size * 2 * sizeof(STACK_ITEM_T));        // Q2. ___________________        memcpy(newIte)        // Q3. ___________________        // Q4. ___________________        // Q5. ___________________         // Q1. Allocate memory for the new stack items array with double the size        long newSize = pStack-&gt;size * 2; // Double the current size        STACK_ITEM_T *newItems = (STACK_ITEM_T *)malloc(sizeof(STACK_ITEM_T) * newSize);        assert(newItems); // Ensure memory allocation was successful        // Q2. Copy the old items to the new items array        // memcpy would copy the second parameter context into the parameter        memcpy(newItems, pStack-&gt;pItems, sizeof(STACK_ITEM_T) * pStack-&gt;size);        // Q3. Free the old items array        free(pStack-&gt;pItems);        // Q4. Update the stack&#39;s size to the new size        pStack-&gt;size *=2;        // Q5. Point to the new items array        pStack-&gt;pItems = newItems;    &#125;    // Now the stack is not full. Let us do the push operation.    pStack-&gt;top++;    pStack-&gt;pItems[pStack-&gt;top] = item;&#125;// Pop the top item from the stackSTACK_ITEM_T StackPop(struct Stack *pStack) &#123;    assert(!StackIsEmpty(pStack));    STACK_ITEM_T item = pStack-&gt;pItems[pStack-&gt;top];    pStack-&gt;top--;    return item;&#125;// Peek the top item without poppingSTACK_ITEM_T StackPeek(struct Stack *pStack) &#123;    assert(!StackIsEmpty(pStack));    STACK_ITEM_T item = pStack-&gt;pItems[pStack-&gt;top];    return item;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Algorithm </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>BubbleSort</title>
+      <link href="/2024/11/22/Algorithm/BubbleSort/"/>
+      <url>/2024/11/22/Algorithm/BubbleSort/</url>
+      
+        <content type="html"><![CDATA[<p>The raw code refers to: <a href="https://github.com/sheisc/COMP9024/tree/main/Tutorials/Week2">UNSW COMP9024</a></p><pre><code class="lang-C">#include &lt;stdio.h&gt;/*    Swap the values of the two integer variables pointed to by pa and pb, respectively.   */void Swap(int *pa, int *pb) &#123;    int tmp = *pa;    *pa = *pb;    *pb = tmp;&#125;/*  Why Swap2(int a, int b) doesn&#39;t work?    Only the values of the two parameters a and b are swapped. */void Swap2(int a, int b) &#123;    printf(&quot;a = %d, b = %d\n&quot;, a, b);    int tmp = a;    a = b;    b = tmp;    printf(&quot;a = %d, b = %d\n&quot;, a, b);&#125;/*    void PrintArray(int *ptr, int n);        Print the values of the n integer variables pointed to by an pointer ptr:            ptr[0],  ptr[1],    ptr[2],    ...,  ptr[n-1]        or             *ptr,   *(ptr+1),  *(ptr+2),   ...,  *(ptr + n -1) */void PrintArray(int *ptr, int n) &#123;    for (int i = 0; i &lt; n; i++) &#123;        printf(&quot;%d &quot;, ptr[i]);    &#125;    printf(&quot;\n&quot;);&#125;/*    Bubble sort the n numbers pointed to by ptr.    The elements are sorted in ascending order (from the least to the greatest). */void BubbleSort(int *ptr, int n) &#123;    /*        1. iMax represents the max value of i in a pass              (in the following &quot;if (ptr[i] &gt; ptr[i+1])&quot;)        2. (n-1) passes needed in Bubble Sort     */    for (int iMax = n - 2; iMax &gt;= 0; iMax--) &#123; // (n-1) passes        // printf() is quite useful in observing the behavior of a program        printf(&quot;............... iMax = %d ...............\n\n&quot;, iMax);        PrintArray(ptr, iMax + 2);        printf(&quot;\n\n&quot;);        // i is in [0, iMax] in the current pass        for (int i = 0; i &lt;= iMax; i++) &#123;            if (ptr[i] &gt; ptr[i+1]) &#123;                Swap(ptr + i, ptr + i + 1);                printf(&quot;After swapping ptr[%d] and ptr[%d]:\n&quot;, i, i+1);                PrintArray(ptr, iMax + 2);                printf(&quot;\n&quot;);            &#125;        &#125;           &#125;&#125;#if 1int IsLess(int a, int b) &#123;    return a &lt; b;&#125;int IsLarger(int a, int b) &#123;    return a &gt; b;&#125;// Define a function pointer type, which points to a functiontypedef int (*ComparatorFuncPtr)(int, int);void BubbleSort2(int *ptr, int n, ComparatorFuncPtr compare) &#123;    for (int iMax = n - 2; iMax &gt;= 0; iMax--) &#123;        // for (int i = 0; ____Q1_____; _____Q2____) &#123;          for (int i = 0; i&lt;=iMax; i++) &#123;        //     if (_____Q3_____) &#123;          if (compare(ptr[i], ptr[i+1])) &#123;        //         ____Q4____;              swap(ptr+i, ptr+i+1);              // swap(&amp;ptr[i], &amp;ptr[i+1]); is also OK            &#125;        &#125;           &#125;&#125;int TestBubbleSort2(void) &#123;        int arr[] = &#123;30, 50, 20, 10, 60, 40&#125;;    int len = sizeof(arr) / sizeof(arr[0]);    // a function pointer variable which points to the function IsLarger()    ComparatorFuncPtr fptr = &amp;IsLarger;        printf(&quot;Before sorting:\n&quot;);    PrintArray(arr, len);    BubbleSort2(arr, len, fptr);    // in ascending order    printf(&quot;After sorting:\n&quot;);    PrintArray(arr, len);    // a function pointer variable which points to the function IsLess()    // fptr = ____Q5____;        fptr=IsLess; // Both `IsLess` and `&amp;IsLess` is OK, they are all function pointer. The function pointer declarification:  typedef int (*ComparatorFuncPtr)(int, int);    printf(&quot;\nBefore sorting:\n&quot;);    PrintArray(arr, len);    BubbleSort2(arr, len, fptr);    // in descending order    printf(&quot;After sorting:\n&quot;);    PrintArray(arr, len);    return 0;&#125;#endifint main(void) &#123;        // Let the C compiler determine the number of array elements for us.    int arr[] = &#123;30, 50, 20, 10, 60, 40&#125;;    // calculate the number of elements    int len = sizeof(arr) / sizeof(arr[0]);    // int t1 = sizeof(arr);  // print 24    // int t2 = sizeof(arr[0]);  // print 4    // int t3 = sizeof(arr+1);  // print 8    // arr is an array; arr[0] is a value;     // sizeof(arr) means the size of the array    // sizeof(arr+1) means the size of the address (arr+1), in 64-bit OS, it&#39;s always 8 Bytes.    // refer to my blog: https://senranja.github.io/2024/10/30/Cpp/Declaring-arrays-and-out-of-bounds/    // they have nusances when use sizeof() function.    printf(&quot;Before sorting:\n&quot;);    PrintArray(arr, len);    BubbleSort(arr, len);    printf(&quot;After sorting:\n&quot;);    PrintArray(arr, len);    printf(&quot;\n\nWhy Swap2(i, j) doesn&#39;t work?\n\n&quot;);    int i = 20, j = 24;    printf(&quot;i = %d, j = %d\n\n&quot;, i, j);    printf(&quot;\nSwap2(i, j)\n&quot;);    // The values of i and j are passed.    Swap2(i, j);    printf(&quot;i = %d, j = %d\n\n&quot;, i, j);    printf(&quot;After completing the code in Q1-Q5 (BubbleSort.c), please also uncomment line %d in %s:\n\n&quot;, (__LINE__ + 1), __FILE__);    TestBubbleSort2();    return 0;&#125;</code></pre><p>Output:</p><pre><code>Before sorting:30 50 20 10 60 40 ............... iMax = 4 ...............30 50 20 10 60 40 After swapping ptr[1] and ptr[2]:30 20 50 10 60 40 After swapping ptr[2] and ptr[3]:30 20 10 50 60 40 After swapping ptr[4] and ptr[5]:30 20 10 50 40 60 ............... iMax = 3 ...............30 20 10 50 40 After swapping ptr[0] and ptr[1]:20 30 10 50 40 After swapping ptr[1] and ptr[2]:20 10 30 50 40 After swapping ptr[3] and ptr[4]:20 10 30 40 50 ............... iMax = 2 ...............20 10 30 40 After swapping ptr[0] and ptr[1]:10 20 30 40 ............... iMax = 1 ...............10 20 30 ............... iMax = 0 ...............10 20 After sorting:10 20 30 40 50 60 Why Swap2(i, j) doesn&#39;t work?z5541664@vx17:~/COMP9024/Tutorials/Week2$ lsbuild  diagrams  images  main  Makefile  README.md  srcz5541664@vx17:~/COMP9024/Tutorials/Week2$ ./main Before sorting:30 50 20 10 60 40 ............... iMax = 4 ...............30 50 20 10 60 40 After swapping ptr[1] and ptr[2]:30 20 50 10 60 40 After swapping ptr[2] and ptr[3]:30 20 10 50 60 40 After swapping ptr[4] and ptr[5]:30 20 10 50 40 60 ............... iMax = 3 ...............30 20 10 50 40 After swapping ptr[0] and ptr[1]:20 30 10 50 40 After swapping ptr[1] and ptr[2]:20 10 30 50 40 After swapping ptr[3] and ptr[4]:20 10 30 40 50 ............... iMax = 2 ...............20 10 30 40 After swapping ptr[0] and ptr[1]:10 20 30 40 ............... iMax = 1 ...............10 20 30 ............... iMax = 0 ...............10 20 After sorting:10 20 30 40 50 60 Why Swap2(i, j) doesn&#39;t work?i = 20, j = 24Swap2(i, j)a = 20, b = 24a = 24, b = 20i = 20, j = 24After completing the code in Q1-Q5 (BubbleSort.c), please also uncomment line 156 in src/BubbleSort.c:Before sorting:30 50 20 10 60 40 90 60 120 150 35 After sorting:10 20 30 35 40 50 60 60 90 120 150</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Algorithm </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Algorithmic_Analysis</title>
       <link href="/2024/11/20/Math/Algorithmic-Analysis/"/>
       <url>/2024/11/20/Math/Algorithmic-Analysis/</url>
@@ -1121,11 +1216,11 @@
     
     
     <entry>
-      <title>dockerhub &amp;&amp; docker</title>
-      <link href="/2024/04/09/docker/docker/"/>
-      <url>/2024/04/09/docker/docker/</url>
+      <title>docker volume</title>
+      <link href="/2024/04/09/docker/docker-volume/"/>
+      <url>/2024/04/09/docker/docker-volume/</url>
       
-        <content type="html"><![CDATA[<h1 id="中国用户换源"><a href="#中国用户换源" class="headerlink" title="中国用户换源"></a>中国用户换源</h1><pre><code>vim /etc/docker/daemon.json&#123;&quot;registry-mirrors&quot;:[&quot;https://hub-mirror.c.163.com&quot;,&quot;https://registry.aliyuncs.com&quot;,&quot;https://registry.docker-cn.com&quot;,&quot;https://docker.mirrors.ustc.edu.cn&quot;]&#125;service docker restart</code></pre><h1 id="dockerhub"><a href="#dockerhub" class="headerlink" title="dockerhub"></a>dockerhub</h1><p>log in <a href="https://hub.docker.com/">https://hub.docker.com/</a>, register an account.</p><p>pull your private image</p><pre><code>docker pull senranja/secret_detection</code></pre><p>build an image with tag, upload image to dockerhub</p><pre><code>docker image build -t senranja/secret_detection:v2.1 .docker logindocker push username/repo:tag</code></pre><h1 id="搭建gitlab-ce为例"><a href="#搭建gitlab-ce为例" class="headerlink" title="搭建gitlab-ce为例"></a>搭建gitlab-ce为例</h1><p>安装gitlab-ce参考链接：</p><pre><code>https://blog.csdn.net/BThinker/article/details/124097795</code></pre><p>查找镜像</p><pre><code>docker search gitlab</code></pre><p>拉取Gitlab镜像</p><pre><code>docker pull gitlab/gitlab-ce:latest</code></pre><p>启动容器，这里docker run命令的-v和dockerfile以及docker-compose.yaml中的-v 挂在目录，不需要你自己手动创建目录。即便目录不存在，他会自动创建。</p><pre><code>docker run \-itd  \-p 9980:80 \-p 9922:22 \-v /home/gitlab/etc:/etc/gitlab  \-v /home/gitlab/log:/var/log/gitlab \-v /home/gitlab/opt:/var/opt/gitlab \--restart always \--privileged=true \--name gitlab \gitlab/gitlab-ce</code></pre><p>命令</p><pre><code>-i     以交互模式运行容器，通常与 -t 同时使用命令解释-t     为容器重新分配一个伪输入终端，通常与 -i 同时使用-d    后台运行容器，并返回容器ID-p 9980:80    将容器内80端口映射至宿主机9980端口，这是访问gitlab的端口-p 9922:22     将容器内22端口映射至宿主机9922端口，这是访问ssh的端口-v /home/gitlab/etc:/etc/gitlab    将容器/etc/gitlab目录挂载到宿主机/usr/local/gitlab-test/etc目录下，若宿主机内此目录不存在将会自动创建，其他两个挂载同这个一样--restart always    容器自启动--privileged=true    让容器获取宿主机root权限--name gitlab    设置容器名称为gitlabgitlab/gitlab-ce    镜像的名称，这里也可以写镜像ID</code></pre><h1 id="复制目录细节"><a href="#复制目录细节" class="headerlink" title="复制目录细节"></a>复制目录细节</h1><p>屁股加不加 /没区别</p><ol><li><p>目录下文件复制到目标目录下，不包含目录本身</p><p>COPY ./dist/ /usr/share/nginx/html/</p></li></ol><p>是将 ./dist/下文件 放入 /html/，dist本身没目录</p><ol><li><p>连带这个目录复制进入</p><p>COPY ./dist /usr/share/nginx/html/dist</p></li></ol><h1 id="删除none镜像"><a href="#删除none镜像" class="headerlink" title="删除none镜像"></a>删除none镜像</h1><pre><code>docker images -a | grep &quot;&lt;none&gt;&quot; | awk &#39;&#123;print $3&#125;&#39; | xargs docker rmi</code></pre>]]></content>
+        <content type="html"><![CDATA[<p>docker volume 有 ls rm等子命令</p><p>使用 docker rm 命令删除容器时，默认情况下不会删除与该容器关联的挂载的 <strong>Docker 卷（Docker volume）</strong>。Docker volume 是一个独立于容器的数据存储区域，通常用于持久化存储容器内的数据。</p><p>如果您使用了 -v 参数来挂载卷，那么删除容器时不会删除这个卷。要删除与容器关联的卷，您需要使用 docker volume rm 命令。</p><p>例如，如果您的容器启动命令中有如下的 -v 参数：</p><pre><code>docker run -v /host/path:/container/path my_image</code></pre><p>那么删除容器时，卷 /host/path 不会被自动删除。要手动删除该卷，可以运行以下命令：</p><pre><code>docker volume rm $(docker volume ls -qf &quot;mount=/host/path&quot;)</code></pre><p>这将删除与指定路径关联的 Docker 卷。请注意替换 /host/path 为实际使用的卷路径。</p><p>总之，docker rm 默认不会删除挂载的 Docker 卷，您需要使用 docker volume rm 命令手动删除它们。</p>]]></content>
       
       
       <categories>
@@ -1140,11 +1235,11 @@
     
     
     <entry>
-      <title>docker volume</title>
-      <link href="/2024/04/09/docker/docker-volume/"/>
-      <url>/2024/04/09/docker/docker-volume/</url>
+      <title>dockerhub &amp;&amp; docker</title>
+      <link href="/2024/04/09/docker/docker/"/>
+      <url>/2024/04/09/docker/docker/</url>
       
-        <content type="html"><![CDATA[<p>docker volume 有 ls rm等子命令</p><p>使用 docker rm 命令删除容器时，默认情况下不会删除与该容器关联的挂载的 <strong>Docker 卷（Docker volume）</strong>。Docker volume 是一个独立于容器的数据存储区域，通常用于持久化存储容器内的数据。</p><p>如果您使用了 -v 参数来挂载卷，那么删除容器时不会删除这个卷。要删除与容器关联的卷，您需要使用 docker volume rm 命令。</p><p>例如，如果您的容器启动命令中有如下的 -v 参数：</p><pre><code>docker run -v /host/path:/container/path my_image</code></pre><p>那么删除容器时，卷 /host/path 不会被自动删除。要手动删除该卷，可以运行以下命令：</p><pre><code>docker volume rm $(docker volume ls -qf &quot;mount=/host/path&quot;)</code></pre><p>这将删除与指定路径关联的 Docker 卷。请注意替换 /host/path 为实际使用的卷路径。</p><p>总之，docker rm 默认不会删除挂载的 Docker 卷，您需要使用 docker volume rm 命令手动删除它们。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="中国用户换源"><a href="#中国用户换源" class="headerlink" title="中国用户换源"></a>中国用户换源</h1><pre><code>vim /etc/docker/daemon.json&#123;&quot;registry-mirrors&quot;:[&quot;https://hub-mirror.c.163.com&quot;,&quot;https://registry.aliyuncs.com&quot;,&quot;https://registry.docker-cn.com&quot;,&quot;https://docker.mirrors.ustc.edu.cn&quot;]&#125;service docker restart</code></pre><h1 id="dockerhub"><a href="#dockerhub" class="headerlink" title="dockerhub"></a>dockerhub</h1><p>log in <a href="https://hub.docker.com/">https://hub.docker.com/</a>, register an account.</p><p>pull your private image</p><pre><code>docker pull senranja/secret_detection</code></pre><p>build an image with tag, upload image to dockerhub</p><pre><code>docker image build -t senranja/secret_detection:v2.1 .docker logindocker push username/repo:tag</code></pre><h1 id="搭建gitlab-ce为例"><a href="#搭建gitlab-ce为例" class="headerlink" title="搭建gitlab-ce为例"></a>搭建gitlab-ce为例</h1><p>安装gitlab-ce参考链接：</p><pre><code>https://blog.csdn.net/BThinker/article/details/124097795</code></pre><p>查找镜像</p><pre><code>docker search gitlab</code></pre><p>拉取Gitlab镜像</p><pre><code>docker pull gitlab/gitlab-ce:latest</code></pre><p>启动容器，这里docker run命令的-v和dockerfile以及docker-compose.yaml中的-v 挂在目录，不需要你自己手动创建目录。即便目录不存在，他会自动创建。</p><pre><code>docker run \-itd  \-p 9980:80 \-p 9922:22 \-v /home/gitlab/etc:/etc/gitlab  \-v /home/gitlab/log:/var/log/gitlab \-v /home/gitlab/opt:/var/opt/gitlab \--restart always \--privileged=true \--name gitlab \gitlab/gitlab-ce</code></pre><p>命令</p><pre><code>-i     以交互模式运行容器，通常与 -t 同时使用命令解释-t     为容器重新分配一个伪输入终端，通常与 -i 同时使用-d    后台运行容器，并返回容器ID-p 9980:80    将容器内80端口映射至宿主机9980端口，这是访问gitlab的端口-p 9922:22     将容器内22端口映射至宿主机9922端口，这是访问ssh的端口-v /home/gitlab/etc:/etc/gitlab    将容器/etc/gitlab目录挂载到宿主机/usr/local/gitlab-test/etc目录下，若宿主机内此目录不存在将会自动创建，其他两个挂载同这个一样--restart always    容器自启动--privileged=true    让容器获取宿主机root权限--name gitlab    设置容器名称为gitlabgitlab/gitlab-ce    镜像的名称，这里也可以写镜像ID</code></pre><h1 id="复制目录细节"><a href="#复制目录细节" class="headerlink" title="复制目录细节"></a>复制目录细节</h1><p>屁股加不加 /没区别</p><ol><li><p>目录下文件复制到目标目录下，不包含目录本身</p><p>COPY ./dist/ /usr/share/nginx/html/</p></li></ol><p>是将 ./dist/下文件 放入 /html/，dist本身没目录</p><ol><li><p>连带这个目录复制进入</p><p>COPY ./dist /usr/share/nginx/html/dist</p></li></ol><h1 id="删除none镜像"><a href="#删除none镜像" class="headerlink" title="删除none镜像"></a>删除none镜像</h1><pre><code>docker images -a | grep &quot;&lt;none&gt;&quot; | awk &#39;&#123;print $3&#125;&#39; | xargs docker rmi</code></pre>]]></content>
       
       
       <categories>
@@ -1463,6 +1558,25 @@
     
     
     <entry>
+      <title>goland技巧</title>
+      <link href="/2024/04/08/Go/goland/"/>
+      <url>/2024/04/08/Go/goland/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#添加远程调试">添加远程调试</a></li><li><a href="#delve升级go无法调试">delve：升级go无法调试</a></li></ul><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!=nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH/bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Go </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Dell 730风扇速度调整</title>
       <link href="/2024/04/08/Linux-Maintain/Dell730change_fans/"/>
       <url>/2024/04/08/Linux-Maintain/Dell730change_fans/</url>
@@ -1587,25 +1701,6 @@
       <categories>
           
           <category> Linux-Maintain </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>goland技巧</title>
-      <link href="/2024/04/08/Go/goland/"/>
-      <url>/2024/04/08/Go/goland/</url>
-      
-        <content type="html"><![CDATA[<ul><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#添加远程调试">添加远程调试</a></li><li><a href="#delve升级go无法调试">delve：升级go无法调试</a></li></ul><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!=nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH/bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Go </category>
           
       </categories>
       
