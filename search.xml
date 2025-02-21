@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>wk1-tut</title>
+      <link href="/2025/02/21/COMP9101/wk1-tut/"/>
+      <url>/2025/02/21/COMP9101/wk1-tut/</url>
+      
+        <content type="html"><![CDATA[<h1 id="2n-number-the-largest-number"><a href="#2n-number-the-largest-number" class="headerlink" title="2n number, the largest number"></a>2n number, the largest number</h1><p>(a) Suppose that you have an array of $2n$ distinct integers. How can you find the smallest and largest integers using at most $3n−2$ comparisons?</p><p><strong>Note.</strong> Naively finding the smallest and largest integers will take $(2n−1)+(2n − 2)=4n−3$ comparisons, which is too many.Try and eliminate some redundant comparisons.</p><p><img src="/2025/02/21/COMP9101/wk1-tut/2025-02-21-15-09-06.png" alt></p><hr><h1 id="2-n-number-the-two-largest-numbers"><a href="#2-n-number-the-two-largest-numbers" class="headerlink" title="2^n number, the two largest numbers"></a>2^n number, the two largest numbers</h1><p>(b) Now, suppose you have an array of $2^n$ distinct integers. How can you find the largest two integers using at most $2^n+n−2$ comparisons? </p><p><strong>Hint</strong>. Do something similar with a different data structure.</p><p><img src="/2025/02/21/COMP9101/wk1-tut/2025-02-21-15-09-26.png" alt></p><hr><p>You are handed a complete binary tree with $4^n$ leaves, each leaf coloured either blue or red. You play a game with your friend on the tree. To play the game, you and your friend place down $1 M on the root of the tree. You then take it in turns to move the money down the tree, to one of its children. The game ends when the money lands at one of the leaf vertices.</p><p>You win $2M if the coin lands at a leaf vertex coloured red, and lose $1 M if the coin lands at a leaf vertex coloured blue. You make the initial move so that your opponent makes the final move. Your task is to decide whether to play the game or not.</p><p><img src="/2025/02/21/COMP9101/wk1-tut/2025-02-21-15-39-42.png" alt></p><p><img src="/2025/02/21/COMP9101/wk1-tut/2025-02-21-15-44-01.png" alt></p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> COMP9101 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>merge sort</title>
       <link href="/2025/02/21/Algorithm/merge-sort/"/>
       <url>/2025/02/21/Algorithm/merge-sort/</url>
@@ -1444,6 +1463,25 @@
     
     
     <entry>
+      <title>只能有root操作docker，普通用户无法操作dockers处理方法</title>
+      <link href="/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/"/>
+      <url>/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/</url>
+      
+        <content type="html"><![CDATA[<p>参考链接: <a href="https://www.cnblogs.com/-mrl/p/13836631.html">https://www.cnblogs.com/-mrl/p/13836631.html</a></p><p>看当前系统中的用户和组：</p><pre><code>1、用户列表文件：cat /etc/passwd2、用户组列表文件：cat /etc/group</code></pre><h1 id="创建docker组"><a href="#创建docker组" class="headerlink" title="创建docker组"></a>创建docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo groupadd dockergroupadd: group ‘docker‘ already exists</code></pre><h1 id="将当前用户加入docker组"><a href="#将当前用户加入docker组" class="headerlink" title="将当前用户加入docker组"></a>将当前用户加入docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo gpasswd -a $&#123;USER&#125; dockerAdding user xxx to group docker</code></pre><h1 id="重启docker服务"><a href="#重启docker服务" class="headerlink" title="重启docker服务"></a>重启docker服务</h1><pre><code>vagrant@ubuntu18:~$ sudo service docker restart</code></pre><h1 id="刷新docker组成员"><a href="#刷新docker组成员" class="headerlink" title="刷新docker组成员"></a>刷新docker组成员</h1><pre><code>vagrant@ubuntu18:~$ newgrp docker#再试试命令^_^vagrant@ubuntu18:~$ docker imagesREPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</code></pre><p>然后当前的shell退了重新开一个，这样你目前的用户就可以操作docker images 命令。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>gitlab EE实例</title>
       <link href="/2024/04/09/docker/dockerfile%EF%BC%9Agitlab%20EE%E5%AE%9E%E4%BE%8B/"/>
       <url>/2024/04/09/docker/dockerfile%EF%BC%9Agitlab%20EE%E5%AE%9E%E4%BE%8B/</url>
@@ -1487,25 +1525,6 @@
       <url>/2024/04/09/docker/mysql-docker/</url>
       
         <content type="html"><![CDATA[<p>mysql的docker：<a href="https://registry.hub.docker.com/_/mysql">https://registry.hub.docker.com/_/mysql</a></p><p>我的文件名称是docker-compose-basic.yml,MySQL数据挂载到宿主机/root/basic/mysql下</p><p>数据库一般需要将数据挂载到宿主机上,以免容器损坏导致数据丢失</p><pre><code>version: &#39;3&#39;services:#mysqlmysql:    image: mysql:5.6    container_name: mysql    environment:    - MYSQL_ROOT_PASSWORD=1qaz@WSX    - TZ=Asia/Shanghai    - SET_CONTAINER_TIMEZONE=true    - CONTAINER_TIMEZONE=Asia/Shanghai    volumes:    - ./mysql/conf:/etc/mysql/conf.d    - ./mysql/conf:/etc/mysql/mysql.conf.d    - ./mysql/data:/var/lib/mysql    - ./mysql/logs:/var/log/mysql    - /etc/localtime:/etc/localtime:ro    ports:    - 13306:3306    restart: always</code></pre><p>关于修改配置文件my.cnf(类似于my.ini)这种文件，上面已经指向了/etc/mysql/mysql.conf.d和/etc/mysql/conf.d两处配置文件的目录，但是完全可以在上面的挂载目录下新建my.cnf。因为我们的cnf文件也是配置文件。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>只能有root操作docker，普通用户无法操作dockers处理方法</title>
-      <link href="/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/"/>
-      <url>/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/</url>
-      
-        <content type="html"><![CDATA[<p>参考链接: <a href="https://www.cnblogs.com/-mrl/p/13836631.html">https://www.cnblogs.com/-mrl/p/13836631.html</a></p><p>看当前系统中的用户和组：</p><pre><code>1、用户列表文件：cat /etc/passwd2、用户组列表文件：cat /etc/group</code></pre><h1 id="创建docker组"><a href="#创建docker组" class="headerlink" title="创建docker组"></a>创建docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo groupadd dockergroupadd: group ‘docker‘ already exists</code></pre><h1 id="将当前用户加入docker组"><a href="#将当前用户加入docker组" class="headerlink" title="将当前用户加入docker组"></a>将当前用户加入docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo gpasswd -a $&#123;USER&#125; dockerAdding user xxx to group docker</code></pre><h1 id="重启docker服务"><a href="#重启docker服务" class="headerlink" title="重启docker服务"></a>重启docker服务</h1><pre><code>vagrant@ubuntu18:~$ sudo service docker restart</code></pre><h1 id="刷新docker组成员"><a href="#刷新docker组成员" class="headerlink" title="刷新docker组成员"></a>刷新docker组成员</h1><pre><code>vagrant@ubuntu18:~$ newgrp docker#再试试命令^_^vagrant@ubuntu18:~$ docker imagesREPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</code></pre><p>然后当前的shell退了重新开一个，这样你目前的用户就可以操作docker images 命令。</p>]]></content>
       
       
       <categories>
@@ -1748,25 +1767,6 @@
     
     
     <entry>
-      <title>goland技巧</title>
-      <link href="/2024/04/08/Go/goland/"/>
-      <url>/2024/04/08/Go/goland/</url>
-      
-        <content type="html"><![CDATA[<ul><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#添加远程调试">添加远程调试</a></li><li><a href="#delve升级go无法调试">delve：升级go无法调试</a></li></ul><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!=nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH/bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Go </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Dell 730风扇速度调整</title>
       <link href="/2024/04/08/Linux-Maintain/Dell730change_fans/"/>
       <url>/2024/04/08/Linux-Maintain/Dell730change_fans/</url>
@@ -1891,6 +1891,25 @@
       <categories>
           
           <category> Linux-Maintain </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>goland技巧</title>
+      <link href="/2024/04/08/Go/goland/"/>
+      <url>/2024/04/08/Go/goland/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#添加远程调试">添加远程调试</a></li><li><a href="#delve升级go无法调试">delve：升级go无法调试</a></li></ul><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!=nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH/bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Go </category>
           
       </categories>
       
