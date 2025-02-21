@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Algorithmic_Analysis | SenRanJa</title>
+  <title>merge sort | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="Algorithmic_Analysis | SenRanJa">
+  <meta name="description" content="merge sort | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="bilibili merge sort">
 <meta property="og:type" content="article">
@@ -1339,9 +1339,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-Math/Algorithmic-Analysis" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Algorithm/merge-sort" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Algorithmic_Analysis</h1>
+        <h1 class="article-title">merge sort</h1>
     
     <div class="article-meta">
         
@@ -1351,7 +1351,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Math">Math</a>
+            <a  data-rel="Algorithm">Algorithm</a>
             
         </span>
         
@@ -1359,12 +1359,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2025-01-15 17:21:20'>2024-11-20 13:28</time>
+            Created At : <time class="date" title='Updated At: 2025-02-21 14:33:08'>2025-02-21 14:12</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:719</span>
+        <span>Count:3</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1394,7 +1394,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Motivation"><span class="toc-text">Motivation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Issues"><span class="toc-text">Issues</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Order-of-growth"><span class="toc-text">Order of growth</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Standard-Approach"><span class="toc-text">Standard Approach</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Algorithmic-analysis"><span class="toc-text">Algorithmic analysis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Elementary-operations"><span class="toc-text">Elementary operations</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Examples"><span class="toc-text">Examples</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Running-time-vs-Execution-time"><span class="toc-text">Running time vs Execution time</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Squaring"><span class="toc-text">Squaring</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cubing"><span class="toc-text">Cubing</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Simplifying-with-Worst-Case-and-Big-O"><span class="toc-text">Simplifying with Worst Case and Big-O</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Worst-case-and-big-O"><span class="toc-text">Worst-case and big-O</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sum-of-Square"><span class="toc-text">sum of Square</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Find-an-element-from-an-array"><span class="toc-text">Find an element from an array</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Recursive-Examples"><span class="toc-text">Recursive Examples</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Factorial"><span class="toc-text">Factorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Master-Theorom"><span class="toc-text">Master Theorom</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sum-elements-of-a-linked-list"><span class="toc-text">Sum elements of a linked list</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Insertion-sort"><span class="toc-text">Insertion sort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Euclidean-algorithm"><span class="toc-text">Euclidean algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Recursive-examples"><span class="toc-text">Recursive examples</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Faster-Euclidean"><span class="toc-text">Faster Euclidean</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pow"><span class="toc-text">pow</span></a></li></ol></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -1410,182 +1410,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Lecture 18: Algorithmic Analysis</p>
-<ul>
-<li><a href="#motivation">Motivation</a><ul>
-<li><a href="#issues">Issues</a></li>
-<li><a href="#order-of-growth">Order of growth</a></li>
-</ul>
-</li>
-<li><a href="#standard-approach">Standard Approach</a><ul>
-<li><a href="#algorithmic-analysis">Algorithmic analysis</a></li>
-<li><a href="#elementary-operations">Elementary operations</a></li>
-</ul>
-</li>
-<li><a href="#examples">Examples</a><ul>
-<li><a href="#running-time-vs-execution-time">Running time vs Execution time</a></li>
-<li><a href="#squaring">Squaring</a></li>
-<li><a href="#cubing">Cubing</a></li>
-</ul>
-</li>
-<li><a href="#simplifying-with-worst-case-and-big-o">Simplifying with Worst Case and Big-O</a><ul>
-<li><a href="#worst-case-and-big-o">Worst-case and big-O</a></li>
-<li><a href="#sum-of-square">sum of Square</a></li>
-<li><a href="#find-an-element-from-an-array">Find an element from an array</a></li>
-</ul>
-</li>
-<li><a href="#recursive-examples">Recursive Examples</a><ul>
-<li><a href="#factorial">Factorial</a></li>
-<li><a href="#master-theorom">Master Theorom</a></li>
-<li><a href="#sum-elements-of-a-linked-list">Sum elements of a linked list</a></li>
-<li><a href="#insertion-sort">Insertion sort</a></li>
-<li><a href="#euclidean-algorithm">Euclidean algorithm</a></li>
-<li><a href="#recursive-examples-1">Recursive examples</a></li>
-</ul>
-</li>
-<li><a href="#faster-euclidean">Faster Euclidean</a><ul>
-<li><a href="#pow">pow</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><p>Want to compare algorithms– particularly ones that can solve arbitrarily large instances.</p>
-<p>We would like to be able to talk about the resources (running time, memory, energy consumption) required by a program/algorithm as a function f (n) of some parameter n (e.g. the size) of its input.</p>
-<p>Example</p>
-<p>How long does a given sorting algorithm take to run on a list of n elements?</p>
-<h2 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h2><p><strong>Problems</strong></p>
-<ol>
-<li>The exact resources required for an algorithm are difficult to pin down. Heavily dependent on:</li>
-</ol>
-<ul>
-<li>Environment the program is run in (hardware, software, choice of language, external factors, etc)</li>
-<li>Choice of inputs used</li>
-</ul>
-<ol>
-<li>Cost functions can be complex, e.g.</li>
-</ol>
-<script type="math/tex; mode=display">
-2 n log(n) + (n −100) log(n)^2 + \frac{1}{2^n} log(log(n))</script><p>Need to identify the “important” aspects of the function.</p>
-<h2 id="Order-of-growth"><a href="#Order-of-growth" class="headerlink" title="Order of growth"></a>Order of growth</h2><p>Consider two <strong>time-cost</strong> functions:</p>
-<ul>
-<li>$f_1(n)=\frac{1}{10}n^2$ milliseconds, and</li>
-<li>$f_2(n)=10n log n$ milliseconds</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Input size</th>
-<th>f1(n)</th>
-<th>f2(n)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>100</td>
-<td>0.01s</td>
-<td>2s</td>
-</tr>
-<tr>
-<td>1000</td>
-<td>1s</td>
-<td>30s</td>
-</tr>
-<tr>
-<td>10000</td>
-<td>1m40s</td>
-<td>6m40s</td>
-</tr>
-<tr>
-<td>100000</td>
-<td>2h47m</td>
-<td>1h23m</td>
-</tr>
-<tr>
-<td>1000000</td>
-<td>11d14h</td>
-<td>16h40m</td>
-</tr>
-<tr>
-<td>10000000</td>
-<td>3y3m</td>
-<td>8d2h</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h1 id="Standard-Approach"><a href="#Standard-Approach" class="headerlink" title="Standard Approach"></a>Standard Approach</h1><h2 id="Algorithmic-analysis"><a href="#Algorithmic-analysis" class="headerlink" title="Algorithmic analysis"></a>Algorithmic analysis</h2><p>Asymptotic analysis is about how costs <strong>scale</strong> as the input increases.</p>
-<p>Standard (default) approach:</p>
-<ul>
-<li>Consider <strong>asymptotic growth</strong> of cost functions</li>
-<li>Consider <strong>worst-case</strong> (highest cost) inputs</li>
-<li>Consider <strong>running time cost</strong>: number of elementary operations</li>
-</ul>
-<p><strong>Take Notice</strong></p>
-<p>Other common analyses include:</p>
-<ul>
-<li>Average-case analysis</li>
-<li>Space (memory) cost</li>
-</ul>
-<h2 id="Elementary-operations"><a href="#Elementary-operations" class="headerlink" title="Elementary operations"></a>Elementary operations</h2><p>Informally: A single computational “step”; something that takes a constant number of computation cycles.</p>
-<p>Examples:</p>
-<ul>
-<li>Arithmetic operations</li>
-<li>Comparison of two values</li>
-<li>Assignment of a value to a variable</li>
-<li>Accessing an element of an array</li>
-<li>Calling a function</li>
-<li>Returning a value</li>
-<li>Printing a single character</li>
-</ul>
-<p><strong>Take Notice</strong></p>
-<p>Count operations up to a constant factor, <strong>O(1)</strong>, rather than an exact number.</p>
-<h1 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h1><p>Squaring a number (First version):</p>
-<pre><code>square(n) :
-    return n ∗ n // ------ O(1)
-</code></pre><p><strong>Running time</strong>: O(1)</p>
-<h2 id="Running-time-vs-Execution-time"><a href="#Running-time-vs-Execution-time" class="headerlink" title="Running time vs Execution time"></a>Running time vs Execution time</h2><p>Previous example shows one difference between running time and execution time.</p>
-<p>In general, running time only approximates execution time:</p>
-<ul>
-<li>Simplifying assumptions about elementary operations</li>
-<li>Hidden constants in <strong>big-O</strong></li>
-<li><strong>Big-O</strong> only looks at limiting performance as n gets large.</li>
-</ul>
-<p>Implementations of square(n) will take longer as n gets bigger</p>
-<h2 id="Squaring"><a href="#Squaring" class="headerlink" title="Squaring"></a>Squaring</h2><p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-13-48-32.png" alt></p>
-<h2 id="Cubing"><a href="#Cubing" class="headerlink" title="Cubing"></a>Cubing</h2><p>Note the function square() is from the above algorithm, hence it’s n loop of $O(n) -&gt; O(n^2)$</p>
-<p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-13-49-08.png" alt></p>
-<h1 id="Simplifying-with-Worst-Case-and-Big-O"><a href="#Simplifying-with-Worst-Case-and-Big-O" class="headerlink" title="Simplifying with Worst Case and Big-O"></a>Simplifying with Worst Case and Big-O</h1><h2 id="Worst-case-and-big-O"><a href="#Worst-case-and-big-O" class="headerlink" title="Worst-case and big-O"></a>Worst-case and big-O</h2><p>Worst-case input assumption and big-O combine to simplify the analysis:</p>
-<p>注意，这里的 <code>for i = 1 to n:</code> 这里的$O(1)$ 是  <code>i=1</code>，这里是 n times 所以整个for循环后面需要再 n times 成 $O(n^2)$。有循环的情况下，需要一层一层分析，先不考虑循环去看每个单独的执行语句进行<strong>和</strong>操作，再用<strong>for循环</strong>进行<strong>乘</strong>操作。</p>
-<h2 id="sum-of-Square"><a href="#sum-of-Square" class="headerlink" title="sum of Square"></a>sum of Square</h2><p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-13-55-58.png" alt></p>
-<p><strong>Take Notice</strong></p>
-<p>Simplifications might lead to <strong>sub-optimal bounds</strong>, may have to do a better analysis to get best bounds:</p>
-<ul>
-<li>Finer-grained upper bound analysis</li>
-<li>Analyse specific cases to find a matching lower bound (big-Ω)</li>
-</ul>
-<p>Take Notice</p>
-<p>Big-Ω is a <strong>lower bound</strong> analysis of the worst-case; NOT a “best-case” analysis.</p>
-<p>Analyse specific cases to find a matching <strong>lower bound (big-Ω)</strong></p>
-<h2 id="Find-an-element-from-an-array"><a href="#Find-an-element-from-an-array" class="headerlink" title="Find an element from an array"></a>Find an element from an array</h2><p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-14-02-09.png" alt></p>
-<h1 id="Recursive-Examples"><a href="#Recursive-Examples" class="headerlink" title="Recursive Examples"></a>Recursive Examples</h1><p>此处涉及了递归那里的“master theorem”</p>
-<h2 id="Factorial"><a href="#Factorial" class="headerlink" title="Factorial"></a>Factorial</h2><p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-14-04-10.png" alt></p>
-<p>I listed the Master Theorem and Linear differences here, please regard the a=1 condition to apply the <code>T(n)</code> above.</p>
-<h2 id="Master-Theorom"><a href="#Master-Theorom" class="headerlink" title="Master Theorom"></a>Master Theorom</h2><p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-14-28-09.png" alt></p>
-<p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-14-29-17.png" alt></p>
-<h2 id="Sum-elements-of-a-linked-list"><a href="#Sum-elements-of-a-linked-list" class="headerlink" title="Sum elements of a linked list"></a>Sum elements of a linked list</h2><p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-14-33-18.png" alt></p>
-<p>the k=1, so it’s $O(n^{1+1})=O(n^2)$</p>
-<h2 id="Insertion-sort"><a href="#Insertion-sort" class="headerlink" title="Insertion sort"></a>Insertion sort</h2><p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-14-35-31.png" alt></p>
-<h2 id="Euclidean-algorithm"><a href="#Euclidean-algorithm" class="headerlink" title="Euclidean algorithm"></a>Euclidean algorithm</h2><p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-14-37-00.png" alt></p>
-<h2 id="Recursive-examples"><a href="#Recursive-examples" class="headerlink" title="Recursive examples"></a>Recursive examples</h2><p>Euclidean algorithm for $gcd(m,n) (N = m + n)$:</p>
-<p>Running time: $O(N)$</p>
-<p><strong>Take Notice</strong></p>
-<p>N is not the input <strong>size</strong>. Input size is $log(m) + log(n)$</p>
-<p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-14-41-22.png" alt></p>
-<p><img src="/2024/11/20/Math/Algorithmic-Analysis/N=m+n.png" alt></p>
-<h1 id="Faster-Euclidean"><a href="#Faster-Euclidean" class="headerlink" title="Faster Euclidean"></a>Faster Euclidean</h1><p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-14-53-33.png" alt></p>
-<p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-14-57-34.png" alt></p>
-<h2 id="pow"><a href="#pow" class="headerlink" title="pow"></a>pow</h2><p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-14-57-58.png" alt></p>
-<p><img src="/2024/11/20/Math/Algorithmic-Analysis/2024-11-20-14-58-13.png" alt></p>
+        <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1em1oYTEFf">bilibili merge sort</a></p>
+<p><img src="/2025/02/21/Algorithm/merge-sort/2025-02-21-14-29-47.png" alt></p>
+<p><img src="/2025/02/21/Algorithm/merge-sort/2025-02-21-14-32-08.png" alt></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to point out the mistakes and faults! </span>
@@ -1619,46 +1446,6 @@
 
 
 
-    
-        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    "HTML-CSS": {
-        preferredFont: "TeX",
-        availableFonts: ["STIX","TeX"],
-        linebreaks: { automatic:true },
-        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
-    },
-    tex2jax: {
-        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
-        processEscapes: true,
-        ignoreClass: "tex2jax_ignore|dno",
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-        equationNumbers: { autoNumber: "AMS" },
-        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
-        Macros: { href: "{}" }
-    },
-    messageStyle: "none"
-    });
-</script>
-<!-- 给MathJax元素添加has-jax class -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-<!-- 通过连接CDN加载MathJax的js代码 -->
-<script type="text/javascript" async
-        src="//cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<input type="hidden" id="MathJax-js"
-        value="//cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML">
-</input>
     
 
 

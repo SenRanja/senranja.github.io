@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>merge sort</title>
+      <link href="/2025/02/21/Algorithm/merge-sort/"/>
+      <url>/2025/02/21/Algorithm/merge-sort/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://www.bilibili.com/video/BV1em1oYTEFf">bilibili merge sort</a></p><p><img src="/2025/02/21/Algorithm/merge-sort/2025-02-21-14-29-47.png" alt></p><p><img src="/2025/02/21/Algorithm/merge-sort/2025-02-21-14-32-08.png" alt></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Algorithm </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Data Structures</title>
       <link href="/2025/02/21/Algorithm/Data-Structures/"/>
       <url>/2025/02/21/Algorithm/Data-Structures/</url>
@@ -1444,25 +1463,6 @@
     
     
     <entry>
-      <title>只能有root操作docker，普通用户无法操作dockers处理方法</title>
-      <link href="/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/"/>
-      <url>/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/</url>
-      
-        <content type="html"><![CDATA[<p>参考链接: <a href="https://www.cnblogs.com/-mrl/p/13836631.html">https://www.cnblogs.com/-mrl/p/13836631.html</a></p><p>看当前系统中的用户和组：</p><pre><code>1、用户列表文件：cat /etc/passwd2、用户组列表文件：cat /etc/group</code></pre><h1 id="创建docker组"><a href="#创建docker组" class="headerlink" title="创建docker组"></a>创建docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo groupadd dockergroupadd: group ‘docker‘ already exists</code></pre><h1 id="将当前用户加入docker组"><a href="#将当前用户加入docker组" class="headerlink" title="将当前用户加入docker组"></a>将当前用户加入docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo gpasswd -a $&#123;USER&#125; dockerAdding user xxx to group docker</code></pre><h1 id="重启docker服务"><a href="#重启docker服务" class="headerlink" title="重启docker服务"></a>重启docker服务</h1><pre><code>vagrant@ubuntu18:~$ sudo service docker restart</code></pre><h1 id="刷新docker组成员"><a href="#刷新docker组成员" class="headerlink" title="刷新docker组成员"></a>刷新docker组成员</h1><pre><code>vagrant@ubuntu18:~$ newgrp docker#再试试命令^_^vagrant@ubuntu18:~$ docker imagesREPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</code></pre><p>然后当前的shell退了重新开一个，这样你目前的用户就可以操作docker images 命令。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>chown cannot dereference</title>
       <link href="/2024/04/09/docker/mysql-chown-err/"/>
       <url>/2024/04/09/docker/mysql-chown-err/</url>
@@ -1487,6 +1487,25 @@
       <url>/2024/04/09/docker/mysql-docker/</url>
       
         <content type="html"><![CDATA[<p>mysql的docker：<a href="https://registry.hub.docker.com/_/mysql">https://registry.hub.docker.com/_/mysql</a></p><p>我的文件名称是docker-compose-basic.yml,MySQL数据挂载到宿主机/root/basic/mysql下</p><p>数据库一般需要将数据挂载到宿主机上,以免容器损坏导致数据丢失</p><pre><code>version: &#39;3&#39;services:#mysqlmysql:    image: mysql:5.6    container_name: mysql    environment:    - MYSQL_ROOT_PASSWORD=1qaz@WSX    - TZ=Asia/Shanghai    - SET_CONTAINER_TIMEZONE=true    - CONTAINER_TIMEZONE=Asia/Shanghai    volumes:    - ./mysql/conf:/etc/mysql/conf.d    - ./mysql/conf:/etc/mysql/mysql.conf.d    - ./mysql/data:/var/lib/mysql    - ./mysql/logs:/var/log/mysql    - /etc/localtime:/etc/localtime:ro    ports:    - 13306:3306    restart: always</code></pre><p>关于修改配置文件my.cnf(类似于my.ini)这种文件，上面已经指向了/etc/mysql/mysql.conf.d和/etc/mysql/conf.d两处配置文件的目录，但是完全可以在上面的挂载目录下新建my.cnf。因为我们的cnf文件也是配置文件。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>只能有root操作docker，普通用户无法操作dockers处理方法</title>
+      <link href="/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/"/>
+      <url>/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/</url>
+      
+        <content type="html"><![CDATA[<p>参考链接: <a href="https://www.cnblogs.com/-mrl/p/13836631.html">https://www.cnblogs.com/-mrl/p/13836631.html</a></p><p>看当前系统中的用户和组：</p><pre><code>1、用户列表文件：cat /etc/passwd2、用户组列表文件：cat /etc/group</code></pre><h1 id="创建docker组"><a href="#创建docker组" class="headerlink" title="创建docker组"></a>创建docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo groupadd dockergroupadd: group ‘docker‘ already exists</code></pre><h1 id="将当前用户加入docker组"><a href="#将当前用户加入docker组" class="headerlink" title="将当前用户加入docker组"></a>将当前用户加入docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo gpasswd -a $&#123;USER&#125; dockerAdding user xxx to group docker</code></pre><h1 id="重启docker服务"><a href="#重启docker服务" class="headerlink" title="重启docker服务"></a>重启docker服务</h1><pre><code>vagrant@ubuntu18:~$ sudo service docker restart</code></pre><h1 id="刷新docker组成员"><a href="#刷新docker组成员" class="headerlink" title="刷新docker组成员"></a>刷新docker组成员</h1><pre><code>vagrant@ubuntu18:~$ newgrp docker#再试试命令^_^vagrant@ubuntu18:~$ docker imagesREPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</code></pre><p>然后当前的shell退了重新开一个，这样你目前的用户就可以操作docker images 命令。</p>]]></content>
       
       
       <categories>
@@ -1691,11 +1710,11 @@
     
     
     <entry>
-      <title>push existed local repo</title>
-      <link href="/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/"/>
-      <url>/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/</url>
+      <title>新建某分支并推送、合并分支</title>
+      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
+      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</url>
       
-        <content type="html"><![CDATA[<h1 id="现有仓库提交到github"><a href="#现有仓库提交到github" class="headerlink" title="现有仓库提交到github"></a>现有仓库提交到github</h1><h3 id="纯新建项目push"><a href="#纯新建项目push" class="headerlink" title="纯新建项目push"></a>纯新建项目push</h3><pre><code class="lang-shell">echo &quot;# licenseGenerator&quot; &gt;&gt; README.mdgit initgit add README.mdgit commit -m &quot;first commit&quot;git branch -M mastergit remote add origin https://github.com/SenRanja/licenseGenerator.gitgit push -u origin master</code></pre><h3 id="push已存在项目"><a href="#push已存在项目" class="headerlink" title="push已存在项目"></a>push已存在项目</h3><p>先做的：如果你手贱，github创建项目的时候，新建了什么license、readme有的没的的东西，本地push之前，得先git pull 一下：</p><pre><code>git pull github master --allow-unrelated-histories</code></pre><p>（git pull 远程名字 远程分支， 后面的 –allow-unreleated-histories ，比如你手贱新建了license，你git pull 的时候会拒绝，因为github新建项目弄的license有第一次的commit，和你本地历史对不上merge默认不允许，所以你得手动指定）</p><p>比如，如果本地gitea已经有项目了，应该是推送此处。<br>比如，我的evo系统，在本地已经推送gitea，默认的远程地址名字 origin 必须重命名。</p><pre><code>git remote add origin https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（git branch -M 命令用于重命名当前分支。具体来说，-M 选项告诉 Git 强制重命名分支，即使新的分支名与已存在的分支名冲突也会强制执行。这个命令的常见用途是将当前分支重命名为一个新的分支名。）</p><pre><code>git push -u origin master</code></pre><p>更改origin的远程名字的命令如下：</p><pre><code>git remote add github https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（强行将现在所在分支，重命名为 master 分支）</p><pre><code>git push -u github master</code></pre><p>（将本地的master分支代码提交到 github 的远程链接上）</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="新建某分支并推送至某分支：以考试系统es为例版本管理"><a href="#新建某分支并推送至某分支：以考试系统es为例版本管理" class="headerlink" title="新建某分支并推送至某分支：以考试系统es为例版本管理"></a>新建某分支并推送至某分支：以考试系统es为例版本管理</h1><p>新建新分支并推送至新分支之前，需要检查当前分值是否还有未提交的状态</p><p><code>git status</code> # 可以检查是否有新文件未被track</p><p><code>git remote -v</code> # 查看远程分值，一般如下，同一个地址具有拿下或push的权限</p><pre><code>origin  http://shenyanjian.cn:3000/senranja/exam_system.git (fetch)origin  http://shenyanjian.cn:3000/senranja/exam_system.git (push)</code></pre><p><code>git fetch</code> # 拿下仓库最新分值信息。<code>git pull==git fetch + git merge</code>，git fetch是安全的、不会合并的命令</p><p><code>git branch -r</code> # 查看全部的远程分支，通常显示如下：（若远程分支只有main）</p><pre><code>  origin/HEAD -&gt; origin/main  origin/main</code></pre><p><code>git checkout -b V0.0.2</code> # 以当前分支为副本创建V0.0.2</p><p><code>git checkout V0.0.2</code> # 切换到分值V0.0.2</p><p>（现在在此处放一些部署文档、版本交付说明）</p><pre><code class="lang-shell">git add .git commit -m &quot;V0.0.2&quot;git push</code></pre><pre><code>fatal: The current branch V0.0.2 has no upstream branch.To push the current branch and set the remote as upstream, use    git push --set-upstream origin V0.0.2</code></pre><p>如上报错，意思是远程分值还没有V0.0.2，需要手动设置下</p><pre><code>git push --set-upstream origin V0.0.2</code></pre><p>完成</p><p>切换回主分支：</p><pre><code>git checkout main</code></pre><h1 id="本地合并其他分支到本分支，再推送"><a href="#本地合并其他分支到本分支，再推送" class="headerlink" title="本地合并其他分支到本分支，再推送"></a>本地合并其他分支到本分支，再推送</h1><p>要将本地的 dev 分支合并到 main 分支，你可以按照以下步骤进行操作：</p><p>确保你当前位于 main 分支上。你可以通过以下命令来确保：</p><pre><code>git checkout main</code></pre><p>然后，执行 git pull 命令来确保你的 main 分支是最新的：</p><pre><code>git pull origin main</code></pre><p>接着，执行 git merge 命令来合并 dev 分支到 main 分支：</p><pre><code>git merge dev</code></pre><p>如果有冲突，在合并过程中会停下来，需要你解决这些冲突。解决完冲突后，你需要执行 <code>git add</code>命令来标记冲突已解决的文件，然后执行 <code>git merge --continue</code> 来继续合并过程。</p><p>最后，当合并完成，你可以将合并后的 main 分支推送到远程仓库：</p><pre><code>git push origin main</code></pre><p>通过这些步骤，你就可以将本地的 dev 分支成功合并到 main 分支，并将更新推送到远程仓库。</p>]]></content>
       
       
       <categories>
@@ -1710,11 +1729,11 @@
     
     
     <entry>
-      <title>新建某分支并推送、合并分支</title>
-      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
-      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</url>
+      <title>push existed local repo</title>
+      <link href="/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/"/>
+      <url>/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/</url>
       
-        <content type="html"><![CDATA[<h1 id="新建某分支并推送至某分支：以考试系统es为例版本管理"><a href="#新建某分支并推送至某分支：以考试系统es为例版本管理" class="headerlink" title="新建某分支并推送至某分支：以考试系统es为例版本管理"></a>新建某分支并推送至某分支：以考试系统es为例版本管理</h1><p>新建新分支并推送至新分支之前，需要检查当前分值是否还有未提交的状态</p><p><code>git status</code> # 可以检查是否有新文件未被track</p><p><code>git remote -v</code> # 查看远程分值，一般如下，同一个地址具有拿下或push的权限</p><pre><code>origin  http://shenyanjian.cn:3000/senranja/exam_system.git (fetch)origin  http://shenyanjian.cn:3000/senranja/exam_system.git (push)</code></pre><p><code>git fetch</code> # 拿下仓库最新分值信息。<code>git pull==git fetch + git merge</code>，git fetch是安全的、不会合并的命令</p><p><code>git branch -r</code> # 查看全部的远程分支，通常显示如下：（若远程分支只有main）</p><pre><code>  origin/HEAD -&gt; origin/main  origin/main</code></pre><p><code>git checkout -b V0.0.2</code> # 以当前分支为副本创建V0.0.2</p><p><code>git checkout V0.0.2</code> # 切换到分值V0.0.2</p><p>（现在在此处放一些部署文档、版本交付说明）</p><pre><code class="lang-shell">git add .git commit -m &quot;V0.0.2&quot;git push</code></pre><pre><code>fatal: The current branch V0.0.2 has no upstream branch.To push the current branch and set the remote as upstream, use    git push --set-upstream origin V0.0.2</code></pre><p>如上报错，意思是远程分值还没有V0.0.2，需要手动设置下</p><pre><code>git push --set-upstream origin V0.0.2</code></pre><p>完成</p><p>切换回主分支：</p><pre><code>git checkout main</code></pre><h1 id="本地合并其他分支到本分支，再推送"><a href="#本地合并其他分支到本分支，再推送" class="headerlink" title="本地合并其他分支到本分支，再推送"></a>本地合并其他分支到本分支，再推送</h1><p>要将本地的 dev 分支合并到 main 分支，你可以按照以下步骤进行操作：</p><p>确保你当前位于 main 分支上。你可以通过以下命令来确保：</p><pre><code>git checkout main</code></pre><p>然后，执行 git pull 命令来确保你的 main 分支是最新的：</p><pre><code>git pull origin main</code></pre><p>接着，执行 git merge 命令来合并 dev 分支到 main 分支：</p><pre><code>git merge dev</code></pre><p>如果有冲突，在合并过程中会停下来，需要你解决这些冲突。解决完冲突后，你需要执行 <code>git add</code>命令来标记冲突已解决的文件，然后执行 <code>git merge --continue</code> 来继续合并过程。</p><p>最后，当合并完成，你可以将合并后的 main 分支推送到远程仓库：</p><pre><code>git push origin main</code></pre><p>通过这些步骤，你就可以将本地的 dev 分支成功合并到 main 分支，并将更新推送到远程仓库。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="现有仓库提交到github"><a href="#现有仓库提交到github" class="headerlink" title="现有仓库提交到github"></a>现有仓库提交到github</h1><h3 id="纯新建项目push"><a href="#纯新建项目push" class="headerlink" title="纯新建项目push"></a>纯新建项目push</h3><pre><code class="lang-shell">echo &quot;# licenseGenerator&quot; &gt;&gt; README.mdgit initgit add README.mdgit commit -m &quot;first commit&quot;git branch -M mastergit remote add origin https://github.com/SenRanja/licenseGenerator.gitgit push -u origin master</code></pre><h3 id="push已存在项目"><a href="#push已存在项目" class="headerlink" title="push已存在项目"></a>push已存在项目</h3><p>先做的：如果你手贱，github创建项目的时候，新建了什么license、readme有的没的的东西，本地push之前，得先git pull 一下：</p><pre><code>git pull github master --allow-unrelated-histories</code></pre><p>（git pull 远程名字 远程分支， 后面的 –allow-unreleated-histories ，比如你手贱新建了license，你git pull 的时候会拒绝，因为github新建项目弄的license有第一次的commit，和你本地历史对不上merge默认不允许，所以你得手动指定）</p><p>比如，如果本地gitea已经有项目了，应该是推送此处。<br>比如，我的evo系统，在本地已经推送gitea，默认的远程地址名字 origin 必须重命名。</p><pre><code>git remote add origin https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（git branch -M 命令用于重命名当前分支。具体来说，-M 选项告诉 Git 强制重命名分支，即使新的分支名与已存在的分支名冲突也会强制执行。这个命令的常见用途是将当前分支重命名为一个新的分支名。）</p><pre><code>git push -u origin master</code></pre><p>更改origin的远程名字的命令如下：</p><pre><code>git remote add github https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（强行将现在所在分支，重命名为 master 分支）</p><pre><code>git push -u github master</code></pre><p>（将本地的master分支代码提交到 github 的远程链接上）</p>]]></content>
       
       
       <categories>
@@ -1824,11 +1843,11 @@
     
     
     <entry>
-      <title>gost</title>
-      <link href="/2024/04/08/Linux-Maintain/gost/"/>
-      <url>/2024/04/08/Linux-Maintain/gost/</url>
+      <title>gitlab-ee的破解版返回500，501响应</title>
+      <link href="/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/"/>
+      <url>/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/</url>
       
-        <content type="html"><![CDATA[<p>项目参考<br><a href="https://github.com/ginuerzh/gost">https://github.com/ginuerzh/gost</a></p><h1 id="代理转发"><a href="#代理转发" class="headerlink" title="代理转发"></a>代理转发</h1><p>只要本地客户端执行-L，就可以转发http，https，socks等协议的转发，但是实测我无法https转发，会遇到证书的报错</p><h3 id="kcp协议：-udp封装的协议"><a href="#kcp协议：-udp封装的协议" class="headerlink" title="kcp协议： udp封装的协议"></a>kcp协议： udp封装的协议</h3><pre><code>server:gost -L kcp://gost:1qaz@WSX@45.77.115.252:52783client:gost -L=:6666 -F=kcp://gost:1qaz@WSX@45.77.115.252:52783</code></pre><h3 id="mwss协议：多媒体协议"><a href="#mwss协议：多媒体协议" class="headerlink" title="mwss协议：多媒体协议"></a>mwss协议：多媒体协议</h3><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723</code></pre><h1 id="curl挂代理检测socks代理"><a href="#curl挂代理检测socks代理" class="headerlink" title="curl挂代理检测socks代理"></a>curl挂代理检测socks代理</h1><p>curl -x socks5://127.0.0.1:1024 <a href="http://www.google.com">http://www.google.com</a> # -x 参数等同于 —proxy</p><p>访问ip.sb会直接显示当前你连接的ip</p><pre><code>curl -x socks5://127.0.0.1:6666 ip.sb</code></pre><h1 id="在racknerd的socks的vps搭建的坑点"><a href="#在racknerd的socks的vps搭建的坑点" class="headerlink" title="在racknerd的socks的vps搭建的坑点"></a>在racknerd的socks的vps搭建的坑点</h1><p>如果是AlmaLinux，则使用yum安装 net-tools 等软件<br>防火墙不同于ubuntu的ufw，使用firewalld</p><p>需要关闭firewalld：</p><pre><code>systemctl stop firewalldsystemctl disable firewalld</code></pre><p>在如下链接中找到解决方案：<br><a href="https://almalinux.discourse.group/t/no-match-for-argument-screen/790">https://almalinux.discourse.group/t/no-match-for-argument-screen/790</a></p><pre><code>dnf install epel-releasednf install screen</code></pre><p>然后再 screen -S gost开screen的shell，运行命令<br>mwss协议：</p><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753</code></pre><h1 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h1><p>参考帖子：<br><a href="https://github.com/ginuerzh/gost/issues/745">https://github.com/ginuerzh/gost/issues/745</a></p><p>假设A地址是公网vps，B是某内网服务器，C是客户端<br>B、C不能访问，C想访问B的5000端口的服务，需要以A为中继，gost部署如下：</p><p>A部署：</p><pre><code>gost -L socks5://:2345 (意思是，建立端口为2345的gost服务端。2345仅是服务端，用来gost访问搭桥的，不是让人类访问的)</code></pre><p>B部署：</p><pre><code>gost -L rtcp://:8080/:5000 -F socks5://10.80.5.244:2345 (意思是，将机器192.168.217.128端口5000绑定到机器10.80.5.244端口8080上。此处rtcp无所谓，gost支持的都行)</code></pre><p>C访问：</p><pre><code>访问 A:8080，就可以访问到B:5000 了。</code></pre><h3 id="案例：将gitea内网穿透"><a href="#案例：将gitea内网穿透" class="headerlink" title="案例：将gitea内网穿透"></a>案例：将gitea内网穿透</h3><p>服务端（192.227.167.113）：</p><pre><code>./gost -L socks5://:38441</code></pre><p>被穿透机器：</p><pre><code>gost -L rtcp://:3001/:3000 -F socks5://192.227.xxx.113:38441</code></pre><p>访问：<br><a href="http://192.227.167.113:3001/">http://192.227.167.113:3001/</a></p>]]></content>
+        <content type="html"><![CDATA[<p>鹏哥参考过的链接</p><pre><code>https://docs.gitlab.com/ee/install/docker.html#devshm-mount-not-having-enough-space-in-docker-containerhttps://blog.kelu.org/tech/2021/12/16/docker-shm.htmlhttps://blog.csdn.net/weixin_43545410/article/details/120963125</code></pre><h1 id="方法一：容器启动前修改"><a href="#方法一：容器启动前修改" class="headerlink" title="方法一：容器启动前修改"></a>方法一：容器启动前修改</h1><pre><code>docker run -it --shm-size=&quot;1g&quot; --name 001 busybox:latest /bin/sh</code></pre><h1 id="方法二：容器启动后修改"><a href="#方法二：容器启动后修改" class="headerlink" title="方法二：容器启动后修改"></a>方法二：容器启动后修改</h1><p>1.docker ps | grep containerName</p><p>2.获取完整 Id</p><pre><code>[root@linfs-bigdata containers]# docker inspect 641ae8c59c0d | grep Id    &quot;Id&quot;: &quot;641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269&quot;,</code></pre><p>3.修改 ShmSize，单位为 kb，默认大小为 64M，修改完后重启 docker 就生效了</p><pre><code>vim /var/lib/docker/containers/641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269/hostconfig.json</code></pre>]]></content>
       
       
       <categories>
@@ -1843,11 +1862,11 @@
     
     
     <entry>
-      <title>gitlab-ee的破解版返回500，501响应</title>
-      <link href="/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/"/>
-      <url>/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/</url>
+      <title>gost</title>
+      <link href="/2024/04/08/Linux-Maintain/gost/"/>
+      <url>/2024/04/08/Linux-Maintain/gost/</url>
       
-        <content type="html"><![CDATA[<p>鹏哥参考过的链接</p><pre><code>https://docs.gitlab.com/ee/install/docker.html#devshm-mount-not-having-enough-space-in-docker-containerhttps://blog.kelu.org/tech/2021/12/16/docker-shm.htmlhttps://blog.csdn.net/weixin_43545410/article/details/120963125</code></pre><h1 id="方法一：容器启动前修改"><a href="#方法一：容器启动前修改" class="headerlink" title="方法一：容器启动前修改"></a>方法一：容器启动前修改</h1><pre><code>docker run -it --shm-size=&quot;1g&quot; --name 001 busybox:latest /bin/sh</code></pre><h1 id="方法二：容器启动后修改"><a href="#方法二：容器启动后修改" class="headerlink" title="方法二：容器启动后修改"></a>方法二：容器启动后修改</h1><p>1.docker ps | grep containerName</p><p>2.获取完整 Id</p><pre><code>[root@linfs-bigdata containers]# docker inspect 641ae8c59c0d | grep Id    &quot;Id&quot;: &quot;641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269&quot;,</code></pre><p>3.修改 ShmSize，单位为 kb，默认大小为 64M，修改完后重启 docker 就生效了</p><pre><code>vim /var/lib/docker/containers/641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269/hostconfig.json</code></pre>]]></content>
+        <content type="html"><![CDATA[<p>项目参考<br><a href="https://github.com/ginuerzh/gost">https://github.com/ginuerzh/gost</a></p><h1 id="代理转发"><a href="#代理转发" class="headerlink" title="代理转发"></a>代理转发</h1><p>只要本地客户端执行-L，就可以转发http，https，socks等协议的转发，但是实测我无法https转发，会遇到证书的报错</p><h3 id="kcp协议：-udp封装的协议"><a href="#kcp协议：-udp封装的协议" class="headerlink" title="kcp协议： udp封装的协议"></a>kcp协议： udp封装的协议</h3><pre><code>server:gost -L kcp://gost:1qaz@WSX@45.77.115.252:52783client:gost -L=:6666 -F=kcp://gost:1qaz@WSX@45.77.115.252:52783</code></pre><h3 id="mwss协议：多媒体协议"><a href="#mwss协议：多媒体协议" class="headerlink" title="mwss协议：多媒体协议"></a>mwss协议：多媒体协议</h3><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723</code></pre><h1 id="curl挂代理检测socks代理"><a href="#curl挂代理检测socks代理" class="headerlink" title="curl挂代理检测socks代理"></a>curl挂代理检测socks代理</h1><p>curl -x socks5://127.0.0.1:1024 <a href="http://www.google.com">http://www.google.com</a> # -x 参数等同于 —proxy</p><p>访问ip.sb会直接显示当前你连接的ip</p><pre><code>curl -x socks5://127.0.0.1:6666 ip.sb</code></pre><h1 id="在racknerd的socks的vps搭建的坑点"><a href="#在racknerd的socks的vps搭建的坑点" class="headerlink" title="在racknerd的socks的vps搭建的坑点"></a>在racknerd的socks的vps搭建的坑点</h1><p>如果是AlmaLinux，则使用yum安装 net-tools 等软件<br>防火墙不同于ubuntu的ufw，使用firewalld</p><p>需要关闭firewalld：</p><pre><code>systemctl stop firewalldsystemctl disable firewalld</code></pre><p>在如下链接中找到解决方案：<br><a href="https://almalinux.discourse.group/t/no-match-for-argument-screen/790">https://almalinux.discourse.group/t/no-match-for-argument-screen/790</a></p><pre><code>dnf install epel-releasednf install screen</code></pre><p>然后再 screen -S gost开screen的shell，运行命令<br>mwss协议：</p><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753</code></pre><h1 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h1><p>参考帖子：<br><a href="https://github.com/ginuerzh/gost/issues/745">https://github.com/ginuerzh/gost/issues/745</a></p><p>假设A地址是公网vps，B是某内网服务器，C是客户端<br>B、C不能访问，C想访问B的5000端口的服务，需要以A为中继，gost部署如下：</p><p>A部署：</p><pre><code>gost -L socks5://:2345 (意思是，建立端口为2345的gost服务端。2345仅是服务端，用来gost访问搭桥的，不是让人类访问的)</code></pre><p>B部署：</p><pre><code>gost -L rtcp://:8080/:5000 -F socks5://10.80.5.244:2345 (意思是，将机器192.168.217.128端口5000绑定到机器10.80.5.244端口8080上。此处rtcp无所谓，gost支持的都行)</code></pre><p>C访问：</p><pre><code>访问 A:8080，就可以访问到B:5000 了。</code></pre><h3 id="案例：将gitea内网穿透"><a href="#案例：将gitea内网穿透" class="headerlink" title="案例：将gitea内网穿透"></a>案例：将gitea内网穿透</h3><p>服务端（192.227.167.113）：</p><pre><code>./gost -L socks5://:38441</code></pre><p>被穿透机器：</p><pre><code>gost -L rtcp://:3001/:3000 -F socks5://192.227.xxx.113:38441</code></pre><p>访问：<br><a href="http://192.227.167.113:3001/">http://192.227.167.113:3001/</a></p>]]></content>
       
       
       <categories>
