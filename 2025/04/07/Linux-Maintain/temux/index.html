@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>感悟 | SenRanJa</title>
+  <title>temux | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="感悟 | SenRanJa">
+  <meta name="description" content="temux | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="今天刚写完yolo大模型训练，鹏哥看了我文章后指出，我用的screen没有目前流行的tumux好用，遂研究了下tmux，简单记录一些使用命令。 sudo apt install tmux tmux和screen一样，默认可以让session作为daemon（即后台进程）运行。不论你是不是关闭了当前SSH session，后台进程一直在运行的，不会自动kill。 不带参数，tmux会自己创建一个新的">
 <meta property="og:type" content="article">
@@ -1378,9 +1378,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-trivia/Insights" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Linux-Maintain/temux" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">感悟</h1>
+        <h1 class="article-title">temux</h1>
     
     <div class="article-meta">
         
@@ -1390,7 +1390,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="trivia">trivia</a>
+            <a  data-rel="Linux-Maintain">Linux-Maintain</a>
             
         </span>
         
@@ -1398,12 +1398,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2025-01-15 17:21:21'>2024-11-03 15:56</time>
+            Created At : <time class="date" title='Updated At: 2025-04-07 20:36:38'>2025-04-07 20:15</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:382</span>
+        <span>Count:251</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1449,7 +1449,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>来海外留学，已是开工没有回头箭：不得不发，继而开弓没回头箭，自我形成一个没有底洞的PUA深渊。虽然近似倾我毕生全力以赴，认真程度甚于我国。学海无边，书囊无底。人蠢，就多努力；人冒失，就多踩坑多总结经验；缺什么资源，自己动手段去争取；比人弱，就多向人家学习；怕糊涂，就多睡觉保证脑袋清醒；想获得什么东西或本领，就去争去想去抢去做。宁愿选择咬牙切齿的让自己投入，也比连续几天苦大仇深怨天尤人要好得多;宁愿被别人说尖锐沉默好强，也比被别人当成真正的煞笔无趣的忽视要强的多。既然有了上台的机会，就没必要诉苦或抱怨资源，天赋，机会，运气不如谁谁，也没必要埋怨遇到什么杂七杂八的挫折。别人嘲讽，讥笑，赞扬，和我没有任何关系，眼中只有尊重自己，挑战自己，取悦自己，拾掇拾掇这狼狈的样子继续出发，继续前进。犯的错，丢的分，失去的东西，经历的事故，失去了就失去了，再花点时间和功夫骂自己，多指摘，我自己的各种愚蠢，自大，和心态爆炸。愿下次再遇到乱七八糟的事故，挫折，再多多心态平和的指摘自己。</p>
+        <p>今天刚写完yolo大模型训练，鹏哥看了我文章后指出，我用的screen没有目前流行的tumux好用，遂研究了下tmux，简单记录一些使用命令。</p>
+<pre><code>sudo apt install tmux
+</code></pre><p>tmux和screen一样，默认可以让session作为daemon（即后台进程）运行。不论你是不是关闭了当前SSH session，后台进程一直在运行的，不会自动kill。</p>
+<p>不带参数，tmux会自己创建一个新的session，自己切进去: tmux</p>
+<p>指定tmux session名字创建：tmux new -s <session num or name></session></p>
+<p>左右分屏：ctrl+b 再按 %</p>
+<p>上下分屏：ctrl+b 再按 “</p>
+<p>切换哪个窗口块：ctrl+b 再按方向键</p>
+<p>开启新的window（同tmux session）: ctrl + b 再按c</p>
+<p>切换window（同tmux session）: ctrl + b 再按 数字键</p>
+<p>关闭tmux (tmux session还活着): ctrl+b d (d is detach)</p>
+<p>列出tmux session: tmux ls</p>
+<p>回到tmux session: tmux a -t <session num or name></session></p>
+<p>删除tmux session: tmux kill-session -t <session num or name></session></p>
+<p>tmux配置文件：</p>
+<p>用户目录下：</p>
+<pre><code>touch .tmux.conf
+</code></pre><pre><code>set -g mouse on
+</code></pre><p>以上支持tmux使用鼠标操作</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to point out the mistakes and faults! </span>
