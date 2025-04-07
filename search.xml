@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>vastai remotely yolo</title>
+      <link href="/2025/04/07/Python/vastai-remotely-yolo/"/>
+      <url>/2025/04/07/Python/vastai-remotely-yolo/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#背景">背景</a></li><li><a href="#放弃国内算力平台">放弃国内算力平台</a></li><li><a href="#选择国外算力平台vastai">选择国外算力平台vastai</a><ul><li><a href="#注册账号">注册账号</a></li><li><a href="#选购gpu">选购GPU</a></li><li><a href="#通过jupyterlab连接实例">通过JupyterLab连接实例</a></li></ul></li><li><a href="#开始训练">开始训练</a><ul><li><a href="#摆好yolo的训练姿势">摆好yolo的训练姿势</a><ul><li><a href="#datayaml">data.yaml</a></li><li><a href="#train_yolopy">train_yolo.py</a></li></ul></li><li><a href="#使用screen让训练后台运行">使用screen让训练后台运行</a></li></ul></li></ul><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>本文记录租用云平台算力进行训练，减轻本机使用显卡的load。由于笔记本本身显卡能耗受限、散热不佳、显存受限等问题，我个人建议尽量避免笔记本overload。</p><p>关于如何使用云平台进行训练，需要具备cuda、Linux、yolo的一些知识。</p><p>此处以vastai平台使用yolov8训练模型为例。</p><h1 id="放弃国内算力平台"><a href="#放弃国内算力平台" class="headerlink" title="放弃国内算力平台"></a>放弃国内算力平台</h1><p>此时我在国外，最开始选择了国内算力平台“智星云”（<a href="https://gpu.ai-galaxy.cn/），但是很快发现一些网络问题。服务器并非具备独立IP，只是VPS向外映射SSH或RDP端口做了内网穿透，不知是否是GFW问题导致网络非常卡顿、RDP断断续续问题。因为无法解决比较快速的上传训练文件（2.5GB）左右，且其下载国外服务器文件速度过慢，遂放弃。">https://gpu.ai-galaxy.cn/），但是很快发现一些网络问题。服务器并非具备独立IP，只是VPS向外映射SSH或RDP端口做了内网穿透，不知是否是GFW问题导致网络非常卡顿、RDP断断续续问题。因为无法解决比较快速的上传训练文件（2.5GB）左右，且其下载国外服务器文件速度过慢，遂放弃。</a></p><h1 id="选择国外算力平台vastai"><a href="#选择国外算力平台vastai" class="headerlink" title="选择国外算力平台vastai"></a>选择国外算力平台vastai</h1><p>此处以vastai为例 <a href="https://cloud.vast.ai/">https://cloud.vast.ai/</a></p><h2 id="注册账号"><a href="#注册账号" class="headerlink" title="注册账号"></a>注册账号</h2><p>使用Google账号就可以登陆网站</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-09-29.png" alt></p><p>需要将右侧的四个要求解决才可以完成租赁。</p><p>验证邮箱</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-09-49.png" alt></p><p>选择template，此处选择现成的pytorch。点击torch下面那个小播放键 就选择了。</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-10-26.png" alt></p><p>把磁盘拉到50GB及以上，磁盘太小一般很容易出现杂七杂八的问题，因此disk不要小的太极限。</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-10-41.png" alt></p><p>充钱，略。</p><h2 id="选购GPU"><a href="#选购GPU" class="headerlink" title="选购GPU"></a>选购GPU</h2><p>最后选择具体的GPU rent.</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-11-10.png" alt></p><p>此处<strong>注意</strong>，<strong>很多GPU实例其实运行不起来</strong>。该平台本质是创建GPU直连的docker容器，注意检查日志是否有报错，有报错的实例直接删除就可以了。</p><p>只能过滤出来自己希望使用的显卡，然后一个一个试（不用担心试太多容器会花钱，他这没跑起来的容器不花钱），知道观察到这个按钮是<strong>Connecting</strong>, <strong>Open</strong>说明这个实例可以用起来。</p><p>如下，RTX5090,显存32GB：</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-11-46.png" alt></p><p>如图所示，确实可以运行：</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-11-57.png" alt></p><h2 id="通过JupyterLab连接实例"><a href="#通过JupyterLab连接实例" class="headerlink" title="通过JupyterLab连接实例"></a>通过JupyterLab连接实例</h2><p>点自己实例的Open按钮（此处我没有试成功直接的SSH连接）</p><p>Open后跳转的页面的这两个Application可以完成的文件上传下载、修改代码、执行shell。</p><p>我习惯点<strong>Jupyter Terminal</strong> 然后点开 <strong>Jupyter Lab</strong>.</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-12-28.png" alt></p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-12-34.png" alt></p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-12-43.png" alt></p><p>此处可以轻易的通过拖拽来文件IO（速度很快），也可以通过terminal运行shell。上传下载文件的时间你大概出去吃一顿饭。比如这24GB的文件费了大概半个小时。</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-13-08.png" alt></p><p>有能调用CUDA的torch</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-13-31.png" alt></p><p>可以看到RTX4090的24G的显存，满功耗450W（我这里用另一个实例跑yolo任务）</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-13-55.png" alt></p><h1 id="开始训练"><a href="#开始训练" class="headerlink" title="开始训练"></a>开始训练</h1><p>pip缺什么库自己补全：如<code>pip install ultralytics</code></p><h2 id="摆好yolo的训练姿势"><a href="#摆好yolo的训练姿势" class="headerlink" title="摆好yolo的训练姿势"></a>摆好yolo的训练姿势</h2><p>图片、label依次放入如下目录：</p><pre><code>/workspace/xraytolishun/OPIXray/test/images/workspace/xraytolishun/OPIXray/test/labels/workspace/xraytolishun/OPIXray/train/images/workspace/xraytolishun/OPIXray/train/labels</code></pre><h3 id="data-yaml"><a href="#data-yaml" class="headerlink" title="data.yaml"></a>data.yaml</h3><pre><code># 图片路径train: /workspace/xraytolishun/OPIXray/trainval: /workspace/xraytolishun/OPIXray/test# 类别信息nc: 5names: [&quot;Folding_Knife&quot;, &quot;Straight_Knife&quot;, &quot;Scissor&quot;, &quot;Utility_Knife&quot;, &quot;Multi-tool_Knife&quot;]</code></pre><h3 id="train-yolo-py"><a href="#train-yolo-py" class="headerlink" title="train_yolo.py"></a>train_yolo.py</h3><pre><code>from ultralytics import YOLOimport argparseimport randomimport numpy as npimport torchimport osimport yamldef main():    parser = argparse.ArgumentParser()    parser.add_argument(&#39;--data&#39;, type=str, default=&#39;data.yaml&#39;, help=&#39;数据配置文件&#39;)    parser.add_argument(&#39;--epochs&#39;, type=int, default=200, help=&#39;训练轮次&#39;) # 改成200    parser.add_argument(&#39;--patience&#39;, type=int, default=50, help=&#39;早停耐心值&#39;)    parser.add_argument(&#39;--batch&#39;, type=int, default=16, help=&#39;批量大小&#39;) # -1改16    parser.add_argument(&#39;--imgsz&#39;, type=int, default=640, help=&#39;图像大小&#39;)    parser.add_argument(&#39;--weights&#39;, type=str, default=&#39;yolov8m.pt&#39;, help=&#39;预训练权重&#39;)    parser.add_argument(&#39;--device&#39;, type=str, default=&#39;0&#39;, help=&#39;训练设备，例如cuda设备索引&#39;)    parser.add_argument(&#39;--name&#39;, type=str, default=&#39;train&#39;, help=&#39;训练结果的保存名称&#39;)    args = parser.parse_args()    # 设置随机种子以提高实验可重复性    seed = 42    random.seed(seed)    np.random.seed(seed)    torch.manual_seed(seed)    torch.cuda.manual_seed(seed)    # 加载模型    model = YOLO(args.weights)    # 创建一个临时的数据配置文件，添加类别权重    # 从原始数据配置文件读取内容，指定UTF-8编码    try:        with open(args.data, &#39;r&#39;, encoding=&#39;utf-8&#39;) as f:            data_config = yaml.safe_load(f)    except UnicodeDecodeError:        # 如果UTF-8失败，尝试其他编码        with open(args.data, &#39;r&#39;, encoding=&#39;latin-1&#39;) as f:            data_config = yaml.safe_load(f)    # 添加类别权重 - 为直刀类别(索引1)设置2倍权重    nc = data_config.get(&#39;nc&#39;, 0)    if nc &gt;= 2:  # 确保有足够的类别        class_weights = [1.0] * nc        class_weights[1] = 2.0  # 将直刀类别(索引1)的权重设为2.0        data_config[&#39;class_weights&#39;] = class_weights    # 保存临时数据配置文件    temp_data_file = f&quot;temp_&#123;args.name&#125;_data.yaml&quot;    with open(temp_data_file, &#39;w&#39;, encoding=&#39;utf-8&#39;) as f:        yaml.dump(data_config, f)    # 自定义训练配置，减少内存占用    results = model.train(        data=temp_data_file,  # 使用带有类别权重的临时数据文件        epochs=args.epochs,        patience=args.patience,        batch=args.batch,        imgsz=args.imgsz,        device=args.device,        name=args.name,        seed=seed,        resume=False,        # 调整数据增强参数 - 降低内存使用        hsv_h=0.1,        hsv_s=0.7,        hsv_v=0.4,        degrees=20.0,        translate=0.2,        scale=0.5,        fliplr=0.5,        mosaic=1.0,  # 保持马赛克增强        mixup=0.3,  # 降低mixup概率，减少内存使用        copy_paste=0.0,  # 禁用copy-paste，减少内存使用        # 优化器和学习率设置        lr0=0.001,  # 略微提高初始学习率        lrf=0.01,  # 调整最终学习率因子        warmup_epochs=3,  # 减少预热轮次        warmup_momentum=0.8,        warmup_bias_lr=0.1,        # 损失权重调整 - 增强对直刀类别的关注        box=7.5,        cls=0.7,  # 略微增加分类损失权重        dfl=1.5,        # 其他原始参数        close_mosaic=10,  # 最后10个epoch关闭mosaic，提高稳定性        fraction=1.0,        cache=False,        optimizer=&#39;auto&#39;,        weight_decay=0.001,        val=True    )    # 删除临时数据文件    if os.path.exists(temp_data_file):        os.remove(temp_data_file)    # 验证训练好的模型    best_weights_path = f&#39;runs/detect/&#123;args.name&#125;/weights/best.pt&#39;    # 确保目录存在    os.makedirs(os.path.dirname(best_weights_path), exist_ok=True)    if os.path.exists(best_weights_path):        print(f&quot;使用最佳权重 &#123;best_weights_path&#125; 进行验证&quot;)        trained_model = YOLO(best_weights_path)        trained_model.val(data=args.data)    else:        print(f&quot;警告: 找不到最佳权重文件 &#123;best_weights_path&#125;&quot;)    print(&quot;训练过程完成。&quot;)if __name__ == &quot;__main__&quot;:    main()(main)</code></pre><h2 id="使用screen让训练后台运行"><a href="#使用screen让训练后台运行" class="headerlink" title="使用screen让训练后台运行"></a>使用screen让训练后台运行</h2><p>如果你知道SSH会话一断，相关的子进程都不会运行。</p><p>此处我们需要后台训练，因为时间耗费比较长，我们也可能关掉基于WEB的SSH会话。</p><pre><code>apt install screen</code></pre><p>创建yolo会话</p><pre><code>screen -S yolo</code></pre><p>现在就进入yolo的screen了。</p><p>将标准输出、错误输出，定向到》./log 文件，方便我们未来查看当前yolo运行到什么程度了：</p><pre><code>python train.py &gt; ./log.txt 2&gt;&amp;1</code></pre><p>完成后 <strong>ctrl+A + D (顺序按下)</strong>退出当前screen。</p><p>如果想切回之前的yolo的screen会话：</p><p>screen -ls 查看screen的后台会话</p><pre><code>(main) root@C.19270554:/workspace$ screen -lsThere is a screen on:        1911.yolo       (04/07/25 07:49:53)     (Detached)1 Socket in /run/screen/S-root.</code></pre><p><code>Screen -r 1911.yolo</code> 切回输入命令的会话。</p><p>查看日志：（不需要进入screen会话），直接查看文件即可：tail命令可以查看这个日志</p><pre><code>tail -f ./log.txt</code></pre><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-17-03.png" alt></p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-17-13.png" alt></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Py </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>local yolo envir</title>
+      <link href="/2025/04/07/Python/local-yolo-envir/"/>
+      <url>/2025/04/07/Python/local-yolo-envir/</url>
+      
+        <content type="html"><![CDATA[<h1 id="创建python12解释器"><a href="#创建python12解释器" class="headerlink" title="创建python12解释器"></a>创建python12解释器</h1><pre><code>conda create -n py12 python=3.12</code></pre><p>根据提示将解释器目录从conda/envs/py12目录复制到COMP9517目录</p><h1 id="安装yolo依赖"><a href="#安装yolo依赖" class="headerlink" title="安装yolo依赖"></a>安装yolo依赖</h1><p>pyproject.toml 中存储有py项目依赖信息</p><p>C:\Users\amber\Desktop\COMP9517目录下cmd执行命令</p><pre><code>C:\Users\amber\Desktop\COMP9517\py12\python.exe -m pip install .</code></pre><h1 id="安装pytorch"><a href="#安装pytorch" class="headerlink" title="安装pytorch"></a>安装pytorch</h1><p>我们肯定选择GPU版本，否则训练图片若CPU，时间太长</p><p><a href="https://pytorch.org/">https://pytorch.org/</a></p><p>我们的cuda是12.4所以直接用pip方式弄</p><p><img src="/2025/04/07/Python/local-yolo-envir/2025-04-07-19-21-06.png" alt></p><p>执行命令</p><pre><code>C:\Users\amber\Desktop\COMP9517\py12\python.exe -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124</code></pre><p><img src="/2025/04/07/Python/local-yolo-envir/2025-04-07-19-21-22.png" alt></p><p>安装完后确认下torch是否调用显卡：完美</p><pre><code>&gt;&gt;&gt; import torch&gt;&gt;&gt; print(&quot;CUDA is available:&quot;, torch.cuda.is_available())CUDA is available: True</code></pre><p><img src="/2025/04/07/Python/local-yolo-envir/2025-04-07-19-21-36.png" alt></p><h1 id="安装cuda"><a href="#安装cuda" class="headerlink" title="安装cuda"></a>安装cuda</h1><p>nvidia control panel说我本机显卡版本12.5.85</p><p><img src="/2025/04/07/Python/local-yolo-envir/2025-04-07-19-21-56.png" alt></p><p>又因为pytorch官方说cuda 12.4比较合适</p><p><img src="/2025/04/07/Python/local-yolo-envir/2025-04-07-19-22-08.png" alt></p><p>所以安装cuda我要12.4</p><p>cuda12.4下载链接</p><p><a href="https://developer.nvidia.com/cuda-12-4-0-download-archive?target_os=Windows&amp;target_arch=x86_64&amp;target_version=11&amp;target_type=exe_local">https://developer.nvidia.com/cuda-12-4-0-download-archive?target_os=Windows&amp;target_arch=x86_64&amp;target_version=11&amp;target_type=exe_local</a></p><p>安装到 D:\cuda12\</p><p><img src="/2025/04/07/Python/local-yolo-envir/2025-04-07-19-22-33.png" alt></p><p>安装完毕</p><p>新打开一个cmd</p><p>执行命令</p><pre><code>nvidia-smiNVCC –version</code></pre><p>可以看到显卡可以正常被调用了</p><p>这里说cuda version是12.5,有点奇怪，因为我们安装的是12.4。如果之后安装pytorch不影响使用，这个小问题就忽略。</p><p><img src="/2025/04/07/Python/local-yolo-envir/2025-04-07-19-23-00.png" alt></p><p><img src="/2025/04/07/Python/local-yolo-envir/2025-04-07-19-23-06.png" alt></p><h1 id="使用yolo训练图片"><a href="#使用yolo训练图片" class="headerlink" title="使用yolo训练图片"></a>使用yolo训练图片</h1><p>首先确认，我们电脑只有一个显卡目前，device号是0</p><p><img src="/2025/04/07/Python/local-yolo-envir/2025-04-07-19-23-19.png" alt></p><p>yolo.exe的命令位置如下 C:\Users\amber\Desktop\COMP9517\py12\Scripts\yolo.exe</p><p>之后使用该命令直接绝对路径调用，直接把yolo命令写如bat文件</p><p><img src="/2025/04/07/Python/local-yolo-envir/2025-04-07-19-23-44.png" alt></p><p>然后cmd中运行这个bat命令</p><p><img src="/2025/04/07/Python/local-yolo-envir/2025-04-07-19-23-58.png" alt></p><h1 id="torch版本过高，换了一个低的"><a href="#torch版本过高，换了一个低的" class="headerlink" title="torch版本过高，换了一个低的"></a>torch版本过高，换了一个低的</h1><p>该死，失败</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Py </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>wk2-lec</title>
       <link href="/2025/02/26/COMP9101/wk2-lec/"/>
       <url>/2025/02/26/COMP9101/wk2-lec/</url>
@@ -1349,6 +1387,177 @@
     
     
     <entry>
+      <title>.gitignore</title>
+      <link href="/2024/04/09/git/gitignore/"/>
+      <url>/2024/04/09/git/gitignore/</url>
+      
+        <content type="html"><![CDATA[<p>官方文档：<code>https://github.com/github/gitignore</code></p><h3 id="我的-gitignore模板"><a href="#我的-gitignore模板" class="headerlink" title="我的.gitignore模板"></a>我的.gitignore模板</h3><pre><code># Logslogs*.lognpm-debug.log*yarn-debug.log*yarn-error.log*pnpm-debug.log*lerna-debug.log*node_modulesdistdist-ssr*.local# big files*.mp4backend/volume/media/documents/*!backend/volume/media/documents/.gitkeepbackend/volume/media/import_excel_upload/*!backend/volume/media/import_excel_upload/.gitkeepbackend/volume/media/videos/*!backend/volume/media/videos/.gitkeep# python**/__pycache__/**.pyc# 忽略pycharm**/.idea/# 忽略虚拟环境**/venv# Editor directories and files**/.vscode/*!.vscode/extensions.json.idea.DS_Store*.suo*.ntvs**.njsproj*.sln*.sw?</code></pre><h3 id="其他示例"><a href="#其他示例" class="headerlink" title="其他示例"></a>其他示例</h3><pre><code># 忽略所有 .a 结尾的文件a# 但lib.a 除外!lib.a# 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO/TODO# 忽略build/ 目录下的所有文件build/# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txtdoc/.txt</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>keep empty directory in git</title>
+      <link href="/2024/04/09/git/gitkeep/"/>
+      <url>/2024/04/09/git/gitkeep/</url>
+      
+        <content type="html"><![CDATA[<p>目录中新建空文件 <strong>.gitkeep</strong> 即可</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>远程获取所有分支</title>
+      <link href="/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/"/>
+      <url>/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/</url>
+      
+        <content type="html"><![CDATA[<pre><code>git clone xxxcd xxxgit branch -r | grep -v &#39;\-&gt;&#39; | while read remote; do git branch --track &quot;$&#123;remote#origin/&#125;&quot; &quot;$remote&quot;; donegit fetch --allgit pull --all(git pull –all在功能上包含git fetch --all)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>merge conflict</title>
+      <link href="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"/>
+      <url>/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</url>
+      
+        <content type="html"><![CDATA[<p>git push提示冲突</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-47-59.png" alt="2024-04-09-19-47-59"></p><p>会在源文件中看到标记的冲突的HEAD</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-48-22.png" alt="2024-04-09-19-48-22"></p><p>修改完在git add . 再commit push</p><p>如果没有实质差异，“current change”是你的修改的，那个commit id的是已存在的，按照已存在的来</p><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><pre><code>git stashgit commitgit stash pop</code></pre><p>接下来diff一下此文件看看自动合并的情况，并作出相应修改。</p><p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。</p><p>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。</p><p>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。</p><p>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>branch</title>
+      <link href="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"/>
+      <url>/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#查看分支">查看分支</a><ul><li><a href="#列出本地所有的分支">列出本地所有的分支</a></li><li><a href="#分支合并行为可视化">分支合并行为可视化</a></li><li><a href="#查看分支与远程的关联">查看分支与远程的关联</a></li><li><a href="#查看所有分支">查看所有分支</a></li></ul></li><li><a href="#切换分支">切换分支</a></li><li><a href="#detached-head-和-checkout-commit然后修改入新branch">Detached HEAD 和 checkout commit然后修改入新branch</a></li></ul><h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch </code></pre><p>查看分支详细信息，列出本地所有的分支, + hash 信息</p><pre><code>git branch -v</code></pre><h3 id="分支合并行为可视化"><a href="#分支合并行为可视化" class="headerlink" title="分支合并行为可视化"></a>分支合并行为可视化</h3><p>为了方便查看分支来源，比如大型项目通常会有多个分支以及分支合并的行为，单纯的使用终端查看分支来源、log并不直观。如果发生分支合并的异常行为，需要溯源，直观的观察git分支是必须的一个审计行为。</p><p>我看有推荐<code>github desktop</code>, <code>source tree</code>和<code>GitKraken</code>(收费)，但是之前上班的时候看师傅用的<strong>IDEA GIT分支图</strong>也有不错的效果，基本Jetbrain的所有IDE都有这个插件。点击菜单栏的<code>git</code>-&gt;<code>log</code>。</p><p><img src="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/pycharm_git_log.png" alt="pycharm_git_log"></p><h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p><code>git branch -vv</code> #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p><p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p><h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><h1 id="列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如"><a href="#列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如" class="headerlink" title="列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如"></a>列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</h1><pre><code>git branch -agit branch -a | grep xxx</code></pre><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code># `-b` means create a new branchgit checkout -b new-branch-namegit checkout &lt;commit-hash&gt;</code></pre><h1 id="Detached-HEAD-和-checkout-commit然后修改入新branch"><a href="#Detached-HEAD-和-checkout-commit然后修改入新branch" class="headerlink" title="Detached HEAD 和 checkout commit然后修改入新branch"></a>Detached HEAD 和 checkout commit然后修改入新branch</h1><p>In Git, a <strong>detached HEAD</strong> state occurs when you are working directly on <strong>a specific commit(not the lastest)</strong> rather than on <strong>the latest commit</strong> of a branch. This can happen when you <strong>checkout a commit, a tag, or a remote branch</strong> directly, without creating a new branch.</p><p><strong>HEAD</strong> is a <code>pointer</code> in Git that typically points to the latest commit on the current branch.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>delete something useless before gitignore</title>
+      <link href="/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/"/>
+      <url>/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="重写了gitignore但是想删除已提交但想忽略的内容"><a href="#重写了gitignore但是想删除已提交但想忽略的内容" class="headerlink" title="重写了gitignore但是想删除已提交但想忽略的内容"></a>重写了gitignore但是想删除已提交但想忽略的内容</h1><p>已经提交过的文件或者文件夹怎么办？此时更改.gitignore文件对已经提交的文件是无效的。</p><p>首先，编辑.gitignore文件。</p><p>然后如果是单个文件，可以使用如下命令从仓库中删除：</p><pre><code>git rm --cached logs/xx.log</code></pre><p>如果是整个目录：</p><pre><code>git rm --cached -r logs</code></pre><p>如果文件很多，那么直接</p><pre><code>git rm --cached -r .</code></pre><p>如果提示某个文件无法忽略，可以添加-f参数强制忽略。</p><pre><code>git rm -f --cached logs/xx.log</code></pre><p>然后</p><pre><code>git add .git commit -m &quot;Update .gitignore&quot;</code></pre><p>把被忽略的某个文件强制添加回去：</p><pre><code>git add -f filename</code></pre><p>ignore规则检查：</p><pre><code>git check-ignore</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>build a new repo</title>
+      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/"/>
+      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/</url>
+      
+        <content type="html"><![CDATA[<h1 id="新建项目仓库"><a href="#新建项目仓库" class="headerlink" title="新建项目仓库"></a>新建项目仓库</h1><h3 id="创建本地git项目"><a href="#创建本地git项目" class="headerlink" title="创建本地git项目"></a>创建本地git项目</h3><pre><code>git init</code></pre><p>git init &lt;仓库名&gt;没法执行，init后面不要跟参数当名字。</p><h3 id="github上创建一个仓库"><a href="#github上创建一个仓库" class="headerlink" title="github上创建一个仓库"></a>github上创建一个仓库</h3><p>登录github创建个空的仓库</p><h3 id="登录github创建个空的仓库，添加远程仓库"><a href="#登录github创建个空的仓库，添加远程仓库" class="headerlink" title="登录github创建个空的仓库，添加远程仓库"></a>登录github创建个空的仓库，添加远程仓库</h3><pre><code>git remote add origin https://github.com/xxx/xxx.git</code></pre><p>从远程master合并到本地master</p><pre><code class="lang-shell">git config --global user.name &quot;xxxx&quot; git config --global user.email xxxxx@xx.com</code></pre><pre><code class="lang-shell">git initgit add .git commit - m &quot;init&quot;git remote add origin https://github.com/xxx/xxx.gitgit push origin master</code></pre><p>如果有冲突就尝试（通常是你创建仓库的时候新建了什么readme和license）：<br>    git pull origin master:master</p><p>也可以直接强制推送：<br>    git push origin master —force</p><h3 id="提交本地分支到远程分支"><a href="#提交本地分支到远程分支" class="headerlink" title="提交本地分支到远程分支"></a>提交本地分支到远程分支</h3><pre><code>git push -u origin master</code></pre><h3 id="将现有项目添加并提交上传"><a href="#将现有项目添加并提交上传" class="headerlink" title="将现有项目添加并提交上传"></a>将现有项目添加并提交上传</h3><pre><code class="lang-shell">git add -A（git add . 是提交当前路径  git add -A 是提交整个文件夹子文件夹路径）git commit -m &#39;初始化git项目&#39;git push --set-upstream origin master</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>新建某分支并推送、合并分支</title>
+      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
+      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="新建某分支并推送至某分支：以考试系统es为例版本管理"><a href="#新建某分支并推送至某分支：以考试系统es为例版本管理" class="headerlink" title="新建某分支并推送至某分支：以考试系统es为例版本管理"></a>新建某分支并推送至某分支：以考试系统es为例版本管理</h1><p>新建新分支并推送至新分支之前，需要检查当前分值是否还有未提交的状态</p><p><code>git status</code> # 可以检查是否有新文件未被track</p><p><code>git remote -v</code> # 查看远程分值，一般如下，同一个地址具有拿下或push的权限</p><pre><code>origin  http://shenyanjian.cn:3000/senranja/exam_system.git (fetch)origin  http://shenyanjian.cn:3000/senranja/exam_system.git (push)</code></pre><p><code>git fetch</code> # 拿下仓库最新分值信息。<code>git pull==git fetch + git merge</code>，git fetch是安全的、不会合并的命令</p><p><code>git branch -r</code> # 查看全部的远程分支，通常显示如下：（若远程分支只有main）</p><pre><code>  origin/HEAD -&gt; origin/main  origin/main</code></pre><p><code>git checkout -b V0.0.2</code> # 以当前分支为副本创建V0.0.2</p><p><code>git checkout V0.0.2</code> # 切换到分值V0.0.2</p><p>（现在在此处放一些部署文档、版本交付说明）</p><pre><code class="lang-shell">git add .git commit -m &quot;V0.0.2&quot;git push</code></pre><pre><code>fatal: The current branch V0.0.2 has no upstream branch.To push the current branch and set the remote as upstream, use    git push --set-upstream origin V0.0.2</code></pre><p>如上报错，意思是远程分值还没有V0.0.2，需要手动设置下</p><pre><code>git push --set-upstream origin V0.0.2</code></pre><p>完成</p><p>切换回主分支：</p><pre><code>git checkout main</code></pre><h1 id="本地合并其他分支到本分支，再推送"><a href="#本地合并其他分支到本分支，再推送" class="headerlink" title="本地合并其他分支到本分支，再推送"></a>本地合并其他分支到本分支，再推送</h1><p>要将本地的 dev 分支合并到 main 分支，你可以按照以下步骤进行操作：</p><p>确保你当前位于 main 分支上。你可以通过以下命令来确保：</p><pre><code>git checkout main</code></pre><p>然后，执行 git pull 命令来确保你的 main 分支是最新的：</p><pre><code>git pull origin main</code></pre><p>接着，执行 git merge 命令来合并 dev 分支到 main 分支：</p><pre><code>git merge dev</code></pre><p>如果有冲突，在合并过程中会停下来，需要你解决这些冲突。解决完冲突后，你需要执行 <code>git add</code>命令来标记冲突已解决的文件，然后执行 <code>git merge --continue</code> 来继续合并过程。</p><p>最后，当合并完成，你可以将合并后的 main 分支推送到远程仓库：</p><pre><code>git push origin main</code></pre><p>通过这些步骤，你就可以将本地的 dev 分支成功合并到 main 分支，并将更新推送到远程仓库。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>push existed local repo</title>
+      <link href="/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/"/>
+      <url>/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/</url>
+      
+        <content type="html"><![CDATA[<h1 id="现有仓库提交到github"><a href="#现有仓库提交到github" class="headerlink" title="现有仓库提交到github"></a>现有仓库提交到github</h1><h3 id="纯新建项目push"><a href="#纯新建项目push" class="headerlink" title="纯新建项目push"></a>纯新建项目push</h3><pre><code class="lang-shell">echo &quot;# licenseGenerator&quot; &gt;&gt; README.mdgit initgit add README.mdgit commit -m &quot;first commit&quot;git branch -M mastergit remote add origin https://github.com/SenRanja/licenseGenerator.gitgit push -u origin master</code></pre><h3 id="push已存在项目"><a href="#push已存在项目" class="headerlink" title="push已存在项目"></a>push已存在项目</h3><p>先做的：如果你手贱，github创建项目的时候，新建了什么license、readme有的没的的东西，本地push之前，得先git pull 一下：</p><pre><code>git pull github master --allow-unrelated-histories</code></pre><p>（git pull 远程名字 远程分支， 后面的 –allow-unreleated-histories ，比如你手贱新建了license，你git pull 的时候会拒绝，因为github新建项目弄的license有第一次的commit，和你本地历史对不上merge默认不允许，所以你得手动指定）</p><p>比如，如果本地gitea已经有项目了，应该是推送此处。<br>比如，我的evo系统，在本地已经推送gitea，默认的远程地址名字 origin 必须重命名。</p><pre><code>git remote add origin https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（git branch -M 命令用于重命名当前分支。具体来说，-M 选项告诉 Git 强制重命名分支，即使新的分支名与已存在的分支名冲突也会强制执行。这个命令的常见用途是将当前分支重命名为一个新的分支名。）</p><pre><code>git push -u origin master</code></pre><p>更改origin的远程名字的命令如下：</p><pre><code>git remote add github https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（强行将现在所在分支，重命名为 master 分支）</p><pre><code>git push -u github master</code></pre><p>（将本地的master分支代码提交到 github 的远程链接上）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>构建gitleaks-Docker服务</title>
       <link href="/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
       <url>/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
@@ -1577,215 +1786,6 @@
     
     
     <entry>
-      <title>.gitignore</title>
-      <link href="/2024/04/09/git/gitignore/"/>
-      <url>/2024/04/09/git/gitignore/</url>
-      
-        <content type="html"><![CDATA[<p>官方文档：<code>https://github.com/github/gitignore</code></p><h3 id="我的-gitignore模板"><a href="#我的-gitignore模板" class="headerlink" title="我的.gitignore模板"></a>我的.gitignore模板</h3><pre><code># Logslogs*.lognpm-debug.log*yarn-debug.log*yarn-error.log*pnpm-debug.log*lerna-debug.log*node_modulesdistdist-ssr*.local# big files*.mp4backend/volume/media/documents/*!backend/volume/media/documents/.gitkeepbackend/volume/media/import_excel_upload/*!backend/volume/media/import_excel_upload/.gitkeepbackend/volume/media/videos/*!backend/volume/media/videos/.gitkeep# python**/__pycache__/**.pyc# 忽略pycharm**/.idea/# 忽略虚拟环境**/venv# Editor directories and files**/.vscode/*!.vscode/extensions.json.idea.DS_Store*.suo*.ntvs**.njsproj*.sln*.sw?</code></pre><h3 id="其他示例"><a href="#其他示例" class="headerlink" title="其他示例"></a>其他示例</h3><pre><code># 忽略所有 .a 结尾的文件a# 但lib.a 除外!lib.a# 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO/TODO# 忽略build/ 目录下的所有文件build/# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txtdoc/.txt</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>keep empty directory in git</title>
-      <link href="/2024/04/09/git/gitkeep/"/>
-      <url>/2024/04/09/git/gitkeep/</url>
-      
-        <content type="html"><![CDATA[<p>目录中新建空文件 <strong>.gitkeep</strong> 即可</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>远程获取所有分支</title>
-      <link href="/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/"/>
-      <url>/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/</url>
-      
-        <content type="html"><![CDATA[<pre><code>git clone xxxcd xxxgit branch -r | grep -v &#39;\-&gt;&#39; | while read remote; do git branch --track &quot;$&#123;remote#origin/&#125;&quot; &quot;$remote&quot;; donegit fetch --allgit pull --all(git pull –all在功能上包含git fetch --all)</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>merge conflict</title>
-      <link href="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"/>
-      <url>/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</url>
-      
-        <content type="html"><![CDATA[<p>git push提示冲突</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-47-59.png" alt="2024-04-09-19-47-59"></p><p>会在源文件中看到标记的冲突的HEAD</p><p><img src="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/2024-04-09-19-48-22.png" alt="2024-04-09-19-48-22"></p><p>修改完在git add . 再commit push</p><p>如果没有实质差异，“current change”是你的修改的，那个commit id的是已存在的，按照已存在的来</p><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><pre><code>git stashgit commitgit stash pop</code></pre><p>接下来diff一下此文件看看自动合并的情况，并作出相应修改。</p><p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。</p><p>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。</p><p>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。</p><p>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>branch</title>
-      <link href="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"/>
-      <url>/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/</url>
-      
-        <content type="html"><![CDATA[<ul><li><a href="#查看分支">查看分支</a><ul><li><a href="#列出本地所有的分支">列出本地所有的分支</a></li><li><a href="#分支合并行为可视化">分支合并行为可视化</a></li><li><a href="#查看分支与远程的关联">查看分支与远程的关联</a></li><li><a href="#查看所有分支">查看所有分支</a></li></ul></li><li><a href="#切换分支">切换分支</a></li><li><a href="#detached-head-和-checkout-commit然后修改入新branch">Detached HEAD 和 checkout commit然后修改入新branch</a></li></ul><h1 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h1><h3 id="列出本地所有的分支"><a href="#列出本地所有的分支" class="headerlink" title="列出本地所有的分支"></a>列出本地所有的分支</h3><pre><code>git branch </code></pre><p>查看分支详细信息，列出本地所有的分支, + hash 信息</p><pre><code>git branch -v</code></pre><h3 id="分支合并行为可视化"><a href="#分支合并行为可视化" class="headerlink" title="分支合并行为可视化"></a>分支合并行为可视化</h3><p>为了方便查看分支来源，比如大型项目通常会有多个分支以及分支合并的行为，单纯的使用终端查看分支来源、log并不直观。如果发生分支合并的异常行为，需要溯源，直观的观察git分支是必须的一个审计行为。</p><p>我看有推荐<code>github desktop</code>, <code>source tree</code>和<code>GitKraken</code>(收费)，但是之前上班的时候看师傅用的<strong>IDEA GIT分支图</strong>也有不错的效果，基本Jetbrain的所有IDE都有这个插件。点击菜单栏的<code>git</code>-&gt;<code>log</code>。</p><p><img src="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/pycharm_git_log.png" alt="pycharm_git_log"></p><h3 id="查看分支与远程的关联"><a href="#查看分支与远程的关联" class="headerlink" title="查看分支与远程的关联"></a>查看分支与远程的关联</h3><p><code>git branch -vv</code> #列出本地所有的分支, + hash 信息 + 与远程的关联信息</p><p>虽然默认本地和远程大部分都是同名的, 但是在多分支的场景下还是会出现不同名的情况<br>通过这个命令进行确认, 非常好用.</p><h3 id="查看所有分支"><a href="#查看所有分支" class="headerlink" title="查看所有分支"></a>查看所有分支</h3><h1 id="列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如"><a href="#列出所有的分支-远程和本地-这个命令在拉取别人的分支的时候非常有用-比如" class="headerlink" title="列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如"></a>列出所有的分支(远程和本地)这个命令在拉取别人的分支的时候非常有用, 比如</h1><pre><code>git branch -agit branch -a | grep xxx</code></pre><h1 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h1><pre><code># `-b` means create a new branchgit checkout -b new-branch-namegit checkout &lt;commit-hash&gt;</code></pre><h1 id="Detached-HEAD-和-checkout-commit然后修改入新branch"><a href="#Detached-HEAD-和-checkout-commit然后修改入新branch" class="headerlink" title="Detached HEAD 和 checkout commit然后修改入新branch"></a>Detached HEAD 和 checkout commit然后修改入新branch</h1><p>In Git, a <strong>detached HEAD</strong> state occurs when you are working directly on <strong>a specific commit(not the lastest)</strong> rather than on <strong>the latest commit</strong> of a branch. This can happen when you <strong>checkout a commit, a tag, or a remote branch</strong> directly, without creating a new branch.</p><p><strong>HEAD</strong> is a <code>pointer</code> in Git that typically points to the latest commit on the current branch.</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>delete something useless before gitignore</title>
-      <link href="/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/"/>
-      <url>/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/</url>
-      
-        <content type="html"><![CDATA[<h1 id="重写了gitignore但是想删除已提交但想忽略的内容"><a href="#重写了gitignore但是想删除已提交但想忽略的内容" class="headerlink" title="重写了gitignore但是想删除已提交但想忽略的内容"></a>重写了gitignore但是想删除已提交但想忽略的内容</h1><p>已经提交过的文件或者文件夹怎么办？此时更改.gitignore文件对已经提交的文件是无效的。</p><p>首先，编辑.gitignore文件。</p><p>然后如果是单个文件，可以使用如下命令从仓库中删除：</p><pre><code>git rm --cached logs/xx.log</code></pre><p>如果是整个目录：</p><pre><code>git rm --cached -r logs</code></pre><p>如果文件很多，那么直接</p><pre><code>git rm --cached -r .</code></pre><p>如果提示某个文件无法忽略，可以添加-f参数强制忽略。</p><pre><code>git rm -f --cached logs/xx.log</code></pre><p>然后</p><pre><code>git add .git commit -m &quot;Update .gitignore&quot;</code></pre><p>把被忽略的某个文件强制添加回去：</p><pre><code>git add -f filename</code></pre><p>ignore规则检查：</p><pre><code>git check-ignore</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>build a new repo</title>
-      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/"/>
-      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/</url>
-      
-        <content type="html"><![CDATA[<h1 id="新建项目仓库"><a href="#新建项目仓库" class="headerlink" title="新建项目仓库"></a>新建项目仓库</h1><h3 id="创建本地git项目"><a href="#创建本地git项目" class="headerlink" title="创建本地git项目"></a>创建本地git项目</h3><pre><code>git init</code></pre><p>git init &lt;仓库名&gt;没法执行，init后面不要跟参数当名字。</p><h3 id="github上创建一个仓库"><a href="#github上创建一个仓库" class="headerlink" title="github上创建一个仓库"></a>github上创建一个仓库</h3><p>登录github创建个空的仓库</p><h3 id="登录github创建个空的仓库，添加远程仓库"><a href="#登录github创建个空的仓库，添加远程仓库" class="headerlink" title="登录github创建个空的仓库，添加远程仓库"></a>登录github创建个空的仓库，添加远程仓库</h3><pre><code>git remote add origin https://github.com/xxx/xxx.git</code></pre><p>从远程master合并到本地master</p><pre><code class="lang-shell">git config --global user.name &quot;xxxx&quot; git config --global user.email xxxxx@xx.com</code></pre><pre><code class="lang-shell">git initgit add .git commit - m &quot;init&quot;git remote add origin https://github.com/xxx/xxx.gitgit push origin master</code></pre><p>如果有冲突就尝试（通常是你创建仓库的时候新建了什么readme和license）：<br>    git pull origin master:master</p><p>也可以直接强制推送：<br>    git push origin master —force</p><h3 id="提交本地分支到远程分支"><a href="#提交本地分支到远程分支" class="headerlink" title="提交本地分支到远程分支"></a>提交本地分支到远程分支</h3><pre><code>git push -u origin master</code></pre><h3 id="将现有项目添加并提交上传"><a href="#将现有项目添加并提交上传" class="headerlink" title="将现有项目添加并提交上传"></a>将现有项目添加并提交上传</h3><pre><code class="lang-shell">git add -A（git add . 是提交当前路径  git add -A 是提交整个文件夹子文件夹路径）git commit -m &#39;初始化git项目&#39;git push --set-upstream origin master</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>新建某分支并推送、合并分支</title>
-      <link href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"/>
-      <url>/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</url>
-      
-        <content type="html"><![CDATA[<h1 id="新建某分支并推送至某分支：以考试系统es为例版本管理"><a href="#新建某分支并推送至某分支：以考试系统es为例版本管理" class="headerlink" title="新建某分支并推送至某分支：以考试系统es为例版本管理"></a>新建某分支并推送至某分支：以考试系统es为例版本管理</h1><p>新建新分支并推送至新分支之前，需要检查当前分值是否还有未提交的状态</p><p><code>git status</code> # 可以检查是否有新文件未被track</p><p><code>git remote -v</code> # 查看远程分值，一般如下，同一个地址具有拿下或push的权限</p><pre><code>origin  http://shenyanjian.cn:3000/senranja/exam_system.git (fetch)origin  http://shenyanjian.cn:3000/senranja/exam_system.git (push)</code></pre><p><code>git fetch</code> # 拿下仓库最新分值信息。<code>git pull==git fetch + git merge</code>，git fetch是安全的、不会合并的命令</p><p><code>git branch -r</code> # 查看全部的远程分支，通常显示如下：（若远程分支只有main）</p><pre><code>  origin/HEAD -&gt; origin/main  origin/main</code></pre><p><code>git checkout -b V0.0.2</code> # 以当前分支为副本创建V0.0.2</p><p><code>git checkout V0.0.2</code> # 切换到分值V0.0.2</p><p>（现在在此处放一些部署文档、版本交付说明）</p><pre><code class="lang-shell">git add .git commit -m &quot;V0.0.2&quot;git push</code></pre><pre><code>fatal: The current branch V0.0.2 has no upstream branch.To push the current branch and set the remote as upstream, use    git push --set-upstream origin V0.0.2</code></pre><p>如上报错，意思是远程分值还没有V0.0.2，需要手动设置下</p><pre><code>git push --set-upstream origin V0.0.2</code></pre><p>完成</p><p>切换回主分支：</p><pre><code>git checkout main</code></pre><h1 id="本地合并其他分支到本分支，再推送"><a href="#本地合并其他分支到本分支，再推送" class="headerlink" title="本地合并其他分支到本分支，再推送"></a>本地合并其他分支到本分支，再推送</h1><p>要将本地的 dev 分支合并到 main 分支，你可以按照以下步骤进行操作：</p><p>确保你当前位于 main 分支上。你可以通过以下命令来确保：</p><pre><code>git checkout main</code></pre><p>然后，执行 git pull 命令来确保你的 main 分支是最新的：</p><pre><code>git pull origin main</code></pre><p>接着，执行 git merge 命令来合并 dev 分支到 main 分支：</p><pre><code>git merge dev</code></pre><p>如果有冲突，在合并过程中会停下来，需要你解决这些冲突。解决完冲突后，你需要执行 <code>git add</code>命令来标记冲突已解决的文件，然后执行 <code>git merge --continue</code> 来继续合并过程。</p><p>最后，当合并完成，你可以将合并后的 main 分支推送到远程仓库：</p><pre><code>git push origin main</code></pre><p>通过这些步骤，你就可以将本地的 dev 分支成功合并到 main 分支，并将更新推送到远程仓库。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>push existed local repo</title>
-      <link href="/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/"/>
-      <url>/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/</url>
-      
-        <content type="html"><![CDATA[<h1 id="现有仓库提交到github"><a href="#现有仓库提交到github" class="headerlink" title="现有仓库提交到github"></a>现有仓库提交到github</h1><h3 id="纯新建项目push"><a href="#纯新建项目push" class="headerlink" title="纯新建项目push"></a>纯新建项目push</h3><pre><code class="lang-shell">echo &quot;# licenseGenerator&quot; &gt;&gt; README.mdgit initgit add README.mdgit commit -m &quot;first commit&quot;git branch -M mastergit remote add origin https://github.com/SenRanja/licenseGenerator.gitgit push -u origin master</code></pre><h3 id="push已存在项目"><a href="#push已存在项目" class="headerlink" title="push已存在项目"></a>push已存在项目</h3><p>先做的：如果你手贱，github创建项目的时候，新建了什么license、readme有的没的的东西，本地push之前，得先git pull 一下：</p><pre><code>git pull github master --allow-unrelated-histories</code></pre><p>（git pull 远程名字 远程分支， 后面的 –allow-unreleated-histories ，比如你手贱新建了license，你git pull 的时候会拒绝，因为github新建项目弄的license有第一次的commit，和你本地历史对不上merge默认不允许，所以你得手动指定）</p><p>比如，如果本地gitea已经有项目了，应该是推送此处。<br>比如，我的evo系统，在本地已经推送gitea，默认的远程地址名字 origin 必须重命名。</p><pre><code>git remote add origin https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（git branch -M 命令用于重命名当前分支。具体来说，-M 选项告诉 Git 强制重命名分支，即使新的分支名与已存在的分支名冲突也会强制执行。这个命令的常见用途是将当前分支重命名为一个新的分支名。）</p><pre><code>git push -u origin master</code></pre><p>更改origin的远程名字的命令如下：</p><pre><code>git remote add github https://github.com/SenRanja/licenseGenerator.gitgit branch -M master</code></pre><p>（强行将现在所在分支，重命名为 master 分支）</p><pre><code>git push -u github master</code></pre><p>（将本地的master分支代码提交到 github 的远程链接上）</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Git </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>pycharm技巧</title>
-      <link href="/2024/04/08/Python/pycharm/"/>
-      <url>/2024/04/08/Python/pycharm/</url>
-      
-        <content type="html"><![CDATA[<ul><li><a href="#破解版安装">破解版安装</a></li><li><a href="#插件推荐">插件推荐</a></li><li><a href="#py解释器和虚拟环境">py解释器和虚拟环境</a><ul><li><a href="#虚拟解释器和机器系统的解释器不同包环境不同">虚拟解释器和机器系统的解释器不同，包环境不同</a></li><li><a href="#使用pycharm手动安装包环境">使用pycharm手动安装包环境</a></li></ul></li><li><a href="#结合conda创建新版本的python解释器并配置到pycharm">结合conda创建新版本的python解释器并配置到pycharm</a></li><li><a href="#代码行数统计">代码行数统计</a></li><li><a href="#profile">profile</a></li><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#增加sftp部署">增加SFTP部署</a></li><li><a href="#函数文档">函数文档</a><ul><li><a href="#实际示例">实际示例</a></li></ul></li><li><a href="#正确的增加远程python解释器">正确的增加远程python解释器</a><ul><li><a href="#坑点pycharmcant-get-remote-credentials-for-deployment-server">坑点：Pycharm:Can’t get remote credentials for deployment server</a></li></ul></li><li><a href="#将项目启用为django支持">将项目启用为django支持</a></li></ul><h1 id="破解版安装"><a href="#破解版安装" class="headerlink" title="破解版安装"></a>破解版安装</h1><p>pycharm: <a href="https://www.exception.site/essay/pycharm-pojie-jihuoma">https://www.exception.site/essay/pycharm-pojie-jihuoma</a></p><h1 id="插件推荐"><a href="#插件推荐" class="headerlink" title="插件推荐"></a>插件推荐</h1><pre><code>汉化statisticrainbow brackets(部分功能30天限制，经常让你买注册码，已弃用)markdown（其实vscode的md阅览比pycharm的要很快，这个自行选择）code glance (强烈推荐，右侧滚动条变小地图)translation</code></pre><h1 id="py解释器和虚拟环境"><a href="#py解释器和虚拟环境" class="headerlink" title="py解释器和虚拟环境"></a>py解释器和虚拟环境</h1><h3 id="虚拟解释器和机器系统的解释器不同，包环境不同"><a href="#虚拟解释器和机器系统的解释器不同，包环境不同" class="headerlink" title="虚拟解释器和机器系统的解释器不同，包环境不同"></a>虚拟解释器和机器系统的解释器不同，包环境不同</h3><p>创建一个新的项目，会想创建venv的虚拟解释器和库包<br>会根据系统现有的py复制一个<br>但是库文件是不同的，因为环境不同，如图：</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-24-45.png" alt="2024-04-10-22-24-45"></p><h3 id="使用pycharm手动安装包环境"><a href="#使用pycharm手动安装包环境" class="headerlink" title="使用pycharm手动安装包环境"></a>使用pycharm手动安装包环境</h3><p><strong>目前我指定虚拟解释器的py环境路径 直接 install -r requirements.txt 失败，推测requirements的版本不太对，是pycharm不支持的包版本</strong></p><p>但是我是用pycharm的设置 -&gt; 项目  -&gt; py解释器 手动安装包是可以的<br>此处也容易显示版本</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-25-40.png" alt="2024-04-10-22-25-40"></p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-25-56.png" alt="2024-04-10-22-25-56"></p><p>成功解决虚拟环境运行django项目</p><p>可以正常启动</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-26-26.png" alt="2024-04-10-22-26-26"></p><h1 id="结合conda创建新版本的python解释器并配置到pycharm"><a href="#结合conda创建新版本的python解释器并配置到pycharm" class="headerlink" title="结合conda创建新版本的python解释器并配置到pycharm"></a>结合conda创建新版本的python解释器并配置到pycharm</h1><p><strong>我思考了下，pycharm本身无法直接下载python3的不同版本，而手动从python官网下载不同的python3版本，操作还是太麻烦。此处依赖conda能自动下载不同python3版本，以及pycharm可以指定conda下载的py复制解释器到不同的项目，并处理不同的包依赖，可以使得调试不同项目的python解释器版本、包依赖相对分离。唯一缺点就是，软件重复程序冗余程度较高，但是这是pip自身设计的问题。</strong></p><p>不清楚为什么pycharm直接加载conda的解释器，会出现各种网络问题</p><p>因此手动执行命令：</p><pre><code>conda.exe create -p E:\anaconda3\envs\yolov5\envs -y python=3.10</code></pre><p>（若此命令出现网络问题，参考conda的安装、运行一节的报错处理）</p><p>然后pycharm添加该环境下的venv解释器（非conda环境）：</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-27-33.png" alt="2024-04-10-22-27-33"></p><p>相当于，conda的目录下弄了py3.10，然后又在这个代码项目下的env复制了解释器，和弄了包依赖的东西</p><p>最后手动执行命令（用户加目录下的pip的换源配置文件有效）：</p><pre><code>python -m pip install -r C:\Users\ranja\Desktop\ToStudy\yolov5\requirements.txt</code></pre><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-27-59.png" alt="2024-04-10-22-27-59"></p><p>最终等待此处完成即可。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-28-25.png" alt="2024-04-10-22-28-25"></p><p>如果pycharm检查到安装包的版本需要更新，则更新。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-28-56.png" alt="2024-04-10-22-28-56"></p><p>至此，解释器设置成功，按住ctrl，鼠标移动到任何函数代码，都显示可调式的高亮。</p><h1 id="代码行数统计"><a href="#代码行数统计" class="headerlink" title="代码行数统计"></a>代码行数统计</h1><p>安装插件  statistic</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-29-28.png" alt="2024-04-10-22-29-28"></p><p>可以统计当前项目的不同类型代码、统计规则</p><h1 id="profile"><a href="#profile" class="headerlink" title="profile"></a>profile</h1><p>使用profile检查各函数、模块的运行时间、调用次数，这个可以用来排查程序中哪个地方出现问题、短板。</p><p>比如之前在写大数中素数分解的代码时，我使用profile检查素数分解模块的运行效率，来比对不同代码算法下，这个模块是否存在优化可能。</p><p>右上角编辑调试器右侧，有个<code>profile</code>，这个就是用来分析当前程序的。</p><p><img src="/2024/04/08/Python/pycharm/2024-10-11-12-27-41.png" alt></p><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>ctrl alt shift x 部署</p><h1 id="增加SFTP部署"><a href="#增加SFTP部署" class="headerlink" title="增加SFTP部署"></a>增加SFTP部署</h1><p>点击 IDEA 的文件 -&gt; 设置 -&gt; 项目，如图</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-30-04.png" alt="2024-04-10-22-30-04"></p><p>点击加号减号就可以新增部署。如果部署中没有目标的SSH，则需要先添加“python解释器”，远程解释器里写新的SSH，这里的部署才会有新的SSH账密连接。</p><h1 id="函数文档"><a href="#函数文档" class="headerlink" title="函数文档"></a>函数文档</h1><p>在Python中，函数的文档字符串（docstring）通常被用来描述函数的功能、参数、返回值以及可能的异常等信息。这些文档字符串被包裹在一对三个双引号之间。</p><p>一种常见的格式是reStructuredText（reST）格式，这是Python的官方文档所使用的格式。在reST格式下，函数的参数（param）和返回值（return）可以这样标注：</p><pre><code>def function_name(param1, param2):    &quot;&quot;&quot;    这是一个函数的简单描述。    :param param1: 这是param1的描述。    :type param1: 这是param1的类型。    :param param2: 这是param2的描述。    :type param2: 这是param2的类型。    :return: 这是返回值的描述。    :rtype: 这是返回值的类型。    &quot;&quot;&quot;    pass</code></pre><p>此外，你也可以使用Google或NumPy风格的docstring。这是Google风格的例子：</p><pre><code>def function_name(param1, param2):    &quot;&quot;&quot;    这是一个函数的简单描述。    Args:        param1 (type): 这是param1的描述。        param2 (type): 这是param2的描述。    Returns:        type: 这是返回值的描述。    &quot;&quot;&quot;    pass</code></pre><p>PyCharm和其他一些IDE支持这些格式，并可以根据docstring生成相应的函数/方法签名和文档。</p><h3 id="实际示例"><a href="#实际示例" class="headerlink" title="实际示例"></a>实际示例</h3><pre><code>def timeCompare(time1, time2):    &quot;&quot;&quot;用于比较两个类似&#39;2023-05-17&#39;的时间戳字符串看谁更早。time1如果比time2更早或同天的话，返回True；否则返回False    Args:        time1 (str):传入类似&#39;2023-05-17&#39;的时间字符串        time2 (str):传入类似&#39;2023-05-17&#39;的时间字符串    Return:        res (bool):        &quot;&quot;&quot;    datetime1 = datetime.strptime(time1, &#39;%Y-%m-%d&#39;)    datetime2 = datetime.strptime(time2, &#39;%Y-%m-%d&#39;)    if datetime1 &lt;= datetime2:        return True    else:        return Falsedef singleCveHrefSpider(avd_url, session):    &quot;&quot;&quot;使用avd编号，匹配单个漏洞详情页的数据    Args:        avd_url(str): avd漏洞的链接地址        session(requests.Session): 用于网络IO的session    Returns:        res(dict): 返回无键默认None的字典        &quot;&quot;&quot;</code></pre><h1 id="正确的增加远程python解释器"><a href="#正确的增加远程python解释器" class="headerlink" title="正确的增加远程python解释器"></a>正确的增加远程python解释器</h1><p>总结：<br>1.py解释器中的上传目录通常是默认传到/tmp/pycharmxxxx中，这个无所谓，改为正确的上传路径即可。<br>2.<code>部署</code>改成正确的上传路径<br>3.<code>py解释器</code>中的路径映射写对，就可以远程调试了。</p><p>设置 -&gt; 项目 -&gt; python解释器</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-31-57.png" alt="2024-04-10-22-31-57"></p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-32-10.png" alt="2024-04-10-22-32-10"></p><p>这里可以改为正确的路径，不一定非得下面的 /tmp 路径</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-32-34.png" alt="2024-04-10-22-32-34"></p><p>映射路径选择本地路径就可以。如果解释器的映射路径不对，那回到上图改一下，再到这里选择正确的本地路径就可以进行远程调试了。</p><p>Py解释器中的路径映射填写正确，就可以正常进行远程调试了。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-33-14.png" alt="2024-04-10-22-33-14"></p><h3 id="坑点：Pycharm-Can’t-get-remote-credentials-for-deployment-server"><a href="#坑点：Pycharm-Can’t-get-remote-credentials-for-deployment-server" class="headerlink" title="坑点：Pycharm:Can’t get remote credentials for deployment server"></a>坑点：Pycharm:Can’t get remote credentials for deployment server</h3><p>不知道为啥我会遇到这个报错，去项目，python解释器，把现有的SSH解释器删除了，重新添加，就没问题了</p><h1 id="将项目启用为django支持"><a href="#将项目启用为django支持" class="headerlink" title="将项目启用为django支持"></a>将项目启用为django支持</h1><p>首先启用django支持，在 设置 –&gt;  语言和框架   Django  勾选“启用Django支持”</p><p>配置如下</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-33-54.png" alt="2024-04-10-22-33-54"></p><p>然后要运行，就点击调试配置器</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-34-08.png" alt="2024-04-10-22-34-08"></p><p>直接配置后，运行即可</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Py </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>goland技巧</title>
-      <link href="/2024/04/08/Go/goland/"/>
-      <url>/2024/04/08/Go/goland/</url>
-      
-        <content type="html"><![CDATA[<ul><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#添加远程调试">添加远程调试</a></li><li><a href="#delve升级go无法调试">delve：升级go无法调试</a></li></ul><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!=nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH/bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Go </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Dell 730风扇速度调整</title>
       <link href="/2024/04/08/Linux-Maintain/Dell730change_fans/"/>
       <url>/2024/04/08/Linux-Maintain/Dell730change_fans/</url>
@@ -1862,11 +1862,11 @@
     
     
     <entry>
-      <title>gitlab-ee的破解版返回500，501响应</title>
-      <link href="/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/"/>
-      <url>/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/</url>
+      <title>gost</title>
+      <link href="/2024/04/08/Linux-Maintain/gost/"/>
+      <url>/2024/04/08/Linux-Maintain/gost/</url>
       
-        <content type="html"><![CDATA[<p>鹏哥参考过的链接</p><pre><code>https://docs.gitlab.com/ee/install/docker.html#devshm-mount-not-having-enough-space-in-docker-containerhttps://blog.kelu.org/tech/2021/12/16/docker-shm.htmlhttps://blog.csdn.net/weixin_43545410/article/details/120963125</code></pre><h1 id="方法一：容器启动前修改"><a href="#方法一：容器启动前修改" class="headerlink" title="方法一：容器启动前修改"></a>方法一：容器启动前修改</h1><pre><code>docker run -it --shm-size=&quot;1g&quot; --name 001 busybox:latest /bin/sh</code></pre><h1 id="方法二：容器启动后修改"><a href="#方法二：容器启动后修改" class="headerlink" title="方法二：容器启动后修改"></a>方法二：容器启动后修改</h1><p>1.docker ps | grep containerName</p><p>2.获取完整 Id</p><pre><code>[root@linfs-bigdata containers]# docker inspect 641ae8c59c0d | grep Id    &quot;Id&quot;: &quot;641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269&quot;,</code></pre><p>3.修改 ShmSize，单位为 kb，默认大小为 64M，修改完后重启 docker 就生效了</p><pre><code>vim /var/lib/docker/containers/641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269/hostconfig.json</code></pre>]]></content>
+        <content type="html"><![CDATA[<p>项目参考<br><a href="https://github.com/ginuerzh/gost">https://github.com/ginuerzh/gost</a></p><h1 id="代理转发"><a href="#代理转发" class="headerlink" title="代理转发"></a>代理转发</h1><p>只要本地客户端执行-L，就可以转发http，https，socks等协议的转发，但是实测我无法https转发，会遇到证书的报错</p><h3 id="kcp协议：-udp封装的协议"><a href="#kcp协议：-udp封装的协议" class="headerlink" title="kcp协议： udp封装的协议"></a>kcp协议： udp封装的协议</h3><pre><code>server:gost -L kcp://gost:1qaz@WSX@45.77.115.252:52783client:gost -L=:6666 -F=kcp://gost:1qaz@WSX@45.77.115.252:52783</code></pre><h3 id="mwss协议：多媒体协议"><a href="#mwss协议：多媒体协议" class="headerlink" title="mwss协议：多媒体协议"></a>mwss协议：多媒体协议</h3><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723</code></pre><h1 id="curl挂代理检测socks代理"><a href="#curl挂代理检测socks代理" class="headerlink" title="curl挂代理检测socks代理"></a>curl挂代理检测socks代理</h1><p>curl -x socks5://127.0.0.1:1024 <a href="http://www.google.com">http://www.google.com</a> # -x 参数等同于 —proxy</p><p>访问ip.sb会直接显示当前你连接的ip</p><pre><code>curl -x socks5://127.0.0.1:6666 ip.sb</code></pre><h1 id="在racknerd的socks的vps搭建的坑点"><a href="#在racknerd的socks的vps搭建的坑点" class="headerlink" title="在racknerd的socks的vps搭建的坑点"></a>在racknerd的socks的vps搭建的坑点</h1><p>如果是AlmaLinux，则使用yum安装 net-tools 等软件<br>防火墙不同于ubuntu的ufw，使用firewalld</p><p>需要关闭firewalld：</p><pre><code>systemctl stop firewalldsystemctl disable firewalld</code></pre><p>在如下链接中找到解决方案：<br><a href="https://almalinux.discourse.group/t/no-match-for-argument-screen/790">https://almalinux.discourse.group/t/no-match-for-argument-screen/790</a></p><pre><code>dnf install epel-releasednf install screen</code></pre><p>然后再 screen -S gost开screen的shell，运行命令<br>mwss协议：</p><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753</code></pre><h1 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h1><p>参考帖子：<br><a href="https://github.com/ginuerzh/gost/issues/745">https://github.com/ginuerzh/gost/issues/745</a></p><p>假设A地址是公网vps，B是某内网服务器，C是客户端<br>B、C不能访问，C想访问B的5000端口的服务，需要以A为中继，gost部署如下：</p><p>A部署：</p><pre><code>gost -L socks5://:2345 (意思是，建立端口为2345的gost服务端。2345仅是服务端，用来gost访问搭桥的，不是让人类访问的)</code></pre><p>B部署：</p><pre><code>gost -L rtcp://:8080/:5000 -F socks5://10.80.5.244:2345 (意思是，将机器192.168.217.128端口5000绑定到机器10.80.5.244端口8080上。此处rtcp无所谓，gost支持的都行)</code></pre><p>C访问：</p><pre><code>访问 A:8080，就可以访问到B:5000 了。</code></pre><h3 id="案例：将gitea内网穿透"><a href="#案例：将gitea内网穿透" class="headerlink" title="案例：将gitea内网穿透"></a>案例：将gitea内网穿透</h3><p>服务端（192.227.167.113）：</p><pre><code>./gost -L socks5://:38441</code></pre><p>被穿透机器：</p><pre><code>gost -L rtcp://:3001/:3000 -F socks5://192.227.xxx.113:38441</code></pre><p>访问：<br><a href="http://192.227.167.113:3001/">http://192.227.167.113:3001/</a></p>]]></content>
       
       
       <categories>
@@ -1881,11 +1881,11 @@
     
     
     <entry>
-      <title>gost</title>
-      <link href="/2024/04/08/Linux-Maintain/gost/"/>
-      <url>/2024/04/08/Linux-Maintain/gost/</url>
+      <title>gitlab-ee的破解版返回500，501响应</title>
+      <link href="/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/"/>
+      <url>/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/</url>
       
-        <content type="html"><![CDATA[<p>项目参考<br><a href="https://github.com/ginuerzh/gost">https://github.com/ginuerzh/gost</a></p><h1 id="代理转发"><a href="#代理转发" class="headerlink" title="代理转发"></a>代理转发</h1><p>只要本地客户端执行-L，就可以转发http，https，socks等协议的转发，但是实测我无法https转发，会遇到证书的报错</p><h3 id="kcp协议：-udp封装的协议"><a href="#kcp协议：-udp封装的协议" class="headerlink" title="kcp协议： udp封装的协议"></a>kcp协议： udp封装的协议</h3><pre><code>server:gost -L kcp://gost:1qaz@WSX@45.77.115.252:52783client:gost -L=:6666 -F=kcp://gost:1qaz@WSX@45.77.115.252:52783</code></pre><h3 id="mwss协议：多媒体协议"><a href="#mwss协议：多媒体协议" class="headerlink" title="mwss协议：多媒体协议"></a>mwss协议：多媒体协议</h3><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723</code></pre><h1 id="curl挂代理检测socks代理"><a href="#curl挂代理检测socks代理" class="headerlink" title="curl挂代理检测socks代理"></a>curl挂代理检测socks代理</h1><p>curl -x socks5://127.0.0.1:1024 <a href="http://www.google.com">http://www.google.com</a> # -x 参数等同于 —proxy</p><p>访问ip.sb会直接显示当前你连接的ip</p><pre><code>curl -x socks5://127.0.0.1:6666 ip.sb</code></pre><h1 id="在racknerd的socks的vps搭建的坑点"><a href="#在racknerd的socks的vps搭建的坑点" class="headerlink" title="在racknerd的socks的vps搭建的坑点"></a>在racknerd的socks的vps搭建的坑点</h1><p>如果是AlmaLinux，则使用yum安装 net-tools 等软件<br>防火墙不同于ubuntu的ufw，使用firewalld</p><p>需要关闭firewalld：</p><pre><code>systemctl stop firewalldsystemctl disable firewalld</code></pre><p>在如下链接中找到解决方案：<br><a href="https://almalinux.discourse.group/t/no-match-for-argument-screen/790">https://almalinux.discourse.group/t/no-match-for-argument-screen/790</a></p><pre><code>dnf install epel-releasednf install screen</code></pre><p>然后再 screen -S gost开screen的shell，运行命令<br>mwss协议：</p><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753</code></pre><h1 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h1><p>参考帖子：<br><a href="https://github.com/ginuerzh/gost/issues/745">https://github.com/ginuerzh/gost/issues/745</a></p><p>假设A地址是公网vps，B是某内网服务器，C是客户端<br>B、C不能访问，C想访问B的5000端口的服务，需要以A为中继，gost部署如下：</p><p>A部署：</p><pre><code>gost -L socks5://:2345 (意思是，建立端口为2345的gost服务端。2345仅是服务端，用来gost访问搭桥的，不是让人类访问的)</code></pre><p>B部署：</p><pre><code>gost -L rtcp://:8080/:5000 -F socks5://10.80.5.244:2345 (意思是，将机器192.168.217.128端口5000绑定到机器10.80.5.244端口8080上。此处rtcp无所谓，gost支持的都行)</code></pre><p>C访问：</p><pre><code>访问 A:8080，就可以访问到B:5000 了。</code></pre><h3 id="案例：将gitea内网穿透"><a href="#案例：将gitea内网穿透" class="headerlink" title="案例：将gitea内网穿透"></a>案例：将gitea内网穿透</h3><p>服务端（192.227.167.113）：</p><pre><code>./gost -L socks5://:38441</code></pre><p>被穿透机器：</p><pre><code>gost -L rtcp://:3001/:3000 -F socks5://192.227.xxx.113:38441</code></pre><p>访问：<br><a href="http://192.227.167.113:3001/">http://192.227.167.113:3001/</a></p>]]></content>
+        <content type="html"><![CDATA[<p>鹏哥参考过的链接</p><pre><code>https://docs.gitlab.com/ee/install/docker.html#devshm-mount-not-having-enough-space-in-docker-containerhttps://blog.kelu.org/tech/2021/12/16/docker-shm.htmlhttps://blog.csdn.net/weixin_43545410/article/details/120963125</code></pre><h1 id="方法一：容器启动前修改"><a href="#方法一：容器启动前修改" class="headerlink" title="方法一：容器启动前修改"></a>方法一：容器启动前修改</h1><pre><code>docker run -it --shm-size=&quot;1g&quot; --name 001 busybox:latest /bin/sh</code></pre><h1 id="方法二：容器启动后修改"><a href="#方法二：容器启动后修改" class="headerlink" title="方法二：容器启动后修改"></a>方法二：容器启动后修改</h1><p>1.docker ps | grep containerName</p><p>2.获取完整 Id</p><pre><code>[root@linfs-bigdata containers]# docker inspect 641ae8c59c0d | grep Id    &quot;Id&quot;: &quot;641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269&quot;,</code></pre><p>3.修改 ShmSize，单位为 kb，默认大小为 64M，修改完后重启 docker 就生效了</p><pre><code>vim /var/lib/docker/containers/641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269/hostconfig.json</code></pre>]]></content>
       
       
       <categories>
@@ -1910,6 +1910,44 @@
       <categories>
           
           <category> Linux-Maintain </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>goland技巧</title>
+      <link href="/2024/04/08/Go/goland/"/>
+      <url>/2024/04/08/Go/goland/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#添加远程调试">添加远程调试</a></li><li><a href="#delve升级go无法调试">delve：升级go无法调试</a></li></ul><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!=nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH/bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Go </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pycharm技巧</title>
+      <link href="/2024/04/08/Python/pycharm/"/>
+      <url>/2024/04/08/Python/pycharm/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#破解版安装">破解版安装</a></li><li><a href="#插件推荐">插件推荐</a></li><li><a href="#py解释器和虚拟环境">py解释器和虚拟环境</a><ul><li><a href="#虚拟解释器和机器系统的解释器不同包环境不同">虚拟解释器和机器系统的解释器不同，包环境不同</a></li><li><a href="#使用pycharm手动安装包环境">使用pycharm手动安装包环境</a></li></ul></li><li><a href="#结合conda创建新版本的python解释器并配置到pycharm">结合conda创建新版本的python解释器并配置到pycharm</a></li><li><a href="#代码行数统计">代码行数统计</a></li><li><a href="#profile">profile</a></li><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#增加sftp部署">增加SFTP部署</a></li><li><a href="#函数文档">函数文档</a><ul><li><a href="#实际示例">实际示例</a></li></ul></li><li><a href="#正确的增加远程python解释器">正确的增加远程python解释器</a><ul><li><a href="#坑点pycharmcant-get-remote-credentials-for-deployment-server">坑点：Pycharm:Can’t get remote credentials for deployment server</a></li></ul></li><li><a href="#将项目启用为django支持">将项目启用为django支持</a></li></ul><h1 id="破解版安装"><a href="#破解版安装" class="headerlink" title="破解版安装"></a>破解版安装</h1><p>pycharm: <a href="https://www.exception.site/essay/pycharm-pojie-jihuoma">https://www.exception.site/essay/pycharm-pojie-jihuoma</a></p><h1 id="插件推荐"><a href="#插件推荐" class="headerlink" title="插件推荐"></a>插件推荐</h1><pre><code>汉化statisticrainbow brackets(部分功能30天限制，经常让你买注册码，已弃用)markdown（其实vscode的md阅览比pycharm的要很快，这个自行选择）code glance (强烈推荐，右侧滚动条变小地图)translation</code></pre><h1 id="py解释器和虚拟环境"><a href="#py解释器和虚拟环境" class="headerlink" title="py解释器和虚拟环境"></a>py解释器和虚拟环境</h1><h3 id="虚拟解释器和机器系统的解释器不同，包环境不同"><a href="#虚拟解释器和机器系统的解释器不同，包环境不同" class="headerlink" title="虚拟解释器和机器系统的解释器不同，包环境不同"></a>虚拟解释器和机器系统的解释器不同，包环境不同</h3><p>创建一个新的项目，会想创建venv的虚拟解释器和库包<br>会根据系统现有的py复制一个<br>但是库文件是不同的，因为环境不同，如图：</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-24-45.png" alt="2024-04-10-22-24-45"></p><h3 id="使用pycharm手动安装包环境"><a href="#使用pycharm手动安装包环境" class="headerlink" title="使用pycharm手动安装包环境"></a>使用pycharm手动安装包环境</h3><p><strong>目前我指定虚拟解释器的py环境路径 直接 install -r requirements.txt 失败，推测requirements的版本不太对，是pycharm不支持的包版本</strong></p><p>但是我是用pycharm的设置 -&gt; 项目  -&gt; py解释器 手动安装包是可以的<br>此处也容易显示版本</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-25-40.png" alt="2024-04-10-22-25-40"></p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-25-56.png" alt="2024-04-10-22-25-56"></p><p>成功解决虚拟环境运行django项目</p><p>可以正常启动</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-26-26.png" alt="2024-04-10-22-26-26"></p><h1 id="结合conda创建新版本的python解释器并配置到pycharm"><a href="#结合conda创建新版本的python解释器并配置到pycharm" class="headerlink" title="结合conda创建新版本的python解释器并配置到pycharm"></a>结合conda创建新版本的python解释器并配置到pycharm</h1><p><strong>我思考了下，pycharm本身无法直接下载python3的不同版本，而手动从python官网下载不同的python3版本，操作还是太麻烦。此处依赖conda能自动下载不同python3版本，以及pycharm可以指定conda下载的py复制解释器到不同的项目，并处理不同的包依赖，可以使得调试不同项目的python解释器版本、包依赖相对分离。唯一缺点就是，软件重复程序冗余程度较高，但是这是pip自身设计的问题。</strong></p><p>不清楚为什么pycharm直接加载conda的解释器，会出现各种网络问题</p><p>因此手动执行命令：</p><pre><code>conda.exe create -p E:\anaconda3\envs\yolov5\envs -y python=3.10</code></pre><p>（若此命令出现网络问题，参考conda的安装、运行一节的报错处理）</p><p>然后pycharm添加该环境下的venv解释器（非conda环境）：</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-27-33.png" alt="2024-04-10-22-27-33"></p><p>相当于，conda的目录下弄了py3.10，然后又在这个代码项目下的env复制了解释器，和弄了包依赖的东西</p><p>最后手动执行命令（用户加目录下的pip的换源配置文件有效）：</p><pre><code>python -m pip install -r C:\Users\ranja\Desktop\ToStudy\yolov5\requirements.txt</code></pre><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-27-59.png" alt="2024-04-10-22-27-59"></p><p>最终等待此处完成即可。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-28-25.png" alt="2024-04-10-22-28-25"></p><p>如果pycharm检查到安装包的版本需要更新，则更新。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-28-56.png" alt="2024-04-10-22-28-56"></p><p>至此，解释器设置成功，按住ctrl，鼠标移动到任何函数代码，都显示可调式的高亮。</p><h1 id="代码行数统计"><a href="#代码行数统计" class="headerlink" title="代码行数统计"></a>代码行数统计</h1><p>安装插件  statistic</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-29-28.png" alt="2024-04-10-22-29-28"></p><p>可以统计当前项目的不同类型代码、统计规则</p><h1 id="profile"><a href="#profile" class="headerlink" title="profile"></a>profile</h1><p>使用profile检查各函数、模块的运行时间、调用次数，这个可以用来排查程序中哪个地方出现问题、短板。</p><p>比如之前在写大数中素数分解的代码时，我使用profile检查素数分解模块的运行效率，来比对不同代码算法下，这个模块是否存在优化可能。</p><p>右上角编辑调试器右侧，有个<code>profile</code>，这个就是用来分析当前程序的。</p><p><img src="/2024/04/08/Python/pycharm/2024-10-11-12-27-41.png" alt></p><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>ctrl alt shift x 部署</p><h1 id="增加SFTP部署"><a href="#增加SFTP部署" class="headerlink" title="增加SFTP部署"></a>增加SFTP部署</h1><p>点击 IDEA 的文件 -&gt; 设置 -&gt; 项目，如图</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-30-04.png" alt="2024-04-10-22-30-04"></p><p>点击加号减号就可以新增部署。如果部署中没有目标的SSH，则需要先添加“python解释器”，远程解释器里写新的SSH，这里的部署才会有新的SSH账密连接。</p><h1 id="函数文档"><a href="#函数文档" class="headerlink" title="函数文档"></a>函数文档</h1><p>在Python中，函数的文档字符串（docstring）通常被用来描述函数的功能、参数、返回值以及可能的异常等信息。这些文档字符串被包裹在一对三个双引号之间。</p><p>一种常见的格式是reStructuredText（reST）格式，这是Python的官方文档所使用的格式。在reST格式下，函数的参数（param）和返回值（return）可以这样标注：</p><pre><code>def function_name(param1, param2):    &quot;&quot;&quot;    这是一个函数的简单描述。    :param param1: 这是param1的描述。    :type param1: 这是param1的类型。    :param param2: 这是param2的描述。    :type param2: 这是param2的类型。    :return: 这是返回值的描述。    :rtype: 这是返回值的类型。    &quot;&quot;&quot;    pass</code></pre><p>此外，你也可以使用Google或NumPy风格的docstring。这是Google风格的例子：</p><pre><code>def function_name(param1, param2):    &quot;&quot;&quot;    这是一个函数的简单描述。    Args:        param1 (type): 这是param1的描述。        param2 (type): 这是param2的描述。    Returns:        type: 这是返回值的描述。    &quot;&quot;&quot;    pass</code></pre><p>PyCharm和其他一些IDE支持这些格式，并可以根据docstring生成相应的函数/方法签名和文档。</p><h3 id="实际示例"><a href="#实际示例" class="headerlink" title="实际示例"></a>实际示例</h3><pre><code>def timeCompare(time1, time2):    &quot;&quot;&quot;用于比较两个类似&#39;2023-05-17&#39;的时间戳字符串看谁更早。time1如果比time2更早或同天的话，返回True；否则返回False    Args:        time1 (str):传入类似&#39;2023-05-17&#39;的时间字符串        time2 (str):传入类似&#39;2023-05-17&#39;的时间字符串    Return:        res (bool):        &quot;&quot;&quot;    datetime1 = datetime.strptime(time1, &#39;%Y-%m-%d&#39;)    datetime2 = datetime.strptime(time2, &#39;%Y-%m-%d&#39;)    if datetime1 &lt;= datetime2:        return True    else:        return Falsedef singleCveHrefSpider(avd_url, session):    &quot;&quot;&quot;使用avd编号，匹配单个漏洞详情页的数据    Args:        avd_url(str): avd漏洞的链接地址        session(requests.Session): 用于网络IO的session    Returns:        res(dict): 返回无键默认None的字典        &quot;&quot;&quot;</code></pre><h1 id="正确的增加远程python解释器"><a href="#正确的增加远程python解释器" class="headerlink" title="正确的增加远程python解释器"></a>正确的增加远程python解释器</h1><p>总结：<br>1.py解释器中的上传目录通常是默认传到/tmp/pycharmxxxx中，这个无所谓，改为正确的上传路径即可。<br>2.<code>部署</code>改成正确的上传路径<br>3.<code>py解释器</code>中的路径映射写对，就可以远程调试了。</p><p>设置 -&gt; 项目 -&gt; python解释器</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-31-57.png" alt="2024-04-10-22-31-57"></p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-32-10.png" alt="2024-04-10-22-32-10"></p><p>这里可以改为正确的路径，不一定非得下面的 /tmp 路径</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-32-34.png" alt="2024-04-10-22-32-34"></p><p>映射路径选择本地路径就可以。如果解释器的映射路径不对，那回到上图改一下，再到这里选择正确的本地路径就可以进行远程调试了。</p><p>Py解释器中的路径映射填写正确，就可以正常进行远程调试了。</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-33-14.png" alt="2024-04-10-22-33-14"></p><h3 id="坑点：Pycharm-Can’t-get-remote-credentials-for-deployment-server"><a href="#坑点：Pycharm-Can’t-get-remote-credentials-for-deployment-server" class="headerlink" title="坑点：Pycharm:Can’t get remote credentials for deployment server"></a>坑点：Pycharm:Can’t get remote credentials for deployment server</h3><p>不知道为啥我会遇到这个报错，去项目，python解释器，把现有的SSH解释器删除了，重新添加，就没问题了</p><h1 id="将项目启用为django支持"><a href="#将项目启用为django支持" class="headerlink" title="将项目启用为django支持"></a>将项目启用为django支持</h1><p>首先启用django支持，在 设置 –&gt;  语言和框架   Django  勾选“启用Django支持”</p><p>配置如下</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-33-54.png" alt="2024-04-10-22-33-54"></p><p>然后要运行，就点击调试配置器</p><p><img src="/2024/04/08/Python/pycharm/2024-04-10-22-34-08.png" alt="2024-04-10-22-34-08"></p><p>直接配置后，运行即可</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Py </category>
           
       </categories>
       
