@@ -8,7 +8,7 @@
       <link href="/2025/04/07/Python/vastai-remotely-yolo/"/>
       <url>/2025/04/07/Python/vastai-remotely-yolo/</url>
       
-        <content type="html"><![CDATA[<ul><li><a href="#背景">背景</a></li><li><a href="#放弃国内算力平台">放弃国内算力平台</a></li><li><a href="#选择国外算力平台vastai">选择国外算力平台vastai</a><ul><li><a href="#注册账号">注册账号</a></li><li><a href="#选购gpu">选购GPU</a></li><li><a href="#通过jupyterlab连接实例">通过JupyterLab连接实例</a></li></ul></li><li><a href="#开始训练">开始训练</a><ul><li><a href="#摆好yolo的训练姿势">摆好yolo的训练姿势</a><ul><li><a href="#datayaml">data.yaml</a></li><li><a href="#train_yolopy">train_yolo.py</a></li></ul></li><li><a href="#使用screen让训练后台运行">使用screen让训练后台运行</a></li></ul></li></ul><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>本文记录租用云平台算力进行训练，减轻本机使用显卡的load。由于笔记本本身显卡能耗受限、散热不佳、显存受限等问题，我个人建议尽量避免笔记本overload。</p><p>关于如何使用云平台进行训练，需要具备cuda、Linux、yolo的一些知识。</p><p>此处以vastai平台使用yolov8训练模型为例。</p><h1 id="放弃国内算力平台"><a href="#放弃国内算力平台" class="headerlink" title="放弃国内算力平台"></a>放弃国内算力平台</h1><p>此时我在国外，最开始选择了国内算力平台“智星云”（<a href="https://gpu.ai-galaxy.cn/），但是很快发现一些网络问题。服务器并非具备独立IP，只是VPS向外映射SSH或RDP端口做了内网穿透，不知是否是GFW问题导致网络非常卡顿、RDP断断续续问题。因为无法解决比较快速的上传训练文件（2.5GB）左右，且其下载国外服务器文件速度过慢，遂放弃。">https://gpu.ai-galaxy.cn/），但是很快发现一些网络问题。服务器并非具备独立IP，只是VPS向外映射SSH或RDP端口做了内网穿透，不知是否是GFW问题导致网络非常卡顿、RDP断断续续问题。因为无法解决比较快速的上传训练文件（2.5GB）左右，且其下载国外服务器文件速度过慢，遂放弃。</a></p><h1 id="选择国外算力平台vastai"><a href="#选择国外算力平台vastai" class="headerlink" title="选择国外算力平台vastai"></a>选择国外算力平台vastai</h1><p>此处以vastai为例 <a href="https://cloud.vast.ai/">https://cloud.vast.ai/</a></p><h2 id="注册账号"><a href="#注册账号" class="headerlink" title="注册账号"></a>注册账号</h2><p>使用Google账号就可以登陆网站</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-09-29.png" alt></p><p>需要将右侧的四个要求解决才可以完成租赁。</p><p>验证邮箱</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-09-49.png" alt></p><p>选择template，此处选择现成的pytorch。点击torch下面那个小播放键 就选择了。</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-10-26.png" alt></p><p>把磁盘拉到50GB及以上，磁盘太小一般很容易出现杂七杂八的问题，因此disk不要小的太极限。</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-10-41.png" alt></p><p>充钱，略。</p><h2 id="选购GPU"><a href="#选购GPU" class="headerlink" title="选购GPU"></a>选购GPU</h2><p>最后选择具体的GPU rent.</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-11-10.png" alt></p><p>此处<strong>注意</strong>，<strong>很多GPU实例其实运行不起来</strong>。该平台本质是创建GPU直连的docker容器，注意检查日志是否有报错，有报错的实例直接删除就可以了。</p><p>只能过滤出来自己希望使用的显卡，然后一个一个试（不用担心试太多容器会花钱，他这没跑起来的容器不花钱），知道观察到这个按钮是<strong>Connecting</strong>, <strong>Open</strong>说明这个实例可以用起来。</p><p>如下，RTX5090,显存32GB：</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-11-46.png" alt></p><p>如图所示，确实可以运行：</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-11-57.png" alt></p><h2 id="通过JupyterLab连接实例"><a href="#通过JupyterLab连接实例" class="headerlink" title="通过JupyterLab连接实例"></a>通过JupyterLab连接实例</h2><p>点自己实例的Open按钮（此处我没有试成功直接的SSH连接）</p><p>Open后跳转的页面的这两个Application可以完成的文件上传下载、修改代码、执行shell。</p><p>我习惯点<strong>Jupyter Terminal</strong> 然后点开 <strong>Jupyter Lab</strong>.</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-12-28.png" alt></p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-12-34.png" alt></p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-12-43.png" alt></p><p>此处可以轻易的通过拖拽来文件IO（速度很快），也可以通过terminal运行shell。上传下载文件的时间你大概出去吃一顿饭。比如这24GB的文件费了大概半个小时。</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-13-08.png" alt></p><p>有能调用CUDA的torch</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-13-31.png" alt></p><p>可以看到RTX4090的24G的显存，满功耗450W（我这里用另一个实例跑yolo任务）</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-13-55.png" alt></p><h1 id="开始训练"><a href="#开始训练" class="headerlink" title="开始训练"></a>开始训练</h1><p>pip缺什么库自己补全：如<code>pip install ultralytics</code></p><h2 id="摆好yolo的训练姿势"><a href="#摆好yolo的训练姿势" class="headerlink" title="摆好yolo的训练姿势"></a>摆好yolo的训练姿势</h2><p>图片、label依次放入如下目录：</p><pre><code>/workspace/xraytolishun/OPIXray/test/images/workspace/xraytolishun/OPIXray/test/labels/workspace/xraytolishun/OPIXray/train/images/workspace/xraytolishun/OPIXray/train/labels</code></pre><h3 id="data-yaml"><a href="#data-yaml" class="headerlink" title="data.yaml"></a>data.yaml</h3><pre><code># 图片路径train: /workspace/xraytolishun/OPIXray/trainval: /workspace/xraytolishun/OPIXray/test# 类别信息nc: 5names: [&quot;Folding_Knife&quot;, &quot;Straight_Knife&quot;, &quot;Scissor&quot;, &quot;Utility_Knife&quot;, &quot;Multi-tool_Knife&quot;]</code></pre><h3 id="train-yolo-py"><a href="#train-yolo-py" class="headerlink" title="train_yolo.py"></a>train_yolo.py</h3><pre><code>from ultralytics import YOLOimport argparseimport randomimport numpy as npimport torchimport osimport yamldef main():    parser = argparse.ArgumentParser()    parser.add_argument(&#39;--data&#39;, type=str, default=&#39;data.yaml&#39;, help=&#39;数据配置文件&#39;)    parser.add_argument(&#39;--epochs&#39;, type=int, default=200, help=&#39;训练轮次&#39;) # 改成200    parser.add_argument(&#39;--patience&#39;, type=int, default=50, help=&#39;早停耐心值&#39;)    parser.add_argument(&#39;--batch&#39;, type=int, default=16, help=&#39;批量大小&#39;) # -1改16    parser.add_argument(&#39;--imgsz&#39;, type=int, default=640, help=&#39;图像大小&#39;)    parser.add_argument(&#39;--weights&#39;, type=str, default=&#39;yolov8m.pt&#39;, help=&#39;预训练权重&#39;)    parser.add_argument(&#39;--device&#39;, type=str, default=&#39;0&#39;, help=&#39;训练设备，例如cuda设备索引&#39;)    parser.add_argument(&#39;--name&#39;, type=str, default=&#39;train&#39;, help=&#39;训练结果的保存名称&#39;)    args = parser.parse_args()    # 设置随机种子以提高实验可重复性    seed = 42    random.seed(seed)    np.random.seed(seed)    torch.manual_seed(seed)    torch.cuda.manual_seed(seed)    # 加载模型    model = YOLO(args.weights)    # 创建一个临时的数据配置文件，添加类别权重    # 从原始数据配置文件读取内容，指定UTF-8编码    try:        with open(args.data, &#39;r&#39;, encoding=&#39;utf-8&#39;) as f:            data_config = yaml.safe_load(f)    except UnicodeDecodeError:        # 如果UTF-8失败，尝试其他编码        with open(args.data, &#39;r&#39;, encoding=&#39;latin-1&#39;) as f:            data_config = yaml.safe_load(f)    # 添加类别权重 - 为直刀类别(索引1)设置2倍权重    nc = data_config.get(&#39;nc&#39;, 0)    if nc &gt;= 2:  # 确保有足够的类别        class_weights = [1.0] * nc        class_weights[1] = 2.0  # 将直刀类别(索引1)的权重设为2.0        data_config[&#39;class_weights&#39;] = class_weights    # 保存临时数据配置文件    temp_data_file = f&quot;temp_&#123;args.name&#125;_data.yaml&quot;    with open(temp_data_file, &#39;w&#39;, encoding=&#39;utf-8&#39;) as f:        yaml.dump(data_config, f)    # 自定义训练配置，减少内存占用    results = model.train(        data=temp_data_file,  # 使用带有类别权重的临时数据文件        epochs=args.epochs,        patience=args.patience,        batch=args.batch,        imgsz=args.imgsz,        device=args.device,        name=args.name,        seed=seed,        resume=False,        # 调整数据增强参数 - 降低内存使用        hsv_h=0.1,        hsv_s=0.7,        hsv_v=0.4,        degrees=20.0,        translate=0.2,        scale=0.5,        fliplr=0.5,        mosaic=1.0,  # 保持马赛克增强        mixup=0.3,  # 降低mixup概率，减少内存使用        copy_paste=0.0,  # 禁用copy-paste，减少内存使用        # 优化器和学习率设置        lr0=0.001,  # 略微提高初始学习率        lrf=0.01,  # 调整最终学习率因子        warmup_epochs=3,  # 减少预热轮次        warmup_momentum=0.8,        warmup_bias_lr=0.1,        # 损失权重调整 - 增强对直刀类别的关注        box=7.5,        cls=0.7,  # 略微增加分类损失权重        dfl=1.5,        # 其他原始参数        close_mosaic=10,  # 最后10个epoch关闭mosaic，提高稳定性        fraction=1.0,        cache=False,        optimizer=&#39;auto&#39;,        weight_decay=0.001,        val=True    )    # 删除临时数据文件    if os.path.exists(temp_data_file):        os.remove(temp_data_file)    # 验证训练好的模型    best_weights_path = f&#39;runs/detect/&#123;args.name&#125;/weights/best.pt&#39;    # 确保目录存在    os.makedirs(os.path.dirname(best_weights_path), exist_ok=True)    if os.path.exists(best_weights_path):        print(f&quot;使用最佳权重 &#123;best_weights_path&#125; 进行验证&quot;)        trained_model = YOLO(best_weights_path)        trained_model.val(data=args.data)    else:        print(f&quot;警告: 找不到最佳权重文件 &#123;best_weights_path&#125;&quot;)    print(&quot;训练过程完成。&quot;)if __name__ == &quot;__main__&quot;:    main()(main)</code></pre><h2 id="使用screen让训练后台运行"><a href="#使用screen让训练后台运行" class="headerlink" title="使用screen让训练后台运行"></a>使用screen让训练后台运行</h2><p>如果你知道SSH会话一断，相关的子进程都不会运行。</p><p>此处我们需要后台训练，因为时间耗费比较长，我们也可能关掉基于WEB的SSH会话。</p><pre><code>apt install screen</code></pre><p>创建yolo会话</p><pre><code>screen -S yolo</code></pre><p>现在就进入yolo的screen了。</p><p>将标准输出、错误输出，定向到》./log 文件，方便我们未来查看当前yolo运行到什么程度了：</p><pre><code>python train.py &gt; ./log.txt 2&gt;&amp;1</code></pre><p>完成后 <strong>ctrl+A + D (顺序按下)</strong>退出当前screen。</p><p>如果想切回之前的yolo的screen会话：</p><p>screen -ls 查看screen的后台会话</p><pre><code>(main) root@C.19270554:/workspace$ screen -lsThere is a screen on:        1911.yolo       (04/07/25 07:49:53)     (Detached)1 Socket in /run/screen/S-root.</code></pre><p><code>Screen -r 1911.yolo</code> 切回输入命令的会话。</p><p>查看日志：（不需要进入screen会话），直接查看文件即可：tail命令可以查看这个日志</p><pre><code>tail -f ./log.txt</code></pre><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-17-03.png" alt></p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-17-13.png" alt></p>]]></content>
+        <content type="html"><![CDATA[<ul><li><a href="#背景">背景</a></li><li><a href="#放弃国内算力平台">放弃国内算力平台</a></li><li><a href="#选择国外算力平台vastai">选择国外算力平台vastai</a><ul><li><a href="#注册账号">注册账号</a></li><li><a href="#选购gpu">选购GPU</a></li><li><a href="#通过jupyterlab连接实例">通过JupyterLab连接实例</a></li></ul></li><li><a href="#开始训练">开始训练</a><ul><li><a href="#摆好yolo的训练姿势">摆好yolo的训练姿势</a><ul><li><a href="#datayaml">data.yaml</a></li><li><a href="#train_yolopy">train_yolo.py</a></li></ul></li><li><a href="#使用screen让训练后台运行">使用screen让训练后台运行</a></li></ul></li></ul><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>本文记录租用云平台算力进行训练，减轻本机使用显卡的load。由于笔记本本身显卡能耗受限、散热不佳、显存受限等问题，我个人建议尽量避免笔记本overload。</p><p>关于如何使用云平台进行训练，需要具备cuda、Linux、yolo的一些知识。</p><p>此处以vastai平台使用yolov8训练模型为例。</p><h1 id="放弃国内算力平台"><a href="#放弃国内算力平台" class="headerlink" title="放弃国内算力平台"></a>放弃国内算力平台</h1><p>此时我在国外，最开始选择了国内算力平台“智星云”（<a href="https://gpu.ai-galaxy.cn/），但是很快发现一些网络问题。服务器并非具备独立IP，只是VPS向外映射SSH或RDP端口做了内网穿透，不知是否是GFW问题导致网络非常卡顿、RDP断断续续问题。因为无法解决比较快速的上传训练文件（2.5GB）左右，且其下载国外服务器文件速度过慢，遂放弃。">https://gpu.ai-galaxy.cn/），但是很快发现一些网络问题。服务器并非具备独立IP，只是VPS向外映射SSH或RDP端口做了内网穿透，不知是否是GFW问题导致网络非常卡顿、RDP断断续续问题。因为无法解决比较快速的上传训练文件（2.5GB）左右，且其下载国外服务器文件速度过慢，遂放弃。</a></p><h1 id="选择国外算力平台vastai"><a href="#选择国外算力平台vastai" class="headerlink" title="选择国外算力平台vastai"></a>选择国外算力平台vastai</h1><p>此处以vastai为例 <a href="https://cloud.vast.ai/">https://cloud.vast.ai/</a></p><h2 id="注册账号"><a href="#注册账号" class="headerlink" title="注册账号"></a>注册账号</h2><p>使用Google账号就可以登陆网站</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-09-29.png" alt></p><p>需要将右侧的四个要求解决才可以完成租赁。</p><p>验证邮箱</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-09-49.png" alt></p><p>选择template，此处选择现成的pytorch。点击torch下面那个小播放键 就选择了。</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-10-26.png" alt></p><p>把磁盘拉到50GB及以上，磁盘太小一般很容易出现杂七杂八的问题，因此disk不要小的太极限。</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-10-41.png" alt></p><p>充钱，略。</p><h2 id="选购GPU"><a href="#选购GPU" class="headerlink" title="选购GPU"></a>选购GPU</h2><p>最后选择具体的GPU rent.</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-11-10.png" alt></p><p>此处<strong>注意</strong>，<strong>很多GPU实例其实运行不起来</strong>。该平台本质是创建GPU直连的docker容器，注意检查日志是否有报错，有报错的实例直接删除就可以了。</p><p>只能过滤出来自己希望使用的显卡，然后一个一个试（不用担心试太多容器会花钱，他这没跑起来的容器不花钱），知道观察到这个按钮是<strong>Connecting</strong>, <strong>Open</strong>说明这个实例可以用起来。</p><p>如下，RTX5090,显存32GB：</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-11-46.png" alt></p><p>如图所示，确实可以运行：</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-11-57.png" alt></p><h2 id="通过JupyterLab连接实例"><a href="#通过JupyterLab连接实例" class="headerlink" title="通过JupyterLab连接实例"></a>通过JupyterLab连接实例</h2><p>点自己实例的Open按钮（此处我没有试成功直接的SSH连接）</p><p>Open后跳转的页面的这两个Application可以完成的文件上传下载、修改代码、执行shell。</p><p>我习惯点<strong>Jupyter Terminal</strong> 然后点开 <strong>Jupyter Lab</strong>.</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-12-28.png" alt></p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-12-34.png" alt></p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-12-43.png" alt></p><p>此处可以轻易的通过拖拽来文件IO（速度很快），也可以通过terminal运行shell。上传下载文件的时间你大概出去吃一顿饭。比如这24GB的文件费了大概半个小时。</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-13-08.png" alt></p><p>有能调用CUDA的torch</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-13-31.png" alt></p><p>可以看到RTX4090的24G的显存，满功耗450W（我这里用另一个实例跑yolo任务）</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-13-55.png" alt></p><h1 id="开始训练"><a href="#开始训练" class="headerlink" title="开始训练"></a>开始训练</h1><p>pip缺什么库自己补全：如<code>pip install ultralytics</code></p><h2 id="摆好yolo的训练姿势"><a href="#摆好yolo的训练姿势" class="headerlink" title="摆好yolo的训练姿势"></a>摆好yolo的训练姿势</h2><p>图片、label依次放入如下目录：</p><pre><code>/workspace/xraytolishun/OPIXray/test/images/workspace/xraytolishun/OPIXray/test/labels/workspace/xraytolishun/OPIXray/train/images/workspace/xraytolishun/OPIXray/train/labels</code></pre><h3 id="data-yaml"><a href="#data-yaml" class="headerlink" title="data.yaml"></a>data.yaml</h3><pre><code># 图片路径train: /workspace/xraytolishun/OPIXray/trainval: /workspace/xraytolishun/OPIXray/test# 类别信息nc: 5names: [&quot;Folding_Knife&quot;, &quot;Straight_Knife&quot;, &quot;Scissor&quot;, &quot;Utility_Knife&quot;, &quot;Multi-tool_Knife&quot;]</code></pre><h3 id="train-yolo-py"><a href="#train-yolo-py" class="headerlink" title="train_yolo.py"></a>train_yolo.py</h3><pre><code>from ultralytics import YOLOimport argparseimport randomimport numpy as npimport torchimport osimport yamldef main():    parser = argparse.ArgumentParser()    parser.add_argument(&#39;--data&#39;, type=str, default=&#39;data.yaml&#39;, help=&#39;数据配置文件&#39;)    parser.add_argument(&#39;--epochs&#39;, type=int, default=200, help=&#39;训练轮次&#39;) # 改成200    parser.add_argument(&#39;--patience&#39;, type=int, default=50, help=&#39;早停耐心值&#39;)    parser.add_argument(&#39;--batch&#39;, type=int, default=16, help=&#39;批量大小&#39;) # -1改16    parser.add_argument(&#39;--imgsz&#39;, type=int, default=640, help=&#39;图像大小&#39;)    parser.add_argument(&#39;--weights&#39;, type=str, default=&#39;yolov8m.pt&#39;, help=&#39;预训练权重&#39;)    parser.add_argument(&#39;--device&#39;, type=str, default=&#39;0&#39;, help=&#39;训练设备，例如cuda设备索引&#39;)    parser.add_argument(&#39;--name&#39;, type=str, default=&#39;train&#39;, help=&#39;训练结果的保存名称&#39;)    args = parser.parse_args()    # 设置随机种子以提高实验可重复性    seed = 42    random.seed(seed)    np.random.seed(seed)    torch.manual_seed(seed)    torch.cuda.manual_seed(seed)    # 加载模型    model = YOLO(args.weights)    # 创建一个临时的数据配置文件，添加类别权重    # 从原始数据配置文件读取内容，指定UTF-8编码    try:        with open(args.data, &#39;r&#39;, encoding=&#39;utf-8&#39;) as f:            data_config = yaml.safe_load(f)    except UnicodeDecodeError:        # 如果UTF-8失败，尝试其他编码        with open(args.data, &#39;r&#39;, encoding=&#39;latin-1&#39;) as f:            data_config = yaml.safe_load(f)    # 添加类别权重 - 为直刀类别(索引1)设置2倍权重    nc = data_config.get(&#39;nc&#39;, 0)    if nc &gt;= 2:  # 确保有足够的类别        class_weights = [1.0] * nc        class_weights[1] = 2.0  # 将直刀类别(索引1)的权重设为2.0        data_config[&#39;class_weights&#39;] = class_weights    # 保存临时数据配置文件    temp_data_file = f&quot;temp_&#123;args.name&#125;_data.yaml&quot;    with open(temp_data_file, &#39;w&#39;, encoding=&#39;utf-8&#39;) as f:        yaml.dump(data_config, f)    # 自定义训练配置，减少内存占用    results = model.train(        data=temp_data_file,  # 使用带有类别权重的临时数据文件        epochs=args.epochs,        patience=args.patience,        batch=args.batch,        imgsz=args.imgsz,        device=args.device,        name=args.name,        seed=seed,        resume=False,        # 调整数据增强参数 - 降低内存使用        hsv_h=0.1,        hsv_s=0.7,        hsv_v=0.4,        degrees=20.0,        translate=0.2,        scale=0.5,        fliplr=0.5,        mosaic=1.0,  # 保持马赛克增强        mixup=0.3,  # 降低mixup概率，减少内存使用        copy_paste=0.0,  # 禁用copy-paste，减少内存使用        # 优化器和学习率设置        lr0=0.001,  # 略微提高初始学习率        lrf=0.01,  # 调整最终学习率因子        warmup_epochs=3,  # 减少预热轮次        warmup_momentum=0.8,        warmup_bias_lr=0.1,        # 损失权重调整 - 增强对直刀类别的关注        box=7.5,        cls=0.7,  # 略微增加分类损失权重        dfl=1.5,        # 其他原始参数        close_mosaic=10,  # 最后10个epoch关闭mosaic，提高稳定性        fraction=1.0,        cache=False,        optimizer=&#39;auto&#39;,        weight_decay=0.001,        val=True    )    # 删除临时数据文件    if os.path.exists(temp_data_file):        os.remove(temp_data_file)    # 验证训练好的模型    best_weights_path = f&#39;runs/detect/&#123;args.name&#125;/weights/best.pt&#39;    # 确保目录存在    os.makedirs(os.path.dirname(best_weights_path), exist_ok=True)    if os.path.exists(best_weights_path):        print(f&quot;使用最佳权重 &#123;best_weights_path&#125; 进行验证&quot;)        trained_model = YOLO(best_weights_path)        trained_model.val(data=args.data)    else:        print(f&quot;警告: 找不到最佳权重文件 &#123;best_weights_path&#125;&quot;)    print(&quot;训练过程完成。&quot;)if __name__ == &quot;__main__&quot;:    main()(main)</code></pre><h2 id="使用screen让训练后台运行"><a href="#使用screen让训练后台运行" class="headerlink" title="使用screen让训练后台运行"></a>使用screen让训练后台运行</h2><p>如果你知道SSH会话一断，相关的子进程都不会运行。</p><p>此处我们需要后台训练，因为时间耗费比较长，我们也可能关掉基于WEB的SSH会话。</p><pre><code>apt install screen</code></pre><p>创建yolo会话</p><pre><code>screen -S yolo</code></pre><p>现在就进入yolo的screen了。</p><p>将标准输出、错误输出，定向到》./log 文件，方便我们未来查看当前yolo运行到什么程度了：</p><pre><code>python train.py &gt; ./log.txt 2&gt;&amp;1</code></pre><p>完成后 <strong>ctrl+A + D (顺序按下)</strong>退出当前screen。</p><p>如果想切回之前的yolo的screen会话：</p><p>screen -ls 查看screen的后台会话</p><pre><code>(main) root@C.19270554:/workspace$ screen -lsThere is a screen on:        1911.yolo       (04/07/25 07:49:53)     (Detached)1 Socket in /run/screen/S-root.</code></pre><p><code>Screen -r 1911.yolo</code> 切回输入命令的会话。</p><p>查看日志：（不需要进入screen会话），直接查看文件即可：tail命令可以查看这个日志</p><pre><code>tail -f ./log.txt</code></pre><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-17-03.png" alt></p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-19-17-13.png" alt></p><hr><p>跑了大概两小时，跑100轮 16 batch，跑完了：</p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-20-06-51.png" alt></p><p><img src="/2025/04/07/Python/vastai-remotely-yolo/2025-04-07-20-08-39.png" alt></p>]]></content>
       
       
       <categories>
@@ -1387,16 +1387,225 @@
     
     
     <entry>
-      <title>.gitignore</title>
-      <link href="/2024/04/09/git/gitignore/"/>
-      <url>/2024/04/09/git/gitignore/</url>
+      <title>构建gitleaks-Docker服务</title>
+      <link href="/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
+      <url>/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
       
-        <content type="html"><![CDATA[<p>官方文档：<code>https://github.com/github/gitignore</code></p><h3 id="我的-gitignore模板"><a href="#我的-gitignore模板" class="headerlink" title="我的.gitignore模板"></a>我的.gitignore模板</h3><pre><code># Logslogs*.lognpm-debug.log*yarn-debug.log*yarn-error.log*pnpm-debug.log*lerna-debug.log*node_modulesdistdist-ssr*.local# big files*.mp4backend/volume/media/documents/*!backend/volume/media/documents/.gitkeepbackend/volume/media/import_excel_upload/*!backend/volume/media/import_excel_upload/.gitkeepbackend/volume/media/videos/*!backend/volume/media/videos/.gitkeep# python**/__pycache__/**.pyc# 忽略pycharm**/.idea/# 忽略虚拟环境**/venv# Editor directories and files**/.vscode/*!.vscode/extensions.json.idea.DS_Store*.suo*.ntvs**.njsproj*.sln*.sw?</code></pre><h3 id="其他示例"><a href="#其他示例" class="headerlink" title="其他示例"></a>其他示例</h3><pre><code># 忽略所有 .a 结尾的文件a# 但lib.a 除外!lib.a# 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO/TODO# 忽略build/ 目录下的所有文件build/# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txtdoc/.txt</code></pre>]]></content>
+        <content type="html"><![CDATA[<p>两个一块儿用，Dockerfile在docker-compose.yaml的同目录下。</p><h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><pre><code>FROM amd64/alpine:3.14RUN apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdataADD ./SecretDetectionDir /webscan/WORKDIR /webscanEXPOSE 8000ENTRYPOINT [&quot;/webscan/http&quot;]</code></pre><h1 id="docker-compose-yaml"><a href="#docker-compose-yaml" class="headerlink" title="docker-compose.yaml"></a>docker-compose.yaml</h1><pre><code>version: &quot;3&quot;services:secretdetection_docker:    build: .    container_name: secretdetection_http    ports:    - &quot;8000:8000&quot;    restart: always</code></pre>]]></content>
       
       
       <categories>
           
-          <category> Git </category>
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker-compose调试和操作</title>
+      <link href="/2024/04/09/docker/docker-compose%E8%B0%83%E8%AF%95/"/>
+      <url>/2024/04/09/docker/docker-compose%E8%B0%83%E8%AF%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="方便调试的技巧"><a href="#方便调试的技巧" class="headerlink" title="方便调试的技巧"></a>方便调试的技巧</h1><pre><code>docker-compose down &amp;&amp; docker-compose rebuild &amp;&amp; docker-compose up -d</code></pre><h1 id="docker-compose操作"><a href="#docker-compose操作" class="headerlink" title="docker-compose操作"></a>docker-compose操作</h1><pre><code>docker-compose build 构建镜像，镜像文件会存在docker images中docker-compose up -d 启动容器docker-compose down 移除容器（这点我以前以为down是类似于docker stop的命令，没想到docker-compose down是移除的意思，导致删库）docker-compose stop 暂停容器运行</code></pre><h1 id="导出导入操作"><a href="#导出导入操作" class="headerlink" title="导出导入操作"></a>导出导入操作</h1><p>参考链接:<a href="https://www.hangge.com/blog/cache/detail_2411.html">https://www.hangge.com/blog/cache/detail_2411.html</a></p><p>不过需要注意一下，导入导出的时候最好根据<code>docker ps -a</code>的 名字来操作，不要根据 container id 来操作。否则导入的时候，显示的名字可能是 <none>。这个时候虽然容器可以正常运行，但是很多人会感觉<none>是错误的。</none></none></p><p>最重要的注意，<strong>docker-compose无法构建容器为镜像，而且也不会复制外部目录到内部</strong>，有的仅仅是volumns: xxx:xxx的挂载。如果容器是使用的挂载目录，而不是复制进去的文件，那么会无法运行相应目录中的文件和程序。</p><p>所以Dockerfile和dockerf-compose.yml结合使用。</p><h1 id="容器：export和import"><a href="#容器：export和import" class="headerlink" title="容器：export和import"></a>容器：export和import</h1><pre><code>docker export f299f501774c &gt; hangger_server.tardocker import - new_hangger_server &lt; hangger_server.tar</code></pre><h1 id="镜像：save和load"><a href="#镜像：save和load" class="headerlink" title="　镜像：save和load"></a>　镜像：save和load</h1><p>（1）下面使用 docker save 命令根据 ID 将镜像保存成一个文件。</p><pre><code>docker save 0fdf2b4c26d3 &gt; hangge_server.tar</code></pre><p><strong>(这么打包，是没有标签名字的。最好指定镜像标签名而非镜像id打包)</strong></p><p>（2）我们还可以同时将多个 image 打包成一个文件，比如下面将镜像库中的 postgres 和 mongo 打包：</p><pre><code>docker save -o images.tar postgres:9.6 mongo:3.4</code></pre><p>载入镜像</p><pre><code>docker load &lt; hangge_server.tar</code></pre><h1 id="SD的镜像打包及运行"><a href="#SD的镜像打包及运行" class="headerlink" title="SD的镜像打包及运行"></a>SD的镜像打包及运行</h1><h3 id="打包导出"><a href="#打包导出" class="headerlink" title="打包导出"></a>打包导出</h3><p>先命名个版本</p><pre><code>docker tag f0b0777d65d7 sd_secretdetection_docker:2.3</code></pre><p>打包，不要根据镜像id打包，不然未来没有名字，得指定tag：</p><pre><code>docker save -o sd-2.3.tar sd_secretdetection_docker:2.3</code></pre><p>加载运行</p><pre><code>docker load &lt; sd-2.3.tardocker run -itd -p 8000:8000 sd_secretdetection_docker:2.3</code></pre><p>run镜像，并指定容器名字</p><p>指定镜像名字:</p><pre><code>docker run --name my_container my_imagedocker load &lt; shenyanjian.tardocker run -itd -p 8000:8000 --name secretdetection shenyanjian_secretdetection_docker:latest</code></pre><p>将容器保存为本地镜像</p><pre><code>docker commit -a &quot;blingsec&quot; -m &quot;sd2.0&quot; secret_detection_http secret_detection_http:v2.0</code></pre><p>-a是作者名，-m 是标注信息，最后的secret_detection_http:v2.0 是命名</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker volume</title>
+      <link href="/2024/04/09/docker/docker-volume/"/>
+      <url>/2024/04/09/docker/docker-volume/</url>
+      
+        <content type="html"><![CDATA[<p>docker volume 有 ls rm等子命令</p><p>使用 docker rm 命令删除容器时，默认情况下不会删除与该容器关联的挂载的 <strong>Docker 卷（Docker volume）</strong>。Docker volume 是一个独立于容器的数据存储区域，通常用于持久化存储容器内的数据。</p><p>如果您使用了 -v 参数来挂载卷，那么删除容器时不会删除这个卷。要删除与容器关联的卷，您需要使用 docker volume rm 命令。</p><p>例如，如果您的容器启动命令中有如下的 -v 参数：</p><pre><code>docker run -v /host/path:/container/path my_image</code></pre><p>那么删除容器时，卷 /host/path 不会被自动删除。要手动删除该卷，可以运行以下命令：</p><pre><code>docker volume rm $(docker volume ls -qf &quot;mount=/host/path&quot;)</code></pre><p>这将删除与指定路径关联的 Docker 卷。请注意替换 /host/path 为实际使用的卷路径。</p><p>总之，docker rm 默认不会删除挂载的 Docker 卷，您需要使用 docker volume rm 命令手动删除它们。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>dockerhub &amp;&amp; docker</title>
+      <link href="/2024/04/09/docker/docker/"/>
+      <url>/2024/04/09/docker/docker/</url>
+      
+        <content type="html"><![CDATA[<h1 id="中国用户换源"><a href="#中国用户换源" class="headerlink" title="中国用户换源"></a>中国用户换源</h1><pre><code>vim /etc/docker/daemon.json&#123;&quot;registry-mirrors&quot;:[&quot;https://hub-mirror.c.163.com&quot;,&quot;https://registry.aliyuncs.com&quot;,&quot;https://registry.docker-cn.com&quot;,&quot;https://docker.mirrors.ustc.edu.cn&quot;]&#125;service docker restart</code></pre><h1 id="dockerhub"><a href="#dockerhub" class="headerlink" title="dockerhub"></a>dockerhub</h1><p>log in <a href="https://hub.docker.com/">https://hub.docker.com/</a>, register an account.</p><p>pull your private image</p><pre><code>docker pull senranja/secret_detection</code></pre><p>build an image with tag, upload image to dockerhub</p><pre><code>docker image build -t senranja/secret_detection:v2.1 .docker logindocker push username/repo:tag</code></pre><h1 id="搭建gitlab-ce为例"><a href="#搭建gitlab-ce为例" class="headerlink" title="搭建gitlab-ce为例"></a>搭建gitlab-ce为例</h1><p>安装gitlab-ce参考链接：</p><pre><code>https://blog.csdn.net/BThinker/article/details/124097795</code></pre><p>查找镜像</p><pre><code>docker search gitlab</code></pre><p>拉取Gitlab镜像</p><pre><code>docker pull gitlab/gitlab-ce:latest</code></pre><p>启动容器，这里docker run命令的-v和dockerfile以及docker-compose.yaml中的-v 挂在目录，不需要你自己手动创建目录。即便目录不存在，他会自动创建。</p><pre><code>docker run \-itd  \-p 9980:80 \-p 9922:22 \-v /home/gitlab/etc:/etc/gitlab  \-v /home/gitlab/log:/var/log/gitlab \-v /home/gitlab/opt:/var/opt/gitlab \--restart always \--privileged=true \--name gitlab \gitlab/gitlab-ce</code></pre><p>命令</p><pre><code>-i     以交互模式运行容器，通常与 -t 同时使用命令解释-t     为容器重新分配一个伪输入终端，通常与 -i 同时使用-d    后台运行容器，并返回容器ID-p 9980:80    将容器内80端口映射至宿主机9980端口，这是访问gitlab的端口-p 9922:22     将容器内22端口映射至宿主机9922端口，这是访问ssh的端口-v /home/gitlab/etc:/etc/gitlab    将容器/etc/gitlab目录挂载到宿主机/usr/local/gitlab-test/etc目录下，若宿主机内此目录不存在将会自动创建，其他两个挂载同这个一样--restart always    容器自启动--privileged=true    让容器获取宿主机root权限--name gitlab    设置容器名称为gitlabgitlab/gitlab-ce    镜像的名称，这里也可以写镜像ID</code></pre><h1 id="复制目录细节"><a href="#复制目录细节" class="headerlink" title="复制目录细节"></a>复制目录细节</h1><p>屁股加不加 /没区别</p><ol><li><p>目录下文件复制到目标目录下，不包含目录本身</p><p>COPY ./dist/ /usr/share/nginx/html/</p></li></ol><p>是将 ./dist/下文件 放入 /html/，dist本身没目录</p><ol><li><p>连带这个目录复制进入</p><p>COPY ./dist /usr/share/nginx/html/dist</p></li></ol><h1 id="删除none镜像"><a href="#删除none镜像" class="headerlink" title="删除none镜像"></a>删除none镜像</h1><pre><code>docker images -a | grep &quot;&lt;none&gt;&quot; | awk &#39;&#123;print $3&#125;&#39; | xargs docker rmi</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker network</title>
+      <link href="/2024/04/09/docker/docker-network/"/>
+      <url>/2024/04/09/docker/docker-network/</url>
+      
+        <content type="html"><![CDATA[<h1 id="docker-network网络的优势"><a href="#docker-network网络的优势" class="headerlink" title="docker network网络的优势"></a><strong>docker network网络的优势</strong></h1><p>同一个 Docker <strong>网络中的容器之间可以使用容器名进行网络通信，就像访问域名一样</strong>。这是因为 Docker 默认提供了一个内置的 DNS 服务，它会为在同一网络中运行的容器分配主机名，并且其他容器可以使用这些主机名进行通信。</p><h1 id="创建docker-network"><a href="#创建docker-network" class="headerlink" title="创建docker network"></a>创建docker network</h1><p>使用 Docker 网络：另一种可能的解决方案是创建一个新的 Docker 网络，并在这个网络上运行你的容器。你可以使用 docker network create 命令创建一个新的网络，然后使用 —network 选项运行你的容器。</p><p>调整防火墙规则：如果你的主机上运行有防火墙，可能需要调整防火墙规则以允许 Docker 容器访问内网。具体的步骤取决于你的防火墙软件和配置。</p><p><strong>检查 DNS 配置：如果你的问题与 DNS 解析有关，可能需要检查和调整你的 Docker 容器的 DNS 配置。你可以通过在 Docker 守护进程的配置文件（例如 /etc/docker/daemon.json）中设置 dns 选项来全局配置 DNS，也可以使用 —dns 选项在运行容器时指定 DNS。</strong></p><p><strong>使用 VPN：如果你的内网服务在 VPN 后面，你可能需要在 Docker 容器中设置 VPN。这可能需要在你的 Docker 镜像中安装和配置 VPN 客户端。</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>gitlab EE实例</title>
+      <link href="/2024/04/09/docker/dockerfile%EF%BC%9Agitlab%20EE%E5%AE%9E%E4%BE%8B/"/>
+      <url>/2024/04/09/docker/dockerfile%EF%BC%9Agitlab%20EE%E5%AE%9E%E4%BE%8B/</url>
+      
+        <content type="html"><![CDATA[<pre><code>version: &#39;3.8&#39;services:gitlab:    image: &#39;gitlab/gitlab-ee:15.3.5-ee.0&#39;    container_name: &#39;gitlab-ee&#39;    restart: always    hostname: 192.168.3.199    privileged: true    shm_size: &#39;2gb&#39;    environment:    GITLAB_OMNIBUS_CONFIG: |        external_url &#39;http://192.168.3.199:40080&#39;        gitlab_rails[&#39;gitlab_shell_ssh_port&#39;] = 40022    ports:    - 40080:40080    - 40443:40443    - &quot;40022:22&quot;    volumes:    - &#39;./storage/config:/etc/gitlab&#39;    - &#39;./storage/logs:/var/log/gitlab&#39;    - &#39;./storage/data:/var/opt/gitlab&#39;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>只能有root操作docker，普通用户无法操作dockers处理方法</title>
+      <link href="/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/"/>
+      <url>/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/</url>
+      
+        <content type="html"><![CDATA[<p>参考链接: <a href="https://www.cnblogs.com/-mrl/p/13836631.html">https://www.cnblogs.com/-mrl/p/13836631.html</a></p><p>看当前系统中的用户和组：</p><pre><code>1、用户列表文件：cat /etc/passwd2、用户组列表文件：cat /etc/group</code></pre><h1 id="创建docker组"><a href="#创建docker组" class="headerlink" title="创建docker组"></a>创建docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo groupadd dockergroupadd: group ‘docker‘ already exists</code></pre><h1 id="将当前用户加入docker组"><a href="#将当前用户加入docker组" class="headerlink" title="将当前用户加入docker组"></a>将当前用户加入docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo gpasswd -a $&#123;USER&#125; dockerAdding user xxx to group docker</code></pre><h1 id="重启docker服务"><a href="#重启docker服务" class="headerlink" title="重启docker服务"></a>重启docker服务</h1><pre><code>vagrant@ubuntu18:~$ sudo service docker restart</code></pre><h1 id="刷新docker组成员"><a href="#刷新docker组成员" class="headerlink" title="刷新docker组成员"></a>刷新docker组成员</h1><pre><code>vagrant@ubuntu18:~$ newgrp docker#再试试命令^_^vagrant@ubuntu18:~$ docker imagesREPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</code></pre><p>然后当前的shell退了重新开一个，这样你目前的用户就可以操作docker images 命令。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>开启ipv4转发</title>
+      <link href="/2024/04/09/docker/%E5%BC%80%E5%90%AFipv4%E8%BD%AC%E5%8F%91/"/>
+      <url>/2024/04/09/docker/%E5%BC%80%E5%90%AFipv4%E8%BD%AC%E5%8F%91/</url>
+      
+        <content type="html"><![CDATA[<h1 id="无法访问到docker映射出来的端口"><a href="#无法访问到docker映射出来的端口" class="headerlink" title="无法访问到docker映射出来的端口"></a>无法访问到docker映射出来的端口</h1><p>临时开启ipv4转发</p><pre><code>echo 1 &gt;/proc/sys/net/ipv4/ip_forward</code></pre><p>并重启docker服务</p><pre><code>service docker restart</code></pre><p>永久开启路由功能</p><pre><code>vim /etc/sysctl.confnet.ipv4.ip_forward = 1</code></pre><p>然后容器内也能上网了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>chown cannot dereference</title>
+      <link href="/2024/04/09/docker/mysql-chown-err/"/>
+      <url>/2024/04/09/docker/mysql-chown-err/</url>
+      
+        <content type="html"><![CDATA[<p>疑难杂症：拷贝mysql原始目录到其他目录，报错</p><pre><code>chown: cannot dereference &#39;/var/lib/mysql/mysql.sock&#39;: No such file or directory</code></pre><p>模仿此贴<br><a href="https://github.com/docker-library/mysql/issues/939">https://github.com/docker-library/mysql/issues/939</a></p><p><img src="/2024/04/09/docker/mysql-chown-err/2024-04-10-21-36-32.png" alt="2024-04-10-21-36-32"></p><p>解决</p><p>原因是复制docker数据过来的时候没有保持原先文件的chown属性</p><p>不需要设置privileged: true  # 允许特权模式 属性</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>mysql-docker</title>
+      <link href="/2024/04/09/docker/mysql-docker/"/>
+      <url>/2024/04/09/docker/mysql-docker/</url>
+      
+        <content type="html"><![CDATA[<p>mysql的docker：<a href="https://registry.hub.docker.com/_/mysql">https://registry.hub.docker.com/_/mysql</a></p><p>我的文件名称是docker-compose-basic.yml,MySQL数据挂载到宿主机/root/basic/mysql下</p><p>数据库一般需要将数据挂载到宿主机上,以免容器损坏导致数据丢失</p><pre><code>version: &#39;3&#39;services:#mysqlmysql:    image: mysql:5.6    container_name: mysql    environment:    - MYSQL_ROOT_PASSWORD=1qaz@WSX    - TZ=Asia/Shanghai    - SET_CONTAINER_TIMEZONE=true    - CONTAINER_TIMEZONE=Asia/Shanghai    volumes:    - ./mysql/conf:/etc/mysql/conf.d    - ./mysql/conf:/etc/mysql/mysql.conf.d    - ./mysql/data:/var/lib/mysql    - ./mysql/logs:/var/log/mysql    - /etc/localtime:/etc/localtime:ro    ports:    - 13306:3306    restart: always</code></pre><p>关于修改配置文件my.cnf(类似于my.ini)这种文件，上面已经指向了/etc/mysql/mysql.conf.d和/etc/mysql/conf.d两处配置文件的目录，但是完全可以在上面的挂载目录下新建my.cnf。因为我们的cnf文件也是配置文件。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>构建blingTrendsAPIServer</title>
+      <link href="/2024/04/09/docker/%E6%9E%84%E5%BB%BAblingTrendsAPIServer/"/>
+      <url>/2024/04/09/docker/%E6%9E%84%E5%BB%BAblingTrendsAPIServer/</url>
+      
+        <content type="html"><![CDATA[<p>amd64/alpine:3.14足够小</p><pre><code>FROM amd64/alpine:3.14ADD . /api-server/RUN apk update &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdata &amp;&amp; apk add --update --no-cache python3 py3-pip &amp;&amp; python3 -m pip install -r /api-server/requirements.txtWORKDIR /api-serverEXPOSE 5000ENTRYPOINT [&quot;python3&quot;, &quot;/api-server/blingTrendsAPIServer.py&quot;]</code></pre><p>推荐dockerfile部署，目前已部署在192.168.3.203:5000。</p><p>默认使用5000端口，自行考虑防火墙端口开放，如ubuntu使用<code>sudo ufw allow 5000/tcp</code>放开端口；</p><p>目前连接数据库是<code>192.168.3.203:23306</code>，docker默认bridge模式，要访问203数据库需要<code>sudo ufw allow 23306/tcp</code></p><p>如果需要指定端口映射，自行更改参数<code>docker run -p &lt;host-port&gt;:&lt;container-port&gt; &lt;image-name&gt;</code></p><pre><code># 构建后大小为77.5MBdocker build -t bling-trends-server .# 运行命令docker run --name bling_trends_server_container -itd -p 5000:5000 bling-trends-server</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>构建gitleaks-Docker服务</title>
+      <link href="/2024/04/09/docker/%E7%BA%AFdocker-compose%E6%97%A0dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
+      <url>/2024/04/09/docker/%E7%BA%AFdocker-compose%E6%97%A0dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
+      
+        <content type="html"><![CDATA[<p>在上面gitleaks的docker-compose+Dockerfile的组合之后，我想写个纯docker-compose无dockerfile的版本。</p><p>即使用docker-compose完全替代Dockerfile。</p><p>docker-compose</p><p>entrypoint不好用，我查阅资料说是类似于Dockerfile的RUN，在容器启动之前的构件中会运行，但是怎么测试都不对。</p><p>干脆把RUN中的命令写到最后的command构建命令中。<br>涉及command命令，注意使用docker-compose logs看日志，有可能无限重复运行command命令</p><pre><code>version: &quot;3&quot;services:secretdetection_docker:    image: amd64/alpine:3.14    # entrypoint: [&quot;/secretDetection/entrypoint.sh&quot;]    # entrypoint: &quot;/bin/sh -c &quot;apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdata&quot;    container_name: secret_detection_http    ports:    - &quot;8000:8000&quot;    restart: always    volumes:    - ./SecretDetectionDir:/secretDetection/    restart: always    working_dir: /secretDetection/    # command: /secretDetection/http    command: /bin/sh -c &quot;apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdata &amp;&amp; /secretDetection/http&quot;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
           
       </categories>
       
@@ -1411,6 +1620,25 @@
       <url>/2024/04/09/git/gitkeep/</url>
       
         <content type="html"><![CDATA[<p>目录中新建空文件 <strong>.gitkeep</strong> 即可</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>.gitignore</title>
+      <link href="/2024/04/09/git/gitignore/"/>
+      <url>/2024/04/09/git/gitignore/</url>
+      
+        <content type="html"><![CDATA[<p>官方文档：<code>https://github.com/github/gitignore</code></p><h3 id="我的-gitignore模板"><a href="#我的-gitignore模板" class="headerlink" title="我的.gitignore模板"></a>我的.gitignore模板</h3><pre><code># Logslogs*.lognpm-debug.log*yarn-debug.log*yarn-error.log*pnpm-debug.log*lerna-debug.log*node_modulesdistdist-ssr*.local# big files*.mp4backend/volume/media/documents/*!backend/volume/media/documents/.gitkeepbackend/volume/media/import_excel_upload/*!backend/volume/media/import_excel_upload/.gitkeepbackend/volume/media/videos/*!backend/volume/media/videos/.gitkeep# python**/__pycache__/**.pyc# 忽略pycharm**/.idea/# 忽略虚拟环境**/venv# Editor directories and files**/.vscode/*!.vscode/extensions.json.idea.DS_Store*.suo*.ntvs**.njsproj*.sln*.sw?</code></pre><h3 id="其他示例"><a href="#其他示例" class="headerlink" title="其他示例"></a>其他示例</h3><pre><code># 忽略所有 .a 结尾的文件a# 但lib.a 除外!lib.a# 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO/TODO# 忽略build/ 目录下的所有文件build/# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txtdoc/.txt</code></pre>]]></content>
       
       
       <categories>
@@ -1558,225 +1786,16 @@
     
     
     <entry>
-      <title>构建gitleaks-Docker服务</title>
-      <link href="/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
-      <url>/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
+      <title>goland技巧</title>
+      <link href="/2024/04/08/Go/goland/"/>
+      <url>/2024/04/08/Go/goland/</url>
       
-        <content type="html"><![CDATA[<p>两个一块儿用，Dockerfile在docker-compose.yaml的同目录下。</p><h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><pre><code>FROM amd64/alpine:3.14RUN apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdataADD ./SecretDetectionDir /webscan/WORKDIR /webscanEXPOSE 8000ENTRYPOINT [&quot;/webscan/http&quot;]</code></pre><h1 id="docker-compose-yaml"><a href="#docker-compose-yaml" class="headerlink" title="docker-compose.yaml"></a>docker-compose.yaml</h1><pre><code>version: &quot;3&quot;services:secretdetection_docker:    build: .    container_name: secretdetection_http    ports:    - &quot;8000:8000&quot;    restart: always</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>docker-compose调试和操作</title>
-      <link href="/2024/04/09/docker/docker-compose%E8%B0%83%E8%AF%95/"/>
-      <url>/2024/04/09/docker/docker-compose%E8%B0%83%E8%AF%95/</url>
-      
-        <content type="html"><![CDATA[<h1 id="方便调试的技巧"><a href="#方便调试的技巧" class="headerlink" title="方便调试的技巧"></a>方便调试的技巧</h1><pre><code>docker-compose down &amp;&amp; docker-compose rebuild &amp;&amp; docker-compose up -d</code></pre><h1 id="docker-compose操作"><a href="#docker-compose操作" class="headerlink" title="docker-compose操作"></a>docker-compose操作</h1><pre><code>docker-compose build 构建镜像，镜像文件会存在docker images中docker-compose up -d 启动容器docker-compose down 移除容器（这点我以前以为down是类似于docker stop的命令，没想到docker-compose down是移除的意思，导致删库）docker-compose stop 暂停容器运行</code></pre><h1 id="导出导入操作"><a href="#导出导入操作" class="headerlink" title="导出导入操作"></a>导出导入操作</h1><p>参考链接:<a href="https://www.hangge.com/blog/cache/detail_2411.html">https://www.hangge.com/blog/cache/detail_2411.html</a></p><p>不过需要注意一下，导入导出的时候最好根据<code>docker ps -a</code>的 名字来操作，不要根据 container id 来操作。否则导入的时候，显示的名字可能是 <none>。这个时候虽然容器可以正常运行，但是很多人会感觉<none>是错误的。</none></none></p><p>最重要的注意，<strong>docker-compose无法构建容器为镜像，而且也不会复制外部目录到内部</strong>，有的仅仅是volumns: xxx:xxx的挂载。如果容器是使用的挂载目录，而不是复制进去的文件，那么会无法运行相应目录中的文件和程序。</p><p>所以Dockerfile和dockerf-compose.yml结合使用。</p><h1 id="容器：export和import"><a href="#容器：export和import" class="headerlink" title="容器：export和import"></a>容器：export和import</h1><pre><code>docker export f299f501774c &gt; hangger_server.tardocker import - new_hangger_server &lt; hangger_server.tar</code></pre><h1 id="镜像：save和load"><a href="#镜像：save和load" class="headerlink" title="　镜像：save和load"></a>　镜像：save和load</h1><p>（1）下面使用 docker save 命令根据 ID 将镜像保存成一个文件。</p><pre><code>docker save 0fdf2b4c26d3 &gt; hangge_server.tar</code></pre><p><strong>(这么打包，是没有标签名字的。最好指定镜像标签名而非镜像id打包)</strong></p><p>（2）我们还可以同时将多个 image 打包成一个文件，比如下面将镜像库中的 postgres 和 mongo 打包：</p><pre><code>docker save -o images.tar postgres:9.6 mongo:3.4</code></pre><p>载入镜像</p><pre><code>docker load &lt; hangge_server.tar</code></pre><h1 id="SD的镜像打包及运行"><a href="#SD的镜像打包及运行" class="headerlink" title="SD的镜像打包及运行"></a>SD的镜像打包及运行</h1><h3 id="打包导出"><a href="#打包导出" class="headerlink" title="打包导出"></a>打包导出</h3><p>先命名个版本</p><pre><code>docker tag f0b0777d65d7 sd_secretdetection_docker:2.3</code></pre><p>打包，不要根据镜像id打包，不然未来没有名字，得指定tag：</p><pre><code>docker save -o sd-2.3.tar sd_secretdetection_docker:2.3</code></pre><p>加载运行</p><pre><code>docker load &lt; sd-2.3.tardocker run -itd -p 8000:8000 sd_secretdetection_docker:2.3</code></pre><p>run镜像，并指定容器名字</p><p>指定镜像名字:</p><pre><code>docker run --name my_container my_imagedocker load &lt; shenyanjian.tardocker run -itd -p 8000:8000 --name secretdetection shenyanjian_secretdetection_docker:latest</code></pre><p>将容器保存为本地镜像</p><pre><code>docker commit -a &quot;blingsec&quot; -m &quot;sd2.0&quot; secret_detection_http secret_detection_http:v2.0</code></pre><p>-a是作者名，-m 是标注信息，最后的secret_detection_http:v2.0 是命名</p>]]></content>
+        <content type="html"><![CDATA[<ul><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#添加远程调试">添加远程调试</a></li><li><a href="#delve升级go无法调试">delve：升级go无法调试</a></li></ul><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!=nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH/bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
       
       
       <categories>
           
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>docker network</title>
-      <link href="/2024/04/09/docker/docker-network/"/>
-      <url>/2024/04/09/docker/docker-network/</url>
-      
-        <content type="html"><![CDATA[<h1 id="docker-network网络的优势"><a href="#docker-network网络的优势" class="headerlink" title="docker network网络的优势"></a><strong>docker network网络的优势</strong></h1><p>同一个 Docker <strong>网络中的容器之间可以使用容器名进行网络通信，就像访问域名一样</strong>。这是因为 Docker 默认提供了一个内置的 DNS 服务，它会为在同一网络中运行的容器分配主机名，并且其他容器可以使用这些主机名进行通信。</p><h1 id="创建docker-network"><a href="#创建docker-network" class="headerlink" title="创建docker network"></a>创建docker network</h1><p>使用 Docker 网络：另一种可能的解决方案是创建一个新的 Docker 网络，并在这个网络上运行你的容器。你可以使用 docker network create 命令创建一个新的网络，然后使用 —network 选项运行你的容器。</p><p>调整防火墙规则：如果你的主机上运行有防火墙，可能需要调整防火墙规则以允许 Docker 容器访问内网。具体的步骤取决于你的防火墙软件和配置。</p><p><strong>检查 DNS 配置：如果你的问题与 DNS 解析有关，可能需要检查和调整你的 Docker 容器的 DNS 配置。你可以通过在 Docker 守护进程的配置文件（例如 /etc/docker/daemon.json）中设置 dns 选项来全局配置 DNS，也可以使用 —dns 选项在运行容器时指定 DNS。</strong></p><p><strong>使用 VPN：如果你的内网服务在 VPN 后面，你可能需要在 Docker 容器中设置 VPN。这可能需要在你的 Docker 镜像中安装和配置 VPN 客户端。</strong></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>docker volume</title>
-      <link href="/2024/04/09/docker/docker-volume/"/>
-      <url>/2024/04/09/docker/docker-volume/</url>
-      
-        <content type="html"><![CDATA[<p>docker volume 有 ls rm等子命令</p><p>使用 docker rm 命令删除容器时，默认情况下不会删除与该容器关联的挂载的 <strong>Docker 卷（Docker volume）</strong>。Docker volume 是一个独立于容器的数据存储区域，通常用于持久化存储容器内的数据。</p><p>如果您使用了 -v 参数来挂载卷，那么删除容器时不会删除这个卷。要删除与容器关联的卷，您需要使用 docker volume rm 命令。</p><p>例如，如果您的容器启动命令中有如下的 -v 参数：</p><pre><code>docker run -v /host/path:/container/path my_image</code></pre><p>那么删除容器时，卷 /host/path 不会被自动删除。要手动删除该卷，可以运行以下命令：</p><pre><code>docker volume rm $(docker volume ls -qf &quot;mount=/host/path&quot;)</code></pre><p>这将删除与指定路径关联的 Docker 卷。请注意替换 /host/path 为实际使用的卷路径。</p><p>总之，docker rm 默认不会删除挂载的 Docker 卷，您需要使用 docker volume rm 命令手动删除它们。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>dockerhub &amp;&amp; docker</title>
-      <link href="/2024/04/09/docker/docker/"/>
-      <url>/2024/04/09/docker/docker/</url>
-      
-        <content type="html"><![CDATA[<h1 id="中国用户换源"><a href="#中国用户换源" class="headerlink" title="中国用户换源"></a>中国用户换源</h1><pre><code>vim /etc/docker/daemon.json&#123;&quot;registry-mirrors&quot;:[&quot;https://hub-mirror.c.163.com&quot;,&quot;https://registry.aliyuncs.com&quot;,&quot;https://registry.docker-cn.com&quot;,&quot;https://docker.mirrors.ustc.edu.cn&quot;]&#125;service docker restart</code></pre><h1 id="dockerhub"><a href="#dockerhub" class="headerlink" title="dockerhub"></a>dockerhub</h1><p>log in <a href="https://hub.docker.com/">https://hub.docker.com/</a>, register an account.</p><p>pull your private image</p><pre><code>docker pull senranja/secret_detection</code></pre><p>build an image with tag, upload image to dockerhub</p><pre><code>docker image build -t senranja/secret_detection:v2.1 .docker logindocker push username/repo:tag</code></pre><h1 id="搭建gitlab-ce为例"><a href="#搭建gitlab-ce为例" class="headerlink" title="搭建gitlab-ce为例"></a>搭建gitlab-ce为例</h1><p>安装gitlab-ce参考链接：</p><pre><code>https://blog.csdn.net/BThinker/article/details/124097795</code></pre><p>查找镜像</p><pre><code>docker search gitlab</code></pre><p>拉取Gitlab镜像</p><pre><code>docker pull gitlab/gitlab-ce:latest</code></pre><p>启动容器，这里docker run命令的-v和dockerfile以及docker-compose.yaml中的-v 挂在目录，不需要你自己手动创建目录。即便目录不存在，他会自动创建。</p><pre><code>docker run \-itd  \-p 9980:80 \-p 9922:22 \-v /home/gitlab/etc:/etc/gitlab  \-v /home/gitlab/log:/var/log/gitlab \-v /home/gitlab/opt:/var/opt/gitlab \--restart always \--privileged=true \--name gitlab \gitlab/gitlab-ce</code></pre><p>命令</p><pre><code>-i     以交互模式运行容器，通常与 -t 同时使用命令解释-t     为容器重新分配一个伪输入终端，通常与 -i 同时使用-d    后台运行容器，并返回容器ID-p 9980:80    将容器内80端口映射至宿主机9980端口，这是访问gitlab的端口-p 9922:22     将容器内22端口映射至宿主机9922端口，这是访问ssh的端口-v /home/gitlab/etc:/etc/gitlab    将容器/etc/gitlab目录挂载到宿主机/usr/local/gitlab-test/etc目录下，若宿主机内此目录不存在将会自动创建，其他两个挂载同这个一样--restart always    容器自启动--privileged=true    让容器获取宿主机root权限--name gitlab    设置容器名称为gitlabgitlab/gitlab-ce    镜像的名称，这里也可以写镜像ID</code></pre><h1 id="复制目录细节"><a href="#复制目录细节" class="headerlink" title="复制目录细节"></a>复制目录细节</h1><p>屁股加不加 /没区别</p><ol><li><p>目录下文件复制到目标目录下，不包含目录本身</p><p>COPY ./dist/ /usr/share/nginx/html/</p></li></ol><p>是将 ./dist/下文件 放入 /html/，dist本身没目录</p><ol><li><p>连带这个目录复制进入</p><p>COPY ./dist /usr/share/nginx/html/dist</p></li></ol><h1 id="删除none镜像"><a href="#删除none镜像" class="headerlink" title="删除none镜像"></a>删除none镜像</h1><pre><code>docker images -a | grep &quot;&lt;none&gt;&quot; | awk &#39;&#123;print $3&#125;&#39; | xargs docker rmi</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>gitlab EE实例</title>
-      <link href="/2024/04/09/docker/dockerfile%EF%BC%9Agitlab%20EE%E5%AE%9E%E4%BE%8B/"/>
-      <url>/2024/04/09/docker/dockerfile%EF%BC%9Agitlab%20EE%E5%AE%9E%E4%BE%8B/</url>
-      
-        <content type="html"><![CDATA[<pre><code>version: &#39;3.8&#39;services:gitlab:    image: &#39;gitlab/gitlab-ee:15.3.5-ee.0&#39;    container_name: &#39;gitlab-ee&#39;    restart: always    hostname: 192.168.3.199    privileged: true    shm_size: &#39;2gb&#39;    environment:    GITLAB_OMNIBUS_CONFIG: |        external_url &#39;http://192.168.3.199:40080&#39;        gitlab_rails[&#39;gitlab_shell_ssh_port&#39;] = 40022    ports:    - 40080:40080    - 40443:40443    - &quot;40022:22&quot;    volumes:    - &#39;./storage/config:/etc/gitlab&#39;    - &#39;./storage/logs:/var/log/gitlab&#39;    - &#39;./storage/data:/var/opt/gitlab&#39;</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>只能有root操作docker，普通用户无法操作dockers处理方法</title>
-      <link href="/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/"/>
-      <url>/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/</url>
-      
-        <content type="html"><![CDATA[<p>参考链接: <a href="https://www.cnblogs.com/-mrl/p/13836631.html">https://www.cnblogs.com/-mrl/p/13836631.html</a></p><p>看当前系统中的用户和组：</p><pre><code>1、用户列表文件：cat /etc/passwd2、用户组列表文件：cat /etc/group</code></pre><h1 id="创建docker组"><a href="#创建docker组" class="headerlink" title="创建docker组"></a>创建docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo groupadd dockergroupadd: group ‘docker‘ already exists</code></pre><h1 id="将当前用户加入docker组"><a href="#将当前用户加入docker组" class="headerlink" title="将当前用户加入docker组"></a>将当前用户加入docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo gpasswd -a $&#123;USER&#125; dockerAdding user xxx to group docker</code></pre><h1 id="重启docker服务"><a href="#重启docker服务" class="headerlink" title="重启docker服务"></a>重启docker服务</h1><pre><code>vagrant@ubuntu18:~$ sudo service docker restart</code></pre><h1 id="刷新docker组成员"><a href="#刷新docker组成员" class="headerlink" title="刷新docker组成员"></a>刷新docker组成员</h1><pre><code>vagrant@ubuntu18:~$ newgrp docker#再试试命令^_^vagrant@ubuntu18:~$ docker imagesREPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</code></pre><p>然后当前的shell退了重新开一个，这样你目前的用户就可以操作docker images 命令。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>chown cannot dereference</title>
-      <link href="/2024/04/09/docker/mysql-chown-err/"/>
-      <url>/2024/04/09/docker/mysql-chown-err/</url>
-      
-        <content type="html"><![CDATA[<p>疑难杂症：拷贝mysql原始目录到其他目录，报错</p><pre><code>chown: cannot dereference &#39;/var/lib/mysql/mysql.sock&#39;: No such file or directory</code></pre><p>模仿此贴<br><a href="https://github.com/docker-library/mysql/issues/939">https://github.com/docker-library/mysql/issues/939</a></p><p><img src="/2024/04/09/docker/mysql-chown-err/2024-04-10-21-36-32.png" alt="2024-04-10-21-36-32"></p><p>解决</p><p>原因是复制docker数据过来的时候没有保持原先文件的chown属性</p><p>不需要设置privileged: true  # 允许特权模式 属性</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>mysql-docker</title>
-      <link href="/2024/04/09/docker/mysql-docker/"/>
-      <url>/2024/04/09/docker/mysql-docker/</url>
-      
-        <content type="html"><![CDATA[<p>mysql的docker：<a href="https://registry.hub.docker.com/_/mysql">https://registry.hub.docker.com/_/mysql</a></p><p>我的文件名称是docker-compose-basic.yml,MySQL数据挂载到宿主机/root/basic/mysql下</p><p>数据库一般需要将数据挂载到宿主机上,以免容器损坏导致数据丢失</p><pre><code>version: &#39;3&#39;services:#mysqlmysql:    image: mysql:5.6    container_name: mysql    environment:    - MYSQL_ROOT_PASSWORD=1qaz@WSX    - TZ=Asia/Shanghai    - SET_CONTAINER_TIMEZONE=true    - CONTAINER_TIMEZONE=Asia/Shanghai    volumes:    - ./mysql/conf:/etc/mysql/conf.d    - ./mysql/conf:/etc/mysql/mysql.conf.d    - ./mysql/data:/var/lib/mysql    - ./mysql/logs:/var/log/mysql    - /etc/localtime:/etc/localtime:ro    ports:    - 13306:3306    restart: always</code></pre><p>关于修改配置文件my.cnf(类似于my.ini)这种文件，上面已经指向了/etc/mysql/mysql.conf.d和/etc/mysql/conf.d两处配置文件的目录，但是完全可以在上面的挂载目录下新建my.cnf。因为我们的cnf文件也是配置文件。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>开启ipv4转发</title>
-      <link href="/2024/04/09/docker/%E5%BC%80%E5%90%AFipv4%E8%BD%AC%E5%8F%91/"/>
-      <url>/2024/04/09/docker/%E5%BC%80%E5%90%AFipv4%E8%BD%AC%E5%8F%91/</url>
-      
-        <content type="html"><![CDATA[<h1 id="无法访问到docker映射出来的端口"><a href="#无法访问到docker映射出来的端口" class="headerlink" title="无法访问到docker映射出来的端口"></a>无法访问到docker映射出来的端口</h1><p>临时开启ipv4转发</p><pre><code>echo 1 &gt;/proc/sys/net/ipv4/ip_forward</code></pre><p>并重启docker服务</p><pre><code>service docker restart</code></pre><p>永久开启路由功能</p><pre><code>vim /etc/sysctl.confnet.ipv4.ip_forward = 1</code></pre><p>然后容器内也能上网了</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>构建blingTrendsAPIServer</title>
-      <link href="/2024/04/09/docker/%E6%9E%84%E5%BB%BAblingTrendsAPIServer/"/>
-      <url>/2024/04/09/docker/%E6%9E%84%E5%BB%BAblingTrendsAPIServer/</url>
-      
-        <content type="html"><![CDATA[<p>amd64/alpine:3.14足够小</p><pre><code>FROM amd64/alpine:3.14ADD . /api-server/RUN apk update &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdata &amp;&amp; apk add --update --no-cache python3 py3-pip &amp;&amp; python3 -m pip install -r /api-server/requirements.txtWORKDIR /api-serverEXPOSE 5000ENTRYPOINT [&quot;python3&quot;, &quot;/api-server/blingTrendsAPIServer.py&quot;]</code></pre><p>推荐dockerfile部署，目前已部署在192.168.3.203:5000。</p><p>默认使用5000端口，自行考虑防火墙端口开放，如ubuntu使用<code>sudo ufw allow 5000/tcp</code>放开端口；</p><p>目前连接数据库是<code>192.168.3.203:23306</code>，docker默认bridge模式，要访问203数据库需要<code>sudo ufw allow 23306/tcp</code></p><p>如果需要指定端口映射，自行更改参数<code>docker run -p &lt;host-port&gt;:&lt;container-port&gt; &lt;image-name&gt;</code></p><pre><code># 构建后大小为77.5MBdocker build -t bling-trends-server .# 运行命令docker run --name bling_trends_server_container -itd -p 5000:5000 bling-trends-server</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>构建gitleaks-Docker服务</title>
-      <link href="/2024/04/09/docker/%E7%BA%AFdocker-compose%E6%97%A0dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
-      <url>/2024/04/09/docker/%E7%BA%AFdocker-compose%E6%97%A0dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
-      
-        <content type="html"><![CDATA[<p>在上面gitleaks的docker-compose+Dockerfile的组合之后，我想写个纯docker-compose无dockerfile的版本。</p><p>即使用docker-compose完全替代Dockerfile。</p><p>docker-compose</p><p>entrypoint不好用，我查阅资料说是类似于Dockerfile的RUN，在容器启动之前的构件中会运行，但是怎么测试都不对。</p><p>干脆把RUN中的命令写到最后的command构建命令中。<br>涉及command命令，注意使用docker-compose logs看日志，有可能无限重复运行command命令</p><pre><code>version: &quot;3&quot;services:secretdetection_docker:    image: amd64/alpine:3.14    # entrypoint: [&quot;/secretDetection/entrypoint.sh&quot;]    # entrypoint: &quot;/bin/sh -c &quot;apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdata&quot;    container_name: secret_detection_http    ports:    - &quot;8000:8000&quot;    restart: always    volumes:    - ./SecretDetectionDir:/secretDetection/    restart: always    working_dir: /secretDetection/    # command: /secretDetection/http    command: /bin/sh -c &quot;apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdata &amp;&amp; /secretDetection/http&quot;</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
+          <category> Go </category>
           
       </categories>
       
@@ -1862,11 +1881,11 @@
     
     
     <entry>
-      <title>gost</title>
-      <link href="/2024/04/08/Linux-Maintain/gost/"/>
-      <url>/2024/04/08/Linux-Maintain/gost/</url>
+      <title>gitlab-ee的破解版返回500，501响应</title>
+      <link href="/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/"/>
+      <url>/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/</url>
       
-        <content type="html"><![CDATA[<p>项目参考<br><a href="https://github.com/ginuerzh/gost">https://github.com/ginuerzh/gost</a></p><h1 id="代理转发"><a href="#代理转发" class="headerlink" title="代理转发"></a>代理转发</h1><p>只要本地客户端执行-L，就可以转发http，https，socks等协议的转发，但是实测我无法https转发，会遇到证书的报错</p><h3 id="kcp协议：-udp封装的协议"><a href="#kcp协议：-udp封装的协议" class="headerlink" title="kcp协议： udp封装的协议"></a>kcp协议： udp封装的协议</h3><pre><code>server:gost -L kcp://gost:1qaz@WSX@45.77.115.252:52783client:gost -L=:6666 -F=kcp://gost:1qaz@WSX@45.77.115.252:52783</code></pre><h3 id="mwss协议：多媒体协议"><a href="#mwss协议：多媒体协议" class="headerlink" title="mwss协议：多媒体协议"></a>mwss协议：多媒体协议</h3><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723</code></pre><h1 id="curl挂代理检测socks代理"><a href="#curl挂代理检测socks代理" class="headerlink" title="curl挂代理检测socks代理"></a>curl挂代理检测socks代理</h1><p>curl -x socks5://127.0.0.1:1024 <a href="http://www.google.com">http://www.google.com</a> # -x 参数等同于 —proxy</p><p>访问ip.sb会直接显示当前你连接的ip</p><pre><code>curl -x socks5://127.0.0.1:6666 ip.sb</code></pre><h1 id="在racknerd的socks的vps搭建的坑点"><a href="#在racknerd的socks的vps搭建的坑点" class="headerlink" title="在racknerd的socks的vps搭建的坑点"></a>在racknerd的socks的vps搭建的坑点</h1><p>如果是AlmaLinux，则使用yum安装 net-tools 等软件<br>防火墙不同于ubuntu的ufw，使用firewalld</p><p>需要关闭firewalld：</p><pre><code>systemctl stop firewalldsystemctl disable firewalld</code></pre><p>在如下链接中找到解决方案：<br><a href="https://almalinux.discourse.group/t/no-match-for-argument-screen/790">https://almalinux.discourse.group/t/no-match-for-argument-screen/790</a></p><pre><code>dnf install epel-releasednf install screen</code></pre><p>然后再 screen -S gost开screen的shell，运行命令<br>mwss协议：</p><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753</code></pre><h1 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h1><p>参考帖子：<br><a href="https://github.com/ginuerzh/gost/issues/745">https://github.com/ginuerzh/gost/issues/745</a></p><p>假设A地址是公网vps，B是某内网服务器，C是客户端<br>B、C不能访问，C想访问B的5000端口的服务，需要以A为中继，gost部署如下：</p><p>A部署：</p><pre><code>gost -L socks5://:2345 (意思是，建立端口为2345的gost服务端。2345仅是服务端，用来gost访问搭桥的，不是让人类访问的)</code></pre><p>B部署：</p><pre><code>gost -L rtcp://:8080/:5000 -F socks5://10.80.5.244:2345 (意思是，将机器192.168.217.128端口5000绑定到机器10.80.5.244端口8080上。此处rtcp无所谓，gost支持的都行)</code></pre><p>C访问：</p><pre><code>访问 A:8080，就可以访问到B:5000 了。</code></pre><h3 id="案例：将gitea内网穿透"><a href="#案例：将gitea内网穿透" class="headerlink" title="案例：将gitea内网穿透"></a>案例：将gitea内网穿透</h3><p>服务端（192.227.167.113）：</p><pre><code>./gost -L socks5://:38441</code></pre><p>被穿透机器：</p><pre><code>gost -L rtcp://:3001/:3000 -F socks5://192.227.xxx.113:38441</code></pre><p>访问：<br><a href="http://192.227.167.113:3001/">http://192.227.167.113:3001/</a></p>]]></content>
+        <content type="html"><![CDATA[<p>鹏哥参考过的链接</p><pre><code>https://docs.gitlab.com/ee/install/docker.html#devshm-mount-not-having-enough-space-in-docker-containerhttps://blog.kelu.org/tech/2021/12/16/docker-shm.htmlhttps://blog.csdn.net/weixin_43545410/article/details/120963125</code></pre><h1 id="方法一：容器启动前修改"><a href="#方法一：容器启动前修改" class="headerlink" title="方法一：容器启动前修改"></a>方法一：容器启动前修改</h1><pre><code>docker run -it --shm-size=&quot;1g&quot; --name 001 busybox:latest /bin/sh</code></pre><h1 id="方法二：容器启动后修改"><a href="#方法二：容器启动后修改" class="headerlink" title="方法二：容器启动后修改"></a>方法二：容器启动后修改</h1><p>1.docker ps | grep containerName</p><p>2.获取完整 Id</p><pre><code>[root@linfs-bigdata containers]# docker inspect 641ae8c59c0d | grep Id    &quot;Id&quot;: &quot;641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269&quot;,</code></pre><p>3.修改 ShmSize，单位为 kb，默认大小为 64M，修改完后重启 docker 就生效了</p><pre><code>vim /var/lib/docker/containers/641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269/hostconfig.json</code></pre>]]></content>
       
       
       <categories>
@@ -1881,11 +1900,11 @@
     
     
     <entry>
-      <title>gitlab-ee的破解版返回500，501响应</title>
-      <link href="/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/"/>
-      <url>/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/</url>
+      <title>gost</title>
+      <link href="/2024/04/08/Linux-Maintain/gost/"/>
+      <url>/2024/04/08/Linux-Maintain/gost/</url>
       
-        <content type="html"><![CDATA[<p>鹏哥参考过的链接</p><pre><code>https://docs.gitlab.com/ee/install/docker.html#devshm-mount-not-having-enough-space-in-docker-containerhttps://blog.kelu.org/tech/2021/12/16/docker-shm.htmlhttps://blog.csdn.net/weixin_43545410/article/details/120963125</code></pre><h1 id="方法一：容器启动前修改"><a href="#方法一：容器启动前修改" class="headerlink" title="方法一：容器启动前修改"></a>方法一：容器启动前修改</h1><pre><code>docker run -it --shm-size=&quot;1g&quot; --name 001 busybox:latest /bin/sh</code></pre><h1 id="方法二：容器启动后修改"><a href="#方法二：容器启动后修改" class="headerlink" title="方法二：容器启动后修改"></a>方法二：容器启动后修改</h1><p>1.docker ps | grep containerName</p><p>2.获取完整 Id</p><pre><code>[root@linfs-bigdata containers]# docker inspect 641ae8c59c0d | grep Id    &quot;Id&quot;: &quot;641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269&quot;,</code></pre><p>3.修改 ShmSize，单位为 kb，默认大小为 64M，修改完后重启 docker 就生效了</p><pre><code>vim /var/lib/docker/containers/641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269/hostconfig.json</code></pre>]]></content>
+        <content type="html"><![CDATA[<p>项目参考<br><a href="https://github.com/ginuerzh/gost">https://github.com/ginuerzh/gost</a></p><h1 id="代理转发"><a href="#代理转发" class="headerlink" title="代理转发"></a>代理转发</h1><p>只要本地客户端执行-L，就可以转发http，https，socks等协议的转发，但是实测我无法https转发，会遇到证书的报错</p><h3 id="kcp协议：-udp封装的协议"><a href="#kcp协议：-udp封装的协议" class="headerlink" title="kcp协议： udp封装的协议"></a>kcp协议： udp封装的协议</h3><pre><code>server:gost -L kcp://gost:1qaz@WSX@45.77.115.252:52783client:gost -L=:6666 -F=kcp://gost:1qaz@WSX@45.77.115.252:52783</code></pre><h3 id="mwss协议：多媒体协议"><a href="#mwss协议：多媒体协议" class="headerlink" title="mwss协议：多媒体协议"></a>mwss协议：多媒体协议</h3><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723</code></pre><h1 id="curl挂代理检测socks代理"><a href="#curl挂代理检测socks代理" class="headerlink" title="curl挂代理检测socks代理"></a>curl挂代理检测socks代理</h1><p>curl -x socks5://127.0.0.1:1024 <a href="http://www.google.com">http://www.google.com</a> # -x 参数等同于 —proxy</p><p>访问ip.sb会直接显示当前你连接的ip</p><pre><code>curl -x socks5://127.0.0.1:6666 ip.sb</code></pre><h1 id="在racknerd的socks的vps搭建的坑点"><a href="#在racknerd的socks的vps搭建的坑点" class="headerlink" title="在racknerd的socks的vps搭建的坑点"></a>在racknerd的socks的vps搭建的坑点</h1><p>如果是AlmaLinux，则使用yum安装 net-tools 等软件<br>防火墙不同于ubuntu的ufw，使用firewalld</p><p>需要关闭firewalld：</p><pre><code>systemctl stop firewalldsystemctl disable firewalld</code></pre><p>在如下链接中找到解决方案：<br><a href="https://almalinux.discourse.group/t/no-match-for-argument-screen/790">https://almalinux.discourse.group/t/no-match-for-argument-screen/790</a></p><pre><code>dnf install epel-releasednf install screen</code></pre><p>然后再 screen -S gost开screen的shell，运行命令<br>mwss协议：</p><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753</code></pre><h1 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h1><p>参考帖子：<br><a href="https://github.com/ginuerzh/gost/issues/745">https://github.com/ginuerzh/gost/issues/745</a></p><p>假设A地址是公网vps，B是某内网服务器，C是客户端<br>B、C不能访问，C想访问B的5000端口的服务，需要以A为中继，gost部署如下：</p><p>A部署：</p><pre><code>gost -L socks5://:2345 (意思是，建立端口为2345的gost服务端。2345仅是服务端，用来gost访问搭桥的，不是让人类访问的)</code></pre><p>B部署：</p><pre><code>gost -L rtcp://:8080/:5000 -F socks5://10.80.5.244:2345 (意思是，将机器192.168.217.128端口5000绑定到机器10.80.5.244端口8080上。此处rtcp无所谓，gost支持的都行)</code></pre><p>C访问：</p><pre><code>访问 A:8080，就可以访问到B:5000 了。</code></pre><h3 id="案例：将gitea内网穿透"><a href="#案例：将gitea内网穿透" class="headerlink" title="案例：将gitea内网穿透"></a>案例：将gitea内网穿透</h3><p>服务端（192.227.167.113）：</p><pre><code>./gost -L socks5://:38441</code></pre><p>被穿透机器：</p><pre><code>gost -L rtcp://:3001/:3000 -F socks5://192.227.xxx.113:38441</code></pre><p>访问：<br><a href="http://192.227.167.113:3001/">http://192.227.167.113:3001/</a></p>]]></content>
       
       
       <categories>
@@ -1910,25 +1929,6 @@
       <categories>
           
           <category> Linux-Maintain </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>goland技巧</title>
-      <link href="/2024/04/08/Go/goland/"/>
-      <url>/2024/04/08/Go/goland/</url>
-      
-        <content type="html"><![CDATA[<ul><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#添加远程调试">添加远程调试</a></li><li><a href="#delve升级go无法调试">delve：升级go无法调试</a></li></ul><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!=nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH/bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Go </category>
           
       </categories>
       
