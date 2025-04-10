@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>远程获取所有分支 | SenRanJa</title>
+  <title>LA2-Elimination-with-Matrices | SenRanJa</title>
   <meta name="keywords" content="">
-  <meta name="description" content="远程获取所有分支 | SenRanJa">
+  <meta name="description" content="LA2-Elimination-with-Matrices | SenRanJa">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="About MeCurrently a postgraduate student in university, and major in Information Technology. Github: senRanja_github Blog: senRanja_blog linkedIn: keep private Keep exploration!">
 <meta property="og:type" content="website">
@@ -1387,9 +1387,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-git/从远程仓库获取所有分支" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Math/LA2-Elimination-with-Matrices" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">远程获取所有分支</h1>
+        <h1 class="article-title">LA2-Elimination-with-Matrices</h1>
     
     <div class="article-meta">
         
@@ -1399,7 +1399,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Git">Git</a>
+            <a  data-rel="Math">Math</a>
             
         </span>
         
@@ -1407,12 +1407,12 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2025-01-15 17:21:21'>2024-04-09 17:58</time>
+            Created At : <time class="date" title='Updated At: 2025-04-10 18:54:41'>2025-04-10 08:15</time>
         
     </div>
     <div class="article-meta">
         
-        <span>Count:47</span>
+        <span>Count:1k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1442,7 +1442,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Gaussian-Elimination"><span class="toc-text">Gaussian Elimination</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Elimination-amp-gain-correct-pivots"><span class="toc-text">Elimination &amp; gain correct pivots</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E6%8E%A5%E5%8F%97pivot%E6%98%AF0"><span class="toc-text">为什么不接受pivot是0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if-pivot-is-zero"><span class="toc-text">if pivot is zero</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Back-substitution"><span class="toc-text">Back-substitution</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Associative-Property-of-Multiplication-of-matrices"><span class="toc-text">Associative Property of Multiplication of matrices</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Permutation-Exchange-rows-1-and-2"><span class="toc-text">Permutation: Exchange rows 1 and 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Permutation-Exchange-columns-1-and-2"><span class="toc-text">Permutation: Exchange columns 1 and 2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Inverses"><span class="toc-text">Inverses</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1458,16 +1458,273 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <pre><code>git clone xxx
+        <ul>
+<li><a href="#gaussian-elimination">Gaussian Elimination</a><ul>
+<li><a href="#elimination--gain-correct-pivots">Elimination \&amp; gain correct pivots</a><ul>
+<li><a href="#为什么不接受pivot是0">为什么不接受pivot是0</a></li>
+<li><a href="#if-pivot-is-zero">if pivot is zero</a></li>
+</ul>
+</li>
+<li><a href="#back-substitution">Back-substitution</a></li>
+</ul>
+</li>
+<li><a href="#endbmatrix">\end{bmatrix}</a></li>
+<li><a href="#endbmatrix-1">\end{bmatrix}</a></li>
+<li><a href="#endbmatrix-2">\end{bmatrix}</a></li>
+<li><a href="#endbmatrix-3">\end{bmatrix}</a></li>
+<li><a href="#endbmatrix-4">\end{bmatrix}</a><ul>
+<li><a href="#associative-property-of-multiplication-of-matrices">Associative Property of Multiplication of matrices</a></li>
+</ul>
+</li>
+<li><a href="#e_32e_21au">E_{32}(E_{21}A)=U</a><ul>
+<li><a href="#permutation-exchange-rows-1-and-2">Permutation: Exchange rows 1 and 2</a></li>
+</ul>
+</li>
+<li><a href="#endbmatrix-5">\end{bmatrix}</a><ul>
+<li><a href="#permutation-exchange-columns-1-and-2">Permutation: Exchange columns 1 and 2</a></li>
+</ul>
+</li>
+<li><a href="#endbmatrix-6">\end{bmatrix}</a></li>
+<li><a href="#inverses">Inverses</a></li>
+<li><a href="#endbmatrix-7">\end{bmatrix}</a></li>
+<li><a href="#endbmatrix-8">\end{bmatrix}</a></li>
+</ul>
+<h1 id="Gaussian-Elimination"><a href="#Gaussian-Elimination" class="headerlink" title="Gaussian Elimination"></a>Gaussian Elimination</h1><ol>
+<li><p>Elimination: Success or Failure: 尝试用“消元法”把<strong>线性方程组</strong>变成一个“上三角矩阵”（即对角线以下全是0）。如果可以成功消元，说明方程可以变成上三角形式；如果消元失败，说明方程组无解或者有无穷多解。</p>
+</li>
+<li><p>Back substitution：用已得到的上三角矩阵，从最后一行向上一个一个回代，可以分别求出z,y,x.</p>
+</li>
+<li><p>Elimination matrices：消元矩阵，可以用第一行消去第二行的某个元素。比如第二行减去第一行的某倍数。</p>
+</li>
+<li><p>Matrix multiplication：矩阵乘法。</p>
+</li>
+</ol>
+<h2 id="Elimination-amp-gain-correct-pivots"><a href="#Elimination-amp-gain-correct-pivots" class="headerlink" title="Elimination &amp; gain correct pivots"></a>Elimination &amp; gain correct pivots</h2><script type="math/tex; mode=display">
+\begin{cases}
+x + 2y + z &= 2\\
+3x + 8y + z &= 12\\
+4y + z &= 2
+\end{cases}</script><script type="math/tex; mode=display">
+Ax=b</script><script type="math/tex; mode=display">
+A = 
+\begin{bmatrix}
+1 & 2 & 1 \\
+3 & 8 & 1\\
+0 & 4 & 1
+\end{bmatrix}</script><script type="math/tex; mode=display">
+b = 
+\begin{bmatrix}
+2 \\
+12 \\
+2
+\end{bmatrix}</script><p>In the matrix A, the top left element 1 is named the <strong>first pivot</strong>. Then to process the matrix. </p>
+<script type="math/tex; mode=display">
+\rightarrow
+\begin{bmatrix}
+1 & 2 & 1 \\
+0 & 2 & -2\\
+0 & 4 & 1
+\end{bmatrix}</script><p>For example, how to calculate the second row? Because the first row is [1 2 1] and the second is [3 8 1], so to eliminate the 1st element of the 2nd row, to make 2nd row minus 3 times first row, that’s [3-3<em>1 8-3</em>2 1-3*1] to gain [0 2 -2].</p>
+<p>Now the <strong>second pivot is the middle element in the matrix</strong> <strong>2</strong>.</p>
+<script type="math/tex; mode=display">
+\rightarrow
+\begin{bmatrix}
+1 & 2 & 1 \\
+0 & 2 & -2\\
+0 & 0 & 5
+\end{bmatrix}</script><p>So now all pivots is [1 2 5]. Pivots cannot be 0.</p>
+<h3 id="为什么不接受pivot是0"><a href="#为什么不接受pivot是0" class="headerlink" title="为什么不接受pivot是0"></a>为什么不接受pivot是0</h3><p>因为下一行=下一行 - (该行系数/pivot) * 当前行，因此才可以一个一个消元。所以要求pivot不可为0.</p>
+<p>所以，如何解决？</p>
+<ol>
+<li>换行</li>
+<li>失败</li>
+</ol>
+<h3 id="if-pivot-is-zero"><a href="#if-pivot-is-zero" class="headerlink" title="if pivot is zero"></a>if pivot is zero</h3><p>If the 1st element is 0 of the matrix, would we say that we fail? No, we dont accept zero as the pivot. So we exchange the rows.</p>
+<p>For example, in this case, we will gain total Zeros in third row, which means not able to be invertible (next wk).</p>
+<script type="math/tex; mode=display">
+\rightarrow
+\begin{bmatrix}
+1 & 2 & 1 \\
+0 & 2 & -2\\
+0 & 4 & -4
+\end{bmatrix}</script><h2 id="Back-substitution"><a href="#Back-substitution" class="headerlink" title="Back-substitution"></a>Back-substitution</h2><p>Augment the matrix. Augment means tack something on.</p>
+<p>Change</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+1 & 2 & 1 \\
+3 & 8 & 1\\
+0 & 4 & 1
+\end{bmatrix}
+\begin{bmatrix}
+2 \\
+12 \\
+2
+\end{bmatrix}</script><p>to</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+1 & 2 & 1 & 2\\
+3 & 8 & 1 & 12\\
+0 & 4 & 1 & 2
+\end{bmatrix}</script><p>The [2 12 2] (vertical) is the extra column.</p>
+<p>According the same elimination rules in step 1, so the original matrix should be:</p>
+<script type="math/tex; mode=display">
+\rightarrow
+\begin{bmatrix}
+1 & 2 & 1 & 2\\
+0 & 2 & -2 & 6\\
+0 & 0 & 5 & -10
+\end{bmatrix}</script><script type="math/tex; mode=display">
+\begin{cases}
+x + 2y + z &= 2\\
+2y - 2z &= 6\\
+5z &= -10
+\end{cases}</script><p>So easily gain</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+x &= 2\\
+y &= 1\\
+z &= -2
+\end{cases}</script><hr>
+<p>Matrices:</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+1 & 2 & 1\\
+3 & 8 & 1\\
+0 & 4 & 1
+\end{bmatrix}
+\begin{bmatrix}
+3 \\
+4 \\
+5
+\end{bmatrix}
+=
+3 \times col1 + 4 \times col2 + 5 \times col3</script><p>Here I am not sure if there are addition signals, because there should be a matrix, but professor wrote addition signals here.</p>
+<p><img src="/2025/04/10/Math/LA2-Elimination-with-Matrices/2025-04-09-17-26-09.png" alt></p>
+<p>Matrices: subtract 3*row1 from row2</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
 
-cd xxx
+\end{bmatrix}
+\begin{bmatrix}
+1 & 2 & 1\\
+3 & 8 & 1\\
+0 & 4 & 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 2 & 1\\
+0 & 2 & -2\\
+0 & 4 & 1
+\end{bmatrix}</script><p>What matrix would do it? Note <em>Matrices: subtract 3 row1 from row2</em></p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+1 & 0 & 0\\
+-3 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+1 & 2 & 1\\
+3 & 8 & 1\\
+0 & 4 & 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 2 & 1\\
+0 & 2 & -2\\
+0 & 4 & 1
+\end{bmatrix}</script><p>Step2: Subtract 2 * row2 from row3</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+\end{bmatrix}
+\begin{bmatrix}
+1 & 2 & 1\\
+0 & 2 & -2\\
+0 & 4 & 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 2 & 1\\
+0 & 2 & -2\\
+0 & 0 & 5
+\end{bmatrix}</script><script type="math/tex; mode=display">
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & -2 & 1
+\end{bmatrix}
+\begin{bmatrix}
+1 & 2 & 1\\
+0 & 2 & -2\\
+0 & 4 & 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 2 & 1\\
+0 & 2 & -2\\
+0 & 0 & 5
+\end{bmatrix}</script><h3 id="Associative-Property-of-Multiplication-of-matrices"><a href="#Associative-Property-of-Multiplication-of-matrices" class="headerlink" title="Associative Property of Multiplication of matrices"></a>Associative Property of Multiplication of matrices</h3><script type="math/tex; mode=display">
+E_{32}(E_{21}A)=U
+=
+(E_{32}E_{21})A</script><h3 id="Permutation-Exchange-rows-1-and-2"><a href="#Permutation-Exchange-rows-1-and-2" class="headerlink" title="Permutation: Exchange rows 1 and 2"></a>Permutation: Exchange rows 1 and 2</h3><script type="math/tex; mode=display">
+\begin{bmatrix}
+0 & 1\\
+1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+a & b\\
+c & d
+\end{bmatrix}
+=
+\begin{bmatrix}
+c & d\\
+a & b
+\end{bmatrix}</script><p>There are horizontal rows above, but how to deal with columns?</p>
+<h3 id="Permutation-Exchange-columns-1-and-2"><a href="#Permutation-Exchange-columns-1-and-2" class="headerlink" title="Permutation: Exchange columns 1 and 2"></a>Permutation: Exchange columns 1 and 2</h3><script type="math/tex; mode=display">
+\begin{bmatrix}
+a & b\\
+c & d
+\end{bmatrix}
+\begin{bmatrix}
+0 & 1\\
+1 & 0
+\end{bmatrix}
+=
+\begin{bmatrix}
+b & a\\
+d & c
+\end{bmatrix}</script><p>Notice the location of [0 1, 1 0], the different location leads to the contrary results.</p>
+<h1 id="Inverses"><a href="#Inverses" class="headerlink" title="Inverses"></a>Inverses</h1><script type="math/tex; mode=display">
+\begin{bmatrix}
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 & 0\\
+-3 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}</script><script type="math/tex; mode=display">
+\begin{bmatrix}
+1 & 0 & 0\\
+3 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 & 0\\
+-3 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}</script><p>Which matrix made the other matrix into an indentity?</p>
+<p>注意，不是每一个矩阵都能找到一个逆矩阵(inverse matrix)，相乘得到单位矩阵（Identity）</p>
 
-git branch -r | grep -v &#39;\-&gt;&#39; | while read remote; do git branch --track &quot;$&#123;remote#origin/&#125;&quot; &quot;$remote&quot;; done
-
-git fetch --all
-
-git pull --all(git pull –all在功能上包含git fetch --all)
-</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> Welcome to point out the mistakes and faults! </span>
     </div>
@@ -1500,6 +1757,46 @@ git pull --all(git pull –all在功能上包含git fetch --all)
 
 
 
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
     
 
 
