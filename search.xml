@@ -821,27 +821,6 @@
     
     
     <entry>
-      <title>Sieve of Eratosthenes</title>
-      <link href="/2024/10/11/Math/Sieve-of-Eratosthenes/"/>
-      <url>/2024/10/11/Math/Sieve-of-Eratosthenes/</url>
-      
-        <content type="html"><![CDATA[<ul><li><a href="#sieve-of-eratosthenes">Sieve of Eratosthenes</a></li><li><a href="#the-algorithm">The algorithm</a><ul><li><a href="#step-1">step 1</a></li><li><a href="#step-2">step 2</a></li><li><a href="#step-3">step 3</a></li></ul></li><li><a href="#confusion">Confusion</a><ul><li><a href="#why-external-loops-range-is-range2-floorsqrtn--1">why external loop’s range is range(2, floor(sqrt(n)) + 1)</a></li><li><a href="#why-internal-loop-from-rangep--p-n--1-p">why internal loop from range(p * p, n + 1, p)</a></li><li><a href="#why-sieve-of-eratosthenes-could-find-primes">Why Sieve of Eratosthenes could find primes</a></li></ul></li></ul><h1 id="Sieve-of-Eratosthenes"><a href="#Sieve-of-Eratosthenes" class="headerlink" title="Sieve of Eratosthenes"></a>Sieve of Eratosthenes</h1><p>At the first to know Sieve of <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Eratosthenes</a>, it was a snippet in a quiz of python project in UNSW.</p><p>The sieve of Eratosthenes is an ancient algorithm for finding all prime numbers up to any given limit.</p><p>The code below would generate a list in the range of <a href="n included">2, n</a>. It is very fast and convenient, with just a little memory and time-consumption.</p><pre><code class="lang-python">def sieve_of_primes_up_to(n):    sieve = [True] * (n + 1)    # Note, the actual range is inclusive [2, floor(sqrt(n))]    # the &quot;floor(sqrt(n)) + 1)&quot; is just statisfy python&#39;s list range.    for p in range(2, floor(sqrt(n)) + 1):        if sieve[p]:            for i in range(p * p, n + 1, p):                sieve[i] = False    sieve[0] = False    sieve[1] = False    sieve_primes_list = [i for i in range(n + 1) if sieve[i]]    return sieve_primes_list</code></pre><h1 id="The-algorithm"><a href="#The-algorithm" class="headerlink" title="The algorithm"></a>The algorithm</h1><h2 id="step-1"><a href="#step-1" class="headerlink" title="step 1"></a>step 1</h2><p>Firstly, set all numbers are True:</p><p>[2:T, 3:T, 4:T, 5:T, … , n]</p><h2 id="step-2"><a href="#step-2" class="headerlink" title="step 2"></a>step 2</h2><p>Secondly, from 2 to the $\lfloor \sqrt{n} \rfloor$, set the multiples of the least prime as the Composite Number from its perfect number.</p><p>E.g. now the existed list is </p><p>[2:T, 3:T, 4:T, 5:T, … , n]</p><p>Then set the current number is 2, set its perfect number (namely 2<em>2==4), then set 2</em>3==6, 2<em>4==8, 2</em>5==10 … In conclusion, set 4th, 6th, 8th, 10th, …,  as composite numbers (namely False status) step by step.</p><p>After finishing 2, then find next number, namely 3, hence set 3<em>3, 3</em>4, 3*5, … . set 9th, 12th, 15th, … numbers as false.</p><p>Until the number: $\lfloor \sqrt{n} \rfloor$ [Namely py code expression: floor(sqrt(n))]</p><h2 id="step-3"><a href="#step-3" class="headerlink" title="step 3"></a>step 3</h2><p>Thirdly, return the list with boolean values.</p><h1 id="Confusion"><a href="#Confusion" class="headerlink" title="Confusion"></a>Confusion</h1><h2 id="why-external-loop’s-range-is-range-2-floor-sqrt-n-1"><a href="#why-external-loop’s-range-is-range-2-floor-sqrt-n-1" class="headerlink" title="why external loop’s range is range(2, floor(sqrt(n)) + 1)"></a>why external loop’s range is range(2, floor(sqrt(n)) + 1)</h2><p>And the inclusive range <code>[2, floor(sqrt(n))]</code> is the actual range.</p><p>For the least limit, cause 2 is the least prime number.</p><p>For the largest limit, the “range(floor(sqrt(n)) + 1)” is just statisfy python’s list range, remeber the last limit number should add 1.</p><p>The original code I firstly saw is <code>for p in range(2, round(sqrt(n)) + 1):</code>, I think round() is used redundantly.</p><p>Because the internal loop <strong>i</strong> starts with $p \times p$, which means the largest number in the internal loop would be $\sqrt{n}$. And $i^2$ shouldn’t be beyond the n, that is meaningless. </p><p>For example, if n==5, and $\sqrt{5} \approx 2.24$, we can compute $2 \times 2 = 4$, because it is under 5, and computing $3 \times 3 = 9$ is pointless because it’s beyond the n (namely 5).</p><p>Obviously, the difference between $n^2$ and $(n+1)^2$ is much larger than 1.</p><p>Hence, we’d better use <code>floor(sqrt(n))</code> as the largest number of the external range, rather not <code>round(sqrt(n))</code>. Round is rounding, which may make one unnecessary number comsumption.</p><p>I ran a program to distinguish the nuance of it:</p><pre><code class="lang-python">def sieve_of_primes_up_to(n):    sieve = [True] * (n + 1)    try:        # Note Here!        for p in range(2, round(sqrt(n)) + 1):        # for p in range(2, floor(sqrt(n)) + 1):            if sieve[p]:                for i in range(p * p, n + 1, p):                    sieve[i] = False    finally:        # Note Here!        print(p)    sieve[0] = False    sieve[1] = False    sieve_primes_list = [i for i in range(n + 1) if sieve[i]]    return sieve_primes_list</code></pre><p>When the test cases are [8, 11, 20, 4321, 98_234, 980_234, 50_000_000]</p><p>the obviously different outputs of the final p are:</p><pre><code>for p in range(2, floor(sqrt(n)) + 1):23465313990------for p in range(2, round(sqrt(n)) + 1):33466313990</code></pre><p>But they have the same prime numbers of different n, to <code>print(len(sieve_prime_list))</code>:</p><pre><code>for p in range(2, floor(sqrt(n)) + 1):458590943477082---------------for p in range(2, round(sqrt(n)) + 1):458590943477082</code></pre><p>PS: Oh, I think the proof is not much useful … The bound of the parameter wont induce real redundant computing, because it is too simple just like the code below won’t run redundantly:</p><pre><code class="lang-python">for i in range(4,2,1): print()</code></pre><h2 id="why-internal-loop-from-range-p-p-n-1-p"><a href="#why-internal-loop-from-range-p-p-n-1-p" class="headerlink" title="why internal loop from range(p * p, n + 1, p)"></a>why internal loop from range(p * p, n + 1, p)</h2><p>At the first, I was confused by the p * p as the start. Then I realized that the number under p had computed with $p$ before the new $i$ of $p \times p$.</p><p>Let’s make a diagram.</p><p>Let n=20:</p><p>The actual prime list is:</p><p>[2,3,5,7,11,13,17,19]</p><p>We follow the program to compute from 2 to $\sqrt{20} \approx 4.47$ whose floor number is 4.</p><p>2: [4,6,8,10,12,14,16,18,20]</p><p>3: [9,12,15,18]</p><p>4: [16,20]</p><p>Ok, if we assume $i$ doesn’t start with $p \times p$, $i$ just is from multipling 2,3,4,… .</p><p>For example, $i = 4$, we need to compute 4*2, we found $4 \times 2$ has been computed at the step of $i = 4$.</p><p>So starting with $p \times p$ is a way to reduce redundancy.</p><h2 id="Why-Sieve-of-Eratosthenes-could-find-primes"><a href="#Why-Sieve-of-Eratosthenes-could-find-primes" class="headerlink" title="Why Sieve of Eratosthenes could find primes"></a>Why Sieve of Eratosthenes could find primes</h2><p>Just follow the <strong>definition</strong> of <strong>Prime Number</strong> on Wiki.</p><p>  A prime number (or a prime) is a natural number greater than 1 that is not a product of two smaller natural numbers.</p><p>We would see <strong>Sieve of Eratosthenes</strong> just followed definition to find primes. It finds every products of numbers that won’t become primes, hence the numbers left are just primes.</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Math </category>
-          
-          <category> Algorithm </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>论诺奖与AI</title>
       <link href="/2024/10/11/trivia/%E8%AE%BAAI/"/>
       <url>/2024/10/11/trivia/%E8%AE%BAAI/</url>
@@ -1425,16 +1404,225 @@
     
     
     <entry>
-      <title>keep empty directory in git</title>
-      <link href="/2024/04/09/git/gitkeep/"/>
-      <url>/2024/04/09/git/gitkeep/</url>
+      <title>构建gitleaks-Docker服务</title>
+      <link href="/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
+      <url>/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
       
-        <content type="html"><![CDATA[<p>目录中新建空文件 <strong>.gitkeep</strong> 即可</p>]]></content>
+        <content type="html"><![CDATA[<p>两个一块儿用，Dockerfile在docker-compose.yaml的同目录下。</p><h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><pre><code>FROM amd64/alpine:3.14RUN apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdataADD ./SecretDetectionDir /webscan/WORKDIR /webscanEXPOSE 8000ENTRYPOINT [&quot;/webscan/http&quot;]</code></pre><h1 id="docker-compose-yaml"><a href="#docker-compose-yaml" class="headerlink" title="docker-compose.yaml"></a>docker-compose.yaml</h1><pre><code>version: &quot;3&quot;services:secretdetection_docker:    build: .    container_name: secretdetection_http    ports:    - &quot;8000:8000&quot;    restart: always</code></pre>]]></content>
       
       
       <categories>
           
-          <category> Git </category>
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker-compose调试和操作</title>
+      <link href="/2024/04/09/docker/docker-compose%E8%B0%83%E8%AF%95/"/>
+      <url>/2024/04/09/docker/docker-compose%E8%B0%83%E8%AF%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="方便调试的技巧"><a href="#方便调试的技巧" class="headerlink" title="方便调试的技巧"></a>方便调试的技巧</h1><pre><code>docker-compose down &amp;&amp; docker-compose rebuild &amp;&amp; docker-compose up -d</code></pre><h1 id="docker-compose操作"><a href="#docker-compose操作" class="headerlink" title="docker-compose操作"></a>docker-compose操作</h1><pre><code>docker-compose build 构建镜像，镜像文件会存在docker images中docker-compose up -d 启动容器docker-compose down 移除容器（这点我以前以为down是类似于docker stop的命令，没想到docker-compose down是移除的意思，导致删库）docker-compose stop 暂停容器运行</code></pre><h1 id="导出导入操作"><a href="#导出导入操作" class="headerlink" title="导出导入操作"></a>导出导入操作</h1><p>参考链接:<a href="https://www.hangge.com/blog/cache/detail_2411.html">https://www.hangge.com/blog/cache/detail_2411.html</a></p><p>不过需要注意一下，导入导出的时候最好根据<code>docker ps -a</code>的 名字来操作，不要根据 container id 来操作。否则导入的时候，显示的名字可能是 <none>。这个时候虽然容器可以正常运行，但是很多人会感觉<none>是错误的。</none></none></p><p>最重要的注意，<strong>docker-compose无法构建容器为镜像，而且也不会复制外部目录到内部</strong>，有的仅仅是volumns: xxx:xxx的挂载。如果容器是使用的挂载目录，而不是复制进去的文件，那么会无法运行相应目录中的文件和程序。</p><p>所以Dockerfile和dockerf-compose.yml结合使用。</p><h1 id="容器：export和import"><a href="#容器：export和import" class="headerlink" title="容器：export和import"></a>容器：export和import</h1><pre><code>docker export f299f501774c &gt; hangger_server.tardocker import - new_hangger_server &lt; hangger_server.tar</code></pre><h1 id="镜像：save和load"><a href="#镜像：save和load" class="headerlink" title="　镜像：save和load"></a>　镜像：save和load</h1><p>（1）下面使用 docker save 命令根据 ID 将镜像保存成一个文件。</p><pre><code>docker save 0fdf2b4c26d3 &gt; hangge_server.tar</code></pre><p><strong>(这么打包，是没有标签名字的。最好指定镜像标签名而非镜像id打包)</strong></p><p>（2）我们还可以同时将多个 image 打包成一个文件，比如下面将镜像库中的 postgres 和 mongo 打包：</p><pre><code>docker save -o images.tar postgres:9.6 mongo:3.4</code></pre><p>载入镜像</p><pre><code>docker load &lt; hangge_server.tar</code></pre><h1 id="SD的镜像打包及运行"><a href="#SD的镜像打包及运行" class="headerlink" title="SD的镜像打包及运行"></a>SD的镜像打包及运行</h1><h3 id="打包导出"><a href="#打包导出" class="headerlink" title="打包导出"></a>打包导出</h3><p>先命名个版本</p><pre><code>docker tag f0b0777d65d7 sd_secretdetection_docker:2.3</code></pre><p>打包，不要根据镜像id打包，不然未来没有名字，得指定tag：</p><pre><code>docker save -o sd-2.3.tar sd_secretdetection_docker:2.3</code></pre><p>加载运行</p><pre><code>docker load &lt; sd-2.3.tardocker run -itd -p 8000:8000 sd_secretdetection_docker:2.3</code></pre><p>run镜像，并指定容器名字</p><p>指定镜像名字:</p><pre><code>docker run --name my_container my_imagedocker load &lt; shenyanjian.tardocker run -itd -p 8000:8000 --name secretdetection shenyanjian_secretdetection_docker:latest</code></pre><p>将容器保存为本地镜像</p><pre><code>docker commit -a &quot;blingsec&quot; -m &quot;sd2.0&quot; secret_detection_http secret_detection_http:v2.0</code></pre><p>-a是作者名，-m 是标注信息，最后的secret_detection_http:v2.0 是命名</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>gitlab EE实例</title>
+      <link href="/2024/04/09/docker/dockerfile%EF%BC%9Agitlab%20EE%E5%AE%9E%E4%BE%8B/"/>
+      <url>/2024/04/09/docker/dockerfile%EF%BC%9Agitlab%20EE%E5%AE%9E%E4%BE%8B/</url>
+      
+        <content type="html"><![CDATA[<pre><code>version: &#39;3.8&#39;services:gitlab:    image: &#39;gitlab/gitlab-ee:15.3.5-ee.0&#39;    container_name: &#39;gitlab-ee&#39;    restart: always    hostname: 192.168.3.199    privileged: true    shm_size: &#39;2gb&#39;    environment:    GITLAB_OMNIBUS_CONFIG: |        external_url &#39;http://192.168.3.199:40080&#39;        gitlab_rails[&#39;gitlab_shell_ssh_port&#39;] = 40022    ports:    - 40080:40080    - 40443:40443    - &quot;40022:22&quot;    volumes:    - &#39;./storage/config:/etc/gitlab&#39;    - &#39;./storage/logs:/var/log/gitlab&#39;    - &#39;./storage/data:/var/opt/gitlab&#39;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>只能有root操作docker，普通用户无法操作dockers处理方法</title>
+      <link href="/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/"/>
+      <url>/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/</url>
+      
+        <content type="html"><![CDATA[<p>参考链接: <a href="https://www.cnblogs.com/-mrl/p/13836631.html">https://www.cnblogs.com/-mrl/p/13836631.html</a></p><p>看当前系统中的用户和组：</p><pre><code>1、用户列表文件：cat /etc/passwd2、用户组列表文件：cat /etc/group</code></pre><h1 id="创建docker组"><a href="#创建docker组" class="headerlink" title="创建docker组"></a>创建docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo groupadd dockergroupadd: group ‘docker‘ already exists</code></pre><h1 id="将当前用户加入docker组"><a href="#将当前用户加入docker组" class="headerlink" title="将当前用户加入docker组"></a>将当前用户加入docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo gpasswd -a $&#123;USER&#125; dockerAdding user xxx to group docker</code></pre><h1 id="重启docker服务"><a href="#重启docker服务" class="headerlink" title="重启docker服务"></a>重启docker服务</h1><pre><code>vagrant@ubuntu18:~$ sudo service docker restart</code></pre><h1 id="刷新docker组成员"><a href="#刷新docker组成员" class="headerlink" title="刷新docker组成员"></a>刷新docker组成员</h1><pre><code>vagrant@ubuntu18:~$ newgrp docker#再试试命令^_^vagrant@ubuntu18:~$ docker imagesREPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</code></pre><p>然后当前的shell退了重新开一个，这样你目前的用户就可以操作docker images 命令。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker network</title>
+      <link href="/2024/04/09/docker/docker-network/"/>
+      <url>/2024/04/09/docker/docker-network/</url>
+      
+        <content type="html"><![CDATA[<h1 id="docker-network网络的优势"><a href="#docker-network网络的优势" class="headerlink" title="docker network网络的优势"></a><strong>docker network网络的优势</strong></h1><p>同一个 Docker <strong>网络中的容器之间可以使用容器名进行网络通信，就像访问域名一样</strong>。这是因为 Docker 默认提供了一个内置的 DNS 服务，它会为在同一网络中运行的容器分配主机名，并且其他容器可以使用这些主机名进行通信。</p><h1 id="创建docker-network"><a href="#创建docker-network" class="headerlink" title="创建docker network"></a>创建docker network</h1><p>使用 Docker 网络：另一种可能的解决方案是创建一个新的 Docker 网络，并在这个网络上运行你的容器。你可以使用 docker network create 命令创建一个新的网络，然后使用 —network 选项运行你的容器。</p><p>调整防火墙规则：如果你的主机上运行有防火墙，可能需要调整防火墙规则以允许 Docker 容器访问内网。具体的步骤取决于你的防火墙软件和配置。</p><p><strong>检查 DNS 配置：如果你的问题与 DNS 解析有关，可能需要检查和调整你的 Docker 容器的 DNS 配置。你可以通过在 Docker 守护进程的配置文件（例如 /etc/docker/daemon.json）中设置 dns 选项来全局配置 DNS，也可以使用 —dns 选项在运行容器时指定 DNS。</strong></p><p><strong>使用 VPN：如果你的内网服务在 VPN 后面，你可能需要在 Docker 容器中设置 VPN。这可能需要在你的 Docker 镜像中安装和配置 VPN 客户端。</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>chown cannot dereference</title>
+      <link href="/2024/04/09/docker/mysql-chown-err/"/>
+      <url>/2024/04/09/docker/mysql-chown-err/</url>
+      
+        <content type="html"><![CDATA[<p>疑难杂症：拷贝mysql原始目录到其他目录，报错</p><pre><code>chown: cannot dereference &#39;/var/lib/mysql/mysql.sock&#39;: No such file or directory</code></pre><p>模仿此贴<br><a href="https://github.com/docker-library/mysql/issues/939">https://github.com/docker-library/mysql/issues/939</a></p><p><img src="/2024/04/09/docker/mysql-chown-err/2024-04-10-21-36-32.png" alt="2024-04-10-21-36-32"></p><p>解决</p><p>原因是复制docker数据过来的时候没有保持原先文件的chown属性</p><p>不需要设置privileged: true  # 允许特权模式 属性</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>开启ipv4转发</title>
+      <link href="/2024/04/09/docker/%E5%BC%80%E5%90%AFipv4%E8%BD%AC%E5%8F%91/"/>
+      <url>/2024/04/09/docker/%E5%BC%80%E5%90%AFipv4%E8%BD%AC%E5%8F%91/</url>
+      
+        <content type="html"><![CDATA[<h1 id="无法访问到docker映射出来的端口"><a href="#无法访问到docker映射出来的端口" class="headerlink" title="无法访问到docker映射出来的端口"></a>无法访问到docker映射出来的端口</h1><p>临时开启ipv4转发</p><pre><code>echo 1 &gt;/proc/sys/net/ipv4/ip_forward</code></pre><p>并重启docker服务</p><pre><code>service docker restart</code></pre><p>永久开启路由功能</p><pre><code>vim /etc/sysctl.confnet.ipv4.ip_forward = 1</code></pre><p>然后容器内也能上网了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>构建gitleaks-Docker服务</title>
+      <link href="/2024/04/09/docker/%E7%BA%AFdocker-compose%E6%97%A0dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
+      <url>/2024/04/09/docker/%E7%BA%AFdocker-compose%E6%97%A0dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
+      
+        <content type="html"><![CDATA[<p>在上面gitleaks的docker-compose+Dockerfile的组合之后，我想写个纯docker-compose无dockerfile的版本。</p><p>即使用docker-compose完全替代Dockerfile。</p><p>docker-compose</p><p>entrypoint不好用，我查阅资料说是类似于Dockerfile的RUN，在容器启动之前的构件中会运行，但是怎么测试都不对。</p><p>干脆把RUN中的命令写到最后的command构建命令中。<br>涉及command命令，注意使用docker-compose logs看日志，有可能无限重复运行command命令</p><pre><code>version: &quot;3&quot;services:secretdetection_docker:    image: amd64/alpine:3.14    # entrypoint: [&quot;/secretDetection/entrypoint.sh&quot;]    # entrypoint: &quot;/bin/sh -c &quot;apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdata&quot;    container_name: secret_detection_http    ports:    - &quot;8000:8000&quot;    restart: always    volumes:    - ./SecretDetectionDir:/secretDetection/    restart: always    working_dir: /secretDetection/    # command: /secretDetection/http    command: /bin/sh -c &quot;apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdata &amp;&amp; /secretDetection/http&quot;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>mysql-docker</title>
+      <link href="/2024/04/09/docker/mysql-docker/"/>
+      <url>/2024/04/09/docker/mysql-docker/</url>
+      
+        <content type="html"><![CDATA[<p>mysql的docker：<a href="https://registry.hub.docker.com/_/mysql">https://registry.hub.docker.com/_/mysql</a></p><p>我的文件名称是docker-compose-basic.yml,MySQL数据挂载到宿主机/root/basic/mysql下</p><p>数据库一般需要将数据挂载到宿主机上,以免容器损坏导致数据丢失</p><pre><code>version: &#39;3&#39;services:#mysqlmysql:    image: mysql:5.6    container_name: mysql    environment:    - MYSQL_ROOT_PASSWORD=1qaz@WSX    - TZ=Asia/Shanghai    - SET_CONTAINER_TIMEZONE=true    - CONTAINER_TIMEZONE=Asia/Shanghai    volumes:    - ./mysql/conf:/etc/mysql/conf.d    - ./mysql/conf:/etc/mysql/mysql.conf.d    - ./mysql/data:/var/lib/mysql    - ./mysql/logs:/var/log/mysql    - /etc/localtime:/etc/localtime:ro    ports:    - 13306:3306    restart: always</code></pre><p>关于修改配置文件my.cnf(类似于my.ini)这种文件，上面已经指向了/etc/mysql/mysql.conf.d和/etc/mysql/conf.d两处配置文件的目录，但是完全可以在上面的挂载目录下新建my.cnf。因为我们的cnf文件也是配置文件。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>构建blingTrendsAPIServer</title>
+      <link href="/2024/04/09/docker/%E6%9E%84%E5%BB%BAblingTrendsAPIServer/"/>
+      <url>/2024/04/09/docker/%E6%9E%84%E5%BB%BAblingTrendsAPIServer/</url>
+      
+        <content type="html"><![CDATA[<p>amd64/alpine:3.14足够小</p><pre><code>FROM amd64/alpine:3.14ADD . /api-server/RUN apk update &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdata &amp;&amp; apk add --update --no-cache python3 py3-pip &amp;&amp; python3 -m pip install -r /api-server/requirements.txtWORKDIR /api-serverEXPOSE 5000ENTRYPOINT [&quot;python3&quot;, &quot;/api-server/blingTrendsAPIServer.py&quot;]</code></pre><p>推荐dockerfile部署，目前已部署在192.168.3.203:5000。</p><p>默认使用5000端口，自行考虑防火墙端口开放，如ubuntu使用<code>sudo ufw allow 5000/tcp</code>放开端口；</p><p>目前连接数据库是<code>192.168.3.203:23306</code>，docker默认bridge模式，要访问203数据库需要<code>sudo ufw allow 23306/tcp</code></p><p>如果需要指定端口映射，自行更改参数<code>docker run -p &lt;host-port&gt;:&lt;container-port&gt; &lt;image-name&gt;</code></p><pre><code># 构建后大小为77.5MBdocker build -t bling-trends-server .# 运行命令docker run --name bling_trends_server_container -itd -p 5000:5000 bling-trends-server</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker volume</title>
+      <link href="/2024/04/09/docker/docker-volume/"/>
+      <url>/2024/04/09/docker/docker-volume/</url>
+      
+        <content type="html"><![CDATA[<p>docker volume 有 ls rm等子命令</p><p>使用 docker rm 命令删除容器时，默认情况下不会删除与该容器关联的挂载的 <strong>Docker 卷（Docker volume）</strong>。Docker volume 是一个独立于容器的数据存储区域，通常用于持久化存储容器内的数据。</p><p>如果您使用了 -v 参数来挂载卷，那么删除容器时不会删除这个卷。要删除与容器关联的卷，您需要使用 docker volume rm 命令。</p><p>例如，如果您的容器启动命令中有如下的 -v 参数：</p><pre><code>docker run -v /host/path:/container/path my_image</code></pre><p>那么删除容器时，卷 /host/path 不会被自动删除。要手动删除该卷，可以运行以下命令：</p><pre><code>docker volume rm $(docker volume ls -qf &quot;mount=/host/path&quot;)</code></pre><p>这将删除与指定路径关联的 Docker 卷。请注意替换 /host/path 为实际使用的卷路径。</p><p>总之，docker rm 默认不会删除挂载的 Docker 卷，您需要使用 docker volume rm 命令手动删除它们。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>dockerhub &amp;&amp; docker</title>
+      <link href="/2024/04/09/docker/docker/"/>
+      <url>/2024/04/09/docker/docker/</url>
+      
+        <content type="html"><![CDATA[<h1 id="中国用户换源"><a href="#中国用户换源" class="headerlink" title="中国用户换源"></a>中国用户换源</h1><pre><code>vim /etc/docker/daemon.json&#123;&quot;registry-mirrors&quot;:[&quot;https://hub-mirror.c.163.com&quot;,&quot;https://registry.aliyuncs.com&quot;,&quot;https://registry.docker-cn.com&quot;,&quot;https://docker.mirrors.ustc.edu.cn&quot;]&#125;service docker restart</code></pre><h1 id="dockerhub"><a href="#dockerhub" class="headerlink" title="dockerhub"></a>dockerhub</h1><p>log in <a href="https://hub.docker.com/">https://hub.docker.com/</a>, register an account.</p><p>pull your private image</p><pre><code>docker pull senranja/secret_detection</code></pre><p>build an image with tag, upload image to dockerhub</p><pre><code>docker image build -t senranja/secret_detection:v2.1 .docker logindocker push username/repo:tag</code></pre><h1 id="搭建gitlab-ce为例"><a href="#搭建gitlab-ce为例" class="headerlink" title="搭建gitlab-ce为例"></a>搭建gitlab-ce为例</h1><p>安装gitlab-ce参考链接：</p><pre><code>https://blog.csdn.net/BThinker/article/details/124097795</code></pre><p>查找镜像</p><pre><code>docker search gitlab</code></pre><p>拉取Gitlab镜像</p><pre><code>docker pull gitlab/gitlab-ce:latest</code></pre><p>启动容器，这里docker run命令的-v和dockerfile以及docker-compose.yaml中的-v 挂在目录，不需要你自己手动创建目录。即便目录不存在，他会自动创建。</p><pre><code>docker run \-itd  \-p 9980:80 \-p 9922:22 \-v /home/gitlab/etc:/etc/gitlab  \-v /home/gitlab/log:/var/log/gitlab \-v /home/gitlab/opt:/var/opt/gitlab \--restart always \--privileged=true \--name gitlab \gitlab/gitlab-ce</code></pre><p>命令</p><pre><code>-i     以交互模式运行容器，通常与 -t 同时使用命令解释-t     为容器重新分配一个伪输入终端，通常与 -i 同时使用-d    后台运行容器，并返回容器ID-p 9980:80    将容器内80端口映射至宿主机9980端口，这是访问gitlab的端口-p 9922:22     将容器内22端口映射至宿主机9922端口，这是访问ssh的端口-v /home/gitlab/etc:/etc/gitlab    将容器/etc/gitlab目录挂载到宿主机/usr/local/gitlab-test/etc目录下，若宿主机内此目录不存在将会自动创建，其他两个挂载同这个一样--restart always    容器自启动--privileged=true    让容器获取宿主机root权限--name gitlab    设置容器名称为gitlabgitlab/gitlab-ce    镜像的名称，这里也可以写镜像ID</code></pre><h1 id="复制目录细节"><a href="#复制目录细节" class="headerlink" title="复制目录细节"></a>复制目录细节</h1><p>屁股加不加 /没区别</p><ol><li><p>目录下文件复制到目标目录下，不包含目录本身</p><p>COPY ./dist/ /usr/share/nginx/html/</p></li></ol><p>是将 ./dist/下文件 放入 /html/，dist本身没目录</p><ol><li><p>连带这个目录复制进入</p><p>COPY ./dist /usr/share/nginx/html/dist</p></li></ol><h1 id="删除none镜像"><a href="#删除none镜像" class="headerlink" title="删除none镜像"></a>删除none镜像</h1><pre><code>docker images -a | grep &quot;&lt;none&gt;&quot; | awk &#39;&#123;print $3&#125;&#39; | xargs docker rmi</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
           
       </categories>
       
@@ -1449,6 +1637,25 @@
       <url>/2024/04/09/git/gitignore/</url>
       
         <content type="html"><![CDATA[<p>官方文档：<code>https://github.com/github/gitignore</code></p><h3 id="我的-gitignore模板"><a href="#我的-gitignore模板" class="headerlink" title="我的.gitignore模板"></a>我的.gitignore模板</h3><pre><code># Logslogs*.lognpm-debug.log*yarn-debug.log*yarn-error.log*pnpm-debug.log*lerna-debug.log*node_modulesdistdist-ssr*.local# big files*.mp4backend/volume/media/documents/*!backend/volume/media/documents/.gitkeepbackend/volume/media/import_excel_upload/*!backend/volume/media/import_excel_upload/.gitkeepbackend/volume/media/videos/*!backend/volume/media/videos/.gitkeep# python**/__pycache__/**.pyc# 忽略pycharm**/.idea/# 忽略虚拟环境**/venv# Editor directories and files**/.vscode/*!.vscode/extensions.json.idea.DS_Store*.suo*.ntvs**.njsproj*.sln*.sw?</code></pre><h3 id="其他示例"><a href="#其他示例" class="headerlink" title="其他示例"></a>其他示例</h3><pre><code># 忽略所有 .a 结尾的文件a# 但lib.a 除外!lib.a# 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO/TODO# 忽略build/ 目录下的所有文件build/# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txtdoc/.txt</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>keep empty directory in git</title>
+      <link href="/2024/04/09/git/gitkeep/"/>
+      <url>/2024/04/09/git/gitkeep/</url>
+      
+        <content type="html"><![CDATA[<p>目录中新建空文件 <strong>.gitkeep</strong> 即可</p>]]></content>
       
       
       <categories>
@@ -1596,272 +1803,6 @@
     
     
     <entry>
-      <title>构建gitleaks-Docker服务</title>
-      <link href="/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
-      <url>/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
-      
-        <content type="html"><![CDATA[<p>两个一块儿用，Dockerfile在docker-compose.yaml的同目录下。</p><h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><pre><code>FROM amd64/alpine:3.14RUN apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdataADD ./SecretDetectionDir /webscan/WORKDIR /webscanEXPOSE 8000ENTRYPOINT [&quot;/webscan/http&quot;]</code></pre><h1 id="docker-compose-yaml"><a href="#docker-compose-yaml" class="headerlink" title="docker-compose.yaml"></a>docker-compose.yaml</h1><pre><code>version: &quot;3&quot;services:secretdetection_docker:    build: .    container_name: secretdetection_http    ports:    - &quot;8000:8000&quot;    restart: always</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>docker-compose调试和操作</title>
-      <link href="/2024/04/09/docker/docker-compose%E8%B0%83%E8%AF%95/"/>
-      <url>/2024/04/09/docker/docker-compose%E8%B0%83%E8%AF%95/</url>
-      
-        <content type="html"><![CDATA[<h1 id="方便调试的技巧"><a href="#方便调试的技巧" class="headerlink" title="方便调试的技巧"></a>方便调试的技巧</h1><pre><code>docker-compose down &amp;&amp; docker-compose rebuild &amp;&amp; docker-compose up -d</code></pre><h1 id="docker-compose操作"><a href="#docker-compose操作" class="headerlink" title="docker-compose操作"></a>docker-compose操作</h1><pre><code>docker-compose build 构建镜像，镜像文件会存在docker images中docker-compose up -d 启动容器docker-compose down 移除容器（这点我以前以为down是类似于docker stop的命令，没想到docker-compose down是移除的意思，导致删库）docker-compose stop 暂停容器运行</code></pre><h1 id="导出导入操作"><a href="#导出导入操作" class="headerlink" title="导出导入操作"></a>导出导入操作</h1><p>参考链接:<a href="https://www.hangge.com/blog/cache/detail_2411.html">https://www.hangge.com/blog/cache/detail_2411.html</a></p><p>不过需要注意一下，导入导出的时候最好根据<code>docker ps -a</code>的 名字来操作，不要根据 container id 来操作。否则导入的时候，显示的名字可能是 <none>。这个时候虽然容器可以正常运行，但是很多人会感觉<none>是错误的。</none></none></p><p>最重要的注意，<strong>docker-compose无法构建容器为镜像，而且也不会复制外部目录到内部</strong>，有的仅仅是volumns: xxx:xxx的挂载。如果容器是使用的挂载目录，而不是复制进去的文件，那么会无法运行相应目录中的文件和程序。</p><p>所以Dockerfile和dockerf-compose.yml结合使用。</p><h1 id="容器：export和import"><a href="#容器：export和import" class="headerlink" title="容器：export和import"></a>容器：export和import</h1><pre><code>docker export f299f501774c &gt; hangger_server.tardocker import - new_hangger_server &lt; hangger_server.tar</code></pre><h1 id="镜像：save和load"><a href="#镜像：save和load" class="headerlink" title="　镜像：save和load"></a>　镜像：save和load</h1><p>（1）下面使用 docker save 命令根据 ID 将镜像保存成一个文件。</p><pre><code>docker save 0fdf2b4c26d3 &gt; hangge_server.tar</code></pre><p><strong>(这么打包，是没有标签名字的。最好指定镜像标签名而非镜像id打包)</strong></p><p>（2）我们还可以同时将多个 image 打包成一个文件，比如下面将镜像库中的 postgres 和 mongo 打包：</p><pre><code>docker save -o images.tar postgres:9.6 mongo:3.4</code></pre><p>载入镜像</p><pre><code>docker load &lt; hangge_server.tar</code></pre><h1 id="SD的镜像打包及运行"><a href="#SD的镜像打包及运行" class="headerlink" title="SD的镜像打包及运行"></a>SD的镜像打包及运行</h1><h3 id="打包导出"><a href="#打包导出" class="headerlink" title="打包导出"></a>打包导出</h3><p>先命名个版本</p><pre><code>docker tag f0b0777d65d7 sd_secretdetection_docker:2.3</code></pre><p>打包，不要根据镜像id打包，不然未来没有名字，得指定tag：</p><pre><code>docker save -o sd-2.3.tar sd_secretdetection_docker:2.3</code></pre><p>加载运行</p><pre><code>docker load &lt; sd-2.3.tardocker run -itd -p 8000:8000 sd_secretdetection_docker:2.3</code></pre><p>run镜像，并指定容器名字</p><p>指定镜像名字:</p><pre><code>docker run --name my_container my_imagedocker load &lt; shenyanjian.tardocker run -itd -p 8000:8000 --name secretdetection shenyanjian_secretdetection_docker:latest</code></pre><p>将容器保存为本地镜像</p><pre><code>docker commit -a &quot;blingsec&quot; -m &quot;sd2.0&quot; secret_detection_http secret_detection_http:v2.0</code></pre><p>-a是作者名，-m 是标注信息，最后的secret_detection_http:v2.0 是命名</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>docker volume</title>
-      <link href="/2024/04/09/docker/docker-volume/"/>
-      <url>/2024/04/09/docker/docker-volume/</url>
-      
-        <content type="html"><![CDATA[<p>docker volume 有 ls rm等子命令</p><p>使用 docker rm 命令删除容器时，默认情况下不会删除与该容器关联的挂载的 <strong>Docker 卷（Docker volume）</strong>。Docker volume 是一个独立于容器的数据存储区域，通常用于持久化存储容器内的数据。</p><p>如果您使用了 -v 参数来挂载卷，那么删除容器时不会删除这个卷。要删除与容器关联的卷，您需要使用 docker volume rm 命令。</p><p>例如，如果您的容器启动命令中有如下的 -v 参数：</p><pre><code>docker run -v /host/path:/container/path my_image</code></pre><p>那么删除容器时，卷 /host/path 不会被自动删除。要手动删除该卷，可以运行以下命令：</p><pre><code>docker volume rm $(docker volume ls -qf &quot;mount=/host/path&quot;)</code></pre><p>这将删除与指定路径关联的 Docker 卷。请注意替换 /host/path 为实际使用的卷路径。</p><p>总之，docker rm 默认不会删除挂载的 Docker 卷，您需要使用 docker volume rm 命令手动删除它们。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>docker network</title>
-      <link href="/2024/04/09/docker/docker-network/"/>
-      <url>/2024/04/09/docker/docker-network/</url>
-      
-        <content type="html"><![CDATA[<h1 id="docker-network网络的优势"><a href="#docker-network网络的优势" class="headerlink" title="docker network网络的优势"></a><strong>docker network网络的优势</strong></h1><p>同一个 Docker <strong>网络中的容器之间可以使用容器名进行网络通信，就像访问域名一样</strong>。这是因为 Docker 默认提供了一个内置的 DNS 服务，它会为在同一网络中运行的容器分配主机名，并且其他容器可以使用这些主机名进行通信。</p><h1 id="创建docker-network"><a href="#创建docker-network" class="headerlink" title="创建docker network"></a>创建docker network</h1><p>使用 Docker 网络：另一种可能的解决方案是创建一个新的 Docker 网络，并在这个网络上运行你的容器。你可以使用 docker network create 命令创建一个新的网络，然后使用 —network 选项运行你的容器。</p><p>调整防火墙规则：如果你的主机上运行有防火墙，可能需要调整防火墙规则以允许 Docker 容器访问内网。具体的步骤取决于你的防火墙软件和配置。</p><p><strong>检查 DNS 配置：如果你的问题与 DNS 解析有关，可能需要检查和调整你的 Docker 容器的 DNS 配置。你可以通过在 Docker 守护进程的配置文件（例如 /etc/docker/daemon.json）中设置 dns 选项来全局配置 DNS，也可以使用 —dns 选项在运行容器时指定 DNS。</strong></p><p><strong>使用 VPN：如果你的内网服务在 VPN 后面，你可能需要在 Docker 容器中设置 VPN。这可能需要在你的 Docker 镜像中安装和配置 VPN 客户端。</strong></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>只能有root操作docker，普通用户无法操作dockers处理方法</title>
-      <link href="/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/"/>
-      <url>/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/</url>
-      
-        <content type="html"><![CDATA[<p>参考链接: <a href="https://www.cnblogs.com/-mrl/p/13836631.html">https://www.cnblogs.com/-mrl/p/13836631.html</a></p><p>看当前系统中的用户和组：</p><pre><code>1、用户列表文件：cat /etc/passwd2、用户组列表文件：cat /etc/group</code></pre><h1 id="创建docker组"><a href="#创建docker组" class="headerlink" title="创建docker组"></a>创建docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo groupadd dockergroupadd: group ‘docker‘ already exists</code></pre><h1 id="将当前用户加入docker组"><a href="#将当前用户加入docker组" class="headerlink" title="将当前用户加入docker组"></a>将当前用户加入docker组</h1><pre><code>vagrant@ubuntu18:~$ sudo gpasswd -a $&#123;USER&#125; dockerAdding user xxx to group docker</code></pre><h1 id="重启docker服务"><a href="#重启docker服务" class="headerlink" title="重启docker服务"></a>重启docker服务</h1><pre><code>vagrant@ubuntu18:~$ sudo service docker restart</code></pre><h1 id="刷新docker组成员"><a href="#刷新docker组成员" class="headerlink" title="刷新docker组成员"></a>刷新docker组成员</h1><pre><code>vagrant@ubuntu18:~$ newgrp docker#再试试命令^_^vagrant@ubuntu18:~$ docker imagesREPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</code></pre><p>然后当前的shell退了重新开一个，这样你目前的用户就可以操作docker images 命令。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>开启ipv4转发</title>
-      <link href="/2024/04/09/docker/%E5%BC%80%E5%90%AFipv4%E8%BD%AC%E5%8F%91/"/>
-      <url>/2024/04/09/docker/%E5%BC%80%E5%90%AFipv4%E8%BD%AC%E5%8F%91/</url>
-      
-        <content type="html"><![CDATA[<h1 id="无法访问到docker映射出来的端口"><a href="#无法访问到docker映射出来的端口" class="headerlink" title="无法访问到docker映射出来的端口"></a>无法访问到docker映射出来的端口</h1><p>临时开启ipv4转发</p><pre><code>echo 1 &gt;/proc/sys/net/ipv4/ip_forward</code></pre><p>并重启docker服务</p><pre><code>service docker restart</code></pre><p>永久开启路由功能</p><pre><code>vim /etc/sysctl.confnet.ipv4.ip_forward = 1</code></pre><p>然后容器内也能上网了</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>mysql-docker</title>
-      <link href="/2024/04/09/docker/mysql-docker/"/>
-      <url>/2024/04/09/docker/mysql-docker/</url>
-      
-        <content type="html"><![CDATA[<p>mysql的docker：<a href="https://registry.hub.docker.com/_/mysql">https://registry.hub.docker.com/_/mysql</a></p><p>我的文件名称是docker-compose-basic.yml,MySQL数据挂载到宿主机/root/basic/mysql下</p><p>数据库一般需要将数据挂载到宿主机上,以免容器损坏导致数据丢失</p><pre><code>version: &#39;3&#39;services:#mysqlmysql:    image: mysql:5.6    container_name: mysql    environment:    - MYSQL_ROOT_PASSWORD=1qaz@WSX    - TZ=Asia/Shanghai    - SET_CONTAINER_TIMEZONE=true    - CONTAINER_TIMEZONE=Asia/Shanghai    volumes:    - ./mysql/conf:/etc/mysql/conf.d    - ./mysql/conf:/etc/mysql/mysql.conf.d    - ./mysql/data:/var/lib/mysql    - ./mysql/logs:/var/log/mysql    - /etc/localtime:/etc/localtime:ro    ports:    - 13306:3306    restart: always</code></pre><p>关于修改配置文件my.cnf(类似于my.ini)这种文件，上面已经指向了/etc/mysql/mysql.conf.d和/etc/mysql/conf.d两处配置文件的目录，但是完全可以在上面的挂载目录下新建my.cnf。因为我们的cnf文件也是配置文件。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>chown cannot dereference</title>
-      <link href="/2024/04/09/docker/mysql-chown-err/"/>
-      <url>/2024/04/09/docker/mysql-chown-err/</url>
-      
-        <content type="html"><![CDATA[<p>疑难杂症：拷贝mysql原始目录到其他目录，报错</p><pre><code>chown: cannot dereference &#39;/var/lib/mysql/mysql.sock&#39;: No such file or directory</code></pre><p>模仿此贴<br><a href="https://github.com/docker-library/mysql/issues/939">https://github.com/docker-library/mysql/issues/939</a></p><p><img src="/2024/04/09/docker/mysql-chown-err/2024-04-10-21-36-32.png" alt="2024-04-10-21-36-32"></p><p>解决</p><p>原因是复制docker数据过来的时候没有保持原先文件的chown属性</p><p>不需要设置privileged: true  # 允许特权模式 属性</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>构建blingTrendsAPIServer</title>
-      <link href="/2024/04/09/docker/%E6%9E%84%E5%BB%BAblingTrendsAPIServer/"/>
-      <url>/2024/04/09/docker/%E6%9E%84%E5%BB%BAblingTrendsAPIServer/</url>
-      
-        <content type="html"><![CDATA[<p>amd64/alpine:3.14足够小</p><pre><code>FROM amd64/alpine:3.14ADD . /api-server/RUN apk update &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdata &amp;&amp; apk add --update --no-cache python3 py3-pip &amp;&amp; python3 -m pip install -r /api-server/requirements.txtWORKDIR /api-serverEXPOSE 5000ENTRYPOINT [&quot;python3&quot;, &quot;/api-server/blingTrendsAPIServer.py&quot;]</code></pre><p>推荐dockerfile部署，目前已部署在192.168.3.203:5000。</p><p>默认使用5000端口，自行考虑防火墙端口开放，如ubuntu使用<code>sudo ufw allow 5000/tcp</code>放开端口；</p><p>目前连接数据库是<code>192.168.3.203:23306</code>，docker默认bridge模式，要访问203数据库需要<code>sudo ufw allow 23306/tcp</code></p><p>如果需要指定端口映射，自行更改参数<code>docker run -p &lt;host-port&gt;:&lt;container-port&gt; &lt;image-name&gt;</code></p><pre><code># 构建后大小为77.5MBdocker build -t bling-trends-server .# 运行命令docker run --name bling_trends_server_container -itd -p 5000:5000 bling-trends-server</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>dockerhub &amp;&amp; docker</title>
-      <link href="/2024/04/09/docker/docker/"/>
-      <url>/2024/04/09/docker/docker/</url>
-      
-        <content type="html"><![CDATA[<h1 id="中国用户换源"><a href="#中国用户换源" class="headerlink" title="中国用户换源"></a>中国用户换源</h1><pre><code>vim /etc/docker/daemon.json&#123;&quot;registry-mirrors&quot;:[&quot;https://hub-mirror.c.163.com&quot;,&quot;https://registry.aliyuncs.com&quot;,&quot;https://registry.docker-cn.com&quot;,&quot;https://docker.mirrors.ustc.edu.cn&quot;]&#125;service docker restart</code></pre><h1 id="dockerhub"><a href="#dockerhub" class="headerlink" title="dockerhub"></a>dockerhub</h1><p>log in <a href="https://hub.docker.com/">https://hub.docker.com/</a>, register an account.</p><p>pull your private image</p><pre><code>docker pull senranja/secret_detection</code></pre><p>build an image with tag, upload image to dockerhub</p><pre><code>docker image build -t senranja/secret_detection:v2.1 .docker logindocker push username/repo:tag</code></pre><h1 id="搭建gitlab-ce为例"><a href="#搭建gitlab-ce为例" class="headerlink" title="搭建gitlab-ce为例"></a>搭建gitlab-ce为例</h1><p>安装gitlab-ce参考链接：</p><pre><code>https://blog.csdn.net/BThinker/article/details/124097795</code></pre><p>查找镜像</p><pre><code>docker search gitlab</code></pre><p>拉取Gitlab镜像</p><pre><code>docker pull gitlab/gitlab-ce:latest</code></pre><p>启动容器，这里docker run命令的-v和dockerfile以及docker-compose.yaml中的-v 挂在目录，不需要你自己手动创建目录。即便目录不存在，他会自动创建。</p><pre><code>docker run \-itd  \-p 9980:80 \-p 9922:22 \-v /home/gitlab/etc:/etc/gitlab  \-v /home/gitlab/log:/var/log/gitlab \-v /home/gitlab/opt:/var/opt/gitlab \--restart always \--privileged=true \--name gitlab \gitlab/gitlab-ce</code></pre><p>命令</p><pre><code>-i     以交互模式运行容器，通常与 -t 同时使用命令解释-t     为容器重新分配一个伪输入终端，通常与 -i 同时使用-d    后台运行容器，并返回容器ID-p 9980:80    将容器内80端口映射至宿主机9980端口，这是访问gitlab的端口-p 9922:22     将容器内22端口映射至宿主机9922端口，这是访问ssh的端口-v /home/gitlab/etc:/etc/gitlab    将容器/etc/gitlab目录挂载到宿主机/usr/local/gitlab-test/etc目录下，若宿主机内此目录不存在将会自动创建，其他两个挂载同这个一样--restart always    容器自启动--privileged=true    让容器获取宿主机root权限--name gitlab    设置容器名称为gitlabgitlab/gitlab-ce    镜像的名称，这里也可以写镜像ID</code></pre><h1 id="复制目录细节"><a href="#复制目录细节" class="headerlink" title="复制目录细节"></a>复制目录细节</h1><p>屁股加不加 /没区别</p><ol><li><p>目录下文件复制到目标目录下，不包含目录本身</p><p>COPY ./dist/ /usr/share/nginx/html/</p></li></ol><p>是将 ./dist/下文件 放入 /html/，dist本身没目录</p><ol><li><p>连带这个目录复制进入</p><p>COPY ./dist /usr/share/nginx/html/dist</p></li></ol><h1 id="删除none镜像"><a href="#删除none镜像" class="headerlink" title="删除none镜像"></a>删除none镜像</h1><pre><code>docker images -a | grep &quot;&lt;none&gt;&quot; | awk &#39;&#123;print $3&#125;&#39; | xargs docker rmi</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>gitlab EE实例</title>
-      <link href="/2024/04/09/docker/dockerfile%EF%BC%9Agitlab%20EE%E5%AE%9E%E4%BE%8B/"/>
-      <url>/2024/04/09/docker/dockerfile%EF%BC%9Agitlab%20EE%E5%AE%9E%E4%BE%8B/</url>
-      
-        <content type="html"><![CDATA[<pre><code>version: &#39;3.8&#39;services:gitlab:    image: &#39;gitlab/gitlab-ee:15.3.5-ee.0&#39;    container_name: &#39;gitlab-ee&#39;    restart: always    hostname: 192.168.3.199    privileged: true    shm_size: &#39;2gb&#39;    environment:    GITLAB_OMNIBUS_CONFIG: |        external_url &#39;http://192.168.3.199:40080&#39;        gitlab_rails[&#39;gitlab_shell_ssh_port&#39;] = 40022    ports:    - 40080:40080    - 40443:40443    - &quot;40022:22&quot;    volumes:    - &#39;./storage/config:/etc/gitlab&#39;    - &#39;./storage/logs:/var/log/gitlab&#39;    - &#39;./storage/data:/var/opt/gitlab&#39;</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>构建gitleaks-Docker服务</title>
-      <link href="/2024/04/09/docker/%E7%BA%AFdocker-compose%E6%97%A0dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"/>
-      <url>/2024/04/09/docker/%E7%BA%AFdocker-compose%E6%97%A0dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/</url>
-      
-        <content type="html"><![CDATA[<p>在上面gitleaks的docker-compose+Dockerfile的组合之后，我想写个纯docker-compose无dockerfile的版本。</p><p>即使用docker-compose完全替代Dockerfile。</p><p>docker-compose</p><p>entrypoint不好用，我查阅资料说是类似于Dockerfile的RUN，在容器启动之前的构件中会运行，但是怎么测试都不对。</p><p>干脆把RUN中的命令写到最后的command构建命令中。<br>涉及command命令，注意使用docker-compose logs看日志，有可能无限重复运行command命令</p><pre><code>version: &quot;3&quot;services:secretdetection_docker:    image: amd64/alpine:3.14    # entrypoint: [&quot;/secretDetection/entrypoint.sh&quot;]    # entrypoint: &quot;/bin/sh -c &quot;apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdata&quot;    container_name: secret_detection_http    ports:    - &quot;8000:8000&quot;    restart: always    volumes:    - ./SecretDetectionDir:/secretDetection/    restart: always    working_dir: /secretDetection/    # command: /secretDetection/http    command: /bin/sh -c &quot;apk update &amp;&amp; apk add git &amp;&amp; apk add tzdata &amp;&amp; cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; echo &quot;Asia/Shanghai&quot; &gt; /etc/timezone &amp;&amp; apk del tzdata &amp;&amp; /secretDetection/http&quot;</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>goland技巧</title>
-      <link href="/2024/04/08/Go/goland/"/>
-      <url>/2024/04/08/Go/goland/</url>
-      
-        <content type="html"><![CDATA[<ul><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#添加远程调试">添加远程调试</a></li><li><a href="#delve升级go无法调试">delve：升级go无法调试</a></li></ul><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!=nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH/bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Go </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>boot after 1m30s</title>
-      <link href="/2024/04/08/Linux-Maintain/boot_slower_1m30/"/>
-      <url>/2024/04/08/Linux-Maintain/boot_slower_1m30/</url>
-      
-        <content type="html"><![CDATA[<p>开机启动1m30s慢</p><p>Ubuntu开机卡在 A start job is runing for wait for Network to be configured (1min 23s / no limit)解决方法</p><p>参考链接：<a href="https://blog.csdn.net/weixin_42300866/article/details/123712774">https://blog.csdn.net/weixin_42300866/article/details/123712774</a></p><pre><code>root@k8s-master1:~# cd /etc/systemd/system/network-online.target.wants/root@k8s-master1:/etc/systemd/system/network-online.target.wants# lltotal 8drwxr-xr-x  2 root root 4096 Aug 24  2021 ./drwxr-xr-x 19 root root 4096 Mar 24 08:11 ../lrwxrwxrwx  1 root root   56 Aug 16  2021 systemd-networkd-wait-online.service -&gt; /lib/systemd/system/systemd-networkd-wait-online.service</code></pre><p>添加内容如下：<br>在【service】代码快最末尾加上</p><pre><code>TimeoutStartSec=2sec</code></pre><p>修改内容如下：</p><pre><code>#  SPDX-License-Identifier: LGPL-2.1+##  This file is part of systemd.##  systemd is free software; you can redistribute it and/or modify it#  under the terms of the GNU Lesser General Public License as published by#  the Free Software Foundation; either version 2.1 of the License, or#  (at your option) any later version.[Unit]Description=Wait for Network to be ConfiguredDocumentation=man:systemd-networkd-wait-online.service(8)DefaultDependencies=noConflicts=shutdown.targetRequires=systemd-networkd.serviceAfter=systemd-networkd.serviceBefore=network-online.target shutdown.target[Service]Type=oneshotExecStart=/lib/systemd/systemd-networkd-wait-onlineRemainAfterExit=yesTimeoutStartSec=2sec[Install]WantedBy=network-online.target</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux-Maintain </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Dell 730风扇速度调整</title>
       <link href="/2024/04/08/Linux-Maintain/Dell730change_fans/"/>
       <url>/2024/04/08/Linux-Maintain/Dell730change_fans/</url>
@@ -1881,49 +1822,11 @@
     
     
     <entry>
-      <title>fail2ban</title>
-      <link href="/2024/04/08/Linux-Maintain/fail2ban/"/>
-      <url>/2024/04/08/Linux-Maintain/fail2ban/</url>
+      <title>boot after 1m30s</title>
+      <link href="/2024/04/08/Linux-Maintain/boot_slower_1m30/"/>
+      <url>/2024/04/08/Linux-Maintain/boot_slower_1m30/</url>
       
-        <content type="html"><![CDATA[<ul><li><a href="#fail2ban禁止爆破">fail2ban：禁止爆破</a></li><li><a href="#fail2ban-client">fail2ban-client</a></li><li><a href="#实战自定义web系统django封禁404或者爆破问题">实战：自定义WEB系统django封禁404或者爆破问题</a></li></ul><p>2024年4月8日，我和其他前端同事合作开发的考试系统，mysql数据库被黑，宕机。</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-05-54.png" alt="2024-04-09-21-05-54"></p><p>随后我禁止公网暴露mysql数据库，开始研究对其他网络协议的防止暴力破解，于是使用fail2ban对sshd和http的爆破进行限制。</p><h1 id="fail2ban：禁止爆破"><a href="#fail2ban：禁止爆破" class="headerlink" title="fail2ban：禁止爆破"></a>fail2ban：禁止爆破</h1><p>参考链接：<a href="https://www.myfreax.cominstall-configure-fail2ban-on-ubuntu-20-04/">https://www.myfreax.cominstall-configure-fail2ban-on-ubuntu-20-04/</a></p><p>fail2ban是根据你配置好的日志文件，和jail服务，来临时ban ip的，<strong>如果需要永久拒绝某个ip，直接操作防火墙ufw更合适</strong>。fail2ban只能根据配置好的jail_name来临时ban ip.</p><p>直接日志位置: /var/log/fail2ban.log</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-03-27.png" alt="2024-04-09-21-03-27.png"></p><pre><code>apt update &amp;&amp; apt install fail2ban</code></pre><p>在默认情况下是禁用的，因为它的一些默认设置可能会导致不良效果。</p><pre><code>systemctl status fail2banfail2ban.service - Fail2Ban Service    Loaded: loaded (/lib/systemd/system/fail2ban.service; disabled; vendor preset: enabled)    Active: inactive (dead)    Docs: man:fail2ban(1)</code></pre><p>配置目录：/etc/fail2ban</p><p>默认有jail.conf的配置文件，但是<strong>不要动conf</strong>，自己新建.local的配置文件在local中编辑：</p><pre><code>cp /etc/fail2ban/jail.&#123;conf,local&#125;</code></pre><p>jail.local中有三个重要的</p><pre><code>bantime  = 1d  findtime  = 10m  maxretry = 5</code></pre><p>Fail2ban附带许多Jail作为示例，系统每一项服务都可以找到对应Jail配置。 要启用Jail，您需要在添加enabled = true。 以下示例显示了如何为sshd服务启用Jail：</p><pre><code>[sshd]enabled   = true（ubunt可以不写）port    = sshlogpath = %(sshd_log)sbackend = %(sshd_backend)s/etc/fail2ban/jail.local</code></pre><p>每次修改配置文件时，都必须重新启动Fail2ban服务，以使更改生效：</p><pre><code>sudo systemctl restart fail2ban</code></pre><h1 id="fail2ban-client"><a href="#fail2ban-client" class="headerlink" title="fail2ban-client"></a>fail2ban-client</h1><p>检查fail2ban监视的sshd：</p><pre><code>fail2ban-client status sshd</code></pre><p>unban ip：</p><pre><code>fail2ban-client set sshd unbanip 23.34.45.56</code></pre><p>banIP：</p><pre><code>fail2ban-client set sshd banip 23.34.45.56</code></pre><p>我自己爆破sshd测试了下，这里一次ssh有3次重试密码机会，然后jail写的5次，这里其实测试的时候输错了15次密码，才会被fail2ban认为是要ban的ip。</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-07-36.png" alt="2024-04-09-21-07-36"></p><h1 id="实战：自定义WEB系统django封禁404或者爆破问题"><a href="#实战：自定义WEB系统django封禁404或者爆破问题" class="headerlink" title="实战：自定义WEB系统django封禁404或者爆破问题"></a>实战：自定义WEB系统django封禁404或者爆破问题</h1><p>我是用uwsgi启用的django，日志文件与格式如下：</p><pre><code>/var/log/uwsgi/uwsgi.log[pid: 799467|app: 0|req: 36/44] 129.151.212.54 () &#123;40 vars in 544 bytes&#125; [Tue Apr  9 07:44:07 2024] POST /api/login/ =&gt; generated 41 bytes in 244 msecs (HTTP/1.1 304) 7 headers in 267 bytes (1 switches on core 0)[pid: 799467|app: 0|req: 37/45] 129.151.212.54 () &#123;40 vars in 543 bytes&#125; [Tue Apr  9 07:44:10 2024] POST /api/login/ =&gt; generated 41 bytes in 263 msecs (HTTP/1.1 304) 7 headers in 267 bytes (1 switches on core 0)</code></pre><p>可以看到登录接口响应304，</p><p>然后，网络做法通常为使用 正则表达式 测试看是否能匹配到日志中测试数据：<br>但是此处有坑点，日志中有非标准格式行，会直接报错IndexError: string index out of range。这个问题仅仅是fail2ban-regex本身这种小测试工具的问题。</p><pre><code>fail2ban-regex /var/log/uwsgi/uwsgi.log  &quot;&lt;HOST&gt; \(.*\) .* \(HTTP/[012.]+ [345][0-9][0-9]\)&quot;</code></pre><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-08-29.png" alt="2024-04-09-21-08-29"></p><p>此时为了测试，需要把测试数据完整行单独放如/var/log/uwsgi/uwsgi.log2 的文件中测试正则。</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-08-48.png" alt="2024-04-09-21-08-48"></p><p>说明测试通过。</p><p>新建jail，自行命名</p><pre><code>vim /etc/fail2ban/jail.d/jail_uwsgi.local[uwsgi]enabled = trueport = 8000protocol = tcpfilter = uwsgilogpath = /var/log/uwsgi/uwsgi.logbantime = 120mfindtime = 10mmaxretry = 15</code></pre><p>新建filter，自行命名</p><pre><code>vim /etc/fail2ban/filter.d/uwsgi.conf[Definition]failregex = &lt;HOST&gt; \(.*\) .* \(HTTP/[012.]+ [345][0-9][0-9]\)ignoreregex =</code></pre><hr><pre><code>/etc/fail2ban/jail.local (不要编辑jail.conf)一众配置中新增如下：[uwsgi]# 此处jail.d定义和本初jail.local的参数可互相迭代指定，此处可仅写个[uwsgi]而不写配置参数（因为我的方法，在jail中已写）</code></pre><p>重启fail2ban</p><pre><code>systemctl restart fail2ban</code></pre><p>自己在本地打15个304的HTTP请求包后，可以看到自己的IP在 uwsgi 的jail 中被ban：</p><pre><code>root@racknerd-c012d0:/etc/fail2ban/jail.d# fail2ban-client status uwsgiStatus for the jail: uwsgi|- Filter|  |- Currently failed: 0|  |- Total failed:     15|  `- File list:        /var/log/uwsgi/uwsgi.log`- Actions|- Currently banned: 1|- Total banned:     1`- Banned IP list:   129.151.212.54root@racknerd-c012d0:/etc/fail2ban/jail.d# fail2ban-client status sshdStatus for the jail: sshd|- Filter|  |- Currently failed: 2|  |- Total failed:     6|  `- File list:        /var/log/auth.log`- Actions|- Currently banned: 3|- Total banned:     3`- Banned IP list:   218.92.0.122 218.92.0.22 218.92.0.29</code></pre><p>postman此时由于触发ban，发送仅响应503 service unresposable, 触发ufw的reject行为</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux-Maintain </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>gitlab-ee的破解版返回500，501响应</title>
-      <link href="/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/"/>
-      <url>/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/</url>
-      
-        <content type="html"><![CDATA[<p>鹏哥参考过的链接</p><pre><code>https://docs.gitlab.com/ee/install/docker.html#devshm-mount-not-having-enough-space-in-docker-containerhttps://blog.kelu.org/tech/2021/12/16/docker-shm.htmlhttps://blog.csdn.net/weixin_43545410/article/details/120963125</code></pre><h1 id="方法一：容器启动前修改"><a href="#方法一：容器启动前修改" class="headerlink" title="方法一：容器启动前修改"></a>方法一：容器启动前修改</h1><pre><code>docker run -it --shm-size=&quot;1g&quot; --name 001 busybox:latest /bin/sh</code></pre><h1 id="方法二：容器启动后修改"><a href="#方法二：容器启动后修改" class="headerlink" title="方法二：容器启动后修改"></a>方法二：容器启动后修改</h1><p>1.docker ps | grep containerName</p><p>2.获取完整 Id</p><pre><code>[root@linfs-bigdata containers]# docker inspect 641ae8c59c0d | grep Id    &quot;Id&quot;: &quot;641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269&quot;,</code></pre><p>3.修改 ShmSize，单位为 kb，默认大小为 64M，修改完后重启 docker 就生效了</p><pre><code>vim /var/lib/docker/containers/641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269/hostconfig.json</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux-Maintain </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>gost</title>
-      <link href="/2024/04/08/Linux-Maintain/gost/"/>
-      <url>/2024/04/08/Linux-Maintain/gost/</url>
-      
-        <content type="html"><![CDATA[<p>项目参考<br><a href="https://github.com/ginuerzh/gost">https://github.com/ginuerzh/gost</a></p><h1 id="代理转发"><a href="#代理转发" class="headerlink" title="代理转发"></a>代理转发</h1><p>只要本地客户端执行-L，就可以转发http，https，socks等协议的转发，但是实测我无法https转发，会遇到证书的报错</p><h3 id="kcp协议：-udp封装的协议"><a href="#kcp协议：-udp封装的协议" class="headerlink" title="kcp协议： udp封装的协议"></a>kcp协议： udp封装的协议</h3><pre><code>server:gost -L kcp://gost:1qaz@WSX@45.77.115.252:52783client:gost -L=:6666 -F=kcp://gost:1qaz@WSX@45.77.115.252:52783</code></pre><h3 id="mwss协议：多媒体协议"><a href="#mwss协议：多媒体协议" class="headerlink" title="mwss协议：多媒体协议"></a>mwss协议：多媒体协议</h3><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723</code></pre><h1 id="curl挂代理检测socks代理"><a href="#curl挂代理检测socks代理" class="headerlink" title="curl挂代理检测socks代理"></a>curl挂代理检测socks代理</h1><p>curl -x socks5://127.0.0.1:1024 <a href="http://www.google.com">http://www.google.com</a> # -x 参数等同于 —proxy</p><p>访问ip.sb会直接显示当前你连接的ip</p><pre><code>curl -x socks5://127.0.0.1:6666 ip.sb</code></pre><h1 id="在racknerd的socks的vps搭建的坑点"><a href="#在racknerd的socks的vps搭建的坑点" class="headerlink" title="在racknerd的socks的vps搭建的坑点"></a>在racknerd的socks的vps搭建的坑点</h1><p>如果是AlmaLinux，则使用yum安装 net-tools 等软件<br>防火墙不同于ubuntu的ufw，使用firewalld</p><p>需要关闭firewalld：</p><pre><code>systemctl stop firewalldsystemctl disable firewalld</code></pre><p>在如下链接中找到解决方案：<br><a href="https://almalinux.discourse.group/t/no-match-for-argument-screen/790">https://almalinux.discourse.group/t/no-match-for-argument-screen/790</a></p><pre><code>dnf install epel-releasednf install screen</code></pre><p>然后再 screen -S gost开screen的shell，运行命令<br>mwss协议：</p><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753</code></pre><h1 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h1><p>参考帖子：<br><a href="https://github.com/ginuerzh/gost/issues/745">https://github.com/ginuerzh/gost/issues/745</a></p><p>假设A地址是公网vps，B是某内网服务器，C是客户端<br>B、C不能访问，C想访问B的5000端口的服务，需要以A为中继，gost部署如下：</p><p>A部署：</p><pre><code>gost -L socks5://:2345 (意思是，建立端口为2345的gost服务端。2345仅是服务端，用来gost访问搭桥的，不是让人类访问的)</code></pre><p>B部署：</p><pre><code>gost -L rtcp://:8080/:5000 -F socks5://10.80.5.244:2345 (意思是，将机器192.168.217.128端口5000绑定到机器10.80.5.244端口8080上。此处rtcp无所谓，gost支持的都行)</code></pre><p>C访问：</p><pre><code>访问 A:8080，就可以访问到B:5000 了。</code></pre><h3 id="案例：将gitea内网穿透"><a href="#案例：将gitea内网穿透" class="headerlink" title="案例：将gitea内网穿透"></a>案例：将gitea内网穿透</h3><p>服务端（192.227.167.113）：</p><pre><code>./gost -L socks5://:38441</code></pre><p>被穿透机器：</p><pre><code>gost -L rtcp://:3001/:3000 -F socks5://192.227.xxx.113:38441</code></pre><p>访问：<br><a href="http://192.227.167.113:3001/">http://192.227.167.113:3001/</a></p>]]></content>
+        <content type="html"><![CDATA[<p>开机启动1m30s慢</p><p>Ubuntu开机卡在 A start job is runing for wait for Network to be configured (1min 23s / no limit)解决方法</p><p>参考链接：<a href="https://blog.csdn.net/weixin_42300866/article/details/123712774">https://blog.csdn.net/weixin_42300866/article/details/123712774</a></p><pre><code>root@k8s-master1:~# cd /etc/systemd/system/network-online.target.wants/root@k8s-master1:/etc/systemd/system/network-online.target.wants# lltotal 8drwxr-xr-x  2 root root 4096 Aug 24  2021 ./drwxr-xr-x 19 root root 4096 Mar 24 08:11 ../lrwxrwxrwx  1 root root   56 Aug 16  2021 systemd-networkd-wait-online.service -&gt; /lib/systemd/system/systemd-networkd-wait-online.service</code></pre><p>添加内容如下：<br>在【service】代码快最末尾加上</p><pre><code>TimeoutStartSec=2sec</code></pre><p>修改内容如下：</p><pre><code>#  SPDX-License-Identifier: LGPL-2.1+##  This file is part of systemd.##  systemd is free software; you can redistribute it and/or modify it#  under the terms of the GNU Lesser General Public License as published by#  the Free Software Foundation; either version 2.1 of the License, or#  (at your option) any later version.[Unit]Description=Wait for Network to be ConfiguredDocumentation=man:systemd-networkd-wait-online.service(8)DefaultDependencies=noConflicts=shutdown.targetRequires=systemd-networkd.serviceAfter=systemd-networkd.serviceBefore=network-online.target shutdown.target[Service]Type=oneshotExecStart=/lib/systemd/systemd-networkd-wait-onlineRemainAfterExit=yesTimeoutStartSec=2sec[Install]WantedBy=network-online.target</code></pre>]]></content>
       
       
       <categories>
@@ -1957,11 +1860,68 @@
     
     
     <entry>
+      <title>gitlab-ee的破解版返回500，501响应</title>
+      <link href="/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/"/>
+      <url>/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/</url>
+      
+        <content type="html"><![CDATA[<p>鹏哥参考过的链接</p><pre><code>https://docs.gitlab.com/ee/install/docker.html#devshm-mount-not-having-enough-space-in-docker-containerhttps://blog.kelu.org/tech/2021/12/16/docker-shm.htmlhttps://blog.csdn.net/weixin_43545410/article/details/120963125</code></pre><h1 id="方法一：容器启动前修改"><a href="#方法一：容器启动前修改" class="headerlink" title="方法一：容器启动前修改"></a>方法一：容器启动前修改</h1><pre><code>docker run -it --shm-size=&quot;1g&quot; --name 001 busybox:latest /bin/sh</code></pre><h1 id="方法二：容器启动后修改"><a href="#方法二：容器启动后修改" class="headerlink" title="方法二：容器启动后修改"></a>方法二：容器启动后修改</h1><p>1.docker ps | grep containerName</p><p>2.获取完整 Id</p><pre><code>[root@linfs-bigdata containers]# docker inspect 641ae8c59c0d | grep Id    &quot;Id&quot;: &quot;641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269&quot;,</code></pre><p>3.修改 ShmSize，单位为 kb，默认大小为 64M，修改完后重启 docker 就生效了</p><pre><code>vim /var/lib/docker/containers/641ae8c59c0d20814d489cdc17a32f6ab3f35e621e5f67c2e0df1cc1b7efa269/hostconfig.json</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux-Maintain </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>fail2ban</title>
+      <link href="/2024/04/08/Linux-Maintain/fail2ban/"/>
+      <url>/2024/04/08/Linux-Maintain/fail2ban/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#fail2ban禁止爆破">fail2ban：禁止爆破</a></li><li><a href="#fail2ban-client">fail2ban-client</a></li><li><a href="#实战自定义web系统django封禁404或者爆破问题">实战：自定义WEB系统django封禁404或者爆破问题</a></li></ul><p>2024年4月8日，我和其他前端同事合作开发的考试系统，mysql数据库被黑，宕机。</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-05-54.png" alt="2024-04-09-21-05-54"></p><p>随后我禁止公网暴露mysql数据库，开始研究对其他网络协议的防止暴力破解，于是使用fail2ban对sshd和http的爆破进行限制。</p><h1 id="fail2ban：禁止爆破"><a href="#fail2ban：禁止爆破" class="headerlink" title="fail2ban：禁止爆破"></a>fail2ban：禁止爆破</h1><p>参考链接：<a href="https://www.myfreax.cominstall-configure-fail2ban-on-ubuntu-20-04/">https://www.myfreax.cominstall-configure-fail2ban-on-ubuntu-20-04/</a></p><p>fail2ban是根据你配置好的日志文件，和jail服务，来临时ban ip的，<strong>如果需要永久拒绝某个ip，直接操作防火墙ufw更合适</strong>。fail2ban只能根据配置好的jail_name来临时ban ip.</p><p>直接日志位置: /var/log/fail2ban.log</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-03-27.png" alt="2024-04-09-21-03-27.png"></p><pre><code>apt update &amp;&amp; apt install fail2ban</code></pre><p>在默认情况下是禁用的，因为它的一些默认设置可能会导致不良效果。</p><pre><code>systemctl status fail2banfail2ban.service - Fail2Ban Service    Loaded: loaded (/lib/systemd/system/fail2ban.service; disabled; vendor preset: enabled)    Active: inactive (dead)    Docs: man:fail2ban(1)</code></pre><p>配置目录：/etc/fail2ban</p><p>默认有jail.conf的配置文件，但是<strong>不要动conf</strong>，自己新建.local的配置文件在local中编辑：</p><pre><code>cp /etc/fail2ban/jail.&#123;conf,local&#125;</code></pre><p>jail.local中有三个重要的</p><pre><code>bantime  = 1d  findtime  = 10m  maxretry = 5</code></pre><p>Fail2ban附带许多Jail作为示例，系统每一项服务都可以找到对应Jail配置。 要启用Jail，您需要在添加enabled = true。 以下示例显示了如何为sshd服务启用Jail：</p><pre><code>[sshd]enabled   = true（ubunt可以不写）port    = sshlogpath = %(sshd_log)sbackend = %(sshd_backend)s/etc/fail2ban/jail.local</code></pre><p>每次修改配置文件时，都必须重新启动Fail2ban服务，以使更改生效：</p><pre><code>sudo systemctl restart fail2ban</code></pre><h1 id="fail2ban-client"><a href="#fail2ban-client" class="headerlink" title="fail2ban-client"></a>fail2ban-client</h1><p>检查fail2ban监视的sshd：</p><pre><code>fail2ban-client status sshd</code></pre><p>unban ip：</p><pre><code>fail2ban-client set sshd unbanip 23.34.45.56</code></pre><p>banIP：</p><pre><code>fail2ban-client set sshd banip 23.34.45.56</code></pre><p>我自己爆破sshd测试了下，这里一次ssh有3次重试密码机会，然后jail写的5次，这里其实测试的时候输错了15次密码，才会被fail2ban认为是要ban的ip。</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-07-36.png" alt="2024-04-09-21-07-36"></p><h1 id="实战：自定义WEB系统django封禁404或者爆破问题"><a href="#实战：自定义WEB系统django封禁404或者爆破问题" class="headerlink" title="实战：自定义WEB系统django封禁404或者爆破问题"></a>实战：自定义WEB系统django封禁404或者爆破问题</h1><p>我是用uwsgi启用的django，日志文件与格式如下：</p><pre><code>/var/log/uwsgi/uwsgi.log[pid: 799467|app: 0|req: 36/44] 129.151.212.54 () &#123;40 vars in 544 bytes&#125; [Tue Apr  9 07:44:07 2024] POST /api/login/ =&gt; generated 41 bytes in 244 msecs (HTTP/1.1 304) 7 headers in 267 bytes (1 switches on core 0)[pid: 799467|app: 0|req: 37/45] 129.151.212.54 () &#123;40 vars in 543 bytes&#125; [Tue Apr  9 07:44:10 2024] POST /api/login/ =&gt; generated 41 bytes in 263 msecs (HTTP/1.1 304) 7 headers in 267 bytes (1 switches on core 0)</code></pre><p>可以看到登录接口响应304，</p><p>然后，网络做法通常为使用 正则表达式 测试看是否能匹配到日志中测试数据：<br>但是此处有坑点，日志中有非标准格式行，会直接报错IndexError: string index out of range。这个问题仅仅是fail2ban-regex本身这种小测试工具的问题。</p><pre><code>fail2ban-regex /var/log/uwsgi/uwsgi.log  &quot;&lt;HOST&gt; \(.*\) .* \(HTTP/[012.]+ [345][0-9][0-9]\)&quot;</code></pre><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-08-29.png" alt="2024-04-09-21-08-29"></p><p>此时为了测试，需要把测试数据完整行单独放如/var/log/uwsgi/uwsgi.log2 的文件中测试正则。</p><p><img src="/2024/04/08/Linux-Maintain/fail2ban/2024-04-09-21-08-48.png" alt="2024-04-09-21-08-48"></p><p>说明测试通过。</p><p>新建jail，自行命名</p><pre><code>vim /etc/fail2ban/jail.d/jail_uwsgi.local[uwsgi]enabled = trueport = 8000protocol = tcpfilter = uwsgilogpath = /var/log/uwsgi/uwsgi.logbantime = 120mfindtime = 10mmaxretry = 15</code></pre><p>新建filter，自行命名</p><pre><code>vim /etc/fail2ban/filter.d/uwsgi.conf[Definition]failregex = &lt;HOST&gt; \(.*\) .* \(HTTP/[012.]+ [345][0-9][0-9]\)ignoreregex =</code></pre><hr><pre><code>/etc/fail2ban/jail.local (不要编辑jail.conf)一众配置中新增如下：[uwsgi]# 此处jail.d定义和本初jail.local的参数可互相迭代指定，此处可仅写个[uwsgi]而不写配置参数（因为我的方法，在jail中已写）</code></pre><p>重启fail2ban</p><pre><code>systemctl restart fail2ban</code></pre><p>自己在本地打15个304的HTTP请求包后，可以看到自己的IP在 uwsgi 的jail 中被ban：</p><pre><code>root@racknerd-c012d0:/etc/fail2ban/jail.d# fail2ban-client status uwsgiStatus for the jail: uwsgi|- Filter|  |- Currently failed: 0|  |- Total failed:     15|  `- File list:        /var/log/uwsgi/uwsgi.log`- Actions|- Currently banned: 1|- Total banned:     1`- Banned IP list:   129.151.212.54root@racknerd-c012d0:/etc/fail2ban/jail.d# fail2ban-client status sshdStatus for the jail: sshd|- Filter|  |- Currently failed: 2|  |- Total failed:     6|  `- File list:        /var/log/auth.log`- Actions|- Currently banned: 3|- Total banned:     3`- Banned IP list:   218.92.0.122 218.92.0.22 218.92.0.29</code></pre><p>postman此时由于触发ban，发送仅响应503 service unresposable, 触发ufw的reject行为</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux-Maintain </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ufw</title>
       <link href="/2024/04/08/Linux-Maintain/ufw/"/>
       <url>/2024/04/08/Linux-Maintain/ufw/</url>
       
         <content type="html"><![CDATA[<p>firewall和ufw，两者安装其一即可，都安装的话会冲突。</p><ul><li><a href="#iptables">iptables</a></li><li><a href="#firewalld">firewalld</a></li><li><a href="#ufw">ufw</a><ul><li><a href="#允许源ip地址接口网卡">允许源IP地址接口/网卡</a></li><li><a href="#拒绝连接">拒绝连接</a></li><li><a href="#查看并删除防火墙规则">查看并删除防火墙规则</a></li><li><a href="#禁用启用">禁用/启用</a></li><li><a href="#ip伪装转发">IP伪装/转发</a></li><li><a href="#systemctl-enable-ufw和ufw-enable区别">systemctl enable ufw和ufw enable区别</a></li></ul></li></ul><h1 id="iptables"><a href="#iptables" class="headerlink" title="iptables"></a>iptables</h1><p>iptables 是一个通过控制 Linux 内核的 netfilter 模块来管理网络数据包的流动与转送的应用软件，其功能包括不仅仅包括防火墙的控制出入流量，还有端口转发等等。</p><p>iptables 内部有表 tables、链 chains、规则 rules 这三种概念。<br>iptables 的每一个 “表” 都和不同的数据包处理有关、决定数据包是否可以穿越的是 “链”、而一条 “规则” 在链里面则可以决定是否送往下一条链（或其它的动作）。</p><p>iptables 是 firewall 和 ufw 的底层。</p><h1 id="firewalld"><a href="#firewalld" class="headerlink" title="firewalld"></a>firewalld</h1><p>如almaLinux、centos使用 firewalld 为防火墙，区别于 ubuntu 的ufw作为防火墙。</p><p>关闭防火墙可以使用systemctl stop firewalld 和 systemctl disable firewalld 。</p><pre><code>firewall-cmd --permanent --add-port=51080/tcp[root@vultr ~]# firewall-cmd --list-ports50022/tcp 51080/tcp 38388/tcp 38388/udp 23307/tcp</code></pre><h1 id="ufw"><a href="#ufw" class="headerlink" title="ufw"></a>ufw</h1><p>UFW（Uncomplicated Firewal）是 Ubuntu 下基于 iptables 的接口，旨在简化配置防火墙的过程。默认情况下 UFW 为关闭状态，开启时默认为拒绝所有传入链接，并允许所有传出连接。只有root权限才能操作</p><pre><code>ufw status verbose</code></pre><p>打印拒绝连接的地址，和开放的端口、关闭的端口</p><p>UFW防火墙的默认行为是<strong>阻止所有传入和转发流量</strong>，并<strong>允许所有出站流量</strong>。这意味着除非您打开指定的端口，否则任何尝试访问您的服务器的人都将无法连接。</p><pre><code>sudo ufw allow sshsudo ufw enable</code></pre><p>将会启用ubuntu防火墙，并提示你命令可能会中断SSH的连接是否要进行该操作</p><p>打开端口，如果未给出协议，则UFW会同时为tcp和udp创建规则：</p><pre><code>ufw allow port_number/protocol</code></pre><p>如果写协议名字的话，ufw会检查<strong>/etc/services</strong>中对应指定的服务和端口</p><p>UFW还允许您打开指定的端口范围。起始端口和结束端口用冒号:分隔，并且您必须指定协议tcp或udp。</p><p>例如，如果要同时在tcp和udp允许来自7100到7200端口的连接，则可以运行命令</p><pre><code>sudo ufw allow 7100:7200/tcp。</code></pre><p>指定端口号最常用的方式例如命令sudo ufw allow 80将会打开80端口。UFW还支持使用proto关键字指定协议。</p><pre><code>sudo ufw allow 80 #tcp和udpsudo ufw allow 80/tcp #仅tcpsudo ufw allow proto tcp to any port 80</code></pre><h3 id="允许源IP地址接口-网卡"><a href="#允许源IP地址接口-网卡" class="headerlink" title="允许源IP地址接口/网卡"></a>允许源IP地址接口/网卡</h3><p>如果只写协议（如 http ssh），会检查/etc/services对应端口来封端口</p><p>要允许来自指定源IP的连接，请使用from关键字，后跟源地址。如果要仅允许指定的IP地址访问指定的端口，请使用to any port关键字，后跟端口号</p><pre><code>sudo ufw allow from 192.168.1.100 #仅允许单IP地址sudo ufw allow from 192.168.1.100 to any port 3306 #仅允许单IP地址连接3306sudo ufw allow from 192.168.1.0/24 to any port 3306sudo ufw allow in on eth2 to any port 3306ufw allow sshufw allow 7722/tcp</code></pre><h3 id="拒绝连接"><a href="#拒绝连接" class="headerlink" title="拒绝连接"></a>拒绝连接</h3><p>所有传入连接的默认策略均设置为deny，如果您未更改默认策略，除非打开指定端口的连接，否则UFW会阻止所有传入连接。</p><p>撰写拒绝规则与撰写允许规则相同。使用deny关键字而不是allow。假设打开了端口80和443，并且服务器受到23.24.25.0/24网络的攻击。要拒绝来自23.24.25.0/24的所有连接。</p><pre><code>sudo ufw deny from 23.24.25.0/24</code></pre><p>命令将会拒绝23.24.25.0/24网段的连接，如果你仅需要拒绝指定IP地址的连接，则不需要添加子网掩码。</p><p>你还可以拒绝指定的IP地址连接到指定的端口，例如命令sudo ufw deny proto tcp from 23.24.25.0/24 to any port 80,443。将会拒绝23.24.25.0/24访问端口80和443的示例</p><pre><code>deny：    当使用 deny 动作时，防火墙会默默地丢弃被拒绝的数据包，而不向源发送任何响应。    对于 TCP 连接，源主机将继续尝试发送数据包，直到达到超时或放弃为止。    这种动作会使得攻击者难以确定目标主机是否在线，因为他们不会收到拒绝连接的响应。    但这也可能导致一些问题，比如可能会使得攻击者更难以确定是由于网络故障还是被防火墙拒绝。reject：    当使用 reject 动作时，防火墙会发送一条 ICMP 错误消息（如“目标不可达”）给源主机，通知其连接被拒绝。    对于 TCP 连接，这将导致源主机立即收到拒绝连接的响应，从而不再尝试建立连接。    与 deny 不同，使用 reject 动作会立即通知源主机连接被拒绝，这样可以更快地释放网络资源并减少攻击者的网络流量。</code></pre><hr><pre><code>sudo ufw deny from 23.24.25.100 #拒绝指定的IP连接sudo ufw deny from 23.24.25.0/24  #整个网段sudo ufw deny proto tcp from 23.24.25.0/24 to any port 80,443拒绝使用rejectufw reject from 202.54.5.7 to any</code></pre><h3 id="查看并删除防火墙规则"><a href="#查看并删除防火墙规则" class="headerlink" title="查看并删除防火墙规则"></a>查看并删除防火墙规则</h3><pre><code>sudo ufw status numbered</code></pre><p>假设要删除的ufw规则编号是3，该规则号允许连接到端口8080。你可运行命令</p><pre><code>sudo ufw delete 3</code></pre><p>第二种方法是通过指定实际规则来删除规则。例如，如果您打开了8069端口的规则，则可以运行命令sudo ufw delete allow 8069将其删除。</p><pre><code>sudo ufw status numbered #查看防火墙的状态sudo ufw delete 3 #根据编号删除sudo ufw delete allow 8069 通过规则删除规则</code></pre><h3 id="禁用-启用"><a href="#禁用-启用" class="headerlink" title="禁用/启用"></a>禁用/启用</h3><p>如果出于某些原因要停止UFW并停用所有规则，则可以运行命令sudo ufw disable禁用防火墙。</p><p>以后，如果您想重新启用ufw并激活所有规则，运行命令sudo ufw enable即可。</p><p>重置UFW将禁用UFW，并删除所有活动规则。 如果您不想还原所有更改并重新开始，这将很有帮助。要重置UFW，可以运行命令sudo ufw reset。</p><pre><code>sudo ufw disable #禁用sudo ufw enable #开启sudo ufw reset #重置</code></pre><h3 id="IP伪装-转发"><a href="#IP伪装-转发" class="headerlink" title="IP伪装/转发"></a>IP伪装/转发</h3><p>IP伪装是Linux内核中NAT网络地址转换的一种变体，它通过重写源IP地址和目标IP地址端口来转换网络流量。借助IP伪装，您可以使用一台Linux计算机充当网关，允许私有网络中的一台或多台计算机与互联网通信。例如VMware或者Virtualbox此类虚拟软件就是通过一个NAT适配器充当网卡，转发多台虚拟机网络数据，连接到互联网。</p><p>使用UFW配置IP伪装涉及几个步骤。首先，您需要启用IP转发ip_forward。</p><p>请使用你喜欢的编辑器编辑/etc/ufw/sysctl.conf文件，在本教程中将使用vim编辑器打开文件：</p><pre><code>sudo vim /etc/ufw/sysctl.conf</code></pre><p>查找并取消注释以下行：</p><pre><code>net/ipv4/ip_forward=1</code></pre><p>您还需要配置UFW以允许转发数据包。打开UFW配置文件/etc/default/ufw。找到DEFAULT_FORWARD_POLICY键，然后将值从DROP更改为ACCEPT。</p><pre><code>sudo vim /etc/default/ufw</code></pre><h1 id="找到DEFAULT-FORWARD-POLICY改为ACCEPT"><a href="#找到DEFAULT-FORWARD-POLICY改为ACCEPT" class="headerlink" title="找到DEFAULT_FORWARD_POLICY改为ACCEPT"></a>找到DEFAULT_FORWARD_POLICY改为ACCEPT</h1><pre><code>DEFAULT_FORWARD_POLICY=&quot;ACCEPT&quot;</code></pre><p>现在，您需要在nat表中设置POSTROUTING链的默认策略和伪装规则。 请打开/etc/ufw/before.rules文件。</p><pre><code>sudo vim /etc/ufw/before.rules</code></pre><p>追加以下几行到文件/etc/ufw/before.rules</p><pre><code>#NAT table rules 启用nat 表*nat# 允许POSTROUTING 链:POSTROUTING ACCEPT [0:0]# 转发eth0接口的数据包，请将eth0更改为你对应的接口-A POSTROUTING -s 10.8.0.0/16 -o eth0 -j MASQUERADE# don&#39;t delete the &#39;COMMIT&#39; line or these rules won&#39;t be processedCOMMIT</code></pre><p>注意不要删除COMMIT关键词，它永远是在最后一行。别忘了在-A POSTROUTING行中替换eth0以匹配你的计算机可以连接到互联网的名称。</p><p>完成后，保存并关闭文件。最后，通过命令sudo ufw disable禁用和命令sudo ufw enable重新启用UFW重新加载UFW规则。</p><h3 id="systemctl-enable-ufw和ufw-enable区别"><a href="#systemctl-enable-ufw和ufw-enable区别" class="headerlink" title="systemctl enable ufw和ufw enable区别"></a>systemctl enable ufw和ufw enable区别</h3><p>我对这两个命令疑惑，不过有相关的说明：<br><a href="https://unix.stackexchange.com/questions/555020/how-should-i-enable-ufw-through-systemctl-enable-or-ufw-enable">https://unix.stackexchange.com/questions/555020/how-should-i-enable-ufw-through-systemctl-enable-or-ufw-enable</a></p><p>systemctl只是要不要考虑ufw作为系统引导时启动的后台进程。</p><p>ufw本身默认是关着的，systemctl status ufw可以看到ufw是enabled，但是ufw status看到他是inactive，这是不冲突的，要开启ufw需要 ufw enable.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux-Maintain </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>gost</title>
+      <link href="/2024/04/08/Linux-Maintain/gost/"/>
+      <url>/2024/04/08/Linux-Maintain/gost/</url>
+      
+        <content type="html"><![CDATA[<p>项目参考<br><a href="https://github.com/ginuerzh/gost">https://github.com/ginuerzh/gost</a></p><h1 id="代理转发"><a href="#代理转发" class="headerlink" title="代理转发"></a>代理转发</h1><p>只要本地客户端执行-L，就可以转发http，https，socks等协议的转发，但是实测我无法https转发，会遇到证书的报错</p><h3 id="kcp协议：-udp封装的协议"><a href="#kcp协议：-udp封装的协议" class="headerlink" title="kcp协议： udp封装的协议"></a>kcp协议： udp封装的协议</h3><pre><code>server:gost -L kcp://gost:1qaz@WSX@45.77.115.252:52783client:gost -L=:6666 -F=kcp://gost:1qaz@WSX@45.77.115.252:52783</code></pre><h3 id="mwss协议：多媒体协议"><a href="#mwss协议：多媒体协议" class="headerlink" title="mwss协议：多媒体协议"></a>mwss协议：多媒体协议</h3><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.210.xxx.99:29753gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@45.77.115.252:29723</code></pre><h1 id="curl挂代理检测socks代理"><a href="#curl挂代理检测socks代理" class="headerlink" title="curl挂代理检测socks代理"></a>curl挂代理检测socks代理</h1><p>curl -x socks5://127.0.0.1:1024 <a href="http://www.google.com">http://www.google.com</a> # -x 参数等同于 —proxy</p><p>访问ip.sb会直接显示当前你连接的ip</p><pre><code>curl -x socks5://127.0.0.1:6666 ip.sb</code></pre><h1 id="在racknerd的socks的vps搭建的坑点"><a href="#在racknerd的socks的vps搭建的坑点" class="headerlink" title="在racknerd的socks的vps搭建的坑点"></a>在racknerd的socks的vps搭建的坑点</h1><p>如果是AlmaLinux，则使用yum安装 net-tools 等软件<br>防火墙不同于ubuntu的ufw，使用firewalld</p><p>需要关闭firewalld：</p><pre><code>systemctl stop firewalldsystemctl disable firewalld</code></pre><p>在如下链接中找到解决方案：<br><a href="https://almalinux.discourse.group/t/no-match-for-argument-screen/790">https://almalinux.discourse.group/t/no-match-for-argument-screen/790</a></p><pre><code>dnf install epel-releasednf install screen</code></pre><p>然后再 screen -S gost开screen的shell，运行命令<br>mwss协议：</p><pre><code>server:./gost -L mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753client:gost -L=:6666 -F=mwss://fivecolorstone:fivecolorstone@192.227.xxx.113:39753</code></pre><h1 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h1><p>参考帖子：<br><a href="https://github.com/ginuerzh/gost/issues/745">https://github.com/ginuerzh/gost/issues/745</a></p><p>假设A地址是公网vps，B是某内网服务器，C是客户端<br>B、C不能访问，C想访问B的5000端口的服务，需要以A为中继，gost部署如下：</p><p>A部署：</p><pre><code>gost -L socks5://:2345 (意思是，建立端口为2345的gost服务端。2345仅是服务端，用来gost访问搭桥的，不是让人类访问的)</code></pre><p>B部署：</p><pre><code>gost -L rtcp://:8080/:5000 -F socks5://10.80.5.244:2345 (意思是，将机器192.168.217.128端口5000绑定到机器10.80.5.244端口8080上。此处rtcp无所谓，gost支持的都行)</code></pre><p>C访问：</p><pre><code>访问 A:8080，就可以访问到B:5000 了。</code></pre><h3 id="案例：将gitea内网穿透"><a href="#案例：将gitea内网穿透" class="headerlink" title="案例：将gitea内网穿透"></a>案例：将gitea内网穿透</h3><p>服务端（192.227.167.113）：</p><pre><code>./gost -L socks5://:38441</code></pre><p>被穿透机器：</p><pre><code>gost -L rtcp://:3001/:3000 -F socks5://192.227.xxx.113:38441</code></pre><p>访问：<br><a href="http://192.227.167.113:3001/">http://192.227.167.113:3001/</a></p>]]></content>
       
       
       <categories>
@@ -1986,6 +1946,25 @@
       <categories>
           
           <category> Py </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>goland技巧</title>
+      <link href="/2024/04/08/Go/goland/"/>
+      <url>/2024/04/08/Go/goland/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#常用快捷键">常用快捷键</a></li><li><a href="#添加远程调试">添加远程调试</a></li><li><a href="#delve升级go无法调试">delve：升级go无法调试</a></li></ul><h1 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h1><p>打出err.nn可以快速打出 err!=nil</p><h1 id="添加远程调试"><a href="#添加远程调试" class="headerlink" title="添加远程调试"></a>添加远程调试</h1><p>直接调试器这里新建Go构建（不需要点击Go远程）</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-14.png" alt="2024-04-10-22-20-14"></p><p>在这里配置SSH</p><p><img src="/2024/04/08/Go/goland/2024-04-10-22-20-45.png" alt="2024-04-10-22-20-45"></p><h1 id="delve：升级go无法调试"><a href="#delve：升级go无法调试" class="headerlink" title="delve：升级go无法调试"></a>delve：升级go无法调试</h1><p>我升级go从1.17到1.20后，goland无法调试。<br>调试时报错 </p><pre><code>WARNING: undefined behavior - version of Delve is too old for Go version 1.20.0 (maximum supported version 1.18)</code></pre><p>查阅网上很多方法都不奏效。<br>以下为奏效方法：<br><a href="https://zhuanlan.zhihu.com/p/425645473">https://zhuanlan.zhihu.com/p/425645473</a></p><pre><code>$ git clone https://github.com/go-delve/delve$ cd delve$ go install github.com/go-delve/delve/cmd/dlv</code></pre><p>随后在GOPATH/bin中出现最新的dlv.exe，注意看该程序的生成时间<br>然后在goland的“自定义属性”中设置该值：</p><pre><code>dlv.path=E:\\BiLing\\golang-study\\bin\\dlv.exe</code></pre><p>重启goland奏效</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Go </category>
           
       </categories>
       
