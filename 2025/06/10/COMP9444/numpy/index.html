@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>tut1-numpy+tensor+colab | SenRanJa</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="tut1-numpy+tensor+colab | SenRanJa">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="About MeCurrently a postgraduate student in university, and major in Information Technology. Github: senRanja_github Blog: senRanja_blog linkedIn: keep private Keep exploration!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="about">
+<meta property="og:url" content="https://senranja.github.io/about/index.html">
+<meta property="og:site_name" content="SenRanJa">
+<meta property="og:description" content="About MeCurrently a postgraduate student in university, and major in Information Technology. Github: senRanja_github Blog: senRanja_blog linkedIn: keep private Keep exploration!">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-04-09T08:18:35.000Z">
+<meta property="article:modified_time" content="2025-01-15T06:21:21.499Z">
+<meta property="article:author" content="senranja">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpg"/>
+</a>
+<div class="author">
+    <span>senranja</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/SenRanja/"
+               target="_blank">
+                
+                    <i class="iconfont icon-github"></i>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(108)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                
+    <li>
+        <div data-rel="Math">
+            
+            Math
+            <small>(26)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="Algorithm">
+            
+            Algorithm
+            <small>(10)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="code-audit">
+            
+            code-audit
+            <small>(3)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="Linux-Maintain">
+            
+            Linux-Maintain
+            <small>(8)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="Go">
+            
+            Go
+            <small>(6)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="C-Cpp">
+            
+            C-Cpp
+            <small>(8)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="Py">
+            
+            Py
+            <small>(5)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="Docker">
+            
+            Docker
+            <small>(13)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="Git">
+            
+            Git
+            <small>(12)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="penetration">
+            
+            penetration
+            <small>(1)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="trivia">
+            
+            trivia
+            <small>(7)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="COMP9101">
+            
+            COMP9101
+            <small>(4)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="COMP9331">
+            
+            COMP9331
+            <small>(1)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="COMP9444">
+            
+            COMP9444
+            <small>(2)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="GUI">
+            
+            GUI
+            <small>(1)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+            <a class="about  hasFriend  site_url"
+               
+               href="/about">About</a>
+        
+        <a style="width: 50%"
+                
+                                           class="friends">Friends</a>
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="108">
+<input type="hidden" id="yelog_site_word_count" value="96.5k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://hksanduo.github.io/">sanduo</a></li>
+            
+            <li><a target="_blank" href="https://akabane71.github.io/">akabane71</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="search shortcut key i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="switch to outline view shortcut key w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="return"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="case sensitive"></i>
+            <i class="iconfont icon-tag" data-title="label"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">outline</div>
+            <i class="iconfont icon-list" data-title="switch to article list"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        
+        <a id="top" class="All "
+           href="/2024/08/29/readFirst/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="PREFACE">PREFACE</span>
+            <span class="post-date" title="2024-08-29 16:35:38">2024/08/29</span>
+        </a>
+        
+        
+        <a  class="All COMP9444 "
+           href="/2025/06/10/COMP9444/lec1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="lec1">lec1</span>
+            <span class="post-date" title="2025-06-10 16:24:00">2025/06/10</span>
+        </a>
+        
+        
+        <a  class="All COMP9444 "
+           href="/2025/06/10/COMP9444/numpy/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="tut1-numpy+tensor+colab">tut1-numpy+tensor+colab</span>
+            <span class="post-date" title="2025-06-10 16:23:55">2025/06/10</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2025/04/10/Math/LA2-Elimination-with-Matrices/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="LA2-Elimination-with-Matrices">LA2-Elimination-with-Matrices</span>
+            <span class="post-date" title="2025-04-10 08:15:38">2025/04/10</span>
+        </a>
+        
+        
+        <a  class="All Linux-Maintain "
+           href="/2025/04/07/Linux-Maintain/temux/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="temux">temux</span>
+            <span class="post-date" title="2025-04-07 20:15:53">2025/04/07</span>
+        </a>
+        
+        
+        <a  class="All Py "
+           href="/2025/04/07/Python/vastai-remotely-yolo/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="vastai remotely yolo">vastai remotely yolo</span>
+            <span class="post-date" title="2025-04-07 19:06:15">2025/04/07</span>
+        </a>
+        
+        
+        <a  class="All Py "
+           href="/2025/04/07/Python/local-yolo-envir/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="local yolo envir">local yolo envir</span>
+            <span class="post-date" title="2025-04-07 19:05:59">2025/04/07</span>
+        </a>
+        
+        
+        <a  class="All COMP9101 "
+           href="/2025/02/26/COMP9101/wk2-lec/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="wk2-lec">wk2-lec</span>
+            <span class="post-date" title="2025-02-26 13:10:26">2025/02/26</span>
+        </a>
+        
+        
+        <a  class="All COMP9331 "
+           href="/2025/02/24/COMP9331/commands/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="commands">commands</span>
+            <span class="post-date" title="2025-02-24 10:23:15">2025/02/24</span>
+        </a>
+        
+        
+        <a  class="All COMP9101 "
+           href="/2025/02/21/COMP9101/wk1-tut/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="wk1-tut">wk1-tut</span>
+            <span class="post-date" title="2025-02-21 14:36:43">2025/02/21</span>
+        </a>
+        
+        
+        <a  class="All Algorithm "
+           href="/2025/02/21/Algorithm/merge-sort/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="merge sort">merge sort</span>
+            <span class="post-date" title="2025-02-21 14:12:15">2025/02/21</span>
+        </a>
+        
+        
+        <a  class="All Algorithm "
+           href="/2025/02/21/Algorithm/Data-Structures/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Data Structures">Data Structures</span>
+            <span class="post-date" title="2025-02-21 12:21:17">2025/02/21</span>
+        </a>
+        
+        
+        <a  class="All COMP9101 "
+           href="/2025/02/21/COMP9101/recommanded-materials/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="recommanded_materials">recommanded_materials</span>
+            <span class="post-date" title="2025-02-21 10:05:08">2025/02/21</span>
+        </a>
+        
+        
+        <a  class="All COMP9101 "
+           href="/2025/02/19/COMP9101/wk1-lec/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="wk1-lec">wk1-lec</span>
+            <span class="post-date" title="2025-02-19 11:42:16">2025/02/19</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2025/01/05/Math/LA1-Geometry/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="LA1-Geometry">LA1-Geometry</span>
+            <span class="post-date" title="2025-01-05 08:15:38">2025/01/05</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2025/01/05/Math/LinearAlgebra/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="LinearAlgebra">LinearAlgebra</span>
+            <span class="post-date" title="2025-01-05 07:52:07">2025/01/05</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/12/11/Math/Baffle-Method/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Baffle_Method">Baffle_Method</span>
+            <span class="post-date" title="2024-12-11 08:03:20">2024/12/11</span>
+        </a>
+        
+        
+        <a  class="All GUI "
+           href="/2024/12/11/GUI/vue/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="vue">vue</span>
+            <span class="post-date" title="2024-12-11 07:49:22">2024/12/11</span>
+        </a>
+        
+        
+        <a  class="All Algorithm "
+           href="/2024/11/22/Algorithm/DepthFirstSearch/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="DepthFirstSearch">DepthFirstSearch</span>
+            <span class="post-date" title="2024-11-22 15:55:24">2024/11/22</span>
+        </a>
+        
+        
+        <a  class="All Algorithm "
+           href="/2024/11/22/Algorithm/ParseTree/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ParseTree">ParseTree</span>
+            <span class="post-date" title="2024-11-22 15:30:00">2024/11/22</span>
+        </a>
+        
+        
+        <a  class="All Algorithm "
+           href="/2024/11/22/Algorithm/Stack/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Stack">Stack</span>
+            <span class="post-date" title="2024-11-22 14:54:50">2024/11/22</span>
+        </a>
+        
+        
+        <a  class="All Algorithm "
+           href="/2024/11/22/Algorithm/BubbleSort/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="BubbleSort">BubbleSort</span>
+            <span class="post-date" title="2024-11-22 14:10:17">2024/11/22</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/11/20/Math/Algorithmic-Analysis/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Algorithmic_Analysis">Algorithmic_Analysis</span>
+            <span class="post-date" title="2024-11-20 13:28:03">2024/11/20</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/11/19/Math/Graph-Theory/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Graph_Theory">Graph_Theory</span>
+            <span class="post-date" title="2024-11-19 18:33:19">2024/11/19</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/11/19/Math/Statistics/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Statistics">Statistics</span>
+            <span class="post-date" title="2024-11-19 11:44:08">2024/11/19</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/11/18/Math/Probability/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Probability">Probability</span>
+            <span class="post-date" title="2024-11-18 17:30:34">2024/11/18</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/11/18/Math/Combinatorics/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Combinatorics">Combinatorics</span>
+            <span class="post-date" title="2024-11-18 11:19:03">2024/11/18</span>
+        </a>
+        
+        
+        <a  class="All Py "
+           href="/2024/11/15/Python/yolo-trainning/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="yolo_trainning">yolo_trainning</span>
+            <span class="post-date" title="2024-11-15 07:11:24">2024/11/15</span>
+        </a>
+        
+        
+        <a  class="All trivia "
+           href="/2024/11/03/trivia/Insights/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="感悟">感悟</span>
+            <span class="post-date" title="2024-11-03 15:56:46">2024/11/03</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/10/30/Cpp/Declaring-arrays-and-out-of-bounds/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Declaring arrays and out of bounds">Declaring arrays and out of bounds</span>
+            <span class="post-date" title="2024-10-30 14:09:06">2024/10/30</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/28/Math/prove-floor-s-floor/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="prove floor&#39;s floor">prove floor&#39;s floor</span>
+            <span class="post-date" title="2024-10-28 06:47:27">2024/10/28</span>
+        </a>
+        
+        
+        <a  class="All Algorithm "
+           href="/2024/10/27/Algorithm/Dijkstra/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Dijkstra">Dijkstra</span>
+            <span class="post-date" title="2024-10-27 12:44:47">2024/10/27</span>
+        </a>
+        
+        
+        <a  class="All Algorithm "
+           href="/2024/10/27/Algorithm/dot-and-graph/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="dot and graph">dot and graph</span>
+            <span class="post-date" title="2024-10-27 10:13:37">2024/10/27</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/26/Math/Induction/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Induction">Induction</span>
+            <span class="post-date" title="2024-10-26 11:27:18">2024/10/26</span>
+        </a>
+        
+        
+        <a  class="All Py "
+           href="/2024/10/26/Python/python-wrong-cases/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="python wrong cases">python wrong cases</span>
+            <span class="post-date" title="2024-10-26 06:40:59">2024/10/26</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/25/Math/truth-table-solves-imposter-and-crewmate/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="truth table solves imposter and crewmate">truth table solves imposter and crewmate</span>
+            <span class="post-date" title="2024-10-25 20:01:22">2024/10/25</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/24/Math/unwind-recursion-formula/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="unwind recursion formula">unwind recursion formula</span>
+            <span class="post-date" title="2024-10-24 20:45:44">2024/10/24</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/24/Math/improper-atomic-and-entailment/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="improper atomic and entailment">improper atomic and entailment</span>
+            <span class="post-date" title="2024-10-24 20:35:38">2024/10/24</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/24/Math/Recursion/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Recursion">Recursion</span>
+            <span class="post-date" title="2024-10-24 16:42:36">2024/10/24</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/17/Math/%E9%9B%86%E5%90%88%E9%A2%98%E9%80%9F%E5%81%9A/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="集合题速做">集合题速做</span>
+            <span class="post-date" title="2024-10-17 17:50:47">2024/10/17</span>
+        </a>
+        
+        
+        <a  class="All trivia "
+           href="/2024/10/16/trivia/3-hexo-error-solution/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="3-hexo error solution">3-hexo error solution</span>
+            <span class="post-date" title="2024-10-16 10:12:56">2024/10/16</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/15/Math/Propositional-Logic/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Propositional Logic">Propositional Logic</span>
+            <span class="post-date" title="2024-10-15 07:00:06">2024/10/15</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/14/Math/%E5%AD%A6%E6%B8%A3%E8%80%83%E8%AF%95%E7%AD%94%E9%A2%98%E6%A8%A1%E6%9D%BF/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="学渣考试答题模板">学渣考试答题模板</span>
+            <span class="post-date" title="2024-10-14 10:07:30">2024/10/14</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/13/Math/Domain-Set-Cross-Product-and-values/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Domain Set Cross Product and values">Domain Set Cross Product and values</span>
+            <span class="post-date" title="2024-10-13 19:35:30">2024/10/13</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/12/Math/Boolean-logic/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Boolean logic">Boolean logic</span>
+            <span class="post-date" title="2024-10-12 13:01:52">2024/10/12</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/11/Math/Functions/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Functions">Functions</span>
+            <span class="post-date" title="2024-10-11 15:10:18">2024/10/11</span>
+        </a>
+        
+        
+        <a  class="All trivia "
+           href="/2024/10/11/trivia/%E8%AE%BAAI/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="论诺奖与AI">论诺奖与AI</span>
+            <span class="post-date" title="2024-10-11 09:11:21">2024/10/11</span>
+        </a>
+        
+        
+        <a  class="All trivia "
+           href="/2024/10/10/trivia/%E8%87%AA%E6%88%91%E6%89%B9%E8%AF%84/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="自我吐槽">自我吐槽</span>
+            <span class="post-date" title="2024-10-10 18:08:47">2024/10/10</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/06/Math/relation-2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="relation(2)">relation(2)</span>
+            <span class="post-date" title="2024-10-06 23:21:00">2024/10/06</span>
+        </a>
+        
+        
+        <a  class="All Algorithm "
+           href="/2024/10/04/Algorithm/MontyHall/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="MontyHall(UNSW)">MontyHall(UNSW)</span>
+            <span class="post-date" title="2024-10-04 07:24:00">2024/10/04</span>
+        </a>
+        
+        
+        <a  class="All Algorithm "
+           href="/2024/10/03/Algorithm/TuringMachine/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="TuringMachine(UNSW)">TuringMachine(UNSW)</span>
+            <span class="post-date" title="2024-10-03 21:17:19">2024/10/03</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/10/03/Math/relation/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="relation(1)">relation(1)</span>
+            <span class="post-date" title="2024-10-03 13:21:00">2024/10/03</span>
+        </a>
+        
+        
+        <a  class="All trivia "
+           href="/2024/10/01/trivia/Hannibal/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="汉尼拔">汉尼拔</span>
+            <span class="post-date" title="2024-10-01 23:21:00">2024/10/01</span>
+        </a>
+        
+        
+        <a  class="All trivia "
+           href="/2024/09/28/trivia/bible/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Bible fantasy">Bible fantasy</span>
+            <span class="post-date" title="2024-09-28 23:21:00">2024/09/28</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/09/27/Math/vacuous-truth/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="vacuous_truth">vacuous_truth</span>
+            <span class="post-date" title="2024-09-27 23:03:00">2024/09/27</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/09/27/Math/Set-theory/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Set theory">Set theory</span>
+            <span class="post-date" title="2024-09-27 10:38:02">2024/09/27</span>
+        </a>
+        
+        
+        <a  class="All Math "
+           href="/2024/09/26/Math/Number-Theory/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Number Theory">Number Theory</span>
+            <span class="post-date" title="2024-09-26 14:00:43">2024/09/26</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/basic/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="basic">basic</span>
+            <span class="post-date" title="2024-09-10 14:29:35">2024/09/10</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/header-file/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="header file">header file</span>
+            <span class="post-date" title="2024-09-10 14:00:30">2024/09/10</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/if-endif/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="if-endif">if-endif</span>
+            <span class="post-date" title="2024-09-10 13:57:46">2024/09/10</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/how-double-scanf-to-eat-the-line/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="how double scanf to eat the line">how double scanf to eat the line</span>
+            <span class="post-date" title="2024-09-10 13:54:01">2024/09/10</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/CmakeLists-txt/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="CmakeLists.txt">CmakeLists.txt</span>
+            <span class="post-date" title="2024-09-10 13:32:21">2024/09/10</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/Makefile/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Makefile">Makefile</span>
+            <span class="post-date" title="2024-09-10 13:32:11">2024/09/10</span>
+        </a>
+        
+        
+        <a  class="All C-Cpp "
+           href="/2024/09/10/Cpp/Clion-Debug-Trick/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Clion Debug Trick">Clion Debug Trick</span>
+            <span class="post-date" title="2024-09-10 13:03:29">2024/09/10</span>
+        </a>
+        
+        
+        <a  class="All Docker "
+           href="/2024/08/29/docker/docker-cron/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker_cron">docker_cron</span>
+            <span class="post-date" title="2024-08-29 08:04:35">2024/08/29</span>
+        </a>
+        
+        
+        <a  class="All Go "
+           href="/2024/08/29/Go/compile/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="compile &amp; packaging">compile &amp; packaging</span>
+            <span class="post-date" title="2024-08-29 07:12:57">2024/08/29</span>
+        </a>
+        
+        
+        <a  class="All penetration "
+           href="/2024/08/28/penetration/privileges-remain/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="privileges_remain">privileges_remain</span>
+            <span class="post-date" title="2024-08-28 19:02:33">2024/08/28</span>
+        </a>
+        
+        
+        <a  class="All Git "
+           href="/2024/08/28/git/submodule/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="submodule">submodule</span>
+            <span class="post-date" title="2024-08-28 11:05:30">2024/08/28</span>
+        </a>
+        
+        
+        <a  class="All Git "
+           href="/2024/08/28/git/git-tag/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="git tag &amp; github release">git tag &amp; github release</span>
+            <span class="post-date" title="2024-08-28 10:49:34">2024/08/28</span>
+        </a>
+        
+        
+        <a  class="All code-audit "
+           href="/2024/08/27/code_audit/cve-2024-3094(1)/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="cve-2024-3094(1)[Chinese]">cve-2024-3094(1)[Chinese]</span>
+            <span class="post-date" title="2024-08-27 09:12:39">2024/08/27</span>
+        </a>
+        
+        
+        <a  class="All Go "
+           href="/2024/08/24/Go/Cobra/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Cobra">Cobra</span>
+            <span class="post-date" title="2024-08-24 16:55:04">2024/08/24</span>
+        </a>
+        
+        
+        <a  class="All Go "
+           href="/2024/08/24/Go/viper/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="viper">viper</span>
+            <span class="post-date" title="2024-08-24 15:09:17">2024/08/24</span>
+        </a>
+        
+        
+        <a  class="All Go "
+           href="/2024/08/24/Go/goModInit/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="go mod init without cobra">go mod init without cobra</span>
+            <span class="post-date" title="2024-08-24 14:26:04">2024/08/24</span>
+        </a>
+        
+        
+        <a  class="All Git "
+           href="/2024/08/24/git/git%E9%87%8D%E5%86%99%E5%8E%86%E5%8F%B2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="git重写历史">git重写历史</span>
+            <span class="post-date" title="2024-08-24 13:39:30">2024/08/24</span>
+        </a>
+        
+        
+        <a  class="All Go "
+           href="/2024/08/24/Go/go_gorutines/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="goland goroutine, workers and chan">goland goroutine, workers and chan</span>
+            <span class="post-date" title="2024-08-24 11:52:24">2024/08/24</span>
+        </a>
+        
+        
+        <a  class="All trivia "
+           href="/2024/08/24/trivia/pygame%20exploration/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="pygame exploration">pygame exploration</span>
+            <span class="post-date" title="2024-08-24 10:53:16">2024/08/24</span>
+        </a>
+        
+        
+        <a  class="All Docker "
+           href="/2024/04/09/docker/docker-compose+dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="构建gitleaks-Docker服务">构建gitleaks-Docker服务</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Docker "
+           href="/2024/04/09/docker/docker-compose%E8%B0%83%E8%AF%95/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker-compose调试和操作">docker-compose调试和操作</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Docker "
+           href="/2024/04/09/docker/docker-network/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker network">docker network</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Docker "
+           href="/2024/04/09/docker/docker-volume/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker volume">docker volume</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Docker "
+           href="/2024/04/09/docker/docker/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="dockerhub &amp;&amp; docker">dockerhub &amp;&amp; docker</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Docker "
+           href="/2024/04/09/docker/docker%E5%85%81%E8%AE%B8%E9%9D%9Eroot/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="只能有root操作docker，普通用户无法操作dockers处理方法">只能有root操作docker，普通用户无法操作dockers处理方法</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Docker "
+           href="/2024/04/09/docker/dockerfile%EF%BC%9Agitlab%20EE%E5%AE%9E%E4%BE%8B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="gitlab EE实例">gitlab EE实例</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Docker "
+           href="/2024/04/09/docker/mysql-chown-err/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="chown cannot dereference">chown cannot dereference</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Docker "
+           href="/2024/04/09/docker/mysql-docker/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="mysql-docker">mysql-docker</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Docker "
+           href="/2024/04/09/docker/%E5%BC%80%E5%90%AFipv4%E8%BD%AC%E5%8F%91/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="开启ipv4转发">开启ipv4转发</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Docker "
+           href="/2024/04/09/docker/%E6%9E%84%E5%BB%BAblingTrendsAPIServer/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="构建blingTrendsAPIServer">构建blingTrendsAPIServer</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Docker "
+           href="/2024/04/09/docker/%E7%BA%AFdocker-compose%E6%97%A0dockerfile%EF%BC%9A%E6%9E%84%E5%BB%BAgitleaks-Docker%E6%9C%8D%E5%8A%A1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="构建gitleaks-Docker服务">构建gitleaks-Docker服务</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Git "
+           href="/2024/04/09/git/gitignore/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=".gitignore">.gitignore</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Git "
+           href="/2024/04/09/git/gitkeep/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="keep empty directory in git">keep empty directory in git</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Git "
+           href="/2024/04/09/git/%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="远程获取所有分支">远程获取所有分支</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Git "
+           href="/2024/04/09/git/%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="merge conflict">merge conflict</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Git "
+           href="/2024/04/09/git/%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="branch">branch</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Git "
+           href="/2024/04/09/git/%E5%88%A0%E9%99%A4gitignore%E4%B9%8B%E5%89%8D%E7%9A%84ignore%E6%96%87%E4%BB%B6/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="delete something useless before gitignore">delete something useless before gitignore</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Git "
+           href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="build a new repo">build a new repo</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Git "
+           href="/2024/04/09/git/%E6%96%B0%E5%BB%BA%E6%9F%90%E5%88%86%E6%94%AF%E5%B9%B6%E6%8E%A8%E9%80%81%E8%87%B3%E6%9F%90%E5%88%86%E6%94%AF%EF%BC%9A%E4%BB%A5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9Fes%E4%B8%BA%E4%BE%8B%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="新建某分支并推送、合并分支">新建某分支并推送、合并分支</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Git "
+           href="/2024/04/09/git/%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="push existed local repo">push existed local repo</span>
+            <span class="post-date" title="2024-04-09 17:58:30">2024/04/09</span>
+        </a>
+        
+        
+        <a  class="All Go "
+           href="/2024/04/08/Go/goland/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="goland技巧">goland技巧</span>
+            <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
+        </a>
+        
+        
+        <a  class="All Linux-Maintain "
+           href="/2024/04/08/Linux-Maintain/Dell730change_fans/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Dell 730风扇速度调整">Dell 730风扇速度调整</span>
+            <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
+        </a>
+        
+        
+        <a  class="All Linux-Maintain "
+           href="/2024/04/08/Linux-Maintain/boot_slower_1m30/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="boot after 1m30s">boot after 1m30s</span>
+            <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
+        </a>
+        
+        
+        <a  class="All Linux-Maintain "
+           href="/2024/04/08/Linux-Maintain/fail2ban/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="fail2ban">fail2ban</span>
+            <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
+        </a>
+        
+        
+        <a  class="All Linux-Maintain "
+           href="/2024/04/08/Linux-Maintain/fsck_boot_force_fdisk_err/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="fsck：强行重启系统导致分区出现问题">fsck：强行重启系统导致分区出现问题</span>
+            <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
+        </a>
+        
+        
+        <a  class="All Linux-Maintain "
+           href="/2024/04/08/Linux-Maintain/gitlab-ee%E7%9A%84%E7%A0%B4%E8%A7%A3%E7%89%88%E8%BF%94%E5%9B%9E500%EF%BC%8C501%E5%93%8D%E5%BA%94/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="gitlab-ee的破解版返回500，501响应">gitlab-ee的破解版返回500，501响应</span>
+            <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
+        </a>
+        
+        
+        <a  class="All Linux-Maintain "
+           href="/2024/04/08/Linux-Maintain/gost/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="gost">gost</span>
+            <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
+        </a>
+        
+        
+        <a  class="All Linux-Maintain "
+           href="/2024/04/08/Linux-Maintain/ufw/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ufw">ufw</span>
+            <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
+        </a>
+        
+        
+        <a  class="All Py "
+           href="/2024/04/08/Python/pycharm/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="pycharm技巧">pycharm技巧</span>
+            <span class="post-date" title="2024-04-08 17:58:30">2024/04/08</span>
+        </a>
+        
+        
+        <a  class="All code-audit "
+           href="/2023/07/06/code_audit/fastjson1.2.24TemplatesImpl/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="fastjson1.2.24 TemplatesImpl EXP analysis">fastjson1.2.24 TemplatesImpl EXP analysis</span>
+            <span class="post-date" title="2023-07-06 17:58:30">2023/07/06</span>
+        </a>
+        
+        
+        <a  class="All code-audit "
+           href="/2022/07/09/code_audit/unserializationEscaping/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Unserialization Escaping">Unserialization Escaping</span>
+            <span class="post-date" title="2022-07-09 17:58:30">2022/07/09</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="Toggle full screen shortcut key s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-COMP9444/numpy" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">tut1-numpy+tensor+colab</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="COMP9444">COMP9444</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2025-06-10 17:10:20'>2025-06-10 16:23</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>Count:5.5k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="Jump to comment area">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NumPy%E6%96%87%E6%A1%A3"><span class="toc-text">NumPy文档</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%88%9B%E5%BB%BA"><span class="toc-text">数组创建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#np-random-random-%E5%88%9B%E5%BB%BA%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%BB%84"><span class="toc-text">  np.random.random                     创建随机数组</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Array-Indexing"><span class="toc-text">Array Indexing</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%87%E7%89%87%E7%B4%A2%E5%BC%95"><span class="toc-text">切片索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%86%85%E6%95%B0%E7%BB%84%E9%80%89%E5%8F%96"><span class="toc-text">数组内数组选取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#arange"><span class="toc-text">arange</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E7%B4%A2%E5%BC%95%E6%93%8D%E4%BD%9C"><span class="toc-text">布尔索引操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Datatypes"><span class="toc-text">Datatypes</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Array-Math"><span class="toc-text">Array Math</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0"><span class="toc-text">加</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%8F"><span class="toc-text">减</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%98"><span class="toc-text">乘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%A4"><span class="toc-text">除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E6%96%B9"><span class="toc-text">开方</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%B9%E4%B9%98%EF%BC%88%E5%90%91%E9%87%8F%E5%86%85%E7%A7%AF%EF%BC%89"><span class="toc-text">点乘（向量内积）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E7%BB%B4%E5%90%91%E9%87%8F%E4%B8%8E%E4%B8%80%E7%BB%B4%E5%90%91%E9%87%8F%E7%9A%84%E5%86%85%E7%A7%AF%E4%B8%8E%E5%A4%96%E7%A7%AF"><span class="toc-text">一维向量与一维向量的内积与外积</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E4%B8%80%E7%BB%B4%E5%90%91%E9%87%8F%E8%BF%9B%E8%A1%8C-dot%EF%BC%88%E7%82%B9%E4%B9%98%EF%BC%89"><span class="toc-text">两个一维向量进行 dot（点乘）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%83%B3%E8%BF%9B%E8%A1%8C%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95%EF%BC%8C%E8%A6%81%E6%98%8E%E7%A1%AE%E8%BD%AC%E6%8D%A2%E7%BB%B4%E5%BA%A6"><span class="toc-text">想进行矩阵乘法，要明确转换维度</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%96%E7%A7%AF%EF%BC%88Outer-Product%EF%BC%89"><span class="toc-text">外积（Outer Product）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%85%E7%A7%AF%EF%BC%88%E8%A1%8C%E5%90%91%E9%87%8F-%C3%97-%E5%88%97%E5%90%91%E9%87%8F-%E2%86%92-%E6%A0%87%E9%87%8F%EF%BC%89"><span class="toc-text">内积（行向量 × 列向量 → 标量）</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#transpose"><span class="toc-text">transpose</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Broadcasting"><span class="toc-text">Broadcasting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Erank-%E7%A7%A9"><span class="toc-text">关于rank 秩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#py%E7%9A%84%E9%80%90%E8%A1%8C%E7%9B%B8%E5%8A%A0%EF%BC%88%E4%B8%8D%E6%8E%A8%E8%8D%90%E3%80%81%E6%85%A2%EF%BC%89"><span class="toc-text">py的逐行相加（不推荐、慢）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Broadcasting-1"><span class="toc-text">-------------------- Broadcasting\</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%BC%A0%E8%BE%83%E5%B0%8Frank%E5%86%8D%E7%9F%A9%E9%98%B5%E7%9B%B8%E5%8A%A0%EF%BC%88%E4%B9%9F%E4%B8%8D%E6%8E%A8%E8%8D%90%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%B9%B6%E9%9D%9E%E6%9C%80%E4%BC%98%E5%86%99%E6%B3%95%EF%BC%89"><span class="toc-text">扩张较小rank再矩阵相加（也不推荐，因为并非最优写法）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Broadcasting-2"><span class="toc-text">-------------------- Broadcasting 2\</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8np%E8%87%AA%E5%B8%A6%E7%9A%84%E5%B9%BF%E6%92%AD%E7%9B%B8%E5%8A%A0"><span class="toc-text">使用np自带的广播相加</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-3-%E6%98%AF%EF%BC%88%E5%B0%BA%E5%AF%B8%E7%9B%B8%E5%90%8C%EF%BC%89"><span class="toc-text">  1          3         3         是（尺寸相同）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-1-%E6%98%AF%EF%BC%8Cb%E6%B2%BF%E8%AF%A5%E7%BB%B4%E5%BA%A6%E5%B9%BF%E6%92%AD%E6%89%A9%E5%B1%955%E6%AC%A1"><span class="toc-text">2          5          1          是，b沿该维度广播扩展5次</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-text">代码示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Broadcasting-3"><span class="toc-text">-------------------- Broadcasting 3\</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E4%B8%80%E7%BB%B4%E5%90%91%E9%87%8F%E7%9A%84%E7%A7%A9%E8%BF%9B%E8%A1%8C%E5%B9%BF%E6%92%AD%E7%9A%84%E7%A4%BA%E4%BE%8B"><span class="toc-text">改一维向量的秩进行广播的示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Matplotlib"><span class="toc-text">Matplotlib</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#plot%EF%BC%9A%E5%9F%BA%E6%9C%AC%E7%94%BB%E5%9B%BE"><span class="toc-text">plot：基本画图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multiple-Functions"><span class="toc-text">Multiple Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SubPlot%EF%BC%9A%E5%AD%90%E5%9B%BE"><span class="toc-text">SubPlot：子图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Imshow"><span class="toc-text">Imshow</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PyTorch-Tensors"><span class="toc-text">PyTorch Tensors</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tensor-Initialization"><span class="toc-text">Tensor Initialization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">检查数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5shape"><span class="toc-text">检查shape</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%A2%E7%8A%B6%E5%8F%98%E5%8A%A8"><span class="toc-text">形状变动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tensor-from-a-Numpy-Array"><span class="toc-text">Tensor from a Numpy Array</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#From-existing-Tensor"><span class="toc-text">From existing Tensor</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-text">Code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Torch%E9%9A%8F%E6%9C%BA%E6%95%B0rand%E5%92%8Crandn"><span class="toc-text">Torch随机数rand和randn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%A2%E7%8A%B6-%E5%AE%9E%E4%BE%8B%E5%8C%96%F0%9F%A1%AA%E5%BC%A0%E9%87%8F"><span class="toc-text">形状--&gt;实例化🡪张量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AEshape%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">根据shape初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5arange%E7%94%9F%E6%88%90%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="toc-text">直接arange生成一维数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E8%AE%BE%E5%A4%87%E5%AD%98%E5%82%A8%E5%BC%A0%E9%87%8F%EF%BC%88%E4%B8%BA%E4%BD%95tensor%E5%BF%85%E9%A1%BB%E6%8C%87%E5%AE%9A%E8%AE%BE%E5%A4%87%EF%BC%89"><span class="toc-text">指定设备存储张量（为何tensor必须指定设备）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tensor%E6%93%8D%E4%BD%9C"><span class="toc-text">tensor操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4"><span class="toc-text">加减乘除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dot-Product-and-Matrix-Multiplication"><span class="toc-text">Dot Product and Matrix Multiplication</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%82%B9%E4%B9%98"><span class="toc-text">点乘</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E4%B9%98"><span class="toc-text">矩阵乘</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%89%E7%A7%8D%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="toc-text">三种矩阵乘法的表示</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E5%B9%B6"><span class="toc-text">合并</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Google-colab"><span class="toc-text">Google colab</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%9Apython%E6%A3%80%E6%9F%A5%E5%BD%93%E5%89%8Dtensor%E7%9A%84%E5%85%A8%E9%83%A8%E5%8F%AF%E7%94%A8%E8%AE%BE%E5%A4%87"><span class="toc-text">代码：python检查当前tensor的全部可用设备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E4%BB%85cpu"><span class="toc-text">设置仅cpu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AETPU%E7%9A%84runtime"><span class="toc-text">设置TPU的runtime</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><a href="#numpy文档">NumPy文档</a></li>
+<li><a href="#数组创建">数组创建</a><ul>
+<li><a href="#nprandomrandom---------------------创建随机数组">np.random.random                     创建随机数组</a></li>
+</ul>
+</li>
+<li><a href="#array-indexing"><strong>Array Indexing</strong></a><ul>
+<li><a href="#切片索引">切片索引</a></li>
+<li><a href="#数组内数组选取">数组内数组选取</a><ul>
+<li><a href="#arange">arange</a></li>
+</ul>
+</li>
+<li><a href="#布尔索引操作">布尔索引操作</a></li>
+</ul>
+</li>
+<li><a href="#datatypes">Datatypes</a></li>
+<li><a href="#array-math"><strong>Array Math</strong></a><ul>
+<li><a href="#加">加</a></li>
+<li><a href="#减">减</a></li>
+<li><a href="#乘">乘</a></li>
+<li><a href="#除">除</a></li>
+<li><a href="#开方">开方</a></li>
+<li><a href="#点乘向量内积">点乘（向量内积）</a><ul>
+<li><a href="#一维向量与一维向量的内积与外积">一维向量与一维向量的内积与外积</a><ul>
+<li><a href="#两个一维向量进行-dot点乘">两个一维向量进行 dot（点乘）</a></li>
+<li><a href="#想进行矩阵乘法要明确转换维度"><strong>想进行矩阵乘法</strong>，要明确转换维度</a></li>
+<li><a href="#外积outer-product">外积（Outer Product）</a></li>
+<li><a href="#内积行向量--列向量--标量">内积（行向量 × 列向量 → 标量）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#transpose">transpose</a></li>
+<li><a href="#broadcasting"><strong>Broadcasting</strong></a><ul>
+<li><a href="#关于rank-秩">关于rank 秩</a></li>
+<li><a href="#py的逐行相加不推荐慢">py的逐行相加（不推荐、慢）</a></li>
+<li><a href="#扩张较小rank再矩阵相加也不推荐因为并非最优写法">扩张较小rank再矩阵相加（也不推荐，因为并非最优写法）</a></li>
+<li><a href="#使用np自带的广播相加">使用np自带的广播相加</a></li>
+<li><a href="#1----------3---------3---------是尺寸相同">1          3         3         是（尺寸相同）</a></li>
+<li><a href="#2----------5----------1----------是b沿该维度广播扩展5次">2          5          1          是，b沿该维度广播扩展5次</a><ul>
+<li><a href="#代码示例">代码示例</a></li>
+<li><a href="#改一维向量的秩进行广播的示例">改一维向量的秩进行广播的示例</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#matplotlib">Matplotlib</a><ul>
+<li><a href="#plot基本画图">plot：基本画图</a></li>
+<li><a href="#multiple-functions"><em>Multiple Functions</em></a></li>
+<li><a href="#subplot子图">SubPlot：子图</a></li>
+<li><a href="#imshow">Imshow</a></li>
+</ul>
+</li>
+<li><a href="#pytorch-tensors"><strong>PyTorch Tensors</strong></a><ul>
+<li><a href="#tensor-initialization"><strong>Tensor Initialization</strong></a><ul>
+<li><a href="#检查数据类型">检查数据类型</a></li>
+<li><a href="#检查shape">检查shape</a></li>
+<li><a href="#形状变动">形状变动</a></li>
+</ul>
+</li>
+<li><a href="#tensor-from-a-numpy-array"><em>Tensor from a Numpy Array</em></a></li>
+<li><a href="#from-existing-tensor"><strong>From existing Tensor</strong></a><ul>
+<li><a href="#code">Code</a></li>
+</ul>
+</li>
+<li><a href="#torch随机数rand和randn">Torch随机数rand和randn</a></li>
+<li><a href="#形状--实例化张量"><strong>形状—>实例化🡪张量</strong></a><ul>
+<li><a href="#根据shape初始化">根据shape初始化</a></li>
+<li><a href="#直接arange生成一维数组">直接arange生成一维数组</a></li>
+</ul>
+</li>
+<li><a href="#指定设备存储张量为何tensor必须指定设备">指定设备存储张量（为何tensor必须指定设备）</a></li>
+<li><a href="#tensor操作">tensor操作</a><ul>
+<li><a href="#加减乘除">加减乘除</a></li>
+<li><a href="#dot-product-and-matrix-multiplication"><em>Dot Product and Matrix Multiplication</em></a><ul>
+<li><a href="#点乘">点乘</a></li>
+<li><a href="#矩阵乘">矩阵乘</a><ul>
+<li><a href="#三种矩阵乘法的表示"><em>三种矩阵乘法的表示</em></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#合并">合并</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#google-colab">Google colab</a><ul>
+<li><a href="#代码python检查当前tensor的全部可用设备">代码：python检查当前tensor的全部可用设备</a></li>
+<li><a href="#设置仅cpu">设置仅cpu</a></li>
+<li><a href="#设置tpu的runtime">设置TPU的runtime</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="NumPy文档"><a href="#NumPy文档" class="headerlink" title="NumPy文档"></a>NumPy文档</h1><p><a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/user/basics.creation.html#arrays-creation">https://numpy.org/doc/stable/user/basics.creation.html#arrays-creation</a></p>
+<h1 id="数组创建"><a href="#数组创建" class="headerlink" title="数组创建"></a>数组创建</h1><hr>
+<p><strong>1. a = np.zeros((2,2))</strong></p>
+<ul>
+<li><p><strong>作用</strong>：创建一个 2×2 的<strong>全 0 数组</strong></p>
+</li>
+<li><p><strong>输出示例</strong>：</p>
+</li>
+</ul>
+<p>python</p>
+<p>CopyEdit</p>
+<p>[[0. 0.]</p>
+<p>[0. 0.]]</p>
+<hr>
+<p><strong>2. b = np.ones((1,2))</strong></p>
+<ul>
+<li><p><strong>作用</strong>：创建一个 1×2 的<strong>全 1 数组</strong></p>
+</li>
+<li><p><strong>输出示例</strong>：</p>
+</li>
+</ul>
+<p>python</p>
+<p>CopyEdit</p>
+<p>[[1. 1.]]</p>
+<hr>
+<p><strong>3. c = np.full((2,2), 7)</strong></p>
+<ul>
+<li><p><strong>作用</strong>：创建一个 2×2 的数组，<strong>每个元素都是 7</strong></p>
+</li>
+<li><p><strong>输出示例</strong>：</p>
+</li>
+</ul>
+<p>python</p>
+<p>CopyEdit</p>
+<p>[[7 7]</p>
+<p>[7 7]]</p>
+<hr>
+<p><strong>4. d = np.eye(2)</strong></p>
+<ul>
+<li><p><strong>作用</strong>：创建一个 2×2 的<strong>单位矩阵</strong>（对角线为 1，其它为 0）</p>
+</li>
+<li><p><strong>输出示例</strong>：</p>
+</li>
+</ul>
+<p>python</p>
+<p>CopyEdit</p>
+<p>[[1. 0.]</p>
+<p>[0. 1.]]</p>
+<hr>
+<p><strong>5. e = np.random.random((2,2))</strong></p>
+<ul>
+<li><p><strong>作用</strong>：创建一个 2×2 的数组，<strong>每个元素是 0~1 的随机小数</strong></p>
+</li>
+<li><p><strong>输出示例</strong>（每次运行结果不同）：</p>
+</li>
+</ul>
+<p>python</p>
+<p>CopyEdit</p>
+<p>[[0.91 0.08]</p>
+<p>[0.68 0.87]]</p>
+<hr>
+<p><strong>总结</strong></p>
+<p>这些是 numpy<br>中常用的数组初始化方法，非常适合用来创建矩阵、测试数据、或用于科学计算：</p>
+<hr>
+<p>  <strong>函数</strong>                             <strong>说明</strong></p>
+<hr>
+<p>  np.zeros                             创建全 0 数组</p>
+<p>  np.ones                              创建全 1 数组</p>
+<p>  np.full                              创建指定值的数组</p>
+<p>  np.eye                               创建单位矩阵</p>
+<h2 id="np-random-random-创建随机数组"><a href="#np-random-random-创建随机数组" class="headerlink" title="  np.random.random                     创建随机数组"></a>  np.random.random                     创建随机数组</h2><h1 id="Array-Indexing"><a href="#Array-Indexing" class="headerlink" title="Array Indexing"></a><strong>Array Indexing</strong></h1><h2 id="切片索引"><a href="#切片索引" class="headerlink" title="切片索引"></a>切片索引</h2><p>a = np.array([</p>
+<p>[1,2,3,4],</p>
+<p>[5,6,7,8],</p>
+<p>[9,10,11,12]</p>
+<p>])\<br>b = a[:2, 1:3]</p>
+<p>会输出</p>
+<p>[[2 3]</p>
+<p>[6 7]]</p>
+<p>a[<strong>:</strong> 2, 1:3]</p>
+<p>括号里，<strong>:</strong> 是行列操作的分隔符，冒号之前是 行 操作， 冒号之后是 列<br>操作</p>
+<p>a = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])\<br>\<br># Two ways of accessing the data in the middle row of the array.\<br># Mixing integer indexing with slices yields an array of lower\<br># rank, while using only slices yields an array of the same rank\<br># as the original array:\<br>row_r1 = <strong>a[1, :]</strong> # Rank 1 view of the second row of a\<br>row_r2 = <strong>a[1:2, :]</strong> # Rank 2 view of the second row of a\<br>print(row_r1, row_r1.shape) # Prints \”[5 6 7 8] (4,)\”\<br>print(row_r2, row_r2.shape) # Prints \”[[5 6 7 8]] (1, 4)\”</p>
+<p><strong>[注意]{.mark}</strong>：<strong>切片</strong>以<strong>列表之姿</strong>出现：</p>
+<p><strong>a[1, :]</strong><br>是说访问第1个元素（从0计起，1是第2行）（<strong>非切片</strong>），故而输出</p>
+<p><strong>[5 6 7 8] (4,)</strong></p>
+<p><strong>a[1:2, :]</strong> 是说第1行元素（<strong>切片</strong>），故而输出</p>
+<p><strong>[[5 6 7 8]] (1, 4)</strong></p>
+<h2 id="数组内数组选取"><a href="#数组内数组选取" class="headerlink" title="数组内数组选取"></a>数组内数组选取</h2><p>import numpy as np\<br>\<br># Create a new array from which we will select elements\<br>a = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])\<br>\<br>print(a) # prints \”array([[ 1, 2, 3],\<br># [ 4, 5, 6],\<br># [ 7, 8, 9],\<br># [10, 11, 12]])\”\<br>\<br># Create an array of indices\<br>b = np.array([0, 2, 0, 1])</p>
+<h3 id="arange"><a href="#arange" class="headerlink" title="arange"></a>arange</h3><p>x = np.<strong>arange</strong>(-10, 10)</p>
+<p><strong>💡 解释：</strong></p>
+<ul>
+<li><p>-10 是起始值（包含）</p>
+</li>
+<li><p>10 是终止值（不包含）</p>
+</li>
+<li><p>默认步长是 1</p>
+</li>
+</ul>
+<p>所以这行代码会生成一个从 -10 到 9 的整数数组：</p>
+<p># Select one element from each row of a using the indices in b\<br>print(a[np.arange(4), b]) # Prints \”[ 1 6 7 11]\”\<br>\<br># Mutate one element from each row of a using the indices in b\<br># np.arange(4) 生成 [0, 1, 2, 3]：对应 4 行的行索引\<br># b = [0, 2, 0, 1]：每一行中要选择的列索引\<br># [相当于选取]{.mark}\<br># [\<br># a[0, 0], # 1\<br># a[1, 2], # 6\<br># a[2, 0], # 7\<br># a[3, 1] # 11\<br># ]</p>
+<p>a[np.arange(4), b] += 10\<br>print(a) # prints \”array([[11, 2, 3],\<br># [ 4, 5, 16],\<br># [17, 8, 9],\<br># [10, 21, 12]])</p>
+<h2 id="布尔索引操作"><a href="#布尔索引操作" class="headerlink" title="布尔索引操作"></a>布尔索引操作</h2><p>import numpy as np\<br>\<br>a = np.array([[1,2], [3, 4], [5, 6]])\<br>\<br># 括号是可选的，不加括号也行\<br>[bool_idx = (a > 2)]{.mark} # Find the elements of a that are bigger<br>than 2;\<br># this returns a numpy array of Booleans of the\<br># same shape as a, where each slot of bool_idx\<br># tells whether that element of a is > 2.\<br>\<br>print(bool_idx) # Prints \”[[False False]\<br># [ True True]\<br># [ True True]]\”</p>
+<p># We use boolean array indexing to construct a rank 1 array\<br># consisting of the elements of a corresponding to the\<br># True values of bool_idx\<br><strong>print(a[bool_idx]) # Prints \”[3 4 5 6]\”</strong>\<br>[# 1. 在 bool_idx 为 True 的位置，取出对应的 a 中的元素。\<br># 2. 将结果变成一个一维数组返回。]{.mark}</p>
+<p># We can do all of the above in a single concise statement:\<br><strong>print(a[a > 2]) # Prints \”[3 4 5 6]\”</strong></p>
+<p>总结，<br>a是np数组，a>2本身已经是一个bool列表了，然后用作索引可以直接过滤出符合布尔的元素。</p>
+<h1 id="Datatypes"><a href="#Datatypes" class="headerlink" title="Datatypes"></a>Datatypes</h1><p>默认就是 int64 和 float64</p>
+<p>import numpy as np</p>
+<p>x = np.array([1, 2]) # Let numpy choose the datatype</p>
+<p>print(x.dtype) # Prints \”<strong>[int64]{.mark}</strong>\”</p>
+<p>x = np.array([1.0, 2.0]) # Let numpy choose the datatype</p>
+<p>print(x.dtype) # Prints \”<strong>[float64]{.mark}</strong>\”</p>
+<p>x = np.array([1, 2], dtype=np.int64) # Force a particular datatype</p>
+<p>print(x.dtype) # Prints \”<strong>[int64]{.mark}</strong>\”</p>
+<h1 id="Array-Math"><a href="#Array-Math" class="headerlink" title="Array Math"></a><strong>Array Math</strong></h1><p>import numpy as np\<br>\<br>x = np.array([[1,2],[3,4]], dtype=np.float64)\<br>y = np.array([[5,6],[7,8]], dtype=np.float64)</p>
+<h3 id="加"><a href="#加" class="headerlink" title="加"></a>加</h3><p># Elementwise sum; both produce the array\<br># [[ 6.0 8.0]\<br># [10.0 12.0]]\<br>print(x + y)\<br>print(np.add(x, y))</p>
+<h3 id="减"><a href="#减" class="headerlink" title="减"></a>减</h3><p># Elementwise difference; both produce the array\<br># [[-4.0 -4.0]\<br># [-4.0 -4.0]]\<br>print(x - y)\<br>print(np.subtract(x, y))</p>
+<h3 id="乘"><a href="#乘" class="headerlink" title="乘"></a>乘</h3><p>*是逐个元素相乘，不是矩阵乘法</p>
+<p># Elementwise product; both produce the array\<br># [[ 5.0 12.0]\<br># [21.0 32.0]]\<br>print(x * y)\<br>print(np.multiply(x, y))</p>
+<h3 id="除"><a href="#除" class="headerlink" title="除"></a>除</h3><p># Elementwise division; both produce the array\<br># [[ 0.2 0.33333333]\<br># [ 0.42857143 0.5 ]]\<br>print(x / y)\<br>print(np.divide(x, y))</p>
+<h3 id="开方"><a href="#开方" class="headerlink" title="开方"></a>开方</h3><p># Elementwise square root; produces the array\<br># [[ 1. 1.41421356]\<br># [ 1.73205081 2. ]]\<br>print(np.sqrt(x))</p>
+<h3 id="点乘（向量内积）"><a href="#点乘（向量内积）" class="headerlink" title="点乘（向量内积）"></a>点乘（向量内积）</h3><p>Note that * is elementwise multiplication, not matrix multiplication.<br>We instead use the dot function to compute inner products of vectors, to<br>multiply a vector by a matrix, and to multiply matrices. dot is<br>available both as a function in the numpy module and as an instance<br>method of array objects:</p>
+<p>dot 在 NumPy 中，其行为<strong>取决于输入数组的维度</strong>：</p>
+<ul>
+<li><p><strong>两个向量</strong>（一维数组）：执行点乘（inner product）。</p>
+</li>
+<li><p><strong>矩阵和向量</strong>：执行矩阵乘向量。</p>
+</li>
+<li><p><strong>两个矩阵</strong>：执行矩阵乘法。</p>
+</li>
+</ul>
+<p>如果要明确进行矩阵乘法，也可以使用 @ 作为运算符：</p>
+<p>print(x @ v) # 等价于 x.dot(v)</p>
+<p>print(x @ y) # 等价于 x.dot(y)</p>
+<p>import numpy as np</p>
+<p>x = np.array([[1,2],[3,4]])</p>
+<p>y = np.array([[5,6],[7,8]])</p>
+<p>v = np.array([9,10])</p>
+<p>w = np.array([11, 12])</p>
+<p># Inner product of vectors; both produce 219</p>
+<p>print(<strong>v.dot(w)</strong>)</p>
+<p>print(<strong>np.dot(v, w)</strong>)</p>
+<p># Matrix / vector product; both produce the rank 1 array [29 67]</p>
+<p>print(<strong>x.dot(v)</strong>)</p>
+<p>print(<strong>np.dot(x, v)</strong>)</p>
+<p># Matrix / matrix product; both produce the rank 2 array</p>
+<p># [[19 22]</p>
+<p># [43 50]]</p>
+<p>print(x.dot(y))</p>
+<p>print(np.dot(x, y))</p>
+<h4 id="一维向量与一维向量的内积与外积"><a href="#一维向量与一维向量的内积与外积" class="headerlink" title="一维向量与一维向量的内积与外积"></a>一维向量与一维向量的内积与外积</h4><h5 id="两个一维向量进行-dot（点乘）"><a href="#两个一维向量进行-dot（点乘）" class="headerlink" title="两个一维向量进行 dot（点乘）"></a>两个一维向量进行 dot（点乘）</h5><p>a = np.array([1, 2, 3])</p>
+<p>b = np.array([4, 5, 6])</p>
+<p>print(a @ b) # 输出 32，相当于 1*4 + 2*5 + 3*6</p>
+<p>print(np.dot(a, b)) # 也输出 32</p>
+<p>这两个是<strong>点乘</strong>（scalar），不是矩阵乘。</p>
+<h5 id="想进行矩阵乘法，要明确转换维度"><a href="#想进行矩阵乘法，要明确转换维度" class="headerlink" title="想进行矩阵乘法，要明确转换维度"></a><strong>想进行矩阵乘法</strong>，要明确转换维度</h5><h5 id="外积（Outer-Product）"><a href="#外积（Outer-Product）" class="headerlink" title="外积（Outer Product）"></a>外积（Outer Product）</h5><p>a_col = a.reshape(-1, 1) # shape: (3, 1)</p>
+<p>b_row = b.reshape(1, -1) # shape: (1, 3)</p>
+<p>print(a_col @ b_row)</p>
+<p>[[ 4 5 6]</p>
+<p>[ 8 10 12]</p>
+<p>[12 15 18]]</p>
+<p>这个就是一个 (3×1) × (1×3) 的矩阵乘法，结果是 (3×3) 的<strong>外积矩阵</strong>。</p>
+<h5 id="内积（行向量-×-列向量-→-标量）"><a href="#内积（行向量-×-列向量-→-标量）" class="headerlink" title="内积（行向量 × 列向量 → 标量）"></a>内积（行向量 × 列向量 → 标量）</h5><p>a_row = a.reshape(1, -1) # shape: (1, 3)</p>
+<p>b_col = b.reshape(-1, 1) # shape: (3, 1)</p>
+<p>print(a_row @ b_col) # 输出 [[32]]</p>
+<p>这是矩阵乘法 (1×3) @ (3×1)，结果是 (1×1)。</p>
+<h1 id="transpose"><a href="#transpose" class="headerlink" title="transpose"></a>transpose</h1><p># You can find the full list of mathematical functions provided by<br>numpy in the documentation.\<br># Apart from computing mathematical functions using arrays, we<br>frequently need to reshape or otherwise manipulate data in arrays. The<br>simplest example of this type of operation is transposing a matrix; to<br>transpose a matrix, simply use the T attribute of an array object:\<br>\<br># import numpy as np\<br>#\<br># x = np.array([[1,2], [3,4]])\<br># print(x) # Prints \”[[1 2]\<br># # [3 4]]\”\<br># # <strong>[T]{.mark}只是转置的临时视图，非永久更改</strong>\<br># print(x.T) # Prints \”[[1 3]\<br># # [2 4]]\”\<br>#\<br># # Note that taking the transpose of a rank 1 array does nothing:\<br># v = np.array([1,2,3])\<br># print(v) # Prints \”[1 2 3]\”\<br># print(v.T) # Prints \”[1 2 3]\”\<br>#\<br># # 永久转置\<br># a = np.array([[1, 2], [3, 4]])\<br># [a = a.T # 现在 a 是转置后的版本]{.mark}\<br># # 因为 .T<br>是个视图（共享内存），你如果之后还想避免原数组被影响，建议配合<br>.copy()：\<br># [a = a.T.copy()]{.mark}</p>
+<h1 id="Broadcasting"><a href="#Broadcasting" class="headerlink" title="Broadcasting"></a><strong>Broadcasting</strong></h1><h2 id="关于rank-秩"><a href="#关于rank-秩" class="headerlink" title="关于rank 秩"></a>关于rank 秩</h2><p>注意矩阵的 rank，翻译为 秩，可以理解为 一维向量 是矢量吗？不，得升级成和<br>矩阵 一样的维度、大小</p>
+<p>Broadcasting is a powerful mechanism that allows numpy to work with<br>arrays of different shapes when performing arithmetic operations.<br>Frequently we have a smaller array and a larger array, and we want to<br>use the smaller array multiple times to perform some operation on the<br>larger array.</p>
+<p>For example, suppose that we want to add a constant vector to each row<br>of a matrix. We could do it like this:</p>
+<p>import numpy as np</p>
+<p># We will add the vector v to each row of the matrix x,</p>
+<p># storing the result in the matrix y</p>
+<p>x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])</p>
+<p>v = np.array([1, 0, 1])</p>
+<p><strong>[y = np.empty_like(x) # Create empty matrix with same shape as<br>x]{.mark}</strong></p>
+<p># Add vector v to each row of matrix x with an explicit loop</p>
+<p><strong>[for i in range(4):]{.mark}</strong></p>
+<p><strong>[y[i, :] = x[i, :] + v]{.mark}</strong></p>
+<p># Now y is the following</p>
+<p># [[ 2 2 4]</p>
+<p># [ 5 5 7]</p>
+<p># [ 8 8 10]</p>
+<p># [11 11 13]]</p>
+<p>print(y)</p>
+<h2 id="py的逐行相加（不推荐、慢）"><a href="#py的逐行相加（不推荐、慢）" class="headerlink" title="py的逐行相加（不推荐、慢）"></a>py的逐行相加（不推荐、慢）</h2><h1 id="Broadcasting-1"><a href="#Broadcasting-1" class="headerlink" title="-------------------- Broadcasting\"></a>-------------------- Broadcasting\</h1><p># import numpy as np\<br>#\<br># # We will add the vector v to each row of the matrix x,\<br># # storing the result in the matrix y\<br># x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])\<br># v = np.array([1, 0, 1])\<br># y = np.empty_like(x) # Create empty matrix with same shape as x\<br>#\<br># # Add vector v to each row of matrix x with an explicit loop\<br># for i in range(4):\<br># y[i, :] = x[i, :] + v\<br>#\<br># # Now y is the following\<br># # [[ 2 2 4]\<br># # [ 5 5 7]\<br># # [ 8 8 10]\<br># # [11 11 13]]\<br># print(y)</p>
+<h2 id="扩张较小rank再矩阵相加（也不推荐，因为并非最优写法）"><a href="#扩张较小rank再矩阵相加（也不推荐，因为并非最优写法）" class="headerlink" title="扩张较小rank再矩阵相加（也不推荐，因为并非最优写法）"></a>扩张较小rank再矩阵相加（也不推荐，因为并非最优写法）</h2><h1 id="Broadcasting-2"><a href="#Broadcasting-2" class="headerlink" title="-------------------- Broadcasting 2\"></a>-------------------- Broadcasting 2\</h1><p># This works; however when the matrix x is very large, computing an<br>explicit loop in Python could be slow. Note that adding the vector v to<br>each row of the matrix x is equivalent to forming a matrix vv by<br>stacking multiple copies of v vertically, then performing elementwise<br>summation of x and vv. We could implement this approach like this:\<br>\<br># import numpy as np\<br>#\<br># # We will add the vector v to each row of the matrix x,\<br># # storing the result in the matrix y\<br># x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])\<br># v = np.array([1,0,1])\<br># vv = np.tile(v,(4,1)) # Stack 4 copies of v on top of each other\<br># print(vv) # Prints \”[[1 0 1]\<br># # [1 0 1]\<br># # [1 0 1]\<br># # [1 0 1]]\”\<br># y = x + vv # Add x and vv elementwise\<br># print(y) # Prints \”[[ 2 2 4\<br># # [ 5 5 7]\<br># # [ 8 8 10]\<br># # [11 11 13]]\”</p>
+<h2 id="使用np自带的广播相加"><a href="#使用np自带的广播相加" class="headerlink" title="使用np自带的广播相加"></a>使用np自带的广播相加</h2><p><strong>举例说明 + 详细解读</strong></p>
+<p>假设：</p>
+<p>python</p>
+<p>CopyEdit</p>
+<p>import numpy as np</p>
+<p>x = np.array([[1, 2, 3],</p>
+<p>[4, 5, 6],</p>
+<p>[7, 8, 9],</p>
+<p>[10,11,12]]) # shape = (4, 3)</p>
+<p>v = np.array([1, 0, 1]) # shape = (3,)</p>
+<p>现在执行：</p>
+<p>python</p>
+<p>CopyEdit</p>
+<p>y = x + v</p>
+<hr>
+<p><strong>步骤一：对齐维度数</strong></p>
+<ul>
+<li><p>x 的形状是 (4, 3)，rank = 2</p>
+</li>
+<li><p>v 的形状是 (3,)，rank = 1</p>
+</li>
+</ul>
+<p>根据规则1，要让维度数相同，在 v 形状前面补 1：</p>
+<p>lua</p>
+<p>CopyEdit</p>
+<p>v.shape: (3,) --> (1, 3)</p>
+<hr>
+<p><strong>步骤二：判断各维度兼容性</strong></p>
+<hr>
+<p>  <strong>维度</strong>   <strong>x       </strong>v       <strong>是否兼容？</strong><br>             尺寸<strong>    尺寸</strong>    </p>
+<hr>
+<p>  0          4         1         是（v在该维度为1，可以广播扩展）</p>
+<h2 id="1-3-3-是（尺寸相同）"><a href="#1-3-3-是（尺寸相同）" class="headerlink" title="  1          3         3         是（尺寸相同）"></a>  1          3         3         是（尺寸相同）</h2><p>两者在所有维度兼容，可以广播。</p>
+<hr>
+<p><strong>步骤三：计算广播后形状</strong></p>
+<p>广播后形状是两个数组形状在每维的最大值：</p>
+<p>scss</p>
+<p>CopyEdit</p>
+<p>(4, 3) 和 (1, 3) --> (4, 3)</p>
+<hr>
+<p><strong>步骤四：扩展数组（虚拟复制）</strong></p>
+<ul>
+<li><p>x 保持 (4, 3) 形状不变。</p>
+</li>
+<li><p>v 沿着第0维”复制”4次，变成：</p>
+</li>
+</ul>
+<p>lua</p>
+<p>CopyEdit</p>
+<p>[[1, 0, 1],</p>
+<p>[1, 0, 1],</p>
+<p>[1, 0, 1],</p>
+<p>[1, 0, 1]]</p>
+<hr>
+<p><strong>步骤五：逐元素相加</strong></p>
+<p>lua</p>
+<p>CopyEdit</p>
+<p>[[ 1+1, 2+0, 3+1],</p>
+<p>[ 4+1, 5+0, 6+1],</p>
+<p>[ 7+1, 8+0, 9+1],</p>
+<p>[10+1, 11+0, 12+1]]</p>
+<p>=></p>
+<p>[[ 2, 2, 4],</p>
+<p>[ 5, 5, 7],</p>
+<p>[ 8, 8, 10],</p>
+<p>[11, 11, 13]]</p>
+<hr>
+<p><strong>3. 额外举例 —- 维度更复杂</strong></p>
+<p>假设：</p>
+<p>python</p>
+<p>CopyEdit</p>
+<p>a = np.ones((3, 4, 5)) # shape (3,4,5)</p>
+<p>b = np.ones(( 4, 1)) # shape (4,1)</p>
+<ul>
+<li><p>补维度，b 形状补成 (1,4,1)</p>
+</li>
+<li><p>逐维比较：</p>
+<hr>
+<p><strong>维度</strong>   <strong>a 尺寸</strong> <strong>b 尺寸</strong> <strong>兼容？</strong></p>
+<hr>
+<p>0          3          1          是，b沿该维度广播扩展3次</p>
+<p>1          4          4          是，尺寸相同</p>
+<h2 id="2-5-1-是，b沿该维度广播扩展5次"><a href="#2-5-1-是，b沿该维度广播扩展5次" class="headerlink" title="2          5          1          是，b沿该维度广播扩展5次"></a>2          5          1          是，b沿该维度广播扩展5次</h2></li>
+<li><p>广播形状为 (3, 4, 5)</p>
+</li>
+</ul>
+<h3 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h3><h1 id="Broadcasting-3"><a href="#Broadcasting-3" class="headerlink" title="-------------------- Broadcasting 3\"></a>-------------------- Broadcasting 3\</h1><p>import numpy as np\<br>\<br># We will add the vector v to each row of the matrix x,\<br># storing the result in the matrix y\<br>x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])\<br>v = np.array([1, 0, 1])\<br>y = x + v # Add v to each row of x using broadcasting\<br>print(y) # Prints \”[[ 2 2 4]\<br># [ 5 5 7]\<br># [ 8 8 10]\<br># [11 11 13]]\”</p>
+<p># Another solution is to reshape w to be a column vector</p>
+<p># of shape (2, 1); we can then broadcast it directly</p>
+<p># against x to produce the same output.</p>
+<p>print(x + np.reshape(w, (2, 1)))</p>
+<p># Multiply a matrix by a constant: x has shape (2, 3).</p>
+<p># Numpy treats scalars as arrays of shape ();</p>
+<p># these can be broadcast together to shape (2, 3),</p>
+<p># producing the following array:</p>
+<p># [[ 2 4 6]</p>
+<p># [ 8 10 12]]</p>
+<p>print(x * 2)</p>
+<h3 id="改一维向量的秩进行广播的示例"><a href="#改一维向量的秩进行广播的示例" class="headerlink" title="改一维向量的秩进行广播的示例"></a>改一维向量的秩进行广播的示例</h3><p># Another solution is to reshape w to be a column vector\<br># of shape (2, 1); we can then broadcast it directly\<br># against x to produce the same output.\<br>import numpy as np\<br>x = np.array([[1, 2, 3],\<br>[4, 5, 6]]) # shape (2,3)\<br>w = np.array([4, 5]) # shape (2,)\<br>print(x + <strong>np.[reshape]{.mark}(w, (2, 1)))</strong> # reshape w -> (2,1)\<br>\<br># Multiply a matrix by a constant: x has shape (2, 3).\<br># Numpy treats scalars as arrays of shape ();\<br># these can be broadcast together to shape (2, 3),\<br># producing the following array:\<br># [[ 2 4 6]\<br># [ 8 10 12]]\<br>print(x * 2)</p>
+<p>输出</p>
+<p>[[ 5 6 7]</p>
+<p>[ 9 10 11]]</p>
+<p>[[ 2 4 6]</p>
+<p>[ 8 10 12]]</p>
+<h1 id="Matplotlib"><a href="#Matplotlib" class="headerlink" title="Matplotlib"></a>Matplotlib</h1><p><a target="_blank" rel="noopener" href="https://matplotlib.org/">https://matplotlib.org/</a></p>
+<h2 id="plot：基本画图"><a href="#plot：基本画图" class="headerlink" title="plot：基本画图"></a>plot：基本画图</h2><p>import numpy as np\<br>import matplotlib.pyplot as plt\<br>\<br># We plot the graph of y = x\^2\<br>x = np.arange(-10, 10) # x coordinate 默认生成-10到10，步长为1\<br>y = x**2 # y coordinate</p>
+<p>[# 明确指定x轴范围，从-10到10  它会把图像的 x 轴范围限制从 -10 到<br>10。图上超出这个范围的内容会被裁剪掉，不显示。]{.mark}</p>
+<p>[plt.xlim(-10, 10)]{.mark}</p>
+<p>[# 这是 <strong>设置 x<br>轴的刻度位置（ticks）</strong>，也就是图上横轴上显示的数字标签。]{.mark}</p>
+<ul>
+<li><p>[np.arange(-10, 11, 1) 生成从 -10 到 10 的整数列表（含 10），步长为<br>1。]{.mark}</p>
+</li>
+<li><p>[所以会在 x 轴上显示这些刻度（tick marks），比如 -10, -9, ..., 0,<br>..., 9, 10。]{.mark}</p>
+</li>
+<li><p>[<strong>它不会改变x轴的范围</strong>，只是控制标签显示的位置。]{.mark}</p>
+</li>
+</ul>
+<p>[plt.xticks(np.arange(-10, 11, 1))]{.mark}</p>
+<p># 以上这两句话虽然有一些overlap，但是通常综合一起使用确保刻度可控</p>
+<p>plt.plot(x, y) # Plot the graph\<br>plt.show() # You need to call plt.show() to show the plotted graph</p>
+<p>该代码作图如下：</p>
+<p><img src="/2025/06/10/COMP9444/numpy/image1.png" alt="A graph with a line AI-generated content may be
+incorrect.">{width=”3.178889982502187in”<br>height=”2.309346019247594in”}</p>
+<h2 id="Multiple-Functions"><a href="#Multiple-Functions" class="headerlink" title="Multiple Functions"></a><em>Multiple Functions</em></h2><p><em>#-------------------- Multiple Functions\<br>\</em><br>import numpy as np\<br>import matplotlib.pyplot as plt\<br>\<br><em># Create the x and y coordinates\</em><br>x = np.arange(-10, 10)\<br>y1 = x**2\<br>y2 = x**3\<br>\<br><em># Plot multiple functions\</em><br>plt.plot(x, y1)\<br>plt.plot(x, y2)\<br>plt.xlabel(\’x axis\’)\<br>plt.ylabel(\’y axis\’)\<br>plt.title(\’introduction to matplotlib\’)</p>
+<p># legend可以放多个函数\<br>plt.<strong>[legend]{.mark}</strong>([\’x\^2\’, \’x\^3\’])\<br>plt.show()</p>
+<p><img src="/2025/06/10/COMP9444/numpy/image2.png" alt="A graph of a function AI-generated content may be
+incorrect.">{width=”2.531898512685914in”<br>height=”2.16701990376203in”}</p>
+<h2 id="SubPlot：子图"><a href="#SubPlot：子图" class="headerlink" title="SubPlot：子图"></a>SubPlot：子图</h2><p>Plot通常指折线图、图表等，figure指整个图片布局</p>
+<p>Sometimes we want to can plot different funtions in the different plot<br>but in the same figure, in this case we can use the subplot function.</p>
+<p><img src="/2025/06/10/COMP9444/numpy/image3.png" alt="A screenshot of a graph AI-generated content may be
+incorrect.">{width=”2.8715627734033244in”<br>height=”2.192911198600175in”}</p>
+<p>import numpy as np\<br>import matplotlib.pyplot as plt\<br>\<br><em># subplot(nrows, ncols, plot_number)\<br># Arugments are number of rows and colums of the plot\<br># and the active plot number\<br>\<br># Create the x and y coordinates\</em><br>x = np.arange(-10, 10)\<br>y1 = x**2\<br>y2 = x**3\<br>\<br><em># Create a subplot grid with 1 row and 2 colums\<br># and set the active plot number to 1\<br># 看你画图，此处布局必须对否则会报错。这个从1计起。\<br># 1行，3列，第三个参数是<br>你正在要画第几个表。第三个参数必须小于等于第二个参数。\</em><br>plt.subplot(1, 3, 1)\<br>\<br><em># Make the first plot at the active plot\</em><br>plt.plot(x, y1)\<br>plt.title(\’x\^2\’)\<br>\<br><em># Set the active plot number and make the second plot\</em><br>plt.subplot(1, 3, 2)\<br>plt.plot(x, y2)\<br>plt.title(\’x\^3\’)\<br>\<br>plt.subplot(1, 3, 3)\<br>plt.plot(x, y2)\<br>plt.title(\’x\^3\’)\<br>\<br><em># Show the figure.\</em><br>plt.show()</p>
+<h2 id="Imshow"><a href="#Imshow" class="headerlink" title="Imshow"></a>Imshow</h2><p>import numpy as np\<br>from cv2 import imread\<br>import matplotlib.pyplot as plt\<br>\<br>img = imread(\’cat.jpg\’)\<br>\<br><em># Plot the image\</em><br>plt.imshow(img)\<br>\<br><em># Imshow works better if the data is with type unit8, here we\<br># cast the image to uint8 explicitly.\</em><br>plt.imshow(np.uint8(img))\<br>\<br><em># Show the image\</em><br>plt.show()</p>
+<p><img src="/2025/06/10/COMP9444/numpy/image4.png" alt>{width=”4.227080052493438in”<br>height=”1.740501968503937in”}</p>
+<h1 id="PyTorch-Tensors"><a href="#PyTorch-Tensors" class="headerlink" title="PyTorch Tensors"></a><strong>PyTorch Tensors</strong></h1><p><a target="_blank" rel="noopener" href="https://pytorch.org/">https://pytorch.org/</a></p>
+<h2 id="Tensor-Initialization"><a href="#Tensor-Initialization" class="headerlink" title="Tensor Initialization"></a><strong>Tensor Initialization</strong></h2><p><em># Tensors can be created directly from data. The data type is<br>automatically inferred.\<br>\</em><br>import torch\<br>import numpy as np\<br>data = [[1,2], [3,4]]\<br>x_data = torch.tensor(data)\<br>print(x_data)\<br>\<br><em># Tensors can be created from Numpy arrays (and vice versa)\<br>\</em><br>import numpy as np\<br>np_array = np.array(data)\<br>print(np_array)\<br>x_data = torch.from_numpy(np_array)\<br>print(x_data)\<br>\<br><em># We can also call torch.tensor() with the optional dtype parameter,<br>which will set the data type. Some useful datatypes are: torch.bool,<br>torch.float, and torch.long\<br>\</em><br>import torch\<br>data = [[1,2], [3,4]]\<br>x_data = torch.tensor(data, dtype=torch.float)\<br>print(x_data)\<br>\<br>import torch\<br>data = [[1,2], [3,4]]\<br>x_data = torch.tensor(data, dtype=torch.bool)\<br>print(x_data)</p>
+<h3 id="检查数据类型"><a href="#检查数据类型" class="headerlink" title="检查数据类型"></a>检查数据类型</h3><p>import torch</p>
+<p>x = torch.rand(3,2)</p>
+<p>print(<strong>x.dtype</strong>)</p>
+<h3 id="检查shape"><a href="#检查shape" class="headerlink" title="检查shape"></a>检查shape</h3><p>import torch</p>
+<p>x = torch.Tensor([[11, 12], [13, 14], [15, 16]])</p>
+<p>print(x.<strong>shape</strong>)</p>
+<p>输出：</p>
+<p>torch.Size([3, 2])</p>
+<p>或者直接检查某维度：</p>
+<p>import torch\<br>x = torch.Tensor([[11, 12], [13, 14], [15, 16]])\<br>print(<strong>x.shape</strong>)\<br>print(<strong>x.size(0)</strong>)</p>
+<h3 id="形状变动"><a href="#形状变动" class="headerlink" title="形状变动"></a>形状变动</h3><p>import torch\<br>x = torch.Tensor([[11, 12], [13, 14], [15, 16]])\<br>print(x.shape)\<br>\<br><em># we can change the shape from (3,2) to (2,3)\</em><br>x_view = <strong>[x.view(2,3)]{.mark}\</strong><br>print(x_view)\<br>\<br><em># You can also use torch.reshape() for this\</em><br>x_reshaped = <strong>[torch.reshape(x, (2,3))]{.mark}</strong>\<br>print(x_reshaped)</p>
+<h2 id="Tensor-from-a-Numpy-Array"><a href="#Tensor-from-a-Numpy-Array" class="headerlink" title="Tensor from a Numpy Array"></a><em>Tensor from a Numpy Array</em></h2><p>[注意]{.mark}：<strong>NumPy 的默认数据类型（dtype）不一定等于 PyTorch Tensor<br>的默认 dtype。</strong></p>
+<p><em># 当 dtype 不是默认的 torch.float32 或 torch.int64<br>时，会特别显示出来，方便你辨识。\<br># 如果 dtype 是默认的（如 int64, float32），打印时不会特别显示<br>dtype，否则会显示\<br>\</em><br>import numpy as np\<br>import torch\<br>data = [[1,2], [3,4]]\<br>ndarray = np.array(data)\<br><em># 如果要特别指定 dt （数据类型）\<br># [x_tensor = torch.from_numpy(ndarray).to(torch.int64)]{.mark}\</em><br>x_tensor = torch.from_numpy(ndarray)\<br>print(x_tensor)</p>
+<h2 id="From-existing-Tensor"><a href="#From-existing-Tensor" class="headerlink" title="From existing Tensor"></a><strong>From existing Tensor</strong></h2><p><em>你看到的这些数字后面的 [.（小数点）]{.mark} 是因为：<br>你在代码中写的是浮点数（如 4.），所以 PyTorch 默认创建的是 float32 或<br>float64 类型的</em></p>
+<p><em>\</em><br>initial_tensor = torch.tensor([[4., 5.], [6., 7.]])\<br>print(initial_tensor)</p>
+<p>[tensor([[4., 5.],]{.mark}</p>
+<p>[[6., 7.]])]{.mark}</p>
+<p>initial_tensor = torch.tensor([[4, 5], [6, 7]])\<br>print(initial_tensor)</p>
+<p>[tensor([[4, 5],]{.mark}</p>
+<p>[[6, 7]])]{.mark}</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><p>import torch\<br>\<br><em># 你看到的这些数字后面的 .（小数点） 是因为：<br>你在代码中写的是浮点数（如 4.），所以 PyTorch 默认创建的是 float32 或<br>float64 类型的\</em><br>initial_tensor = torch.tensor([[4., 5.], [6., 7.]])\<br>print(initial_tensor)\<br>\<br><em># initial_tensor = torch.tensor([[4, 5], [6, 7]])\<br># print(initial_tensor)\<br>\<br># Initialise a new tensor of 1s\<br># 创建一个和 initial_tensor 形状一样、dtype 一样的全 1 的新 tensor。\<br># 这个 1s 是说 ones，就是每个元素都是 1\</em><br>new_tensor_ones = torch.ones_like(initial_tensor)\<br>print(new_tensor_ones)\<br>\<br><em># Initialise a new tensor of 0s\</em><br>new_tensor_zeros = torch.zeros_like(initial_tensor)\<br>print(new_tensor_zeros)\<br>\<br><em># tensor elements sampled from uniform distribution between 0 and 1\</em><br>new_tensor_rand = torch.rand_like(initial_tensor)\<br>print(new_tensor_rand)\<br>\<br><em># tensor elements sampled from a standard normal distribution\</em><br>new_tensor_randn = torch.randn_like(initial_tensor)\<br>print(new_tensor_randn)</p>
+<p>输出：</p>
+<p>tensor([[4., 5.],</p>
+<p>[6., 7.]])</p>
+<p>tensor([[1., 1.],</p>
+<p>[1., 1.]])</p>
+<p>tensor([[0., 0.],</p>
+<p>[0., 0.]])</p>
+<p>tensor([[0.7206, 0.8806],</p>
+<p>[0.9344, 0.1921]])</p>
+<p>tensor([[ 0.0496, 1.0113],</p>
+<p>[-1.1891, -1.1005]])</p>
+<h2 id="Torch随机数rand和randn"><a href="#Torch随机数rand和randn" class="headerlink" title="Torch随机数rand和randn"></a>Torch随机数rand和randn</h2><p>想生成**[0,1)** 范围的随机数 → 用 rand_like</p>
+<p>想生成<strong>有正有负、符合正态分布</strong>的噪声或权重初始值 → 用 randn_like</p>
+<p><strong>✅ torch.rand_like() vs torch.randn_like()</strong></p>
+<hr>
+<p>  <strong>函数名</strong>            <strong>取值范围/分布</strong>                 <strong>常用场景</strong></p>
+<hr>
+<p>  torch.rand_like(t)    <strong>[0.0, 1.0)</strong>                   随机初始化（非负）<br>                        均匀分布（uniform）               </p>
+<p>  torch.randn_like(t)   <strong>正态分布 N(0, 1)</strong>，均值        权重初始化、模拟噪声</p>
+<pre><code>                    0，标准差 1                       
+</code></pre><hr>
+<h2 id="形状-实例化🡪张量"><a href="#形状-实例化🡪张量" class="headerlink" title="形状-->实例化🡪张量"></a><strong>形状-->实例化🡪张量</strong></h2><h3 id="根据shape初始化"><a href="#根据shape初始化" class="headerlink" title="根据shape初始化"></a>根据shape初始化</h3><p>There are many ready methods where we can instantiate tensors by<br>specifying their shapes,<br>namely, <strong>torch.zeros()</strong>, torch.<strong>ones</strong>(), torch.<strong>rand</strong>(),<br>and torch.<strong>randn</strong>()</p>
+<p>比如 shape=(2, 3, 4) 生成的数字个数就是 2*3*4 = 24</p>
+<p>import torch</p>
+<p>shape = (2, 3, 4)</p>
+<p>x_zeros = torch.zeros(shape)</p>
+<p>print(x_zeros)</p>
+<p>x_ones = torch.ones(shape)</p>
+<p>print(x_ones)</p>
+<p>torch.manual_seed(142)</p>
+<p>random = torch.rand(shape)</p>
+<p>print(random)</p>
+<h3 id="直接arange生成一维数组"><a href="#直接arange生成一维数组" class="headerlink" title="直接arange生成一维数组"></a>直接arange生成一维数组</h3><p>import torch\<br>x = torch.arange(start=0, end=10, step=2)\<br>print(x)</p>
+<p>We can also check the size of a particular dimension of a tensor<br>using size() method.</p>
+<p>import torch</p>
+<p>x = torch.Tensor([[11, 12], [13, 14], [15, 16]])</p>
+<p>print(x.shape)</p>
+<p>print(x.size(0))</p>
+<h2 id="指定设备存储张量（为何tensor必须指定设备）"><a href="#指定设备存储张量（为何tensor必须指定设备）" class="headerlink" title="指定设备存储张量（为何tensor必须指定设备）"></a>指定设备存储张量（为何tensor必须指定设备）</h2><ul>
+<li><p><strong>CPU 内存</strong> 和 <strong>GPU 内存</strong> 是两个物理上不同的区域。</p>
+</li>
+<li><p><strong>一个张量只能</strong>在<strong>某一块内存中存在</strong>，要用 GPU<br>算法计算，就必须先把数据放进 GPU。</p>
+</li>
+</ul>
+<p>举个比喻：</p>
+<p>就像你有两个工作台（CPU 和 GPU），你不可能在 CPU 的桌子上用 GPU<br>的工具干活，工具（函数）和材料（数据）得在一个地方。</p>
+<p><strong>高效计算需要明确位置</strong></p>
+<ul>
+<li>如果张量位置不一致（比如一个在 CPU、另一个在<br>GPU），就没法直接进行操作，会抛错。</li>
+</ul>
+<p>a = torch.tensor([1, 2]).to(\’cuda\’)</p>
+<p>b = torch.tensor([3, 4]) # <strong>默认在 CPU</strong></p>
+<p>a + b # ❌ 会<strong>报错</strong>：Expected all tensors to be on the same device</p>
+<p>import torch\<br>x = torch.Tensor([[7, 8], [9, 10], [15, 17]])\<br>print(x)\<br>\<br><em># Determine on which device tensor is stored\</em><br>print(x.device)\<br>\<br><em># Check if a GPU is available; if so, move the tensor to the GPU\</em><br>print(torch.cuda.is_available())\<br>\<br>if torch.cuda.is_available():\<br><em># [x.to(\’cuda\’)]{.mark} #<br>这是<strong>[无意义操作]{.mark}</strong>，**</em>.to(\’cuda\’) 并不会修改原始的张量<br>x，它只是返回了一个新张量，这个新张量才在 CUDA 上<strong><em>。\</em><br># 而你没有接住这个新张量，就相当于： # 新张量被创建 # 你没保存它 #<br>它立即被销毁 # x 仍然在 CPU 上\<br>[# </strong>正确写法<strong>：<em>\</em>
+</strong>x = x.to(\’cuda\’)**]{.mark}\<br>print(\”To cuda successfully\”)\<br>print(x.device)</p>
+<h2 id="tensor操作"><a href="#tensor操作" class="headerlink" title="tensor操作"></a>tensor操作</h2><h3 id="加减乘除"><a href="#加减乘除" class="headerlink" title="加减乘除"></a>加减乘除</h3><p>跟Numpy差不多</p>
+<p>import torch\<br>x = torch.tensor([1, 2, 3], dtype=torch.float)\<br>y = torch.tensor([4, 5, 6], dtype=torch.float)\<br>print([x+y]{.mark})\<br>\<br><em># you can also use torch.add()\</em><br>print([torch.<strong>add</strong>(x,y)]{.mark})</p>
+<p>import torch\<br>x = torch.tensor([1, 2, 3], dtype=torch.float)\<br>y = torch.tensor([4, 5, 6], dtype=torch.float)\<br>\<br>print(torch.add(x,y))\<br>print(<strong>torch.add(x,y).[sum]{.mark}()</strong>)</p>
+<p>输出：tensor([21]{.mark}.) 因为全部的数加在一起就是21</p>
+<h3 id="Dot-Product-and-Matrix-Multiplication"><a href="#Dot-Product-and-Matrix-Multiplication" class="headerlink" title="Dot Product and Matrix Multiplication"></a><em>Dot Product and Matrix Multiplication</em></h3><h4 id="点乘"><a href="#点乘" class="headerlink" title="点乘"></a>点乘</h4><p>import torch</p>
+<p>x = torch.tensor([1, 2, 3], dtype=torch.float)</p>
+<p>y = torch.tensor([4, 5, 6], dtype=torch.float)</p>
+<p># Dot product</p>
+<p>print(x.<strong>[dot]{.mark}</strong>(y))</p>
+<h4 id="矩阵乘"><a href="#矩阵乘" class="headerlink" title="矩阵乘"></a>矩阵乘</h4><p>import torch\<br>x = torch.tensor([[1, 2, 3], [4, 5, 6]], dtype=torch.float)\<br>y = torch.tensor([[1, 2], [3, 4], [5, 6]], dtype=torch.float)</p>
+<h5 id="三种矩阵乘法的表示"><a href="#三种矩阵乘法的表示" class="headerlink" title="三种矩阵乘法的表示"></a><em>三种矩阵乘法的表示</em></h5><p><em># Matrix Multiplication\</em><br>print(torch.matmul(x, y))\<br>\<br><em># you can also use torch.mm()\</em><br>print(torch.mm(x, y))\<br>\<br><em># or you can use x@y\</em><br>print(x@y)</p>
+<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p>import torch\<br>\<br><em># creating a tensor\</em><br>x = torch.ones(2, 2, 4)\<br>print(x)\<br>\<br>y = torch.ones(2, 2, 4)\<br>print(y)</p>
+<p># cat是粘贴的意思，dim是说沿着第几维度进行合并</p>
+<p>z_cat = <strong>torch.cat([x, y], [dim]{.mark}=2)</strong></p>
+<p><strong># z_cat = torch.cat([x, y], dim=1)\</strong><br>print(z_cat)</p>
+<h1 id="Google-colab"><a href="#Google-colab" class="headerlink" title="Google colab"></a>Google colab</h1><p>就是Google云端Jupyter，可以指定runtime的显卡来运行一些tensor</p>
+<p><img src="/2025/06/10/COMP9444/numpy/image5.png" alt>{width=”5.768055555555556in”<br>height=”2.295138888888889in”}</p>
+<h2 id="代码：python检查当前tensor的全部可用设备"><a href="#代码：python检查当前tensor的全部可用设备" class="headerlink" title="代码：python检查当前tensor的全部可用设备"></a>代码：python检查当前tensor的全部可用设备</h2><p># 检查全部可用的tensor设备</p>
+<p>import torch</p>
+<p>x = torch.randn(2, 2)</p>
+<p>print(x.device)</p>
+<p>print(torch.cuda.is_available())  # True or False</p>
+<p>if torch.cuda.is_available():</p>
+<pre><code>print(\&quot;可用GPU数量:\&quot;, torch.cuda.device_count())
+
+for i in range(torch.cuda.device_count()):
+
+    print(f\&quot;GPU &#123;i&#125;: &#123;torch.cuda.get_device_name(i)&#125;\&quot;)
+</code></pre><p>def list_all_available_devices():</p>
+<pre><code>devices = \[\&#39;cpu\&#39;\]
+
+if torch.cuda.is_available():
+
+    devices += \[f\&#39;cuda:&#123;i&#125;\&#39; for i in
+</code></pre><p>range(torch.cuda.device_count())]</p>
+<pre><code>return devices
+</code></pre><p>print(\”所有可用设备:\”, list_all_available_devices())</p>
+<h2 id="设置仅cpu"><a href="#设置仅cpu" class="headerlink" title="设置仅cpu"></a>设置仅cpu</h2><p><img src="/2025/06/10/COMP9444/numpy/image6.png" alt="A screenshot of a computer AI-generated content may be
+incorrect.">{width=”5.768055555555556in”<br>height=”3.8833333333333333in”}</p>
+<h2 id="设置TPU的runtime"><a href="#设置TPU的runtime" class="headerlink" title="设置TPU的runtime"></a>设置TPU的runtime</h2><p>Runtime -> change runtime type -> 改TPU</p>
+<p><img src="/2025/06/10/COMP9444/numpy/image7.png" alt="A screenshot of a computer AI-generated content may be
+incorrect.">{width=”4.124489282589677in”<br>height=”2.426228127734033in”}</p>
+<p>我改T4 TPU</p>
+<p><img src="/2025/06/10/COMP9444/numpy/image8.png" alt="A screenshot of a computer program AI-generated content may be
+incorrect.">{width=”4.136831802274716in”<br>height=”3.4898600174978127in”}</p>
+<p>发现Tesla T4 显卡</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> Welcome to point out the mistakes and faults! </span>
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '560096261ffd521cb246',
+            clientSecret: '717082d4b2a81c22da7c7b6fabf93dd8bd24287b',
+            repo: 'senranja.github.io',
+            owner: 'SenRanja',
+            admin: ['SenRanja'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'en',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2024 SenRanja
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="Toggle full screen shortcut key s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 572px;
+    }
+    .nav.fullscreen {
+        margin-left: -572px;
+    }
+    .nav-left {
+        width: 150px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 522px;
+        }
+        .nav.fullscreen {
+            margin-left: -522px;
+        }
+        .nav-left {
+            width: 130px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 522px;
+            margin-left: -522px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    #post .pjax article .article-entry>ol, #post .pjax article .article-entry>ul, #post .pjax article>ol, #post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    #post .pjax article .article-entry li>ol, #post .pjax article .article-entry li>ul,#post .pjax article li>ol, #post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    #post .pjax article .article-entry>ol>li, #post .pjax article .article-entry>ul>li,#post .pjax article>ol>li, #post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    #post .pjax article .article-entry li>ol>li, #post .pjax article .article-entry li>ul>li,#post .pjax article li>ol>li, #post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("/img/earth.jpg");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
